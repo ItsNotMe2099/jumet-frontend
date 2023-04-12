@@ -1,0 +1,81 @@
+@import "html";
+
+@mixin mq($width, $type: min) {
+  @if $type ==max {
+    $width: $width - 1px;
+  }
+
+  @media only screen and (#{$type}-width: $width) {
+    @content;
+  }
+}
+
+@mixin h1 {
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 40px;
+  color: $text;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 22px;
+    line-height: 30px;
+  }
+}
+
+@mixin h2 {
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
+  color: $text;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+@mixin h3 {
+  font-weight: 700;
+  font-size: 16px;
+  line-height: 24px;
+  color: $text;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@mixin btnText {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $text;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@mixin mainText {
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 24px;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+@mixin secondaryText {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 22px;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 13px;
+    line-height: 20px;
+  }
+}

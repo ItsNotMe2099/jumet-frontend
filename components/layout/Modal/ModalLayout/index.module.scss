@@ -1,0 +1,17 @@
+@import "styles/index";
+.root{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  background: $white;
+  width: 796px;
+
+  background: white;
+  border-radius: 30px;
+
+  &.fixed{
+    max-height: 96vh;
+
+  }
+
+}

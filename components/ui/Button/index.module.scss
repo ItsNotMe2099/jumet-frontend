@@ -1,0 +1,68 @@
+@import "styles/index";
+
+.root {
+  padding: 17px 35px;
+  cursor: pointer;
+  font-weight: 500;
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+  border-radius: 12px;
+  border: 0;
+
+  &.disabled {}
+
+  &.fluid {
+    width: 100%;
+  }
+}
+
+//style type
+
+.small {
+  height: 40px;
+}
+
+.large {
+  height: 48px;
+}
+
+//font
+.normal15 {
+  font-size: 15px;
+}
+
+.normal16 {
+  font-size: 16px;
+}
+
+//color
+
+.blue {
+  background: $blue500;
+}
+
+.dark {
+  background: $dark400;
+}
+
+.white {
+  background: $white;
+}
+
+.spinner {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerVisible {
+  visibility: visible;
+}
