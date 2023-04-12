@@ -1,5 +1,66 @@
 @import "styles/index";
 
 .root {
-  
+    height: 84px;
+    background-color: $dark500;
+    display: flex;
+    align-items: center
+}
+
+.container {
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.logo {
+    font-family: 'Jost';
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 50px;
+    color: $white;
+    text-transform: uppercase;
+}
+
+.info {
+    height: 48px;
+    background-color: $dark400;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $white;
+    padding: 0 12px;
+    border-radius: 12px;
+}
+
+.left {
+    display: flex;
+    gap: 12px;
+}
+
+.middle {
+    display: flex;
+    gap: 32px;
+}
+
+.link {
+    @include btnText;
+    color: $white;
+}
+
+.right {
+    display: flex;
+    gap: 12px;
+}
+
+.btn {
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
 }

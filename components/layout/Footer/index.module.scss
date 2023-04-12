@@ -1,3 +1,128 @@
 @import "styles/index";
 
-.root {}
+.root {
+    position: relative;
+    background-color: $dark500;
+    display: flex;
+    align-items: center;
+    padding-top: 50px;
+    padding-bottom: 40px;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    @include container;
+    gap: 32px;
+}
+
+.right {
+    display: flex;
+    gap: 32px;
+    flex-direction: column;
+
+    .top {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+    }
+}
+
+.phone {
+    gap: 4px;
+    align-items: center;
+    display: flex;
+
+    a {
+        color: $white;
+        @include h3;
+    }
+
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+}
+
+.logo {
+    font-family: 'Jost';
+    font-weight: 700;
+    font-size: 28px;
+    line-height: 32px;
+    color: $white;
+    text-transform: uppercase;
+}
+
+.info {
+    height: 54px;
+    background-color: $dark400;
+    display: flex;
+    align-items: center;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 24px;
+    color: $white;
+    padding: 0 12px;
+    border-radius: 12px;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.tel {
+    @include mainText;
+    color: $white;
+}
+
+.btn {
+    color: $dark500;
+    width: 146px;
+}
+
+.menu {}
+
+.title {
+    @include h1;
+    color: $white;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-top: 24px;
+}
+
+.option {
+    @include mainText;
+    color: $white;
+}
+
+.bottom {
+    justify-content: space-between;
+    display: flex;
+    align-items: flex-end;
+}
+
+.copyright {
+    @include mainText;
+    color: $white;
+    margin-top: 36px;
+}
+
+.separator {
+    height: 1px;
+    opacity: 0.4;
+    background-color: $grey400;
+}
+
+.join{
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    color: $white;
+}

@@ -1,7 +1,7 @@
 @import "styles/index";
 
 .root {
-  padding: 17px 35px;
+  padding: 0 24px;
   cursor: pointer;
   font-weight: 500;
   display: inline-flex;
@@ -41,6 +41,10 @@
 
 .blue {
   background: $blue500;
+
+  &:hover {
+    box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
+  }
 }
 
 .dark {
