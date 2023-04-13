@@ -52,7 +52,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   if (ua) {
     const { isMobile, isTablet } = getSelectorsByUserAgent(ua)
     const data = getSelectorsByUserAgent(ua)
-    if (isTablet && typeof window !== 'undefined' && window.screen.width >= 576) {
+    if (isTablet && typeof window !== 'undefined' && window.screen.width >= 768) {
 
       props.pageProps.isMobile = false
     } else {

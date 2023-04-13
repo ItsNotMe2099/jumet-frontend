@@ -1,0 +1,22 @@
+@import "styles/index";
+
+.root {
+    height: 64px;
+    display: flex;
+    align-items: center;
+    background: $white;
+    border-radius: 12px 12px 0px 0px;
+    top: auto !important;
+    bottom: 0;
+    justify-content: center;
+    gap: 8px;
+}
+
+.btn {
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}

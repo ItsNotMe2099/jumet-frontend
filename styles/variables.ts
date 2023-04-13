@@ -1,16 +1,23 @@
 export const breakpoints = {
-  mobileMax: 428,
-  mobileLarge: 414,
-  mobileMd2: 390,
-  mobileMd: 375,
-  mobileMin: 320,
+  DesktopWidth: 1280,
+  MdDesktopWidth: 1200,
+  SmDesktopWidth: 992,
+  TabletWidth: 768,
+  PhoneWidth: 576,
+  LPhoneWidth: 428,
+  MPhoneWidth: 375,
+  SmPhoneWidth: 320,
+
+
   xsMax: 768,
-  smMin: 769,
-  smMax: 1360,
-  mdMin: 1361,
-  mdMax: 1850,
-  lgMin: 1851,
-  smMd: 1024
+  mdMin: 769,
+  mdMedium: 1200,
+  mdMax: 1600,
+  lgMin: 1601,
+  lgMedium: 1700,
+  lgMax: 2500,
+  xlMin: 2501,
+  xlMaxFake: 8000,
 }
 
 export const colors = {

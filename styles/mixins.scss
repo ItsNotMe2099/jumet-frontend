@@ -79,4 +79,8 @@
 @mixin container {
   width: 72%;
   margin: 0 auto;
+
+  @include mq($MdDesktopWidth, max) {
+    width: 90%;
+  }
 }

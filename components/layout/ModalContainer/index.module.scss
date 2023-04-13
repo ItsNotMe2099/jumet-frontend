@@ -11,7 +11,6 @@
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(3px);
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -22,37 +21,7 @@
   padding: 10px;
   z-index: 2;
 
-  &.menu,
-  &.menuOwner {
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 0;
-  }
-
-  &.profile, &.login {
-    @include mq($PhoneWidth, max) {
-      overflow: hidden;
-    }
-  }
-
-  &.basket{
-    padding: 0 10px;
-  }
-
-  &.notifications {
-    
-  }
-
-  &.article {
-  }
-
-  &.gallery {
-    justify-content: flex-start;
-    align-items: stretch;
-    padding: 0;
-
-    &>div {
-      flex: 1;
-    }
+  &.mobileMenu {
+    overflow-y: hidden;
   }
 }

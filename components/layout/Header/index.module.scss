@@ -4,7 +4,9 @@
     height: 84px;
     background-color: $dark500;
     display: flex;
-    align-items: center
+    align-items: center;
+    position: relative;
+    z-index: 12;
 }
 
 .container {
@@ -34,6 +36,18 @@
     color: $white;
     padding: 0 12px;
     border-radius: 12px;
+
+    @include mq($SmDesktopWidth, max) {
+        display: none;
+    }
+
+    @include mq($TabletWidth, max) {
+        display: flex;
+    }
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+    }
 }
 
 .left {
@@ -44,6 +58,10 @@
 .middle {
     display: flex;
     gap: 32px;
+
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
 }
 
 .link {
@@ -63,4 +81,31 @@
         align-items: center;
         color: $white;
     }
+}
+
+.mobile {
+    display: none;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        display: flex;
+    }
+
+    .menu {
+        cursor: pointer;
+    }
+}
+
+.dropdownMobile {
+    background-color: $dark500;
+    position: fixed;
+    bottom: 0px;
+    left: 0px;
+    right: 0px;
+    top: 72px;
+    z-index: 4;
+    padding: 0 23px;
+    display: flex;
+    flex-direction: column;
 }

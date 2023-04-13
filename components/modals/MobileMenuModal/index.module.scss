@@ -1,0 +1,62 @@
+@import "styles/index";
+
+.modalLayout {
+  position: relative;
+  width: 100vw !important;
+  background: $dark500;
+  height: 100vh;
+  padding: 32px;
+  border-radius: 0 !important;
+  top: 84px;
+  background-color: $dark500 !important;
+}
+
+.modalBody {
+  position: relative;
+  flex: 1;
+  width: 100%;
+  overflow: auto;
+}
+
+.bodyWrapper {
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  height: 100%;
+  width: 100%;
+
+  @include mq($PhoneWidth, max) {
+    max-height: 400px;
+    overflow: auto;
+    margin-top: 22px;
+  }
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+
+  >*+* {
+    margin-top: 16px;
+  }
+}
+
+.bottomSheetBody {
+  max-height: 400px;
+}
+
+.btn {
+  border-radius: 16px;
+}
+
+.title {
+  font-weight: 600;
+  font-size: 23.8824px;
+  line-height: 29px;
+  color: #4C4958;
+}
+
+.link {
+  @include btnText;
+  color: $white;
+}

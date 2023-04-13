@@ -61,13 +61,3 @@ export interface IButton {
   isExternalHref?: boolean // add target blank and no referrer
 }
 
-export interface IRegion {
-  id: number
-  name: string
-  default_address: string
-  slug: string
-  is_default: boolean
-  latitude: number
-  longtitude: number
-}
-
