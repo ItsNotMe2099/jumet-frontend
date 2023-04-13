@@ -1,6 +1,5 @@
 import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import Button from '@/components/ui/Button'
+//import styles from './index.module.scss'
 
 export default function Index() {
   return (
