@@ -27,15 +27,17 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
 
   const handleOpenMobileMenu = () => {
     if (typeof window !== undefined) {
-      if (!appContext.modal) {
-        document.body.classList.remove('modal-open')
-      } else {
-        document.body.classList.add('modal-open')
-      }
-
+      document.body.classList.add('modal-open')
     }
 
-    !appContext.modal ? appContext.showModal(ModalType.MobileMenu) : appContext.hideModal()
+    appContext.showModal(ModalType.MobileMenu)
+  }
+
+  const handleCloseMobileMenu = () => {
+    if (typeof window !== undefined) {
+      document.body.classList.remove('modal-open')
+    }
+    appContext.hideModal()
   }
 
   return (
@@ -69,7 +71,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
         </HiddenXs>
         <div className={styles.mobile}>
           {appContext.modal === ModalType.MobileMenu ?
-            <div className={styles.menu} onClick={handleOpenMobileMenu} >
+            <div className={styles.menu} onClick={handleCloseMobileMenu} >
               <CloseSvg color={colors.white} />
             </div>
             :

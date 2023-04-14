@@ -47,6 +47,8 @@
 
     @include mq($PhoneWidth, max) {
         background-color: transparent;
+        font-size: 10px;
+        padding: 0;
     }
 }
 

@@ -80,7 +80,7 @@
   width: 72%;
   margin: 0 auto;
 
-  @include mq($MdDesktopWidth, max) {
+  @include mq($DesktopWidth, max) {
     width: 90%;
   }
 }

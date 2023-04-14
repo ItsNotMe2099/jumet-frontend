@@ -50,40 +50,42 @@ export default function Footer(props: Props) {
               Продать лом
             </Button>
           </div>
-          <div className={styles.menu}>
-            <div className={styles.title}>
-              Продавцам лома
+          <div className={styles.menus}>
+            <div className={styles.menu}>
+              <div className={styles.title}>
+                Продавцам лома
+              </div>
+              <div className={styles.options}>
+                {options.slice(0, 4).map((i, index) =>
+                  <Link className={styles.option} key={index} href={i.link}>
+                    {i.label}
+                  </Link>
+                )}
+              </div>
             </div>
-            <div className={styles.options}>
-              {options.slice(0, 4).map((i, index) =>
-                <Link className={styles.option} key={index} href={i.link}>
-                  {i.label}
-                </Link>
-              )}
+            <div className={styles.menu}>
+              <div className={styles.title}>
+                Ломозаготовителям
+              </div>
+              <div className={styles.options}>
+                {options.slice(4, 7).map((i, index) =>
+                  <Link className={styles.option} key={index} href={i.link}>
+                    {i.label}
+                  </Link>
+                )}
+              </div>
             </div>
-          </div>
-          <div className={styles.menu}>
-            <div className={styles.title}>
-              Ломозаготовителям
-            </div>
-            <div className={styles.options}>
-              {options.slice(4, 7).map((i, index) =>
-                <Link className={styles.option} key={index} href={i.link}>
-                  {i.label}
-                </Link>
-              )}
-            </div>
-          </div>
-          <div className={styles.menu}>
-            <div className={styles.title}>
-              О сервисе
-            </div>
-            <div className={styles.options}>
-              {options.slice(7).map((i, index) =>
-                <Link className={styles.option} key={index} href={i.link}>
-                  {i.label}
-                </Link>
-              )}
+            <div className={styles.menu}>
+              <div className={styles.title}>
+                О сервисе
+              </div>
+              <div className={styles.options}>
+                {options.slice(7).map((i, index) =>
+                  <Link className={styles.option} key={index} href={i.link}>
+                    {i.label}
+                  </Link>
+                )}
+              </div>
             </div>
           </div>
         </div>
