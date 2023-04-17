@@ -1,20 +1,5 @@
 @import "styles/index";
 
 .root {
-    @include container;
-    margin-top: 32px;
-    margin-bottom: 64px;
-}
-
-.container {
-    display: flex;
-    margin-top: 32px
-}
-
-.title {
-    @include h1;
-}
-
-.right {
-    flex: 1;
+    
 }

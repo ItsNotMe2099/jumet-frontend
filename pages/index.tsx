@@ -1,23 +1,15 @@
-import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import Banner from '@/components/for_pages/MainPage/Banner'
+import { useRouter } from 'next/router'
+import { useEffect } from 'react'
 
-export default function Index() {
+export default function IndexPage() {
+
+  const router = useRouter()
+
+  useEffect(() => {
+    router.push('/1')
+  }, [])
+
   return (
-    <Layout>
-      <div className={styles.root}>
-        <div className={styles.title}>
-          Пункты приёма лома
-        </div>
-        <div className={styles.container}>
-          <div className={styles.left}>
-
-          </div>
-          <div className={styles.right}>
-            <Banner />
-          </div>
-        </div>
-      </div>
-    </Layout>
+    <></>
   )
 }
