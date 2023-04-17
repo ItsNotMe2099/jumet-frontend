@@ -44,5 +44,5 @@ services:
         environment:
           API_HOST: http://jumet-api-nginx
           ADMIN_HOST: http://jumet-admin
-          VIRTUAL_HOST: dev1Rtyjv29jw.jumet.com
+          VIRTUAL_HOST: jumet.dev.glob-com.ru
           VIRTUAL_PORT: 80
