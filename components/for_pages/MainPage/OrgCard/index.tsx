@@ -21,7 +21,7 @@ interface Props {
   item: IItem
 }
 
-export default function OrgCard(props: Props) {
+export default function PointCard(props: Props) {
 
   const date = new Date()
   const timeZone = 'Europe/Moscow'
