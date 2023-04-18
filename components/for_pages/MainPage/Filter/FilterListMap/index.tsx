@@ -9,6 +9,7 @@ import MapSvg from '@/components/svg/MapSvg'
 interface Props {
   active: 'list' | 'map'
   onClick: (active: 'list' | 'map') => void
+  className?: string
 }
 
 export default function FilterListMap(props: Props) {
@@ -21,7 +22,7 @@ export default function FilterListMap(props: Props) {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, props.className)}>
       <div onClick={() => handleClick('list')} className={classNames(styles.item, { [styles.active]: active === 'list' })}>
         <ListSvg color={active === 'list' ? colors.blue500 : colors.dark500} />
         <div className={styles.text}>

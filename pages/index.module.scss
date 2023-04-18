@@ -1,5 +1,151 @@
 @import "styles/index";
 
 .root {
-    
+    @include container;
+    margin-top: 32px;
+    margin-bottom: 64px;
+}
+
+.container {
+    display: flex;
+    margin-top: 32px;
+    gap: 32px;
+
+    @include mq($MdDesktopWidth, max) {
+        flex-direction: column;
+    }
+
+    @include mq($PhoneWidth, max) {
+        gap: 12px;
+    }
+}
+
+.title {
+    @include h1;
+}
+
+.left{
+    display: flex;
+    flex-direction: column;
+    width: 33%;
+    gap: 12px;
+
+    @include mq($MdDesktopWidth, max) {
+        width: 100%;
+    }
+}
+
+.open{
+    @include mq($MdDesktopWidth, min) {
+        display: none;
+    }
+    @include mq($MdDesktopWidth, max) {
+        span{
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 8px;
+            @include btnText;
+            color: $white;
+        }
+    }
+
+    .content{
+        display: flex;
+        gap: 8px;
+    }
+}
+
+.listMap{
+    @include mq($MdDesktopWidth, min) {
+        display: none !important;
+    } 
+
+    @include mq($PhoneWidth, max) {
+        margin-bottom: 0 !important;
+    }
+}
+
+.none{
+    @include mq($MdDesktopWidth, max) {
+        display: none !important;
+    }
+}
+
+.nonePhone{
+    @include mq($PhoneWidth, max) {
+        display: none !important;
+    }
+}
+
+.right {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+
+    .top {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.total {
+    @include mainText;
+    color: $grey500;
+}
+
+.filter {
+    height: 40px;
+    padding: 0 16px;
+    display: flex;
+    gap: 8px;
+    border-radius: 12px;
+    background-color: $white;
+    align-items: center;
+    cursor: pointer;
+
+    .text {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 22px;
+        color: $dark500;
+    }
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+.list{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.switches{
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.switch{
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+.label{
+    @include mainText;
+}
+
+.tabs{
+    display: flex;
+    gap: 8px;
+}
+
+.km{
+    padding-right: 48px;
 }
