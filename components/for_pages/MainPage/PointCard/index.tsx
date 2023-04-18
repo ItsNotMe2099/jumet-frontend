@@ -14,6 +14,7 @@ interface IItem {
   rating: string
   opens: string
   closes: string
+  alwaysOpen?: boolean
 }
 
 
@@ -38,7 +39,7 @@ export default function PointCard(props: Props) {
   closingTime.setHours(closes, 0, 0)
 
   let openingStatus
-  if (currentHour < opens || currentHour >= closes) {
+  if ((currentHour < opens || currentHour >= closes) && !props.item.alwaysOpen) {
     openingStatus = `Откроется в ${opens}:00`
   } else {
     openingStatus = 'Открыто сейчас'

@@ -1,3 +1,4 @@
+import { colors } from '@/styles/variables'
 import React from 'react'
 import RSwitch from 'react-switch'
 interface Props {
@@ -21,15 +22,15 @@ export default function Switch(props: Props) {
       <RSwitch
         onChange={props.onChange}
         checked={props.checked}
-        handleDiameter={props.handleDiameter ?? 24}
+        handleDiameter={props.handleDiameter ?? 16}
         uncheckedIcon={props.unCheckedIcon ?? false}
         checkedIcon={props.checkedIcon ?? false}
-        height={props.height ?? 30}
-        width={props.width ?? 56}
-        offColor={props.offColor ?? '#fff'}
-        onColor={props.onColor ?? '#fff'}
-        offHandleColor={props.offHandleColor ?? '#812292'}
-        onHandleColor={props.onHandleColor ?? '#61D56E'}
+        height={props.height ?? 24}
+        width={props.width ?? 37}
+        offColor={props.offColor ?? colors.grey400}
+        onColor={props.onColor ?? colors.yellow}
+        offHandleColor={props.offHandleColor ?? colors.white}
+        onHandleColor={props.onHandleColor ?? colors.white}
       />
   )
 }

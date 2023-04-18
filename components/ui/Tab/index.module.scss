@@ -1,0 +1,28 @@
+@import "styles/index";
+
+.root {
+    height: 48px;
+    padding: 0 16px;
+    display: flex;
+    align-items: center;
+    border-radius: $StandartBorderRadius;
+    border: 1px solid $grey400;
+    cursor: pointer;
+
+    @include mq($PhoneWidth, max) {
+       height: 40px;
+    }
+}
+
+.text{
+    @include mainText;
+}
+
+.active{
+    background-color: $yellow;
+    border: 1px solid $yellow;
+
+    .text{
+        font-weight: 500;
+    }
+}

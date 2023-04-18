@@ -1,9 +1,11 @@
 import Button from '@/components/ui/Button'
 import styles from './index.module.scss'
+import Image from 'next/image'
 
 export default function Banner() {
   return (
     <div className={styles.root}>
+      <Image src={'/img/Banner/bg.png'} alt='' fill />
       <div className={styles.top}>
         Нет времени искать пункт приёма?
       </div>

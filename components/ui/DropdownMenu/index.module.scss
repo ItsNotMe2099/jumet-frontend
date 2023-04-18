@@ -1,0 +1,152 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+  margin-bottom: 15px;
+  width: 100%;
+}
+
+.more {
+  margin-bottom: 0;
+
+  .dropDownTrigger {
+    height: $StandartHeight;
+    border-radius: $StandartBorderRadius;
+    border: 1px solid $grey400;
+    width: 100%;
+    padding: 0 16px;
+  }
+
+  .dropDown {
+    a {
+      &:hover {
+        background-color: #f3f3f3;
+      }
+    }
+
+    .optionCurrent {
+      a {
+        &:hover {
+          background-color: #812292;
+        }
+      }
+    }
+  }
+
+  .arrow {
+    margin-left: 22px;
+  }
+
+  .label {
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 20px;
+    letter-spacing: -0.24px;
+
+    span {
+      color: #333333;
+    }
+  }
+
+  .optionCurrent {
+    background: #812292;
+
+    &:hover {
+      background: #812292;
+    }
+
+    a {
+      color: #fff;
+
+      &:hover {
+        color: #fff;
+      }
+    }
+  }
+}
+
+.dropDown {
+  position: absolute;
+  background: #ffffff;
+  opacity: 0;
+  visibility: hidden;
+  max-height: 200px;
+  overflow-y: auto;
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  z-index: 5;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+
+  a {
+    padding: 17px 21px;
+    @include btnText;
+
+    &:hover {
+      background-color: $grey200;
+    }
+  }
+}
+
+.dropDownActive {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  background: #fff;
+  border-radius: 8px;
+}
+
+.dropDownTrigger {
+  height: $StandartHeight;
+  border-radius: $StandartBorderRadius;
+  border: 1px solid $grey400;
+  width: 100%;
+  padding: 0 16px;
+  display: flex;
+  color: #000;
+  flex-shrink: 0;
+  position: relative;
+  width: 100%;
+  margin: 0px;
+  font-size: 13px;
+  justify-content: space-between;
+
+  @media screen and (max-width: $xs-max) {
+    height: 35px;
+  }
+}
+
+
+.dropdownTriggerActive {
+  position: relative;
+  font-size: 13px;
+  color: #000000;
+  padding-bottom: 6px;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  @include btnText;
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  @include btnText;
+
+  span {
+    span{
+      color: $grey500;
+      font-weight: 400;
+    }
+  }
+}
+
+.arrow {
+  display: flex;
+  align-self: center;
+}

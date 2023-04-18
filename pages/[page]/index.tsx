@@ -1,11 +1,19 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
 import Banner from '@/components/for_pages/MainPage/Banner'
-import { useState } from 'react'
+import { ChangeEvent, useState } from 'react'
 import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
 import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
 import { colors } from '@/styles/variables'
-import OrgCard from '@/components/for_pages/MainPage/OrgCard'
+import PointCard from '@/components/for_pages/MainPage/PointCard'
+import FilterComponent from '@/components/for_pages/MainPage/Filter'
+import Switch from '@/components/ui/Switch'
+import Tab from '@/components/ui/Tab'
+import { formatInTimeZone } from 'date-fns-tz'
+import ru from 'date-fns/locale/ru'
+import Input from '@/components/ui/Input'
+import FilterListMap from '@/components/for_pages/MainPage/Filter/FilterListMap'
+import DropdownMenu from '@/components/ui/DropdownMenu'
 
 export default function Index() {
 
@@ -13,11 +21,11 @@ export default function Index() {
     data: [
       {
         title: 'МеталлВторЧермет', price: '23000', address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32',
-        isDelivery: true, haveLoading: true, opens: '9', closes: '13', rating: '4.8'
+        isDelivery: true, haveLoading: true, opens: '9', closes: '23', rating: '4.8'
       },
       {
         title: 'МеталлВторЧермет', price: '23000', address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32',
-        isDelivery: false, haveLoading: false, opens: '9', closes: '23', rating: '4.8'
+        isDelivery: false, haveLoading: false, opens: '9', closes: '23', rating: '4.8', alwaysOpen: true
       },
       {
         title: 'МеталлВторЧермет', price: '23000', address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32',
@@ -56,8 +64,35 @@ export default function Index() {
     page: 1
   }
 
+  const date = new Date()
+  const timeZone = 'Europe/Moscow'
+  const hour = formatInTimeZone(date, timeZone, 'H', { locale: ru })
 
-  const [filter, setFilter] = useState<string>('low')
+  const currentHour = Number(hour)
+
+  const radiusTabs = [
+    { radius: '5' },
+    { radius: '10' },
+    { radius: '20' },
+    { radius: '50' },
+  ]
+
+  const categories = [
+    { name: 'Category1' },
+    { name: 'Category2' },
+    { name: 'Category3' },
+  ]
+
+  const [filterPrice, setFilterPrice] = useState<string>('low')
+
+  const [filterHaveDelivery, setfilterHaveDelivery] = useState<boolean>(false)
+  const [filterHaveLoading, setFilterHaveLoading] = useState<boolean>(false)
+  const [filterAlwaysopen, setFilterAlwaysOpen] = useState<boolean>(false)
+  const [filterIsOpen, setFilterIsOpen] = useState<boolean>(false)
+
+  const [filterRadius, setFilterRadius] = useState<string>('')
+
+  const [filterListMap, setFilterListMap] = useState<'list' | 'map'>('list')
 
   return (
     <Layout>
@@ -67,7 +102,60 @@ export default function Index() {
         </div>
         <div className={styles.container}>
           <div className={styles.left}>
+            <FilterComponent title='Адрес расположения лома'
+              element={() => <FilterListMap onClick={(active) => setFilterListMap(active)} active={filterListMap} />}
+            >
+              <Input
+                placeholder='Город, улица, дом'
+              />
+            </FilterComponent>
+            <FilterComponent title='Радиус поиска пунктов приёма'>
+              <>
+                <div className={styles.tabs}>
+                  {radiusTabs.map((i, index) =>
+                    <Tab
+                      active={filterRadius === i.radius}
+                      text={`${i.radius} км`}
+                      key={index}
+                      onClick={() => setFilterRadius(i.radius)} />
+                  )}
+                </div>
+                <Input
+                  placeholder='Свой радиус поиска'
+                  label='км'
+                  isNumbersOnly
+                  onChange={(e: ChangeEvent<HTMLInputElement>) => setFilterRadius(e.target.value)}
+                  className={styles.km} />
+              </>
+            </FilterComponent>
+            <FilterComponent title='Категория лома'>
+              <DropdownMenu options={categories} />
+            </FilterComponent>
+            <FilterComponent title='Вес лома'>
 
+            </FilterComponent>
+            <FilterComponent title='Доставка и погрузка'>
+              <div className={styles.switches}>
+                <div className={styles.switch}>
+                  <Switch checked={filterHaveDelivery} onChange={() => setfilterHaveDelivery(!filterHaveDelivery)} />
+                  <div className={styles.label}>
+                    Есть доставка
+                  </div>
+                </div>
+                <div className={styles.switch}>
+                  <Switch checked={filterHaveLoading} onChange={() => setFilterHaveLoading(!filterHaveLoading)} />
+                  <div className={styles.label}>
+                    Есть погрузка
+                  </div>
+                </div>
+              </div>
+            </FilterComponent>
+            <FilterComponent title='Режим работы'>
+              <div className={styles.tabs}>
+                <Tab text='Открыто сейчас' active={filterIsOpen} onClick={() => setFilterIsOpen(!filterIsOpen)} />
+                <Tab text='Круглосуточно' active={filterAlwaysopen} onClick={() => setFilterAlwaysOpen(!filterAlwaysopen)} />
+              </div>
+            </FilterComponent>
           </div>
           <div className={styles.right}>
             <Banner />
@@ -75,8 +163,8 @@ export default function Index() {
               <div className={styles.total}>
                 {data.total} пункта приема
               </div>
-              <div className={styles.filter} onClick={() => setFilter(filter === 'high' ? 'low' : 'high')}>
-                {filter === 'low' ?
+              <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
+                {filterPrice === 'low' ?
                   <>
                     <div className={styles.text}>Вначале с большей ценой</div>
                     <SortTopToBottomSvg color={colors.dark500} />
@@ -89,9 +177,12 @@ export default function Index() {
               </div>
             </div>
             <div className={styles.list}>
-              {data.data.map((i, index) =>
-                <OrgCard item={i} key={index} />
-              )}
+              {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
+                filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
+                  filterIsOpen ?
+                    (currentHour >= +i.opens && currentHour < +i.closes || i.alwaysOpen) : i).map((i, index) =>
+                      <PointCard item={i} key={index} />
+                    )}
             </div>
           </div>
         </div>

@@ -8,6 +8,10 @@ export const breakpoints = {
   MPhoneWidth: 375,
   SmPhoneWidth: 320,
 
+  StandartBorderRadius: 12,
+  StandartHeight: 48,
+  StandartHeightPhone: 40,
+
 
   xsMax: 768,
   mdMin: 769,

@@ -84,3 +84,12 @@
     width: 90%;
   }
 }
+
+@mixin filterContainer{
+  background-color: $white;
+  border-radius: $StandartBorderRadius;
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
