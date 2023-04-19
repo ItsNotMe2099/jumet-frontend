@@ -30,7 +30,7 @@ export default function Index() {
       },
       {
         title: 'МеталлВторЧермет', price: '23000', address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32',
-        isDelivery: false, haveLoading: false, opens: '9', closes: '23', rating: '4.8', alwaysOpen: true
+        isDelivery: false, haveLoading: false, rating: '4.8', alwaysOpen: true
       },
       {
         title: 'МеталлВторЧермет', price: '23000', address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32',
@@ -199,7 +199,7 @@ export default function Index() {
                 {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
                   filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
                     filterIsOpen ?
-                      (currentHour >= +i.opens && currentHour < +i.closes || i.alwaysOpen) : i).map((i, index) =>
+                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).map((i, index) =>
                         <PointCard item={i} key={index} />
                       )}
               </div>
@@ -209,14 +209,14 @@ export default function Index() {
                 {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
                   filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
                     filterIsOpen ?
-                      (currentHour >= +i.opens && currentHour < +i.closes || i.alwaysOpen) : i).slice(0, 1).map((i, index) =>
+                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).slice(0, 1).map((i, index) =>
                         <PointCard item={i} key={index} />
                       )}
                 <Banner />
                 {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
                   filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
                     filterIsOpen ?
-                      (currentHour >= +i.opens && currentHour < +i.closes || i.alwaysOpen) : i).slice(1).map((i, index) =>
+                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).slice(1).map((i, index) =>
                         <PointCard item={i} key={index} />
                       )}
               </div>

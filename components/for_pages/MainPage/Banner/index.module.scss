@@ -6,10 +6,8 @@
     border-radius: 12px;
     position: relative;
     background-color: $blue500;
+    overflow: hidden;
 
-    img {
-        border-radius: 12px;
-    }
 
     @include mq($PhoneWidth, max) {
         padding: 16px;
@@ -17,10 +15,40 @@
     }
 }
 
+.bg {
+    width: inherit !important;
+    inset: unset !important;
+    top: 0 !important;
+    right: 0 !important;
+    z-index: 1;
+}
+
+.bgPhone {
+    height: auto !important;
+    width: 120px !important;
+    inset: unset !important;
+    bottom: 0 !important;
+    right: 0 !important;
+    z-index: 1;
+}
+
+.russia {
+    position: absolute;
+    right: 0;
+    top: 0;
+}
+
+.russia2 {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+}
+
 .top {
     @include h2;
     color: $white;
     position: relative;
+    z-index: 2;
 }
 
 .middle {
@@ -28,6 +56,11 @@
     @include btnText;
     color: $white;
     position: relative;
+    z-index: 2;
+
+    @include mq($PhoneWidth, max) {
+        color: rgba(255, 255, 255, 0.74);
+    }
 }
 
 .btn {
@@ -35,4 +68,10 @@
     width: 146px;
     margin-top: 16px;
     position: relative;
+
+    @include mq($PhoneWidth, max) {
+        height: 38px;
+        width: 124px;
+        padding: 0 16px;
+    }
 }

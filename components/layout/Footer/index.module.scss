@@ -6,6 +6,14 @@
     align-items: center;
     padding-top: 50px;
     padding-bottom: 40px;
+
+    @include mq($PhoneWidth, max) {
+        position: absolute;
+
+        bottom: 50px;
+
+        width: 100%;
+    }
 }
 
 .container {
@@ -119,6 +127,7 @@
     flex-direction: column;
     gap: 16px;
     margin-top: 24px;
+
     @include mq($PhoneWidth, max) {
         margin-top: 16px;
         gap: 12px;

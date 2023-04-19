@@ -12,8 +12,8 @@ interface IItem {
   isDelivery?: boolean
   haveLoading?: boolean
   rating: string
-  opens: string
-  closes: string
+  opens?: string
+  closes?: string
   alwaysOpen?: boolean
 }
 
@@ -70,7 +70,7 @@ export default function PointCard(props: Props) {
         <Badge active={props.item.isDelivery} text='Есть доставка' />
         <Badge active={props.item.haveLoading} text='Есть погрузка' />
         <Badge
-          active={currentHour >= opens && currentHour < closes}
+          active={currentHour >= opens && currentHour < closes || props.item.alwaysOpen}
           text={openingStatus} />
       </div>
     </div>
