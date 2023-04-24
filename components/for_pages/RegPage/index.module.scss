@@ -1,0 +1,36 @@
+@import "styles/index";
+
+.root {
+    @include container;
+    margin-top: 38px;
+    margin-bottom: 64px;
+}
+
+.wrapper {
+    background-color: $white;
+}
+
+.container {
+    background-color: $white;
+    @include container;
+    padding-top: 32px;
+    padding-bottom: 20px;
+    width: 50%;
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.title {
+    @include h1;
+    color: $dark500;
+}
+
+.switch>div {
+    height: $StandartHeight - 10px;
+}
+
+.switch {
+    padding: 5px !important;
+    margin-bottom: 0 !important;
+}

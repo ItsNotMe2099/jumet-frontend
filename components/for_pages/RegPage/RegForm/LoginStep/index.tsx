@@ -1,0 +1,35 @@
+import styles from './index.module.scss'
+import { Form, FormikProvider, useFormik } from 'formik'
+
+
+interface Props {
+  onNextStep: (data?: any) => void
+}
+
+export default function LoginStep(props: Props) {
+
+  const handleSubmit = async (/*data*/) => {
+    props.onNextStep()
+  }
+
+  const initialValues = {
+    email: '',
+    password: '',
+    passwordConfirm: '',
+  }
+
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit
+  })
+
+  console.log('formik.values', formik.values)
+
+  return (
+    <FormikProvider value={formik}>
+      <Form className={styles.form}>
+        
+      </Form>
+    </FormikProvider>
+  )
+}

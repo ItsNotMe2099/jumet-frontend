@@ -29,9 +29,9 @@ export default function Button(props: Props) {
   const cn = classNames({
     [styles.root]: true,
     [styles[props.styleType]]: true,
-    ...(props.font ? {[styles[props.font]]: true} : {}),
+    ...(props.font ? { [styles[props.font]]: true } : {}),
     [styles.disabled]: props.disabled,
-    ...(props.color ? {[styles[props.color]]: true} : {}),
+    ...(props.color ? { [styles[props.color]]: true } : {}),
     [styles.fluid]: props.fluid,
     [styles.press]: props.press ?? press,
     [styles.hover]: props.hover ?? hover,
@@ -42,21 +42,16 @@ export default function Button(props: Props) {
 
   if (props.href) {
     return (
-      <Link href={props.href}>
-        <a
-          ref={props.buttonRef ?? ref}
-          className={classNames(cn)}
-          target={props.isExternalHref ? '_blank' : ''}
-          rel={props.isExternalHref ? 'noreferrer' : ''}
-          onClick={props.onClick}
-        >
-           <span className={classNames({
-             [styles.text]: true,
-             [styles.textHidden]: props.spinner,
-           })}>  {props.icon}{props.children}</span>
-
-
-        </a>
+      <Link href={props.href}
+        ref={props.buttonRef ?? ref}
+        className={classNames(cn)}
+        target={props.isExternalHref ? '_blank' : ''}
+        rel={props.isExternalHref ? 'noreferrer' : ''}
+        onClick={props.onClick}>
+        <span className={classNames({
+          [styles.text]: true,
+          [styles.textHidden]: props.spinner,
+        })}>  {props.icon}{props.children}</span>
       </Link>
     )
   }
@@ -85,10 +80,10 @@ export default function Button(props: Props) {
         [styles.spinner]: true,
         [styles.spinnerVisible]: props.spinner,
       })}>
-        {!darkSpinner && <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)"/>}
+        {!darkSpinner && <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)" />}
         {darkSpinner && <Spinner size={22} color={colors.black} secondaryColor={colors.grey500} />}
       </div>
-      </button>
+    </button>
   )
 }
 

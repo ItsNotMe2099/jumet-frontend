@@ -24,7 +24,7 @@
     @include h1;
 }
 
-.left{
+.left {
     display: flex;
     flex-direction: column;
     width: 33%;
@@ -35,12 +35,13 @@
     }
 }
 
-.open{
+.open {
     @include mq($MdDesktopWidth, min) {
         display: none;
     }
+
     @include mq($MdDesktopWidth, max) {
-        span{
+        span {
             display: flex;
             justify-content: center;
             align-items: center;
@@ -50,29 +51,29 @@
         }
     }
 
-    .content{
+    .content {
         display: flex;
         gap: 8px;
     }
 }
 
-.listMap{
+.listMap {
     @include mq($MdDesktopWidth, min) {
         display: none !important;
-    } 
+    }
 
     @include mq($PhoneWidth, max) {
         margin-bottom: 0 !important;
     }
 }
 
-.none{
+.none {
     @include mq($MdDesktopWidth, max) {
         display: none !important;
     }
 }
 
-.nonePhone{
+.nonePhone {
     @include mq($PhoneWidth, max) {
         display: none !important;
     }
@@ -119,33 +120,41 @@
     }
 }
 
-.list{
+.list {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.switches{
+.switches {
     display: flex;
     flex-direction: column;
     gap: 12px;
 }
 
-.switch{
+.switch {
     display: flex;
     gap: 12px;
     align-items: center;
 }
 
-.label{
+.label {
     @include mainText;
 }
 
-.tabs{
+.tabs {
     display: flex;
     gap: 8px;
+
+    .tab {
+        width: 25%;
+    }
+
+    .tab2 {
+        width: 50%;
+    }
 }
 
-.km{
+.km {
     padding-right: 48px;
 }

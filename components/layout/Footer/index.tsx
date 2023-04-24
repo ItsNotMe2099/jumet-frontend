@@ -32,9 +32,9 @@ export default function Footer(props: Props) {
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.top}>
-              <div className={styles.logo}>
+              <Link href={'/'} className={styles.logo}>
                 jumet
-              </div>
+              </Link>
               <div className={styles.info}>
                 Онлайн-сервис продажи<br /> и покупки лома
               </div>

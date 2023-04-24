@@ -3,6 +3,7 @@ import { SnackbarData } from 'types/types'
 import {ModalType, SnackbarType} from 'types/enums'
 import ReactModal from 'react-modal'
 import { getIsMobile } from 'utils/mobile'
+import { SwitchState } from '@/data/enum/SwitchState'
 
 interface IState {
   isMobile: boolean
@@ -16,6 +17,8 @@ interface IState {
   hideModal: () => void
   hideBottomSheet: () => void
   showSnackbar: (text: string, type: SnackbarType) => void
+  regMode: SwitchState
+  switchRegMode: (mode: SwitchState) => void
 }
 
 
@@ -35,6 +38,9 @@ const defaultValue: IState = {
   hideModal: () => null,
   hideBottomSheet: () => null,
   showSnackbar: (text, type) => null,
+  regMode: SwitchState.FirstOption,
+  switchRegMode: (mode) => null
+
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -50,6 +56,8 @@ export function AppWrapper(props: Props) {
   const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
   const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
   const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
+
+  const [regMode, setRegMode] = useState<SwitchState>(SwitchState.Secondoption)
 
   useEffect(() => {
     setIsMobile(getIsMobile(props.isMobile))
@@ -105,7 +113,11 @@ export function AppWrapper(props: Props) {
       }, 2000)
     },
     hideModal,
-    hideBottomSheet
+    hideBottomSheet,
+    regMode,
+    switchRegMode: (mode: SwitchState) => {
+      setRegMode(mode)
+    }
   }
 
 

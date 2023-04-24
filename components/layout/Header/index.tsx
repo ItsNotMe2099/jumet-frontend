@@ -44,9 +44,9 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
     <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <div className={styles.logo}>
+          <Link href={'/'} className={styles.logo}>
             jumet
-          </div>
+          </Link>
           <div className={styles.info}>
             Онлайн-сервис продажи<br /> и покупки лома
           </div>
@@ -64,7 +64,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
               <UserSvg color={colors.white} />
               <div>Войти</div>
             </Button>
-            <Button className={styles.btn} styleType='large' color='blue'>
+            <Button href={'/registration'} className={styles.btn} styleType='large' color='blue'>
               Зарегистрироваться
             </Button>
           </div>

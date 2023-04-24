@@ -12,13 +12,14 @@ import Tab from '@/components/ui/Tab'
 import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import Input from '@/components/ui/Input'
-import FilterListMap from '@/components/for_pages/MainPage/Filter/FilterListMap'
+import FilterSwitch from '@/components/for_pages/MainPage/Filter/FilterSwitch'
 import DropdownMenu from '@/components/ui/DropdownMenu'
 import FilterSvg from '@/components/svg/FilterSvg'
 import Button from '@/components/ui/Button'
 import classNames from 'classnames'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
+import { SwitchState } from '@/data/enum/SwitchState'
 
 export default function Index() {
 
@@ -97,7 +98,7 @@ export default function Index() {
 
   const [filterRadius, setFilterRadius] = useState<string>('')
 
-  const [filterListMap, setFilterListMap] = useState<'list' | 'map'>('list')
+  const [filterListMap, setFilterListMap] = useState<SwitchState>(SwitchState.FirstOption)
 
   const [open, setOpen] = useState<boolean>(false)
 
@@ -112,13 +113,19 @@ export default function Index() {
             <FilterSvg color={colors.white} />
             <span>{open ? <>Скрыть фильтр</> : <>Открыть фильтр</>}</span>
           </Button>
-          <FilterListMap
+          <FilterSwitch
+            text1='Списком'
+            text2='На карте'
+            withIcon
             className={styles.listMap}
             onClick={(active) => setFilterListMap(active)}
             active={filterListMap} />
           <div className={classNames(styles.left, { [styles.none]: !open })}>
             <FilterComponent title='Адрес расположения лома'
-              element={() => <FilterListMap
+              element={() => <FilterSwitch
+                text1='Списком'
+                text2='На карте'
+                withIcon
                 className={styles.none}
                 onClick={(active) => setFilterListMap(active)}
                 active={filterListMap} />}
@@ -132,6 +139,7 @@ export default function Index() {
                 <div className={styles.tabs}>
                   {radiusTabs.map((i, index) =>
                     <Tab
+                      className={styles.tab}
                       active={filterRadius === i.radius}
                       text={`${i.radius} км`}
                       key={index}
@@ -170,8 +178,8 @@ export default function Index() {
             </FilterComponent>
             <FilterComponent title='Режим работы'>
               <div className={styles.tabs}>
-                <Tab text='Открыто сейчас' active={filterIsOpen} onClick={() => setFilterIsOpen(!filterIsOpen)} />
-                <Tab text='Круглосуточно' active={filterAlwaysopen} onClick={() => setFilterAlwaysOpen(!filterAlwaysopen)} />
+                <Tab className={styles.tab2} text='Открыто сейчас' active={filterIsOpen} onClick={() => setFilterIsOpen(!filterIsOpen)} />
+                <Tab className={styles.tab2} text='Круглосуточно' active={filterAlwaysopen} onClick={() => setFilterAlwaysOpen(!filterAlwaysopen)} />
               </div>
             </FilterComponent>
           </div>

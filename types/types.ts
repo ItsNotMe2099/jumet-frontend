@@ -20,6 +20,12 @@ export type DeepPartial<T> = {
   [K in keyof T]?: T[K] extends object ? DeepPartial<T[K]> : T[K]
 }
 
+export interface IFormStep<S> {
+  name?: string,
+  description?: string | null
+  key: S
+}
+
 export interface IPagination<T>{
   data: T[]
   total: number
