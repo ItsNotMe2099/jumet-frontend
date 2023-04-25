@@ -6,11 +6,12 @@ import RegLayout from '../RegLayout'
 import LoginStep from './LoginStep'
 import { useAppContext } from '@/context/state'
 import { SwitchState } from '@/data/enum/SwitchState'
+import DataStep from './DataStep'
 
 
 enum FormStep {
   Registration = 'Registration',
-  Info = 'Info',
+  Data = 'Data',
   Zones = 'Zones',
   Prices = 'Prices',
   Personnel = 'Personnel',
@@ -26,7 +27,7 @@ const steps: IFormStep<FormStep>[] = [
   {
     name: 'Данные о компании',
     description: 'Заполните данные о компании, чтобы начать покупать лом',
-    key: FormStep.Info
+    key: FormStep.Data
   },
   {
     name: 'Зоны доставки',
@@ -58,7 +59,7 @@ interface Props {
 export default function RegForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[1])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[0])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
@@ -98,7 +99,7 @@ export default function RegForm(props: Props) {
       {appContext.regMode === SwitchState.Secondoption ?
         <FormStepSwitch index={currentStepIndex} options={[
           <LoginStep key={1} onNextStep={handleNextStep} />,
-
+          <DataStep key={2} onNextStep={handleNextStep} />
         ]} /> : null}
     </RegLayout>
   )

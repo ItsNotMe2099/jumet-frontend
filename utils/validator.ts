@@ -1,4 +1,5 @@
 import { FieldValidator } from 'formik/dist/types'
+import Formatter from './formatter'
 
 export default class Validator {
   static emailRe = /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,12}$/i
@@ -32,6 +33,11 @@ export default class Validator {
     return value && value.length < 6
       ? 'form_field_validation_password'
       : undefined
+  }
+
+  static phone(value: string): string | undefined{
+    console.log('PhoneLen', Formatter.cleanPhone(value ?? '')?.length >= 12)
+    return Formatter.cleanPhone(value ?? '')?.length >= 12 ? undefined : 'Неверный формат'
   }
 
 }

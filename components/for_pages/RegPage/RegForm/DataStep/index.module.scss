@@ -1,0 +1,22 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.address {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.bottom {
+    display: flex;
+    gap: 12px;
+
+    input:first-of-type {
+        width: 75%;
+    }
+}
