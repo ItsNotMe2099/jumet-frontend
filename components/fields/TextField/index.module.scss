@@ -2,47 +2,21 @@
 
 .root {
   position: relative;
-  border: 4px solid;
-  z-index: 13;
-  height: 80px;
+}
 
-  input {
-    &::placeholder {
-      font-weight: 600;
-      font-size: 26px;
-      color: #707070;
-    }
+.input{
+  height: $StandartHeight;
+  border-radius: $StandartBorderRadius;
+  border: 1px solid $grey400;
+  width: 100%;
+  padding: 0 16px;
+
+  &::placeholder{
+      @include mainText;
   }
 }
 
-.wrapper {
-  position: relative;
-  flex-direction: column;
-}
-
-.input {
-  position: absolute;
-  top: 0;
-  z-index: 13;
-  height: 76px;
-  width: 100%;
-  font-size: 20px;
-  color: #fff;
-  padding: 10px 20px;
-}
-
-.inputWrapper {
-  position: relative;
-  height: 76px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-
-.label {
-  font-weight: 600;
-  font-size: 26px;
-  color: #707070;
-  top: 30%;
-  right: 50%;
+.label{
+  color: $dark500;
+  @include btnText;
 }

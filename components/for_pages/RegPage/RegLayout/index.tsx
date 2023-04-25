@@ -26,8 +26,8 @@ export default function RegLayout(props: Props) {
             className={styles.switch}
             onClick={(active) => appContext.switchRegMode(active)}
             active={appContext.regMode} /> : null}
+          {props.children}
         </div>
-        {props.children}
       </div>
     </div>
   )

@@ -1,13 +1,14 @@
 @import "styles/index";
 
 .root {
-    @include container;
     margin-top: 38px;
     margin-bottom: 64px;
+    width: 93%;
 }
 
 .wrapper {
     background-color: $white;
+    border-radius: $StandartBorderRadius;
 }
 
 .container {

@@ -93,6 +93,7 @@ export default function RegForm(props: Props) {
       currentStepIndex={currentStepIndex}>
       <FormStepSwitch index={currentStepIndex} options={[
         <LoginStep key={1} onNextStep={handleNextStep} />,
+
       ]} />
     </RegLayout>
   )
