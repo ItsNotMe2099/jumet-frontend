@@ -1,0 +1,11 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.col {
+    align-self: center;
+}

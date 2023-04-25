@@ -4,6 +4,8 @@ import { useRouter } from 'next/router'
 import FormStepSwitch from 'components/ui/FormStepSwitch'
 import RegLayout from '../RegLayout'
 import LoginStep from './LoginStep'
+import { useAppContext } from '@/context/state'
+import { SwitchState } from '@/data/enum/SwitchState'
 
 
 enum FormStep {
@@ -56,7 +58,7 @@ interface Props {
 export default function RegForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[0])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[1])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
@@ -87,14 +89,17 @@ export default function RegForm(props: Props) {
     setStepValue(steps[currentStepIndex + 1].key)
   }
 
+  const appContext = useAppContext()
+
   return (
     <RegLayout
-      title={currentStepIndex === 0 ? steps[0].description as string : ''}
+      title={steps[currentStepIndex].description as string}
       currentStepIndex={currentStepIndex}>
-      <FormStepSwitch index={currentStepIndex} options={[
-        <LoginStep key={1} onNextStep={handleNextStep} />,
+      {appContext.regMode === SwitchState.Secondoption ?
+        <FormStepSwitch index={currentStepIndex} options={[
+          <LoginStep key={1} onNextStep={handleNextStep} />,
 
-      ]} />
+        ]} /> : null}
     </RegLayout>
   )
 }
