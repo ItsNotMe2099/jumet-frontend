@@ -6,6 +6,11 @@
     gap: 8px;
 }
 
-.col {
+.col,
+.check {
     align-self: center;
+}
+
+.check {
+    margin-top: -3px;
 }
