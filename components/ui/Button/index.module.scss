@@ -75,3 +75,10 @@
 .spinnerVisible {
   visibility: visible;
 }
+
+.text {
+  display: flex;
+  gap: 11px;
+  align-items: center;
+  white-space: nowrap;
+}

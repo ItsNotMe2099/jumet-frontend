@@ -7,19 +7,18 @@ import { InputStyleType } from '@/types/enums'
 
 
 interface Props {
-  onNextStep: (data?: any) => void
+
 }
 
-export default function LoginStep(props: Props) {
+export default function LoginForm(props: Props) {
 
   const handleSubmit = async (/*data*/) => {
-    props.onNextStep()
+
   }
 
   const initialValues = {
-    email: '',
+    phone: '',
     password: '',
-    passwordConfirm: '',
   }
 
   const formik = useFormik({
@@ -32,22 +31,27 @@ export default function LoginStep(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <TextField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />
-        <TextField inputStyle={InputStyleType.Password} name='password' label='Пароль' validate={Validator.required} />
         <TextField
-          inputStyle={InputStyleType.Password}
-          name='passwordConfirm'
-          label='Повторите пароль'
-          validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])} />
+          label={'Телефон'}
+          name={'phone'}
+          validate={Validator.phone}
+          isNumbersOnly
+        />
+        <TextField
+          type='password'
+          name='password'
+          label='Пароль'
+          validate={Validator.required}
+          inputStyle={InputStyleType.Password} />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
-          Зарегистрироваться
+          Войти
         </Button>
         <div className={styles.already}>
           <div className={styles.top}>
-            Уже есть аккаунт на Jumet?
+            Нет аккаунта на Jumet?
           </div>
-          <Button className={styles.signIn} styleType='large' color='grey'>
-            Войти
+          <Button href={'/registration'} className={styles.signIn} styleType='large' color='grey'>
+            Зарегистрироваться
           </Button>
           <div className={styles.bottom}>
             При регистрации и входе вы соглашаетесь с политикой обработки персональных данных

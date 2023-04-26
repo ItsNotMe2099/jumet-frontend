@@ -60,7 +60,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
         </div>
         <HiddenXs>
           <div className={styles.right}>
-            <Button className={styles.btn} styleType='large' color='dark'>
+            <Button href={'/login'} className={styles.btn} styleType='large' color='dark'>
               <UserSvg color={colors.white} />
               <div>Войти</div>
             </Button>

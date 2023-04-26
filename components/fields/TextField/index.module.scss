@@ -4,19 +4,30 @@
   position: relative;
 }
 
-.input{
+.input {
   height: $StandartHeight;
   border-radius: $StandartBorderRadius;
   border: 1px solid $grey400;
   width: 100%;
   padding: 0 16px;
 
-  &::placeholder{
-      @include mainText;
+  &::placeholder {
+    @include mainText;
   }
 }
 
-.label{
+.label {
   color: $dark500;
   @include btnText;
+}
+
+.inputWrapper {
+  position: relative;
+}
+
+.icon {
+  position: absolute;
+  cursor: pointer;
+  right: 20px;
+  top: 10px;
 }

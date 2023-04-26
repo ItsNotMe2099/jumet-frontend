@@ -5,9 +5,9 @@ interface Props {
 
 export default function CloseSvg(props: Props) {
   return (
-    <svg className={props.className} width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <rect x="9.521" y="7.39941" width="23.3856" height="3" transform="rotate(45 9.521 7.39941)" fill={props.color} />
-      <rect x="7.34082" y="23.9937" width="23.55" height="3" transform="rotate(-45 7.34082 23.9937)" fill={props.color} />
+    <svg className={props.className} width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M6 6L18 18" stroke={props.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M6 18L18 6" stroke={props.color} stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" />
     </svg>
   )
 }

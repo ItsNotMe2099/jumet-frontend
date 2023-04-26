@@ -7,7 +7,10 @@ export enum SnackbarType {
   success,
 }
 
-export type InputStyleType = 'default'
+export enum InputStyleType {
+  Default = 'default',
+  Password = 'password'
+}
 
 export enum LabelStyleType {
   Placeholder = 'placeholder',

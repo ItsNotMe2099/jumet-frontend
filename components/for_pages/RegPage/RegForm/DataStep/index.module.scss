@@ -20,3 +20,9 @@
         width: 75%;
     }
 }
+
+.add {
+    color: $blue500;
+    @include btnText;
+    max-width: 243px;
+}

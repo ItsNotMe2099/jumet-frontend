@@ -3,13 +3,18 @@ import { FieldConfig, useField } from 'formik'
 import classNames from 'classnames'
 import { IField } from 'types/types'
 import ErrorInput from 'components/fields/ErrorInput'
-import { ChangeEvent } from 'react'
+import { ChangeEvent, useState } from 'react'
+import { InputStyleType } from '@/types/enums'
+import EyeSvg from '@/components/svg/EyeSvg'
+import { colors } from '@/styles/variables'
+import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
 
 interface Props extends IField<string> {
   className?: string
   onChange?: (val: string) => void
   label?: string
   isNumbersOnly?: boolean
+  inputStyle?: InputStyleType
 }
 
 export default function TextField(props: Props) {
@@ -17,13 +22,19 @@ export default function TextField(props: Props) {
   const [field, meta, helpers] = useField(props as FieldConfig)
   const showError = meta.touched && !!meta.error
 
+  const [show, setShow] = useState<boolean>(false)
+
   return (
     <div className={classNames(styles.root, props.className)}>
       <div className={styles.wrapper}>
+        {props.label ? <div className={styles.label}>
+          {props.label}
+        </div> : null}
         <div className={styles.inputWrapper}>
-          {props.label ? <div className={styles.label}>
-            {props.label}
-          </div> : null}
+          {props.inputStyle === InputStyleType.Password ?
+            (show ? <EyeSvg onClick={() => setShow(false)} className={styles.icon} color={colors.grey500} />
+              :
+              <EyeCloseSvg onClick={() => setShow(true)} className={styles.icon} color={colors.grey500} />) : null}
           <input
             onInput=
             {props.isNumbersOnly ?
@@ -37,7 +48,10 @@ export default function TextField(props: Props) {
               }
             }}
             disabled={props.disabled}
-            type={props.type}
+            type={props.inputStyle === InputStyleType.Password ?
+              (show ? 'text'
+                :
+                InputStyleType.Password) : props.type}
             className={classNames({
               [styles.input]: true,
               [styles.inputError]: showError,
@@ -47,7 +61,7 @@ export default function TextField(props: Props) {
         </div>
         <ErrorInput {...meta} />
       </div>
-    </div>
+    </div >
   )
 }
 

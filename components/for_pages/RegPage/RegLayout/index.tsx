@@ -5,7 +5,7 @@ import Indicator from '../Indicator'
 
 interface Props {
   title: string
-  currentStepIndex: number
+  currentStepIndex?: number
   children?: React.ReactNode
 }
 
@@ -25,7 +25,7 @@ export default function RegLayout(props: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        {props.currentStepIndex > 0 ?
+        {props.currentStepIndex && props.currentStepIndex > 0 ?
           <Indicator step={props.currentStepIndex} options={texts} />
           : null
         }
@@ -33,7 +33,7 @@ export default function RegLayout(props: Props) {
           <div className={styles.title}>
             {props.title}
           </div>
-          {props.currentStepIndex === 0 ? <FilterSwitch
+          {props.currentStepIndex === 0 || !props.currentStepIndex ? <FilterSwitch
             text1='Продавец лома'
             text2='Ломозаготовитель'
             className={styles.switch}

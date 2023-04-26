@@ -1,0 +1,41 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.btn {
+    
+    width: 20%;
+
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}
+
+.already {
+    background-color: $grey200;
+    border-radius: $StandartBorderRadius;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top {
+    @include btnText;
+}
+
+.signIn {
+    color: $blue500;
+    max-width: 206px;
+}
+
+.bottom {
+    @include secondaryText;
+}
