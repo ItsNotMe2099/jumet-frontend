@@ -2,21 +2,24 @@
 
 .root {
     position: relative;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
 }
 
-.input{
+.input {
     height: $StandartHeight;
     border-radius: $StandartBorderRadius;
     border: 1px solid $grey400;
     width: 100%;
     padding: 0 16px;
 
-    &::placeholder{
+    &::placeholder {
         @include mainText;
     }
 }
 
-.label{
+.label {
     position: absolute;
     color: $dark500;
     @include btnText;
@@ -24,6 +27,6 @@
     right: 12px;
 }
 
-.static{
+.static {
     position: static;
 }

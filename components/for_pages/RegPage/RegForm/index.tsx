@@ -59,12 +59,12 @@ interface Props {
 export default function RegForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[0])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[1])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
     if (props.stepKey) {
-      setStep(steps.find(i => i.key === props.stepKey) ?? steps[0])
+      setStep(steps.find(i => i.key === props.stepKey) ?? steps[1])
     }
   }, [props.stepKey])
 

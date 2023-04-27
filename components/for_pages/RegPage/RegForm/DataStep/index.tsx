@@ -3,11 +3,12 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Input from '@/components/ui/Input'
-import { LabelStyleType } from '@/types/enums'
+import { FileUploadAcceptType, LabelStyleType } from '@/types/enums'
 import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
+import FileField from '@/components/fields/FileField'
 
 
 interface Props {
@@ -30,7 +31,8 @@ export default function DataStep(props: Props) {
     address: '',
     street: '',
     number: '',
-    phones: phoneValues
+    phones: phoneValues,
+    file: []
   }
 
   const formik = useFormik({
@@ -44,6 +46,12 @@ export default function DataStep(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         <Input labelType={LabelStyleType.Static} label='ИНН юр.лица*' />
+        <FileField
+          name='file'
+          accept={[FileUploadAcceptType.Image]}
+          label='Лицензия ломозаготовителя*'
+          validate={Validator.required}
+        />
         <div className={styles.address}>
           <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />
           <div className={styles.bottom}>

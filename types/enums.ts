@@ -17,3 +17,11 @@ export enum LabelStyleType {
   Static = 'static',
   Cross = 'cross'
 }
+
+export enum FileUploadAcceptType {
+  Image = 'image',
+  Video = 'video',
+  Document = 'document',
+  Scan = 'scan',
+  Media = 'media'
+}
