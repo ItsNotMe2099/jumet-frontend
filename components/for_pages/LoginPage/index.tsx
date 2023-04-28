@@ -1,4 +1,4 @@
-import RegLayout from '../RegPage/RegLayout'
+import RegLayout from '../Common/RegLayout'
 import LoginForm from './Form'
 import styles from './index.module.scss'
 
