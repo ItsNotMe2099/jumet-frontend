@@ -55,8 +55,8 @@ export default function DataStep(props: Props) {
         <div className={styles.address}>
           <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />
           <div className={styles.bottom}>
-            <TextField placeholder='Улица' name='street' validate={Validator.required} />
-            <TextField placeholder='Номер дома' isNumbersOnly name='number' validate={Validator.required} />
+            <TextField className={styles.input} placeholder='Улица' name='street' validate={Validator.required} />
+            <TextField className={styles.input} placeholder='Номер дома' isNumbersOnly name='number' validate={Validator.required} />
           </div>
           {phoneValues.map((phoneValue, index) => (
             <TextField

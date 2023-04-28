@@ -16,8 +16,13 @@
     display: flex;
     gap: 12px;
 
-    input:first-of-type {
-        width: 75%;
+    .input {
+        max-width: 200px;
+    }
+
+    .input:first-child {
+        flex: 1;
+        max-width: 100%;
     }
 }
 

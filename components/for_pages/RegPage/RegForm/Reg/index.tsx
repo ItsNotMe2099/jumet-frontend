@@ -10,7 +10,7 @@ interface Props {
   onNextStep: (data?: any) => void
 }
 
-export default function LoginStep(props: Props) {
+export default function Reg(props: Props) {
 
   const handleSubmit = async (/*data*/) => {
     props.onNextStep()

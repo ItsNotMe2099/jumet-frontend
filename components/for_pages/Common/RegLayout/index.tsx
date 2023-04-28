@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import FilterSwitch from '@/components/for_pages/MainPage/Filter/FilterSwitch'
 import { useAppContext } from '@/context/state'
-import Indicator from '../Indicator'
+import Indicator from '../../RegFillPage/Indicator'
 
 interface Props {
   title: string
