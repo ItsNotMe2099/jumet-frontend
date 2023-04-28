@@ -7,7 +7,7 @@
 }
 
 .btn {
-    
+
     width: 20%;
 
     span {
@@ -38,4 +38,15 @@
 
 .bottom {
     @include secondaryText;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forget {
+    @include btnText;
+    color: $blue500;
 }

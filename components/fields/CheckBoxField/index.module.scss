@@ -1,0 +1,27 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+  gap: 12px;
+  span:first-child{
+    cursor: pointer;
+  }
+  span{
+    @include mainText;
+    margin-left: 0 !important;
+  }
+}
+
+.wrapper {
+  background-color: $yellow;
+  width: 16px;
+  height: 16px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 4px;
+}
+
+.icon {
+  
+}
