@@ -7,6 +7,8 @@ import { SwitchState } from '@/data/enum/SwitchState'
 import DataStep from './DataStep'
 import RegLayout from '../../Common/RegLayout'
 import DeliveryZoneStep from './DeliveryZonesStep'
+import PersonnelStep from './PersonnelStep'
+import PricesStep from './PricesStep'
 
 
 enum FormStep {
@@ -53,7 +55,7 @@ interface Props {
 export default function RegForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[0])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[3])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
@@ -84,7 +86,7 @@ export default function RegForm(props: Props) {
     setStepValue(steps[currentStepIndex + 1].key)
   }
 
-  const handleBack= (formData?: any) => {
+  const handleBack = (formData?: any) => {
 
     setStepValue(steps[currentStepIndex - 1].key)
   }
@@ -98,7 +100,9 @@ export default function RegForm(props: Props) {
       {appContext.regMode === SwitchState.Secondoption ?
         <FormStepSwitch index={currentStepIndex} options={[
           <DataStep key={1} onNextStep={handleNextStep} />,
-          <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />
+          <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />,
+          <PricesStep key={3} onNextStep={handleNextStep} onBack={handleBack} />,
+          <PersonnelStep key={4} onNextStep={handleNextStep} onBack={handleBack} />
         ]} /> : null}
     </RegLayout>
   )
