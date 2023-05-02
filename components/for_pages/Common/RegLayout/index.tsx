@@ -5,8 +5,9 @@ import Indicator from '../../RegFillPage/Indicator'
 
 interface Props {
   title: string
-  currentStepIndex?: number
+  currentStepIndex: number
   children?: React.ReactNode
+  indicator?: boolean
 }
 
 
@@ -25,7 +26,7 @@ export default function RegLayout(props: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        {props.currentStepIndex && props.currentStepIndex > 0 ?
+        {props.indicator ?
           <Indicator step={props.currentStepIndex} options={texts} />
           : null
         }
@@ -33,7 +34,7 @@ export default function RegLayout(props: Props) {
           <div className={styles.title}>
             {props.title}
           </div>
-          {props.currentStepIndex === 0 || !props.currentStepIndex ? <FilterSwitch
+          {!props.indicator ? <FilterSwitch
             text1='Продавец лома'
             text2='Ломозаготовитель'
             className={styles.switch}

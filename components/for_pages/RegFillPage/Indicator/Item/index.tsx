@@ -19,10 +19,10 @@ export default function Item(props: Props) {
 
   return (
     <div className={styles.root}>
-      {props.step > props.index + 1 ? <CheckSvg className={styles.check} color={colors.blue500} />
+      {props.step > props.index ? <CheckSvg className={styles.check} color={colors.blue500} />
         :
-        <ColSvg className={styles.col} step={props.step} index={props.index + 1} />}
-      <div className={classNames(styles.text, { [styles.active]: props.step === props.index + 1 })}>
+        <ColSvg className={styles.col} step={props.step} index={props.index} />}
+      <div className={classNames(styles.text, { [styles.active]: props.step === props.index })}>
         {props.option.text}
       </div>
     </div>

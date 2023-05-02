@@ -11,7 +11,7 @@ export default function LoginPage(props: Props) {
 
   return (
     <div className={styles.root}>
-      <RegLayout title='Вход на сайт'>
+      <RegLayout currentStepIndex={0} title='Вход на сайт'>
         <LoginForm />
       </RegLayout>
     </div>

@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
 import FileField from '@/components/fields/FileField'
+import StepsControls from '../StepsControls'
 
 
 interface Props {
@@ -72,6 +73,7 @@ export default function DataStep(props: Props) {
             Добавить еще номер
           </Button>
         </div>
+        <StepsControls />
       </Form>
     </FormikProvider>
   )

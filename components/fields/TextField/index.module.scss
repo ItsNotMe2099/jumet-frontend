@@ -19,9 +19,17 @@
   }
 }
 
-.label {
+.label,
+.sign {
   color: $dark500;
   @include btnText;
+}
+
+.sign {
+  position: absolute;
+  z-index: 1;
+  right: 12px;
+  top: 12px;
 }
 
 .inputWrapper {

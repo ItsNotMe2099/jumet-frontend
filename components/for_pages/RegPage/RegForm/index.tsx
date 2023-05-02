@@ -23,6 +23,7 @@ export default function RegForm(props: Props) {
     <>
       {!sended ?
         <RegLayout
+        currentStepIndex={0}
           title={'Регистрация'}>
           {appContext.regMode === SwitchState.Secondoption ?
             <Reg onNextStep={handleNext} /> : null}

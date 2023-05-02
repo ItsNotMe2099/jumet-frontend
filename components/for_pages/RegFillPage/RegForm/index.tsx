@@ -6,6 +6,7 @@ import { useAppContext } from '@/context/state'
 import { SwitchState } from '@/data/enum/SwitchState'
 import DataStep from './DataStep'
 import RegLayout from '../../Common/RegLayout'
+import DeliveryZoneStep from './DeliveryZonesStep'
 
 
 enum FormStep {
@@ -83,15 +84,21 @@ export default function RegForm(props: Props) {
     setStepValue(steps[currentStepIndex + 1].key)
   }
 
+  const handleBack= (formData?: any) => {
+
+    setStepValue(steps[currentStepIndex - 1].key)
+  }
+
   const appContext = useAppContext()
 
   return (
     <RegLayout
       title={steps[currentStepIndex].description as string}
-      currentStepIndex={currentStepIndex}>
+      currentStepIndex={currentStepIndex} indicator>
       {appContext.regMode === SwitchState.Secondoption ?
         <FormStepSwitch index={currentStepIndex} options={[
-          <DataStep key={1} onNextStep={handleNextStep} />
+          <DataStep key={1} onNextStep={handleNextStep} />,
+          <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />
         ]} /> : null}
     </RegLayout>
   )

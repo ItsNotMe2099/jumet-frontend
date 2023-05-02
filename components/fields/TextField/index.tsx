@@ -15,6 +15,7 @@ interface Props extends IField<string> {
   label?: string
   isNumbersOnly?: boolean
   inputStyle?: InputStyleType
+  sign?: string
 }
 
 export default function TextField(props: Props) {
@@ -31,6 +32,7 @@ export default function TextField(props: Props) {
           {props.label}
         </div> : null}
         <div className={styles.inputWrapper}>
+          {props.sign ? <div className={styles.sign}>{props.sign}</div> : null}
           {props.inputStyle === InputStyleType.Password ?
             (show ? <EyeSvg onClick={() => setShow(false)} className={styles.icon} color={colors.grey500} />
               :
