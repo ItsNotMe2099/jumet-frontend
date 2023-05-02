@@ -17,7 +17,8 @@ interface Props {
 interface IFormData {
   name: string
   price: string
-  distance: string
+  distanceFrom: string
+  distanceTo: string
 }
 
 export default function DeliveryZoneStep(props: Props) {
