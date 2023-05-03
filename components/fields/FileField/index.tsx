@@ -13,6 +13,7 @@ export interface FileFieldProps<T> extends IField<T> {
   multiple?: boolean,
   label?: string
   maxFiles: number
+  text: React.ReactNode
 }
 
 const FileField = (props: any & FileFieldProps<string | string[]>) => {
@@ -36,7 +37,7 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
         {props.label}
       </div> : null}
       <Dropzone onDrop={onDrop} accept={useMemo(() => {
-          (accept)?.forEach((i: FileUploadAcceptType) => { arr = [...arr, ...Converter.getFileUploadAccept(i)] })
+        (accept)?.forEach((i: FileUploadAcceptType) => { arr = [...arr, ...Converter.getFileUploadAccept(i)] })
         return { '': arr }
       }, [accept])} multiple={multiple} maxFiles={maxFiles}>
         {({ getRootProps, getInputProps }) => (
@@ -45,7 +46,7 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
               <input {...getInputProps()} />
               <AddImageSvg color={colors.grey500} />
               <div className={styles.text}>
-                Перетащите сюда или <span>выберите фото</span> лицензии<br /> ломозаготовителя на своем устройстве
+                {props.text}
               </div>
             </div>
           </section>

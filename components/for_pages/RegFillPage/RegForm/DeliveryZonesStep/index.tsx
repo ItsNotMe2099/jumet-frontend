@@ -86,6 +86,7 @@ export default function DeliveryZoneStep(props: Props) {
                     <TextField
                       key={index}
                       label={'Стоимость доставки, ₽'}
+                      sign='за тонну'
                       name={`items[${index}].price`}
                       validate={Validator.required}
                     />

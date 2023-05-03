@@ -1,0 +1,13 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  gap: 12px;
+  display: flex;
+}
+
+.label{
+  @include mainText;
+  color: $dark500;
+}
+

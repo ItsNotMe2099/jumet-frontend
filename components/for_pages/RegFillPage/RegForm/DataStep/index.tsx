@@ -26,7 +26,7 @@ export default function DataStep(props: Props) {
     street: '',
     number: '',
     phones: [{ phone: '' }],
-    file: []
+    photo: []
   }
 
   const formik = useFormik({
@@ -41,10 +41,11 @@ export default function DataStep(props: Props) {
       <Form className={styles.form}>
         <Input labelType={LabelStyleType.Static} label='ИНН юр.лица*' />
         <FileField
-          name='file'
+          name='photo'
           accept={[FileUploadAcceptType.Image]}
           label='Лицензия ломозаготовителя*'
           validate={Validator.required}
+          text={<>Перетащите сюда или <span>выберите фото</span> лицензии<br /> ломозаготовителя на своем устройстве</>}
         />
         <div className={styles.address}>
           <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />

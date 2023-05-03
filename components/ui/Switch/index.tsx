@@ -1,6 +1,7 @@
 import { colors } from '@/styles/variables'
 import React from 'react'
 import RSwitch from 'react-switch'
+
 interface Props {
   checked: boolean
   onChange: (val: boolean) => void

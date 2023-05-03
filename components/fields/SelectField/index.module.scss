@@ -1,0 +1,16 @@
+@import "styles/index";
+
+.root {}
+
+.input {
+
+  :global {
+    .ma-select__control {
+      border-radius: $StandartBorderRadius;
+      height: 48px;
+    }
+    .ma-select__indicator-separator{
+      display: none;
+    }
+  }
+}
