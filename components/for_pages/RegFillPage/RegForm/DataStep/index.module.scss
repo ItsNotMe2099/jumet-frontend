@@ -36,3 +36,9 @@
     width: 20%;
     color: $white;
 }
+
+.phones{
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}

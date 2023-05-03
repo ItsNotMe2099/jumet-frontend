@@ -1,10 +1,9 @@
 import TextField from '@/components/fields/TextField'
 import styles from './index.module.scss'
-import { Form, FormikProvider, useFormik } from 'formik'
+import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Input from '@/components/ui/Input'
 import { FileUploadAcceptType, LabelStyleType } from '@/types/enums'
-import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
@@ -22,17 +21,11 @@ export default function DataStep(props: Props) {
     props.onNextStep()
   }
 
-  const [phoneValues, setPhoneValues] = useState<string[]>([''])
-
-  const addPhoneField = () => {
-    setPhoneValues([...phoneValues, '']) // add a new empty phone field to the array
-  }
-
   const initialValues = {
     address: '',
     street: '',
     number: '',
-    phones: phoneValues,
+    phones: [{ phone: '' }],
     file: []
   }
 
@@ -59,19 +52,27 @@ export default function DataStep(props: Props) {
             <TextField className={styles.input} placeholder='Улица' name='street' validate={Validator.required} />
             <TextField className={styles.input} placeholder='Номер дома' isNumbersOnly name='number' validate={Validator.required} />
           </div>
-          {phoneValues.map((phoneValue, index) => (
-            <TextField
-              key={index}
-              label={index === 0 ? 'Телефон пункта приёма*' : ''}
-              name={`phones[${index}]`}
-              validate={Validator.phone}
-              isNumbersOnly
-            />
-          ))}
-          <Button onClick={addPhoneField} type='button' className={styles.add} styleType='large' color='grey'>
-            <CirclePlusSvg color={colors.blue500} />
-            Добавить еще номер
-          </Button>
+          <FieldArray name='phones'>
+            {arrayHelpers => (
+              <>
+                <div className={styles.phones}>
+                  {formik.values.phones.map((i, index) =>
+                    <TextField
+                      key={index}
+                      label={index === 0 ? 'Телефон пункта приёма*' : ''}
+                      name={`phones[${index}].phone`}
+                      validate={Validator.phone}
+                      isNumbersOnly
+                    />
+                  )}
+                </div>
+                <Button onClick={() => arrayHelpers.push({ phone: '' })} type='button' className={styles.add} styleType='large' color='grey'>
+                  <CirclePlusSvg color={colors.blue500} />
+                  Добавить еще номер
+                </Button>
+              </>
+            )}
+          </FieldArray>
         </div>
         <StepsControls />
       </Form>
