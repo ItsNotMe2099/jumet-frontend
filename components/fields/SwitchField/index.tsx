@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { FieldConfig, useField, useFormikContext } from 'formik'
 import React from 'react'
-import Switch from "components/ui/Switch"
+import Switch from 'components/ui/Switch'
 import classNames from 'classnames'
 
 interface Props {

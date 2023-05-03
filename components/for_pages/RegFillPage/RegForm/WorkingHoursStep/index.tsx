@@ -1,6 +1,6 @@
 import FileField from '@/components/fields/FileField'
 import styles from './index.module.scss'
-import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
+import { Form, FormikProvider, useFormik } from 'formik'
 import { FileUploadAcceptType } from '@/types/enums'
 import Validator from '@/utils/validator'
 import { useState } from 'react'
