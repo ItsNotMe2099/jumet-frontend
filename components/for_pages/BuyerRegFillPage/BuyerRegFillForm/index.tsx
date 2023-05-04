@@ -54,12 +54,12 @@ interface Props {
 export default function BuyerRegFillForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[1])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[4])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
     if (props.stepKey) {
-      setStep(steps.find(i => i.key === props.stepKey) ?? steps[1])
+      setStep(steps.find(i => i.key === props.stepKey) ?? steps[0])
     }
   }, [props.stepKey])
 
@@ -93,7 +93,7 @@ export default function BuyerRegFillForm(props: Props) {
   return (
     <RegLayout
       title={steps[currentStepIndex].description as string}
-      currentStepIndex={currentStepIndex} indicator>
+      currentStepIndex={currentStepIndex} indicator onBack={handleBack}>
       <FormStepSwitch index={currentStepIndex} options={[
         <DataStep key={1} onNextStep={handleNextStep} />,
         <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />,

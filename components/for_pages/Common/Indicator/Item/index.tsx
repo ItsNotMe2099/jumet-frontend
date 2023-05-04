@@ -12,13 +12,20 @@ interface Props {
   step: number
   option: IOption
   index: number
+  onBack?: () => void
 }
 
 
 export default function Item(props: Props) {
 
+  const handleBack = () => {
+    if (props.index === props.step - 1) {
+      props.onBack ? props.onBack() : null
+    }
+  }
+
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, {[styles.onBack]: props.index === props.step - 1})} onClick={handleBack}>
       {props.step > props.index ? <CheckSvg className={styles.check} color={colors.blue500} />
         :
         <ColSvg className={styles.col} step={props.step} index={props.index} />}

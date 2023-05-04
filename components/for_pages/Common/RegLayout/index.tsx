@@ -11,6 +11,7 @@ interface Props {
   indicator?: boolean
   active?: SwitchState
   onClick?: (active: SwitchState) => void
+  onBack?: () => void
 }
 
 
@@ -35,7 +36,7 @@ export default function RegLayout(props: Props) {
     <div className={styles.root}>
       <div className={styles.wrapper}>
         {props.indicator ?
-          <Indicator step={props.currentStepIndex} options={texts} />
+          <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack}/>
           : null
         }
         <div className={styles.container}>
