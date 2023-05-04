@@ -3,41 +3,49 @@
 $width: 105px;
 $height: 77px;
 
-.root{
-  position: relative;
+.root {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  border-radius: $StandartBorderRadius;
+  border: 1px solid $grey400;
+  cursor: pointer;
+  padding-bottom: 24px;
 }
 
-.button{
+.button {
   display: flex;
   align-items: center;
   border: none;
   background: transparent;
   padding: 0;
   cursor: pointer;
-  &.vertical{
+
+  &.vertical {
     flex-direction: column;
   }
 }
 
-.avatar{
+.avatar {
   width: $width;
   height: $height;
   border-radius: 10px;
   background: $grey500;
   position: relative;
-  &.vertical{
+
+  &.vertical {
     margin-bottom: 14px;
   }
 }
 
-.preview{
+.preview {
   width: 100%;
   height: 100%;
   object-fit: cover;
   opacity: 0.5;
 }
 
-.wrapper{
+.wrapper {
   width: 100%;
   height: 100%;
   border-radius: 10px;
@@ -48,17 +56,18 @@ $height: 77px;
   position: relative;
 }
 
-.resultImage{
+.resultImage {
   width: 100%;
   height: 100%;
   object-fit: cover;
   transition: opacity 0.2s;
-  &.hover{
+
+  &.hover {
     opacity: 0.5;
   }
 }
 
-.resultCameraIcon{
+.resultCameraIcon {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -66,7 +75,7 @@ $height: 77px;
   pointer-events: none;
 }
 
-.progress{
+.progress {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -76,7 +85,7 @@ $height: 77px;
   font-weight: bold;
 }
 
-.progressLine{
+.progressLine {
   position: absolute;
   top: 0;
   bottom: 0;
@@ -85,13 +94,25 @@ $height: 77px;
   border-radius: 10px;
 }
 
-.text{
+.text {
   flex: 1;
   padding-left: 14px;
   font-weight: 500;
 }
-.error{
+
+.error {
   font-size: 11px;
   margin-top: 4px;
   color: $red500;
+}
+
+.label {
+  color: $dark500;
+  @include btnText;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
 }

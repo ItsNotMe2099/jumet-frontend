@@ -5,9 +5,9 @@ import {Preset} from 'types/enums'
 import IFile from 'data/interfaces/IFile'
 import {ReactElement} from 'react'
 import DocumentPreview from 'components/ui/DocumentPreview'
-import CameraSvg from 'components/svg/CameraSvg'
 import {colors} from 'styles/variables'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
+import AddImageSvg from '@/components/svg/AddImageSvg'
 
 
 interface Props {
@@ -29,7 +29,7 @@ export default function FileUploadIconPreview(props: Props) {
       return props.icon
     }
     if(props.isImage){
-      return <CameraSvg color={colors.white}/>
+      return <AddImageSvg color={colors.grey500}/>
     }else{
       return <></>
     }
@@ -40,7 +40,7 @@ export default function FileUploadIconPreview(props: Props) {
       return props.stubIcon ?? props.icon!
     }
     if(props.isImage){
-      return <CameraSvg color={colors.white}/>
+      return <AddImageSvg  color={colors.grey500}/>
     }else{
       return <></>
     }
@@ -72,10 +72,8 @@ export default function FileUploadIconPreview(props: Props) {
           )}
 
 
-          {(props.value && hover && props.hover) && (
             <div className={styles.resultCameraIcon}>{props.icon ?? getIcon()}</div>
 
-          )}
           {(!props.previewPath && !props.value) && getIconStub()}
         </div>
         {props.progress > -1 && (<div className={classNames(styles.progressLine, {[styles.rounded]: props.progress > 85})} style={{width: `${props.progress}%`}}/>)}

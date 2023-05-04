@@ -23,6 +23,7 @@ interface Props {
   onDelete?: () => void
   icon?: ReactElement
   stubIcon?: ReactElement
+  text?: React.ReactNode
 }
 
 export default function FileUploadPreview(props: Props) {
@@ -66,8 +67,7 @@ export default function FileUploadPreview(props: Props) {
         previewName={props.previewName}
         value={props.value}/>
       <div className={styles.text}>
-        {props.label && <div className={styles.label}>{props.label}</div>}
-        {getText()}
+        {props.text ?? getText()}
         {props.error && <div className={styles.error}>{props.error}</div>}
       </div>
     </div>

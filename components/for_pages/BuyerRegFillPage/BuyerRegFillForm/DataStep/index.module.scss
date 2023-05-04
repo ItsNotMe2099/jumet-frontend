@@ -37,8 +37,18 @@
     color: $white;
 }
 
-.phones{
+.phones {
     display: flex;
     flex-direction: column;
     gap: 24px;
+}
+
+.text {
+    color: $dark500;
+    @include mainText;
+    text-align: center;
+
+    span {
+        @include btnText;
+    }
 }

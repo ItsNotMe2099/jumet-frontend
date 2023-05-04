@@ -46,6 +46,9 @@ export default function DataStep(props: Props) {
           label='Лицензия ломозаготовителя*'
           validate={Validator.required}
           vertical
+          isImage
+          text={<div className={styles.text}>Перетащите сюда или <span>выберите фото</span> лицензии<br />
+            ломозаготовителя на своем устройстве</div>}
         />
         <div className={styles.address}>
           <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />

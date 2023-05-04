@@ -1,13 +1,13 @@
 import styles from 'components/fields/Files/FileField/index.module.scss'
-import {useMemo, useRef, useState} from 'react'
+import { useMemo, useRef, useState } from 'react'
 import IFile from 'data/interfaces/IFile'
 import FileRepository from 'data/repositories/FileRepository'
-import {FileUploadAcceptType, SnackbarType} from 'types/enums'
-import { useField} from 'formik'
+import { FileUploadAcceptType, SnackbarType } from 'types/enums'
+import { useField } from 'formik'
 import UserRepository from 'data/repositories/UserRepository'
-import {useAppContext} from 'context/state'
-import {IField, RequestError} from 'types/types'
-import {Accept, DropEvent, FileRejection, useDropzone} from 'react-dropzone'
+import { useAppContext } from 'context/state'
+import { IField, RequestError } from 'types/types'
+import { Accept, DropEvent, FileRejection, useDropzone } from 'react-dropzone'
 import DropzoneOverlay from 'components/fields/Files/components/DropzoneOverlay'
 import FileUploadPreview from 'components/fields/Files/components/FileUploadPreview'
 import Converter from '@/utils/converter'
@@ -20,6 +20,8 @@ interface Props extends IField<IFile | null> {
   labelExist?: string
   labelNew?: string
   accept?: FileUploadAcceptType[]
+  text?: React.ReactNode
+  label?: string
 }
 
 export default function FileField(props: Props) {
@@ -34,9 +36,9 @@ export default function FileField(props: Props) {
   const [error, setError] = useState<any>(null)
   const dropzoneAccept: Accept = useMemo(() => {
     let obj = {}
-    const arr = (props.accept ?? (props.isImage ? [FileUploadAcceptType.Image] : [])).map(i => Converter.getFileUploadAccept(i))  ?? {} as Accept
+    const arr = (props.accept ?? (props.isImage ? [FileUploadAcceptType.Image] : [])).map(i => Converter.getFileUploadAccept(i)) ?? {} as Accept
     arr.forEach(i => {
-      obj = {...obj, ...i}
+      obj = { ...obj, ...i }
     })
     return obj
   }, [props.accept])
@@ -62,13 +64,13 @@ export default function FileField(props: Props) {
 
 
   const onDropRejected = (fileRejections: FileRejection[], event: DropEvent) => {
-    if(fileRejections.length > 0 && fileRejections[0].errors.length > 0){
+    if (fileRejections.length > 0 && fileRejections[0].errors.length > 0) {
       setError(fileRejections[0].errors[0].message)
     }
   }
   const onDrop = async (acceptedFiles: File[],
-                        fileRejections: FileRejection[],
-                        event: DropEvent) => {
+    fileRejections: FileRejection[],
+    event: DropEvent) => {
     if (acceptedFiles.length) {
       setError(null)
       setPreviewPath(URL.createObjectURL(acceptedFiles[0]))
@@ -79,7 +81,7 @@ export default function FileField(props: Props) {
         const fileData = await FileRepository.uploadFile(acceptedFiles[0], {
           signal: abortControllerRef.current.signal,
           onUploadProgress: (e) => {
-                setProgress(e.total ? Math.round((e.loaded / e.total) * 100): 0)
+            setProgress(e.total ? Math.round((e.loaded / e.total) * 100) : 0)
           }
         })
         if (fileData) {
@@ -98,30 +100,33 @@ export default function FileField(props: Props) {
     }
   }
 
-  const {getRootProps, getInputProps, isDragActive, ...rest} = useDropzone({
+  const { getRootProps, getInputProps, isDragActive, ...rest } = useDropzone({
     accept: dropzoneAccept,
     onDrop,
     onDropRejected
   } as any)
 
   return (
-    <div className={styles.root} {...getRootProps()} data-field={props.name}>
-      <FileUploadPreview
-        isImage={props.isImage ?? false}
-        label={props.label}
-        labelLoading={props.labelLoading}
-        labelExist={props.labelExist}
-        labelNew={props.labelNew}
-        value={field.value}
-        previewName={previewName}
-        previewPath={previewPath}
-        progress={progress}
-        vertical={props.vertical}
-        onCancel={handleCancel}
-        onDelete={handleDelete}
-        error={error}/>
-      {isDragActive && <DropzoneOverlay show={isDragActive} title={ 'Перетащите сюда'}/>}
-    </div>
+    <div className={styles.container}>
+      {props.label ? <div className={styles.label}>{props.label}</div> : null}
+      <div className={styles.root} {...getRootProps()} data-field={props.name}>
+        <FileUploadPreview
+          isImage={props.isImage ?? false}
+          labelLoading={props.labelLoading}
+          labelExist={props.labelExist}
+          labelNew={props.labelNew}
+          value={field.value}
+          previewName={previewName}
+          previewPath={previewPath}
+          progress={progress}
+          vertical={props.vertical}
+          onCancel={handleCancel}
+          onDelete={handleDelete}
+          text={props.text}
+          error={error} />
+        {isDragActive && <DropzoneOverlay show={isDragActive} title={'Перетащите сюда'} />}
+      </div>
+    </div >
   )
 }
 
