@@ -54,7 +54,7 @@ interface Props {
 export default function BuyerRegFillForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[4])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[0])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
