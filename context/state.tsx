@@ -3,7 +3,8 @@ import { SnackbarData } from 'types/types'
 import {ModalType, SnackbarType} from 'types/enums'
 import ReactModal from 'react-modal'
 import { getIsMobile } from 'utils/mobile'
-import { SwitchState } from '@/data/enum/SwitchState'
+import IAboutMe from '@/data/interfaces/IAboutMe'
+import UserRepository from '@/data/repositories/UserRepository'
 
 interface IState {
   isMobile: boolean
@@ -17,8 +18,7 @@ interface IState {
   hideModal: () => void
   hideBottomSheet: () => void
   showSnackbar: (text: string, type: SnackbarType) => void
-  regMode: SwitchState
-  switchRegMode: (mode: SwitchState) => void
+  updateAboutMe: (newUser?: IAboutMe) => void
 }
 
 
@@ -38,9 +38,7 @@ const defaultValue: IState = {
   hideModal: () => null,
   hideBottomSheet: () => null,
   showSnackbar: (text, type) => null,
-  regMode: SwitchState.FirstOption,
-  switchRegMode: (mode) => null
-
+  updateAboutMe: () => null,
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -48,6 +46,7 @@ const AppContext = createContext<IState>(defaultValue)
 interface Props {
   children: React.ReactNode
   isMobile: boolean
+  token?: string
 }
 
 export function AppWrapper(props: Props) {
@@ -57,7 +56,30 @@ export function AppWrapper(props: Props) {
   const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
   const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
 
-  const [regMode, setRegMode] = useState<SwitchState>(SwitchState.Secondoption)
+  const [token, setToken] = useState<string | null>(props.token ?? null)
+  const [aboutMe, setAboutMe] = useState<IAboutMe | null>(null)
+
+  useEffect(() => {
+    setToken(props.token ?? null)
+    if (props.token && !aboutMe) {
+      updateAboutMe()
+    }
+    if (!props.token && aboutMe) {
+      setAboutMe(null)
+    }
+  }, [props.token])
+
+  /** update user data from the server or just set them if passed to parameter */
+  const updateAboutMe = async (newUser?: IAboutMe) => {
+    if (newUser) {
+      setAboutMe(newUser)
+    } else {
+      const data = await UserRepository.fetchAboutMe()
+      if (data) {
+        setAboutMe(data)
+      }
+    }
+  }
 
   useEffect(() => {
     setIsMobile(getIsMobile(props.isMobile))
@@ -104,6 +126,7 @@ export function AppWrapper(props: Props) {
     modalArguments,
     bottomSheet,
     snackbar,
+    updateAboutMe,
     showModal,
     showBottomSheet,
     showSnackbar: (text, type: SnackbarType) => {
@@ -114,10 +137,6 @@ export function AppWrapper(props: Props) {
     },
     hideModal,
     hideBottomSheet,
-    regMode,
-    switchRegMode: (mode: SwitchState) => {
-      setRegMode(mode)
-    }
   }
 
 

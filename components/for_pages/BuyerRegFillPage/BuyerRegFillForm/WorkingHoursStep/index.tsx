@@ -29,7 +29,8 @@ export default function WorkingHoursStep(props: Props) {
     photo: [],
     always: false,
     workingHoursEntireWeekFrom: { value: '', label: '' },
-    workingHoursEntireWeekTo: { value: '', label: '' }
+    workingHoursEntireWeekTo: { value: '', label: '' },
+    
   }
 
   const formik = useFormik({
@@ -119,6 +120,29 @@ export default function WorkingHoursStep(props: Props) {
                       borderRadius={4}
                       size={16}
                       label='Будни'
+                      containerClassName={styles.checkbox}
+                    />
+                  </div>
+                  <div className={styles.fields}>
+                    <SelectField
+                      className={styles.select}
+                      options={hoursOptions.filter(i =>
+                        formik.values.workingHoursEntireWeekTo.value ? i.value < formik.values.workingHoursEntireWeekTo.value : i)}
+                      name={'workingHoursEntireWeekFrom'}
+                      placeholder='С' />
+                    <SelectField
+                      className={styles.select}
+                      options={hoursOptions.filter(i => i.value > formik.values.workingHoursEntireWeekFrom.value)}
+                      name={'workingHoursEntireWeekTo'}
+                      placeholder='До' />
+                    <ReactCheckBox
+                      checked={workingHoursEntireWeekCheck}
+                      onChange={() => setWokingHoursEntireWeekCheck(!workingHoursEntireWeekCheck)}
+                      icon={<div className={styles.checkboxWrapper}><CheckBoxSvg className={styles.icon} color={colors.dark500} /></div>}
+                      borderColor={colors.yellow}
+                      borderRadius={4}
+                      size={16}
+                      label='Суббота'
                       containerClassName={styles.checkbox}
                     />
                   </div>

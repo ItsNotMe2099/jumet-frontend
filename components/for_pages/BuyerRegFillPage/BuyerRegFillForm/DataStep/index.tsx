@@ -7,8 +7,8 @@ import { FileUploadAcceptType, LabelStyleType } from '@/types/enums'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
-import FileField from '@/components/fields/FileField'
 import StepsControls from '../StepsControls'
+import FileField from '@/components/fields/Files/FileField'
 
 
 interface Props {
@@ -45,7 +45,7 @@ export default function DataStep(props: Props) {
           accept={[FileUploadAcceptType.Image]}
           label='Лицензия ломозаготовителя*'
           validate={Validator.required}
-          text={<>Перетащите сюда или <span>выберите фото</span> лицензии<br /> ломозаготовителя на своем устройстве</>}
+          vertical
         />
         <div className={styles.address}>
           <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />

@@ -2,8 +2,6 @@ import { IFormStep } from 'types/types'
 import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import FormStepSwitch from 'components/ui/FormStepSwitch'
-import { useAppContext } from '@/context/state'
-import { SwitchState } from '@/data/enum/SwitchState'
 import DataStep from './DataStep'
 import RegLayout from '../../Common/RegLayout'
 import DeliveryZoneStep from './DeliveryZonesStep'
@@ -53,10 +51,10 @@ interface Props {
   stepKey?: string
 }
 
-export default function RegForm(props: Props) {
+export default function BuyerRegFillForm(props: Props) {
   const router = useRouter()
   const [formData, setFormData] = useState<any>({})
-  const [step, setStep] = useState<IFormStep<FormStep>>(steps[4])
+  const [step, setStep] = useState<IFormStep<FormStep>>(steps[1])
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
   useEffect(() => {
@@ -92,20 +90,17 @@ export default function RegForm(props: Props) {
     setStepValue(steps[currentStepIndex - 1].key)
   }
 
-  const appContext = useAppContext()
-
   return (
     <RegLayout
       title={steps[currentStepIndex].description as string}
       currentStepIndex={currentStepIndex} indicator>
-      {appContext.regMode === SwitchState.Secondoption ?
-        <FormStepSwitch index={currentStepIndex} options={[
-          <DataStep key={1} onNextStep={handleNextStep} />,
-          <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />,
-          <PricesStep key={3} onNextStep={handleNextStep} onBack={handleBack} />,
-          <PersonnelStep key={4} onNextStep={handleNextStep} onBack={handleBack} />,
-          <WorkingHoursStep key={5} onNextStep={handleNextStep} onBack={handleBack} />
-        ]} /> : null}
+      <FormStepSwitch index={currentStepIndex} options={[
+        <DataStep key={1} onNextStep={handleNextStep} />,
+        <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />,
+        <PricesStep key={3} onNextStep={handleNextStep} onBack={handleBack} />,
+        <PersonnelStep key={4} onNextStep={handleNextStep} onBack={handleBack} />,
+        <WorkingHoursStep key={5} onNextStep={handleNextStep} onBack={handleBack} />
+      ]} />
     </RegLayout>
   )
 }

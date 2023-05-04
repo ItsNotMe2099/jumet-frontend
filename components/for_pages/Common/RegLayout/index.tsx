@@ -1,19 +1,20 @@
 import styles from './index.module.scss'
 import FilterSwitch from '@/components/for_pages/MainPage/Filter/FilterSwitch'
-import { useAppContext } from '@/context/state'
-import Indicator from '../../RegFillPage/Indicator'
+import { useState } from 'react'
+import { SwitchState } from '@/data/enum/SwitchState'
+import Indicator from '../Indicator'
 
 interface Props {
   title: string
   currentStepIndex: number
   children?: React.ReactNode
   indicator?: boolean
+  active?: SwitchState
+  onClick?: (active: SwitchState) => void
 }
 
 
 export default function RegLayout(props: Props) {
-
-  const appContext = useAppContext()
 
   const texts = [
     { text: 'Данные о компании' },
@@ -22,6 +23,13 @@ export default function RegLayout(props: Props) {
     { text: 'Сотрудники' },
     { text: 'Режим работы и фото' }
   ]
+
+  const [active, setActive] = useState<SwitchState>(props.active ? props.active : SwitchState.Secondoption)
+
+  const handleClick = (active: SwitchState) => {
+    setActive(active)
+    props.onClick ? props.onClick(active) : null
+  }
 
   return (
     <div className={styles.root}>
@@ -38,8 +46,8 @@ export default function RegLayout(props: Props) {
             text1='Продавец лома'
             text2='Ломозаготовитель'
             className={styles.switch}
-            onClick={(active) => appContext.switchRegMode(active)}
-            active={appContext.regMode} /> : null}
+            onClick={handleClick}
+            active={active} /> : null}
           {props.children}
         </div>
       </div>
