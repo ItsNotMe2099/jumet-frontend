@@ -3,6 +3,7 @@ import FilterSwitch from '@/components/for_pages/MainPage/Filter/FilterSwitch'
 import { useState } from 'react'
 import { SwitchState } from '@/data/enum/SwitchState'
 import Indicator from '../Indicator'
+import { useRouter } from 'next/router'
 
 interface Props {
   title: string
@@ -32,23 +33,30 @@ export default function RegLayout(props: Props) {
     props.onClick ? props.onClick(active) : null
   }
 
+  const router = useRouter()
+
+  console.log(router)
+
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
         {props.indicator ?
-          <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack}/>
+          <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack} />
           : null
         }
         <div className={styles.container}>
           <div className={styles.title}>
             {props.title}
           </div>
-          {!props.indicator ? <FilterSwitch
-            text1='Продавец лома'
-            text2='Ломозаготовитель'
-            className={styles.switch}
-            onClick={handleClick}
-            active={active} /> : null}
+          {(!props.indicator && router.asPath !== '/CompleteRegistration') || (props.indicator && router.asPath !== '/CompleteRegistration') ? (
+            <FilterSwitch
+              text1='Продавец лома'
+              text2='Ломозаготовитель'
+              className={styles.switch}
+              onClick={handleClick}
+              active={active}
+            />
+          ) : null}
           {props.children}
         </div>
       </div>

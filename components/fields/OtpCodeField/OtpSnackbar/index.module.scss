@@ -1,0 +1,7 @@
+@import "styles/index";
+
+.root {
+  @include mainText;
+  color: $red500;
+  margin-top: 12px;
+}

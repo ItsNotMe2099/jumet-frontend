@@ -1,5 +1,6 @@
 export enum ModalType {
-  MobileMenu = 'mobileMenu'
+  MobileMenu = 'mobileMenu',
+  OtpCode = 'otpCode'
 }
 
 export enum SnackbarType {

@@ -6,6 +6,7 @@ import { useEffect } from 'react'
 import Modal from 'react-modal'
 import { ModalType } from '@/types/enums'
 import MobileMenuModal from '@/components/modals/MobileMenuModal'
+import OtpCodeModal from '@/components/modals/OtpCodeModal'
 
 
 interface Props { }
@@ -29,6 +30,9 @@ export default function ModalContainer(props: Props) {
       <div aria-hidden="true">
         <Modal isOpen={appContext.modal === ModalType.MobileMenu} {...commonSettings}>
           {appContext.modal === ModalType.MobileMenu && <MobileMenuModal />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.OtpCode} {...commonSettings}>
+          {appContext.modal === ModalType.OtpCode && <OtpCodeModal onRequestClose={commonSettings.onRequestClose} />}
         </Modal>
       </div>
     </RemoveScroll>

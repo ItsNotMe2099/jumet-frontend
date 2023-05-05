@@ -16,3 +16,17 @@
         color: $white;
     }
 }
+
+.bottom {
+    text-align: center;
+    @include secondaryText;
+
+    span {
+        color: $blue500;
+        cursor: pointer;
+    }
+}
+
+.code {
+    text-align: center;
+}

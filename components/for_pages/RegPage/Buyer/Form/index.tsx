@@ -4,6 +4,7 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
 import { InputStyleType } from '@/types/enums'
+import Already from '@/components/for_pages/Common/Already'
 
 
 interface Props {
@@ -17,6 +18,7 @@ export default function BuyerRegForm(props: Props) {
   }
 
   const initialValues = {
+    name: '',
     email: '',
     password: '',
     passwordConfirm: '',
@@ -32,6 +34,7 @@ export default function BuyerRegForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <TextField name='name' label='Название компании / группы компаний' validate={Validator.required} />
         <TextField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />
         <TextField inputStyle={InputStyleType.Password} name='password' label='Пароль' validate={Validator.required} />
         <TextField
@@ -42,17 +45,10 @@ export default function BuyerRegForm(props: Props) {
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
           Зарегистрироваться
         </Button>
-        <div className={styles.already}>
-          <div className={styles.top}>
-            Уже есть аккаунт на Jumet?
-          </div>
-          <Button className={styles.signIn} styleType='large' color='grey'>
-            Войти
-          </Button>
-          <div className={styles.bottom}>
-            При регистрации и входе вы соглашаетесь с политикой обработки персональных данных
-          </div>
-        </div>
+        <Already
+          topText='Уже есть аккаунт на Jumet?'
+          btnText='Войти'
+          link='/login' />
       </Form>
     </FormikProvider>
   )

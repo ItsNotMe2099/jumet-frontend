@@ -1,0 +1,46 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+
+  :global .pincode-input-container {
+    display: flex;
+    justify-content: center;
+    gap: 12px;
+
+    @include mq($MPhoneWidth, max) {
+      gap: 0;
+    }
+  }
+
+  :global .pincode-input-text {
+    width: 48px;
+    height: 48px;
+    border: 1px solid $grey400 !important;
+    border-radius: $StandartBorderRadius;
+  }
+
+
+  &.inputError {
+    :global .pincode-input-text {
+      color: red;
+      border: 1px solid red;
+
+      &::placeholder {
+        color: red !important;
+      }
+    }
+  }
+
+  :global .pincode-input-text:focus {
+    outline: none;
+    box-shadow: none;
+  }
+
+}
+
+.error {
+  :global .pincode-input-text {
+    border: 1px solid $red500 !important;
+  }
+}

@@ -7,6 +7,7 @@ import { InputStyleType } from '@/types/enums'
 import CheckBoxField from '@/components/fields/CheckBoxField'
 import { colors } from '@/styles/variables'
 import Link from 'next/link'
+import Already from '../../Common/Already'
 
 
 interface Props {
@@ -56,17 +57,11 @@ export default function LoginForm(props: Props) {
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
           Войти
         </Button>
-        <div className={styles.already}>
-          <div className={styles.top}>
-            Нет аккаунта на Jumet?
-          </div>
-          <Button href={'/registration'} className={styles.signIn} styleType='large' color='grey'>
-            Зарегистрироваться
-          </Button>
-          <div className={styles.bottom}>
-            При регистрации и входе вы соглашаетесь с политикой обработки персональных данных
-          </div>
-        </div>
+        <Already
+          topText='Нет аккаунта на Jumet?'
+          btnText='Зарегистрироваться'
+          link='/registration'
+        />
       </Form>
     </FormikProvider>
   )

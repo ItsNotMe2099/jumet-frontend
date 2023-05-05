@@ -16,3 +16,8 @@
         color: $white;
     }
 }
+
+.bottom {
+    text-align: center;
+    @include secondaryText;
+  }

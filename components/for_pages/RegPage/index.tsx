@@ -3,6 +3,7 @@ import RegLayout from '../Common/RegLayout'
 import BuyerRegForm from './Buyer/Form'
 import Sended from './Buyer/Sended'
 import { SwitchState } from '@/data/enum/SwitchState'
+import Seller from './Seller'
 
 interface Props {
   stepKey?: string
@@ -28,7 +29,7 @@ export default function RegPage(props: Props) {
           onClick={(active) => setRegMode(active)}
         >
           {regMode === SwitchState.Secondoption ?
-            <BuyerRegForm onNextStep={handleNext} /> : null}
+            <BuyerRegForm onNextStep={handleNext} /> : <Seller />}
         </RegLayout>
         :
         <Sended />}

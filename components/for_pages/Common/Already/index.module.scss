@@ -1,0 +1,23 @@
+@import "styles/index";
+
+.already {
+    background-color: $grey200;
+    border-radius: $StandartBorderRadius;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.top {
+    @include btnText;
+}
+
+.signIn {
+    color: $blue500;
+    width: 15%;
+}
+
+.bottom {
+    @include secondaryText;
+}

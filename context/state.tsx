@@ -1,10 +1,11 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { SnackbarData } from 'types/types'
-import {ModalType, SnackbarType} from 'types/enums'
+import { CookiesType, ModalType, SnackbarType } from 'types/enums'
 import ReactModal from 'react-modal'
 import { getIsMobile } from 'utils/mobile'
 import IAboutMe from '@/data/interfaces/IAboutMe'
 import UserRepository from '@/data/repositories/UserRepository'
+import Cookies from 'js-cookie'
 
 interface IState {
   isMobile: boolean
@@ -19,6 +20,9 @@ interface IState {
   hideBottomSheet: () => void
   showSnackbar: (text: string, type: SnackbarType) => void
   updateAboutMe: (newUser?: IAboutMe) => void
+  setModalNonSkippable: (val: boolean) => void
+  updateTokenFromCookies: () => void
+  token: string | null
 }
 
 
@@ -39,6 +43,9 @@ const defaultValue: IState = {
   hideBottomSheet: () => null,
   showSnackbar: (text, type) => null,
   updateAboutMe: () => null,
+  setModalNonSkippable: (val) => null,
+  updateTokenFromCookies: () => null,
+  token: null
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -55,7 +62,7 @@ export function AppWrapper(props: Props) {
   const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
   const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
   const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
-
+  const [modalNonSkippable, setModalNonSkippable] = useState<boolean>(false)
   const [token, setToken] = useState<string | null>(props.token ?? null)
   const [aboutMe, setAboutMe] = useState<IAboutMe | null>(null)
 
@@ -136,7 +143,13 @@ export function AppWrapper(props: Props) {
       }, 2000)
     },
     hideModal,
+    token,
     hideBottomSheet,
+    updateTokenFromCookies: async () => {
+      const oldToken = token
+      const newToken = Cookies.get(CookiesType.accessToken) ?? null
+      setToken(newToken)
+    },
   }
 
 
