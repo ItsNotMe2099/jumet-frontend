@@ -4,6 +4,7 @@ import BuyerRegForm from './Buyer/Form'
 import Sended from './Buyer/Sended'
 import { SwitchState } from '@/data/enum/SwitchState'
 import Seller from './Seller'
+import styles from './index.module.scss'
 
 interface Props {
   stepKey?: string
@@ -20,7 +21,7 @@ export default function RegPage(props: Props) {
   const [regMode, setRegMode] = useState<SwitchState>(SwitchState.Secondoption)
 
   return (
-    <>
+    <div className={styles.root}>
       {!sended ?
         <RegLayout
           currentStepIndex={0}
@@ -33,6 +34,6 @@ export default function RegPage(props: Props) {
         </RegLayout>
         :
         <Sended />}
-    </>
+    </div>
   )
 }

@@ -1,11 +1,13 @@
 import Button from '@/components/ui/Button'
 import styles from './index.module.scss'
+import classNames from 'classnames'
 
 
 interface Props {
   topText: string
   btnText: string
   link: string
+  btnClassName?: string
 }
 
 export default function Already(props: Props) {
@@ -15,7 +17,7 @@ export default function Already(props: Props) {
       <div className={styles.top}>
         {props.topText}
       </div>
-      <Button href={props.link} className={styles.signIn} styleType='large' color='grey'>
+      <Button href={props.link} className={classNames(styles.signIn, props.btnClassName)} styleType='large' color='grey'>
         {props.btnText}
       </Button>
       <div className={styles.bottom}>

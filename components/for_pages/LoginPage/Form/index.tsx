@@ -58,6 +58,7 @@ export default function LoginForm(props: Props) {
           Войти
         </Button>
         <Already
+          btnClassName={styles.alreadyBtn}
           topText='Нет аккаунта на Jumet?'
           btnText='Зарегистрироваться'
           link='/registration'
