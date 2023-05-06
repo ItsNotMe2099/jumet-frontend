@@ -8,6 +8,7 @@ import DeliveryZoneStep from './DeliveryZonesStep'
 import PersonnelStep from './PersonnelStep'
 import PricesStep from './PricesStep'
 import WorkingHoursStep from './WorkingHoursStep'
+//import styles from './index.module.scss'
 
 
 enum FormStep {
@@ -44,7 +45,6 @@ const steps: IFormStep<FormStep>[] = [
     description: 'Укажите режим работы и фото пункта приёма',
     key: FormStep.WorkingHours
   },
-
 ]
 
 interface Props {
@@ -99,7 +99,7 @@ export default function BuyerRegFillForm(props: Props) {
         <DeliveryZoneStep key={2} onNextStep={handleNextStep} onBack={handleBack} />,
         <PricesStep key={3} onNextStep={handleNextStep} onBack={handleBack} />,
         <PersonnelStep key={4} onNextStep={handleNextStep} onBack={handleBack} />,
-        <WorkingHoursStep key={5} onNextStep={handleNextStep} onBack={handleBack} />
+        <WorkingHoursStep key={5} onNextStep={handleNextStep} onBack={handleBack} />,
       ]} />
     </RegLayout>
   )

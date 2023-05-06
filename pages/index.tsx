@@ -20,6 +20,11 @@ import classNames from 'classnames'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import { SwitchState } from '@/data/enum/SwitchState'
+import AddressField from '@/components/fields/AddressField'
+import { Formik } from 'formik'
+import { GeoObject, YandexResponseGeocoder } from 'data/interfaces/IYandexGeocoder'
+import { YMapLocationRequest } from '@yandex/ymaps3-types'
+import Converter from '@/utils/converter'
 
 export default function Index() {
 
@@ -102,6 +107,32 @@ export default function Index() {
 
   const [open, setOpen] = useState<boolean>(false)
 
+  const [addressFormShown, setAddressFormShown] = useState(false)
+  const [confirmShown, setConfirmShown] = useState(false)
+  const [addressStr, setAddressStr] = useState<string | null>(null)
+  const [location, setLocation] = useState<YMapLocationRequest | null>({ center: [55.76, 37.64], zoom: 10 })
+  const [geoObject, setGeoObject] = useState<GeoObject>()
+
+  const handleEditAddressClick = () => {
+    setAddressFormShown(false)
+  }
+  const handleSetNewAddress = (geocoded: YandexResponseGeocoder) => {
+    const geoObject = geocoded.response.GeoObjectCollection.featureMember[0].GeoObject
+    const point = geoObject.Point
+    const bounds = [
+      geoObject.boundedBy.Envelope.lowerCorner.split(' ').map(i => parseFloat(i)),
+      geoObject.boundedBy.Envelope.upperCorner.split(' ').map(i => parseFloat(i)),
+
+    ]
+
+
+    const center = point.pos.split(' ').map(i => parseFloat(i)) as [lon: number, lat: number, alt?: number]
+    setLocation({ bounds: bounds as any, center })
+    setGeoObject(geocoded.response.GeoObjectCollection.featureMember[0].GeoObject)
+    setConfirmShown(true)
+    setAddressStr(Converter.convertGeoObjectToString(geocoded.response.GeoObjectCollection.featureMember[0].GeoObject))
+  }
+
   return (
     <Layout>
       <div className={styles.root}>
@@ -130,9 +161,15 @@ export default function Index() {
                 onClick={(active) => setFilterListMap(active)}
                 active={filterListMap} />}
             >
-              <Input
-                placeholder='Город, улица, дом'
-              />
+              <Formik initialValues={{}} onSubmit={() => { }}>
+                <AddressField
+                  hasAddress={!!geoObject}
+                  name={'address'}
+                  onNewAddress={handleSetNewAddress}
+                  onEditClick={handleEditAddressClick}
+                  placeholder='Город, улица, дом'
+                />
+              </Formik>
             </FilterComponent>
             <FilterComponent title='Радиус поиска пунктов приёма'>
               <>

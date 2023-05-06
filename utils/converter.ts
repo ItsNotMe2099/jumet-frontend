@@ -1,4 +1,5 @@
 import { FileUploadAcceptType } from 'types/enums'
+import {GeoObject} from 'data/interfaces/IYandexGeocoder'
 
 export default class Converter {
 
@@ -21,5 +22,9 @@ export default class Converter {
         return []
     }
 
+  }
+
+  static convertGeoObjectToString(geoObject: GeoObject): string | null {
+    return geoObject.name
   }
 }
