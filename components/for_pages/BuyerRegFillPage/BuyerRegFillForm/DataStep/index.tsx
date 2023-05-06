@@ -3,12 +3,13 @@ import styles from './index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Input from '@/components/ui/Input'
-import { FileUploadAcceptType, LabelStyleType } from '@/types/enums'
+import { FileUploadAcceptType, InputStyleType, LabelStyleType } from '@/types/enums'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
 import StepsControls from '../StepsControls'
 import FileField from '@/components/fields/Files/FileField'
+import PhoneField from '@/components/fields/PhoneField'
 
 
 interface Props {
@@ -61,12 +62,12 @@ export default function DataStep(props: Props) {
               <>
                 <div className={styles.phones}>
                   {formik.values.phones.map((i, index) =>
-                    <TextField
+                    <PhoneField
+                      styleType={InputStyleType.Default}
                       key={index}
                       label={index === 0 ? 'Телефон пункта приёма*' : ''}
                       name={`phones[${index}].phone`}
                       validate={Validator.phone}
-                      isNumbersOnly
                     />
                   )}
                 </div>

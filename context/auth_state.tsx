@@ -8,6 +8,7 @@ import { CookiesType, SnackbarType } from '@/types/enums'
 import { LoginFormData } from '@/types/form_data/LoginFormData'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
+import BuyerRepository from '@/data/repositories/BuyerRepository'
 
 interface IOtpError {
   show: boolean
@@ -20,6 +21,7 @@ interface IState {
   againSpinner: boolean
   confirmSpinner: boolean
   completeSpinner: boolean
+  sendEmailSpinner: boolean
   codeRes: ILoginResponse | null
   LoginFormData: LoginFormData | null
   remainSec: number
@@ -28,6 +30,7 @@ interface IState {
   sendCodeAgain: () => void
   confirmCode: (code: string) => Promise<boolean>
   completeRegistration: (name: string, password: string) => Promise<string>
+  sendEmail: (accountName: string, email: string, password: string) => Promise<string>
   setSending: (value: boolean) => void
   setSendingAgain: (value: boolean) => void
   otpError: IOtpError | null
@@ -39,8 +42,10 @@ const defaultValue: IState = {
   confirmSpinner: false,
   againSpinner: false,
   completeSpinner: false,
+  sendEmailSpinner: false,
   confirmCode: async (code: string) => false,
   completeRegistration: async (name: string, password: string) => '',
+  sendEmail: async (accountName: string, email: string, password: string) => '',
   setSending: (value: boolean) => null,
   codeRes: null,
   LoginFormData: null,
@@ -71,6 +76,7 @@ export function AuthWrapper(props: Props) {
   const [confirmSpinner, setConfirmSpinner] = useState<boolean>(false)
   const [againSpinner, setAgainSpinner] = useState<boolean>(false)
   const [completeSpinner, setCompleteSpinner] = useState<boolean>(false)
+  const [sendEmailSpinner, setSendEmailSpinner] = useState<boolean>(false)
   const [LoginFormData, setLoginFormData] = useState<LoginFormData | null>(null)
   const [otpError, setOtpError] = useState<IOtpError | null>(null)
 
@@ -157,6 +163,34 @@ const completeRegistration = async (name: string, password: string): Promise<str
   return accessToken
 }
 
+//Buyer registration step 1
+const sendEmail = async (accountName: string, email: string, password: string): Promise<string> => {
+  setSendEmailSpinner(true)
+  let accessToken: string = ''
+
+  try {
+    accessToken = await BuyerRepository.sendEmail(accountName, email, password)
+  } catch (err) {
+    if (err instanceof RequestError) {
+      appContext.showSnackbar(err.message, SnackbarType.error)
+    }
+    setSendEmailSpinner(false)
+    return ''
+  }
+
+  if (!accessToken) {
+    appContext.showSnackbar('Token error', SnackbarType.error)
+    setSendEmailSpinner(false)
+    return ''
+  }
+
+  Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
+
+  appContext.updateTokenFromCookies()
+  setSendEmailSpinner(false)
+  return accessToken
+}
+
 const sendCodeToPhone = async (phone: string): Promise<boolean> => {
   let data: ILoginResponse
 
@@ -188,11 +222,13 @@ const sendCodeAgain = async () => {
     completeRegistration,
     signUpSpinner,
     completeSpinner,
+    sendEmailSpinner,
     codeRes,
     signUp,
     LoginFormData,
     remainSec,
     sendCodeAgain,
+    sendEmail,
     againSpinner,
     confirmSpinner,
     otpError,
