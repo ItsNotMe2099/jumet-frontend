@@ -9,6 +9,7 @@ import { LoginFormData } from '@/types/form_data/LoginFormData'
 import Cookies from 'js-cookie'
 import { useRouter } from 'next/router'
 import BuyerRepository from '@/data/repositories/BuyerRepository'
+import UserRepository from '@/data/repositories/UserRepository'
 
 interface IOtpError {
   show: boolean
@@ -22,6 +23,7 @@ interface IState {
   confirmSpinner: boolean
   completeSpinner: boolean
   sendEmailSpinner: boolean
+  loginSpinner: boolean
   codeRes: ILoginResponse | null
   LoginFormData: LoginFormData | null
   remainSec: number
@@ -30,6 +32,7 @@ interface IState {
   sendCodeAgain: () => void
   confirmCode: (code: string) => Promise<boolean>
   completeRegistration: (name: string, password: string) => Promise<string>
+  login: (login: string, password: string) => Promise<string>
   sendEmail: (accountName: string, email: string, password: string) => Promise<string>
   setSending: (value: boolean) => void
   setSendingAgain: (value: boolean) => void
@@ -43,8 +46,10 @@ const defaultValue: IState = {
   againSpinner: false,
   completeSpinner: false,
   sendEmailSpinner: false,
+  loginSpinner: false,
   confirmCode: async (code: string) => false,
   completeRegistration: async (name: string, password: string) => '',
+  login: async (login: string, password: string) => '',
   sendEmail: async (accountName: string, email: string, password: string) => '',
   setSending: (value: boolean) => null,
   codeRes: null,
@@ -77,6 +82,7 @@ export function AuthWrapper(props: Props) {
   const [againSpinner, setAgainSpinner] = useState<boolean>(false)
   const [completeSpinner, setCompleteSpinner] = useState<boolean>(false)
   const [sendEmailSpinner, setSendEmailSpinner] = useState<boolean>(false)
+  const [loginSpinner, setLoginSpinner] = useState<boolean>(false)
   const [LoginFormData, setLoginFormData] = useState<LoginFormData | null>(null)
   const [otpError, setOtpError] = useState<IOtpError | null>(null)
 
@@ -86,135 +92,163 @@ export function AuthWrapper(props: Props) {
     }
   }, 1000)
 
- // Sign up step 1
- const signUp = async (values: LoginFormData) => {
-  setSignUpSpinner(true)
-  setLoginFormData(values)
-  const isOk = await sendCodeToPhone(values.phone)
-  setSignUpSpinner(false)
-  if (isOk) {
-    // appContext.showModal(ModalType.signUpCode)
-  }
-}
+  //LOGIN
+  const login = async (login: string, password: string) => {
+    setLoginSpinner(true)
+    let accessToken: string = ''
 
-const showOtpError = (show: boolean, text: string) => {
-  setOtpError({ show, text })
-}
-
-// Sign up step 2
-const confirmCode = async (code: string): Promise<boolean> => {
-  setConfirmSpinner(true)
-  let accessToken: string = ''
-
-  try {
-    accessToken = await SellerRepository.confirmCode(LoginFormData!.phone, code)
-  } catch (err) {
-    if (err instanceof RequestError) {
-      showOtpError(true, err.message)
+    try {
+      accessToken = await UserRepository.login(login, password)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        appContext.showSnackbar(err.message, SnackbarType.error)
+      }
+      setLoginSpinner(false)
+      return ''
     }
+
+    if (!accessToken) {
+      appContext.showSnackbar('Token error', SnackbarType.error)
+      setLoginSpinner(false)
+      return ''
+    }
+
+    Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
+
+    appContext.updateTokenFromCookies()
+    setLoginSpinner(false)
+    return accessToken
+  }
+
+  // Sign up step 1
+  const signUp = async (values: LoginFormData) => {
+    setSignUpSpinner(true)
+    setLoginFormData(values)
+    const isOk = await sendCodeToPhone(values.phone)
+    setSignUpSpinner(false)
+    if (isOk) {
+      // appContext.showModal(ModalType.signUpCode)
+    }
+  }
+
+  const showOtpError = (show: boolean, text: string) => {
+    setOtpError({ show, text })
+  }
+
+  // Sign up step 2
+  const confirmCode = async (code: string): Promise<boolean> => {
+    setConfirmSpinner(true)
+    let accessToken: string = ''
+
+    try {
+      accessToken = await SellerRepository.confirmCode(LoginFormData!.phone, code)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        showOtpError(true, err.message)
+      }
+      setConfirmSpinner(false)
+      return false
+    }
+
+    if (!accessToken) {
+      appContext.showSnackbar('Token error', SnackbarType.error)
+      setConfirmSpinner(false)
+      return false
+    }
+
+    Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
+
+
+
+    appContext.setModalNonSkippable(false)
+    appContext.hideModal()
+    appContext.hideBottomSheet()
+    appContext.updateTokenFromCookies()
     setConfirmSpinner(false)
-    return false
+    await router.push('/CompleteRegistration')
+    return true
   }
 
-  if (!accessToken) {
-    appContext.showSnackbar('Token error', SnackbarType.error)
-    setConfirmSpinner(false)
-    return false
-  }
+  /// step 3
+  const completeRegistration = async (name: string, password: string): Promise<string> => {
+    setCompleteSpinner(true)
+    let accessToken: string = ''
 
-  Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
-
-
-
-  appContext.setModalNonSkippable(false)
-  appContext.hideModal()
-  appContext.hideBottomSheet()
-  appContext.updateTokenFromCookies()
-  setConfirmSpinner(false)
-  await router.push('/CompleteRegistration')
-  return true
-}
-
-/// step 3
-const completeRegistration = async (name: string, password: string): Promise<string> => {
-  setCompleteSpinner(true)
-  let accessToken: string = ''
-
-  try {
-    accessToken = await SellerRepository.completeRegistration(name, password)
-  } catch (err) {
-    if (err instanceof RequestError) {
-      appContext.showSnackbar(err.message, SnackbarType.error)
+    try {
+      accessToken = await SellerRepository.completeRegistration(name, password)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        appContext.showSnackbar(err.message, SnackbarType.error)
+      }
+      setCompleteSpinner(false)
+      return ''
     }
+
+    if (!accessToken) {
+      appContext.showSnackbar('Token error', SnackbarType.error)
+      setCompleteSpinner(false)
+      return ''
+    }
+
+    Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
+
+    appContext.updateTokenFromCookies()
     setCompleteSpinner(false)
-    return ''
+    return accessToken
   }
 
-  if (!accessToken) {
-    appContext.showSnackbar('Token error', SnackbarType.error)
-    setCompleteSpinner(false)
-    return ''
-  }
+  //Buyer registration step 1
+  const sendEmail = async (accountName: string, email: string, password: string): Promise<string> => {
+    setSendEmailSpinner(true)
+    let accessToken: string = ''
 
-  Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
-
-  appContext.updateTokenFromCookies()
-  setCompleteSpinner(false)
-  return accessToken
-}
-
-//Buyer registration step 1
-const sendEmail = async (accountName: string, email: string, password: string): Promise<string> => {
-  setSendEmailSpinner(true)
-  let accessToken: string = ''
-
-  try {
-    accessToken = await BuyerRepository.sendEmail(accountName, email, password)
-  } catch (err) {
-    if (err instanceof RequestError) {
-      appContext.showSnackbar(err.message, SnackbarType.error)
+    try {
+      accessToken = await BuyerRepository.sendEmail(accountName, email, password)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        appContext.showSnackbar(err.message, SnackbarType.error)
+      }
+      setSendEmailSpinner(false)
+      return ''
     }
-    setSendEmailSpinner(false)
-    return ''
-  }
 
-  if (!accessToken) {
-    appContext.showSnackbar('Token error', SnackbarType.error)
-    setSendEmailSpinner(false)
-    return ''
-  }
-
-  Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
-
-  appContext.updateTokenFromCookies()
-  setSendEmailSpinner(false)
-  return accessToken
-}
-
-const sendCodeToPhone = async (phone: string): Promise<boolean> => {
-  let data: ILoginResponse
-
-  try {
-    data = await SellerRepository.sendCodeToPhone(phone)
-  } catch (err) {
-    if (err instanceof RequestError) {
-      appContext.showSnackbar(err.message, SnackbarType.error)
+    if (!accessToken) {
+      appContext.showSnackbar('Token error', SnackbarType.error)
+      setSendEmailSpinner(false)
+      return ''
     }
-    return false
+
+    Cookies.set(CookiesType.accessToken, accessToken, { expires: 365 })
+
+    appContext.updateTokenFromCookies()
+    setSendEmailSpinner(false)
+    return accessToken
   }
 
-  setCodeRes(data)
-  setRemainSec(data.codeCanRetryIn ?? 0)
-  return true
-}
+  const sendCodeToPhone = async (phone: string): Promise<boolean> => {
+    let data: ILoginResponse
 
-const sendCodeAgain = async () => {
-  setAgainSpinner(true)
-  if (LoginFormData?.phone) {
-    await sendCodeToPhone(LoginFormData?.phone)
+    try {
+      data = await SellerRepository.sendCodeToPhone(phone)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        appContext.showSnackbar(err.message, SnackbarType.error)
+      }
+      return false
+    }
+
+    setCodeRes(data)
+    setRemainSec(data.codeCanRetryIn ?? 0)
+    return true
   }
-  setAgainSpinner(false)
-}
+
+  const sendCodeAgain = async () => {
+    setAgainSpinner(true)
+    if (LoginFormData?.phone) {
+      await sendCodeToPhone(LoginFormData?.phone)
+    }
+    setAgainSpinner(false)
+  }
 
   const value: IState = {
     ...defaultValue,
@@ -228,9 +262,11 @@ const sendCodeAgain = async () => {
     LoginFormData,
     remainSec,
     sendCodeAgain,
+    login,
     sendEmail,
     againSpinner,
     confirmSpinner,
+    loginSpinner,
     otpError,
     showOtpError
   }

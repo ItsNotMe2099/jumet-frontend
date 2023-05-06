@@ -8,20 +8,26 @@ import CheckBoxField from '@/components/fields/CheckBoxField'
 import { colors } from '@/styles/variables'
 import Link from 'next/link'
 import Already from '../../Common/Already'
+import { SwitchState } from '@/data/enum/SwitchState'
+import PhoneField from '@/components/fields/PhoneField'
+import { useAuthContext } from '@/context/auth_state'
+import { useEffect } from 'react'
 
 
 interface Props {
-
+  mode: SwitchState
 }
 
 export default function LoginForm(props: Props) {
 
-  const handleSubmit = async (/*data*/) => {
+  const authContext = useAuthContext()
 
+  const handleSubmit = async (data: {login: string, password: string}) => {
+    await authContext.login(data.login, data.password)
   }
 
   const initialValues = {
-    phone: '',
+    login: '',
     password: '',
     checkbox: false
   }
@@ -33,15 +39,19 @@ export default function LoginForm(props: Props) {
 
   console.log('formik.values', formik.values)
 
+  useEffect(() => {
+    formik.setFieldValue('login', '')
+  }, [props.mode])
+
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <TextField
+        {props.mode === SwitchState.FirstOption ? <PhoneField
           label={'Телефон'}
-          name={'phone'}
+          name={'login'}
           validate={Validator.phone}
-          isNumbersOnly
-        />
+          styleType={InputStyleType.Default}
+        /> : <TextField name='login' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />}
         <TextField
           type='password'
           name='password'
@@ -54,7 +64,7 @@ export default function LoginForm(props: Props) {
             Забыли пароль?
           </Link>
         </div>
-        <Button type='submit' className={styles.btn} styleType='large' color='blue'>
+        <Button disabled={authContext.loginSpinner} type='submit' className={styles.btn} styleType='large' color='blue'>
           Войти
         </Button>
         <Already
