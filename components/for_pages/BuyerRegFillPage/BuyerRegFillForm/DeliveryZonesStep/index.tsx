@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
 import StepsControls from '../StepsControls'
+import YMapsField from '@/components/fields/YMapsField'
 
 
 interface Props {
@@ -19,6 +20,7 @@ interface IFormData {
   price: string
   distanceFrom: string
   distanceTo: string
+  coordinates: { lat: '', lng: '' }
 }
 
 export default function DeliveryZoneStep(props: Props) {
@@ -39,6 +41,12 @@ export default function DeliveryZoneStep(props: Props) {
     initialValues,
     onSubmit: handleSubmit
   })
+
+  const handleMapClick = (e: ymaps.Event) => {
+    const lat = e.get('coords')[0]
+    const lng = e.get('coords')[1]
+    formik.setFieldValue('coordinates', { lat, lng })
+  }
 
   console.log('formik.values', formik.values)
 
@@ -90,6 +98,7 @@ export default function DeliveryZoneStep(props: Props) {
                       name={`items[${index}].price`}
                       validate={Validator.required}
                     />
+                    <YMapsField name='coordinates' onMapClick={(e) => handleMapClick(e)} />
                   </div>
                 ))}
               </div>
