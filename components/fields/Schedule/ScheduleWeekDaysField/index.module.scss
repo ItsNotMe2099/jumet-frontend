@@ -1,0 +1,25 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.label{
+  margin-bottom: 5px;
+}
+.scheduleItem{
+  display: flex;
+  flex-direction: row;
+  .day{
+    padding-top: 10px;
+    width: 30px;
+  line-height: 32px;
+  }
+}
+
+.actions{
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-end;
+}

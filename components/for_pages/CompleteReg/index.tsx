@@ -15,6 +15,7 @@ export default function CompleteReg(props: Props) {
   return (
     <RegLayout
       currentStepIndex={0}
+      filter={false}
       title={'Завершите регистрацию'}
     >
       <FinishForm />

@@ -31,6 +31,21 @@ export enum CookiesType {
   accessToken = 'accessToken',
 }
 
+export enum WeekDays {
+  monday = 'monday',
+  tuesday = 'tuesday',
+  wednesday = 'wednesday',
+  thursday = 'thursday',
+  friday = 'friday',
+  saturday = 'saturday',
+  sunday = 'sunday',
+}
+
+export enum DayType {
+  working = 'working',
+  dayOff = 'dayOff',
+}
+
 export enum Preset {
   /** 250px */
   xsResize,

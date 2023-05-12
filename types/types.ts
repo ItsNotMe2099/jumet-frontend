@@ -1,7 +1,7 @@
 import {UrlObject} from 'url'
 import {HTMLInputTypeAttribute, MouseEventHandler} from 'react'
 import {FieldConfig} from 'formik'
-import {SnackbarType} from 'types/enums'
+import {DayType, SnackbarType, WeekDays} from 'types/enums'
 
 
 export class RequestError extends Error{
@@ -64,3 +64,16 @@ export interface IButton {
   isExternalHref?: boolean // add target blank and no referrer
 }
 
+export interface ITimeInterval {
+  startTime?: string
+  endTime?: string
+}
+
+export interface IDayDescription {
+  dayType: DayType
+  intervals: ITimeInterval[]
+}
+
+export type WorkDays = {
+  [day in WeekDays]: IDayDescription
+}

@@ -1,0 +1,36 @@
+@import "styles/index";
+
+.root{
+  flex: 1;
+  @include clearfix;
+  .timeItem{
+    display: flex;
+    flex-direction: row;
+    grid-gap: 5px;
+    align-items: center;
+    float: left;
+    margin-top: 10px;
+    margin-right: 12px;
+  }
+  .timeItemSeparator{
+    position: relative;
+    width: 10px;
+    &:before{
+      content: "";
+      position: absolute;
+      top: 50%;
+      margin-top: -1px;
+      height: 1px;
+      width: 100%;
+      background: black;
+    }
+  }
+}
+
+.addTimeBtn{
+  font-size: 12px;
+  margin-top: 10px;
+  &.empty{
+    margin-top: 18px;
+  }
+}

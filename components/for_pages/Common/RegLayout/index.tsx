@@ -13,6 +13,7 @@ interface Props {
   active?: SwitchState
   onClick?: (active: SwitchState) => void
   onBack?: () => void
+  filter?: boolean
 }
 
 
@@ -40,7 +41,7 @@ export default function RegLayout(props: Props) {
   return (
     <div className={styles.root}>
       <div className={styles.wrapper}>
-        {props.indicator ?
+        {props.indicator || props.filter ?
           <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack} />
           : null
         }
@@ -48,7 +49,7 @@ export default function RegLayout(props: Props) {
           <div className={styles.title}>
             {props.title}
           </div>
-          {(!props.indicator && router.asPath !== '/CompleteRegistration') || (props.indicator && router.asPath !== '/CompleteRegistration') ? (
+          {(!props.indicator) ? (
             <FilterSwitch
               text1='Продавец лома'
               text2='Ломозаготовитель'
@@ -62,4 +63,8 @@ export default function RegLayout(props: Props) {
       </div>
     </div>
   )
+}
+
+RegLayout.defaultProps = {
+  filter: true
 }

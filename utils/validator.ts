@@ -26,6 +26,16 @@ export default class Validator {
       : undefined
   }
 
+  static weekScheduleRequired(value: any): string | undefined {
+    const keys = value ? Object.keys(value) : []
+    for(const key of keys){
+      if(value[key]?.intervals.length > 0){
+        return undefined
+      }
+    }
+    return 'Добавьте время хотя бы в 1 день'
+  }
+
   static passwordsMustMatch = (allValues: any) => (value: string): string | undefined => {
     return value !== allValues.password ? 'form_field_validation_password_match' : undefined
   }

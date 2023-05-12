@@ -6,7 +6,7 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 
 interface IOption {
-  value: string
+  value?: string
   label: string
 }
 
