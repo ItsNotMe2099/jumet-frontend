@@ -35,7 +35,7 @@ export const getServerSideProps = async (context: any ) => {
    }
  }
   const page = await PagesRepository.fetchBySlug(context.query.page as string)
-
+  console.log('Page11', page)
   return {
     props: {
       page,
