@@ -4,7 +4,7 @@ import IFile from 'data/interfaces/IFile'
 import FileRepository from 'data/repositories/FileRepository'
 import { FileUploadAcceptType, SnackbarType } from 'types/enums'
 import { useField } from 'formik'
-import UserRepository from 'data/repositories/UserRepository'
+import AuthRepository from 'data/repositories/AuthRepository'
 import { useAppContext } from 'context/state'
 import { IField, RequestError } from 'types/types'
 import { Accept, DropEvent, FileRejection, useDropzone } from 'react-dropzone'
@@ -46,7 +46,7 @@ export default function FileField(props: Props) {
   const handleDelete = async () => {
     if (field.value) {
       try {
-        await UserRepository.deleteMyFile(field.value.id)
+        await AuthRepository.deleteMyFile(field.value.id)
         helpers.setValue(null)
       } catch (err) {
         if (err instanceof RequestError) {

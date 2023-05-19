@@ -7,7 +7,7 @@ interface Props extends IButton{
   children: React.ReactNode
   className?: string
   buttonRef?: RefObject<any>
-  bgColor: 'transparent' | 'white'
+  bgColor: 'transparent' | 'white' | 'dark400'
   size?: 'normal' | 'medium' | 'large'
 }
 

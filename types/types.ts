@@ -1,5 +1,5 @@
 import {UrlObject} from 'url'
-import {HTMLInputTypeAttribute, MouseEventHandler} from 'react'
+import {HTMLInputTypeAttribute, MouseEventHandler, ReactElement} from 'react'
 import {FieldConfig} from 'formik'
 import {DayType, SnackbarType, WeekDays} from 'types/enums'
 
@@ -48,6 +48,12 @@ export interface IOption<T> {
   value?: T
   disabled?: boolean
   description?: string
+}
+
+export interface ISwitchFilterItem<T> {
+  label?: string
+  icon?: string | ReactElement
+  value: T
 }
 
 export interface SnackbarData {

@@ -7,7 +7,7 @@ import { useState } from 'react'
 import { FieldValidator } from 'formik/dist/types'
 import { IField } from 'types/types'
 import { InputStyleType } from '@/types/enums'
-import ErrorInput from '../ErrorInput'
+import FieldError from '../FieldError'
 
 interface Props extends IField<string> {
   blurValidate?: FieldValidator
@@ -60,7 +60,7 @@ export default function PhoneField(props: Props & FieldConfig) {
 
         onChange={handleChange}
       />
-      <ErrorInput {...meta} />
+      <FieldError {...meta} />
     </div>
   )
 }

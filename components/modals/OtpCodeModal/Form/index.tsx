@@ -3,24 +3,71 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import { useAppContext } from '@/context/state'
 import { useAuthContext } from '@/context/auth_state'
 import OtpCodeField from '@/components/fields/OtpCodeField'
-import Timer from '@/components/for_pages/Common/Timer'
+import {useState} from 'react'
+import AuthRepository from '@/data/repositories/AuthRepository'
+import {RequestError} from '@/types/types'
+import useInterval from 'use-interval'
+import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
+import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
+import {SnackbarType} from '@/types/enums'
+import OtpCodeSendAgain from '@/components/ui/OtpCodeSendAgain'
 
 
 interface Props {
-
+  code?: string
+  login: string,
+  codeCanRetryIn: number
+  onConfirm: (res: IAuthResponse) => void,
+  onSendAgain: () => Promise<ISendCodeResponse>
 }
 
 export default function OtpCodeForm(props: Props) {
+  const [error, setError] = useState<string | null>(null)
+  const [code, setCode] = useState<string | null>(props.code ?? null)
+  const [loading, setLoading] = useState(false)
+  const [loadingSendAgain, setLoadingSendAgain] = useState(false)
+  const [remainSec, setRemainSec] = useState<number>(props.codeCanRetryIn)
 
-  const handleSubmit = async (data: { phone: string, code: string }) => {
-    await authContext.confirmCode(data.code)
+  useInterval(() => {
+    if (remainSec > 0) {
+      setRemainSec(remainSec - 1)
+    }
+  }, 1000)
+  const handleSendAgain = async () => {
+    setError(null)
+    setLoadingSendAgain(true)
+    try {
+      const res = await props.onSendAgain()
+      setRemainSec(res.codeCanRetryIn)
+      setCode(res.code)
+
+    } catch (err) {
+      if (err instanceof RequestError) {
+        appContext.showSnackbar(err.message, SnackbarType.error)
+      }
+    }
+    setLoadingSendAgain(false)
+  }
+
+  const handleSubmit = async (data: { code: string }) => {
+    setError(null)
+    setLoading(true)
+    try {
+      const res = await AuthRepository.sellerConfirmCode({...data, phone: props.login})
+      await props.onConfirm(res)
+    } catch (err) {
+      if (err instanceof RequestError) {
+        setError(err.message)
+      }
+
+    }
+    setLoading(false)
   }
 
   const appContext = useAppContext()
   const authContext = useAuthContext()
 
   const initialValues = {
-    phone: appContext.modalArguments,
     code: ''
   }
 
@@ -29,15 +76,6 @@ export default function OtpCodeForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-
-  const handleSendCodeAgain = async () => {
-    if (authContext.remainSec === 0) {
-      await authContext.sendCodeAgain()
-    }
-  }
-
-  console.log('formik.values MODAL', formik.values)
-
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
@@ -45,13 +83,11 @@ export default function OtpCodeForm(props: Props) {
           name='code'
           length={4}
           onComplete={() => formik.submitForm()}
-          snackbar={authContext.otpError?.show}
-          disabled={authContext.confirmSpinner || authContext.againSpinner}
+          showError={!!error}
+          disabled={loadingSendAgain || loading}
         />
-        <div className={styles.code}>{authContext.codeRes?.code}</div>
-        <div className={styles.bottom}>
-          Код не пришел?<br /><span onClick={handleSendCodeAgain}>Запросить код повторно</span> через <Timer key={authContext.remainSec} seconds={authContext.remainSec} /> сек.
-        </div>
+        {code && <div className={styles.code}>{code}</div>}
+       <OtpCodeSendAgain remainSec={remainSec} onSendAgainClick={handleSendAgain}/>
       </Form>
     </FormikProvider>
   )

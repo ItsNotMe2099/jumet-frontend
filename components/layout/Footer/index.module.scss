@@ -118,7 +118,14 @@
 .menu {}
 
 .title {
-    @include h1;
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 40px;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 22px;
+    line-height: 30px;
+  }
     color: $white;
 }
 
@@ -135,8 +142,10 @@
 }
 
 .option {
-    @include mainText;
+  font-weight: 400;
+  font-size: 16px;
     color: $white;
+
 }
 
 .bottom {

@@ -72,3 +72,8 @@ export enum Preset {
   /** 1800px */
   xlCrop,
 }
+
+export enum LoginType {
+  Seller = 'seller',
+  Buyer = 'buyer'
+}

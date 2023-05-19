@@ -3,15 +3,15 @@ import { useField } from 'formik'
 import { IField } from 'types/types'
 import PinInput from 'react-pin-input'
 import { useAuthContext } from 'context/auth_state'
-import OtpSnackbar from './OtpSnackbar'
 import classNames from 'classnames'
+import FieldError from '@/components/fields/FieldError'
 
 interface Props extends IField<string> {
   label?: string,
   length: number,
-  onComplete: (code: string) => void
+  onComplete?: (code: string) => void
   errorMessage?: string
-  snackbar?: boolean
+  showError?: boolean
 }
 
 export default function OtpCodeField(props: Props) {
@@ -23,17 +23,21 @@ export default function OtpCodeField(props: Props) {
   const handleComplete = (value: string) => {
     console.log('handleComplete', value)
     helpers.setValue(value)
-    setTimeout(() => {
-      props.onComplete(value)
-    }, 100)
+    if(props.onComplete) {
+      setTimeout(() => {
+        if(props.onComplete) {
+          props.onComplete(value)
+        }
+      }, 100)
+    }
 
   }
 
   return (
-    <div className={classNames(styles.root, { [styles.error]: props.snackbar })}>
+    <div className={classNames(styles.root, { [styles.error]: showError || props.showError })}>
       <PinInput
         focus
-        disabled={props.disabled}
+        disabled={props.disabled ?? false}
         length={length}
         initialValue=""
         onChange={(value, index) => helpers.setValue(value)}
@@ -46,7 +50,7 @@ export default function OtpCodeField(props: Props) {
         autoSelect={true}
         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       />
-      {authContext.otpError?.show ? <OtpSnackbar /> : null}
+      <FieldError {...meta} />
     </div>
   )
 }

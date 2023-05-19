@@ -17,12 +17,12 @@ export default class Validator {
   }
 
   static required(value: string | number): string | undefined {
-    return value || typeof value === 'number' ? undefined : 'form_field_validation_required'
+    return value || typeof value === 'number' ? undefined : 'Обязательное поле'
   }
 
   static email(value: string): string | undefined {
     return value && !Validator.emailRe.test(value)
-      ? 'form_field_validation_email'
+      ? 'Неверный формат'
       : undefined
   }
 
@@ -40,13 +40,12 @@ export default class Validator {
     return value !== allValues.password ? 'form_field_validation_password_match' : undefined
   }
   static password(value: string): string | undefined {
-    return value && value.length < 6
-      ? 'form_field_validation_password'
+    return value && value.length <= 6
+      ? 'Пароль должен быть больше 6 символов'
       : undefined
   }
 
   static phone(value: string): string | undefined{
-    console.log('PhoneLen', Formatter.cleanPhone(value ?? '')?.length >= 12)
     return Formatter.cleanPhone(value ?? '')?.length >= 12 ? undefined : 'Неверный формат'
   }
 

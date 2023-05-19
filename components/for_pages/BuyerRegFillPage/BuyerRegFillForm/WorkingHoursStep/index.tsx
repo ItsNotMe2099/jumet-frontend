@@ -5,9 +5,9 @@ import { FileUploadAcceptType } from '@/types/enums'
 import Validator from '@/utils/validator'
 import { useState } from 'react'
 import classNames from 'classnames'
-import { SwitchState } from '@/data/enum/SwitchState'
 import SwitchField from '@/components/fields/SwitchField'
 import ScheduleWeekDaysField from '@/components/fields/Schedule/ScheduleWeekDaysField'
+import {ScheduleType} from '@/data/enum/ScheduleType'
 
 
 interface Props {
@@ -32,7 +32,7 @@ export default function WorkingHoursStep(props: Props) {
     onSubmit: handleSubmit
   })
 
-  const [option, setOption] = useState<SwitchState>(SwitchState.FirstOption)
+  const [option, setOption] = useState<ScheduleType>(ScheduleType.WorkAndWeekends)
 
   console.log('formik.values', formik.values)
 
@@ -51,17 +51,17 @@ export default function WorkingHoursStep(props: Props) {
             Режим работы
           </div>
           <div className={styles.types}>
-            <div onClick={() => setOption(SwitchState.FirstOption)} className={classNames(styles.option, { [styles.active]: option === SwitchState.FirstOption })}>
+            <div onClick={() => setOption(ScheduleType.WorkAndWeekends)} className={classNames(styles.option, { [styles.active]: option === ScheduleType.WorkAndWeekends })}>
               Будни и выходные
               <div className={styles.line} />
             </div>
-            <div onClick={() => setOption(SwitchState.Secondoption)} className={classNames(styles.option, { [styles.active]: option === SwitchState.Secondoption })}>
+            <div onClick={() => setOption(ScheduleType.ByDays)} className={classNames(styles.option, { [styles.active]: option === ScheduleType.ByDays })}>
               Режим по дням
               <div className={styles.line} />
             </div>
           </div>
           <div className={styles.wrapper}>
-            {option === SwitchState.FirstOption ?
+            {option === ScheduleType.WorkAndWeekends ?
               <>
                 <SwitchField name='always' label='Круглосуточно' />
                 <div className={styles.options}>

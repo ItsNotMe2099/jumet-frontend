@@ -1,0 +1,253 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+
+}
+
+.amount {
+  color: $white;
+  font-weight: bold;
+  font-size: 13px;
+  margin-right: 4px;
+}
+
+.iso {
+  color: #8f8e8d;
+  font-weight: bold;
+  font-size: 13px;
+}
+
+.iso2 {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.icon {
+  display: flex;
+  margin-right: 4px;
+}
+
+.dropDown {
+  position: absolute;
+  background: #ffffff;
+  display: none;
+
+  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
+  z-index: $zIndexTop;
+  flex-direction: column;
+  margin-top: 16px;
+  left: 50%;
+
+  a {
+    padding: 10px 21px;
+    font-size: 13px;
+    font-weight: 500;
+    color: $white;
+
+    &:hover {
+      background-color: $dark400;
+    }
+    @media screen and (max-width: $xs-max){
+      font-size: 12px;
+    }
+  }
+
+  .option:nth-child(2) {
+    a {
+      &:hover {
+        border-top-left-radius: 12px;
+        border-top-right-radius: 12px;
+      }
+    }
+  }
+
+  .option:last-child {
+    a {
+      &:hover {
+        border-bottom-left-radius: 12px;
+        border-bottom-right-radius: 12px;
+      }
+    }
+  }
+}
+
+.dropDownActive {
+
+  display: flex;
+
+  transform: translate(-50%, 0%);
+  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
+  background: $dark500;
+  border-radius: 4px;
+  min-width: 221px;
+  .option:nth-child(2) {
+    border-top-left-radius: 12px !important;
+    border-top-right-radius: 12px !important;
+
+    &:hover {
+      border-top-left-radius: 12px !important;
+      border-top-right-radius: 12px !important;
+    }
+  }
+
+  .option:last-child {
+    &:hover {
+      border-bottom-left-radius: 12px;
+      border-bottom-right-radius: 12px;
+    }
+  }
+  @media screen and (max-width: $xs-max) {
+    right: 2px;
+    left: auto;
+    transform: none;
+    top: 13px;
+    margin-top: 42px;
+  }
+}
+
+.dropDownTrigger {
+
+}
+
+.newAccount {
+  justify-content: center;
+
+  .active {
+    transform: none;
+  }
+}
+
+.subtract {
+  display: flex;
+  margin-right: 8px;
+}
+
+.isSelected {
+  position: relative;
+  padding-left: 6px;
+
+  &:before {
+    content: '';
+    width: 4px;
+    height: 4px;
+    background: #27AE60;
+    border-radius: 4px;
+    position: absolute;
+    top: 50%;
+    margin-top: -2px;
+    left: 0px
+  }
+}
+
+
+.dropdownTriggerActive {
+  position: relative;
+  font-size: 13px;
+  color: #000000;
+  padding-bottom: 6px;
+}
+
+.isActive {
+  color: #27AE60;
+}
+
+.option {
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  z-index: 1;
+
+  a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    img {
+      margin-right: 6px;
+    }
+  }
+}
+
+.label {
+  display: flex;
+  align-items: center;
+  margin-right: 7px;
+
+  span {
+    font-size: 13px;
+
+
+    color: #FFFFFF;
+  }
+
+  @media screen and (max-width: $xs-max) {
+    span {
+      font-size: 11px;
+    }
+  }
+}
+
+.active {
+  transform: rotate(180deg);
+  align-self: center;
+}
+
+
+
+.rotate{
+  transform: rotate(360deg);
+}
+
+.leftSide {
+  display: flex;
+  align-items: center;
+}
+
+.amount2 {
+  font-weight: 500;
+  font-size: 13px;
+  color: $white;
+
+  span {
+    color: #96969b;
+  }
+}
+
+.dg {
+  font-weight: 500;
+  font-size: 12px;
+  text-align: right;
+
+  span {
+    color: #96969b;
+  }
+}
+
+.avatar {
+  width: 26px;
+  height: 26px;
+  margin-right: 7px;
+  @media screen and (max-width: $xs-max) {
+    width: 40px;
+    height: 40px;
+  }
+
+  div {
+    img {
+      width: 26px;
+      height: 26px;
+      border-radius: 100%;
+      @media screen and (max-width: $xs-max) {
+        width: 40px;
+        height: 40px;
+      }
+    }
+  }
+}
+.triangle{
+  @media screen and (max-width: $xs-max) {
+    left: auto !important;
+    right: 3.5px;
+  }
+}

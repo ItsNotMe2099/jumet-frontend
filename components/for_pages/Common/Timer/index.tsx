@@ -3,7 +3,6 @@ import { useState, useEffect } from 'react'
 
 interface Props {
   seconds: number
-  key: number
 }
 
 export default function Timer({ seconds }: Props) {

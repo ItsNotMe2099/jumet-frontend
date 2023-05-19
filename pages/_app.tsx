@@ -9,6 +9,7 @@ import ModalContainer from 'components/layout/ModalContainer'
 import Snackbar from 'components/layout/Snackbar'
 import Head from 'next/head'
 import { AuthWrapper } from 'context/auth_state'
+import {getToken} from '@/utils/auth'
 
 export interface AppProps extends NextAppProps {
   pageProps: {
@@ -27,7 +28,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     [])
 
   return (
-    <AppWrapper isMobile={pageProps.isMobile}>
+    <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
       <AuthWrapper>
         <Head>
           <link rel="preconnect" href="https://fonts.googleapis.com" />

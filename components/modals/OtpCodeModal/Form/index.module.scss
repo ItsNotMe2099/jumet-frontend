@@ -17,16 +17,7 @@
     }
 }
 
-.bottom {
-    text-align: center;
-    @include secondaryText;
-
-    span {
-        color: $blue500;
-        cursor: pointer;
-    }
-}
-
 .code {
+    font-weight: 700;
     text-align: center;
 }

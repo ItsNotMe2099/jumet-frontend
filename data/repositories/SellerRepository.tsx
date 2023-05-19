@@ -1,11 +1,11 @@
 import request from 'utils/request'
-import { ILoginResponse } from '../interfaces/ILoginResponse'
+import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 
 export default class SellerRepository {
 
-  static async sendCodeToPhone(phone: string): Promise<ILoginResponse> {
-    const res = await request<ILoginResponse>({
-      url: `/api/auth/seller/send-code`,
+  static async sendCodeToPhone(phone: string): Promise<ISendCodeResponse> {
+    const res = await request<ISendCodeResponse>({
+      url: '/api/auth/seller/send-code',
       method: 'post',
       data: {
         phone,

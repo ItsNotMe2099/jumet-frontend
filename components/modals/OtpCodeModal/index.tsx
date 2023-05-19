@@ -7,6 +7,8 @@ import BottomSheetBody from '@/components/layout/BottomSheet/BottomSheetBody'
 import BottomSheetFooter from '@/components/layout/BottomSheet/BottomSheetFooter'
 import OtpCodeForm from './Form'
 import CloseSvg from '@/components/svg/CloseSvg'
+import {useAppContext} from '@/context/state'
+import {OtpCodeModalArguments} from '@/types/modal_arguments'
 
 interface Props {
   isBottomSheet?: boolean
@@ -16,7 +18,8 @@ interface Props {
 const OtpCodeModalInner = (props: Props) => {
 
   const header = (<div />)
-
+    const appContext = useAppContext()
+  const args = appContext.modalArguments as OtpCodeModalArguments
   const menuNotAuth = [
     { link: '', label: 'Пункты приёма лома' },
     { link: '', label: 'Купить лом' },
@@ -52,7 +55,7 @@ const OtpCodeModalInner = (props: Props) => {
           <div className={styles.text}>
             На указанный вами номер отправлен код<br /> подтверждения, введите его
           </div>
-          <OtpCodeForm />
+          <OtpCodeForm  login={args.login} code={args.code} codeCanRetryIn={args.codeCanRetryIn} onConfirm={args.onConfirm} onSendAgain={args.onSendAgain}/>
         </div>
       </ModalLayout>
     )

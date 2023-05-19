@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { FieldConfig, useField } from 'formik'
 import classNames from 'classnames'
 import { IField } from 'types/types'
-import ErrorInput from 'components/fields/ErrorInput'
+import FieldError from 'components/fields/FieldError'
 import { ChangeEvent, useState } from 'react'
 import { InputStyleType } from '@/types/enums'
 import EyeSvg from '@/components/svg/EyeSvg'
@@ -61,7 +61,7 @@ export default function TextField(props: Props) {
             placeholder={props.placeholder}
           />
         </div>
-        <ErrorInput {...meta} />
+        <FieldError {...meta} />
       </div>
     </div >
   )

@@ -1,10 +1,8 @@
 @import "styles/index";
 
 .root {
-    height: 84px;
     background-color: $dark500;
-    display: flex;
-    align-items: center;
+
     position: relative;
     z-index: 12;
 }
@@ -14,6 +12,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    height: 84px;
 }
 
 .logo {
@@ -110,4 +109,10 @@
     padding: 0 23px;
     display: flex;
     flex-direction: column;
+}
+.userButtons{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    @include list(15px, true)
 }

@@ -1,0 +1,8 @@
+@import "styles/index";
+
+.root{
+ @include h1;
+  color: $dark500;
+ margin-bottom: 24px;
+}
+

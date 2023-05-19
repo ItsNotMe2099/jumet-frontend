@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { FieldConfig, useField } from 'formik'
 import classNames from 'classnames'
 import { IField } from 'types/types'
-import ErrorInput from 'components/fields/ErrorInput'
+import FieldError from 'components/fields/FieldError'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 
 interface Props extends IField<string> {
@@ -36,7 +36,7 @@ export default function YMapsField(props: Props) {
           onChange={props.onChange}
           onBlur={props.onBlur}
         />
-        <ErrorInput {...meta} />
+        <FieldError {...meta} />
       </div>
     </div>
   )

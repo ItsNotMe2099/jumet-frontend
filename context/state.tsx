@@ -1,165 +1,218 @@
-import { createContext, useContext, useEffect, useState } from 'react'
-import { SnackbarData } from 'types/types'
-import { CookiesType, ModalType, SnackbarType } from 'types/enums'
+import {createContext, useContext, useEffect, useState} from 'react'
+import {RequestError, SnackbarData} from 'types/types'
+import {CookiesType, ModalType, SnackbarType} from 'types/enums'
 import ReactModal from 'react-modal'
-import { getIsMobile } from 'utils/mobile'
+import {getIsMobile} from 'utils/mobile'
 import IAboutMe from '@/data/interfaces/IAboutMe'
-import UserRepository from '@/data/repositories/UserRepository'
+import AuthRepository from '@/data/repositories/AuthRepository'
 import Cookies from 'js-cookie'
-
+import {Subject} from 'rxjs'
+import {CookiesLifeTime} from '@/types/constants'
 interface IState {
-  isMobile: boolean
-  isDesktop: boolean
-  modal: ModalType | null
-  modalArguments: any
-  bottomSheet: ModalType | null
-  snackbar: SnackbarData | null
-  showModal: (type: ModalType, args?: any) => void
-  showBottomSheet: (type: ModalType, args?: any) => void
-  hideModal: () => void
-  hideBottomSheet: () => void
-  showSnackbar: (text: string, type: SnackbarType) => void
-  updateAboutMe: (newUser?: IAboutMe) => void
-  setModalNonSkippable: (val: boolean) => void
-  updateTokenFromCookies: () => void
-  token: string | null
+    isMobile: boolean
+    isDesktop: boolean
+    isLogged: boolean
+    aboutMeLoaded: boolean
+    allLoaded: boolean
+    loginState$: Subject<boolean>
+    modal: ModalType | null
+    modalArguments: any
+    bottomSheet: ModalType | null
+    snackbar: SnackbarData | null
+    aboutMe: IAboutMe | null
+    showModal: (type: ModalType, args?: any) => void
+    showBottomSheet: (type: ModalType, args?: any) => void
+    hideModal: () => void
+    hideBottomSheet: () => void
+    setToken: (token: string) => void
+    showSnackbar: (text: string, type: SnackbarType) => void
+    updateAboutMe: (newUser?: IAboutMe) => void
+    setModalNonSkippable: (val: boolean) => void
+    logout: () => void,
+    token: string | null
 }
 
+const loginState$ = new Subject<boolean>()
 
-const ModalsBottomSheet: ModalType[] = [
-
-]
+const ModalsBottomSheet: ModalType[] = []
 
 const defaultValue: IState = {
-  isMobile: false,
-  isDesktop: true,
-  modal: null,
-  modalArguments: null,
-  bottomSheet: null,
-  snackbar: null,
-  showModal: (type) => null,
-  showBottomSheet: (type) => null,
-  hideModal: () => null,
-  hideBottomSheet: () => null,
-  showSnackbar: (text, type) => null,
-  updateAboutMe: () => null,
-  setModalNonSkippable: (val) => null,
-  updateTokenFromCookies: () => null,
-  token: null
+    isMobile: false,
+    isDesktop: true,
+    isLogged: false,
+    aboutMeLoaded: false,
+    allLoaded: false,
+    modal: null,
+    modalArguments: null,
+    bottomSheet: null,
+    snackbar: null,
+    aboutMe: null,
+    loginState$: loginState$,
+    showModal: (type) => null,
+    showBottomSheet: (type) => null,
+    hideModal: () => null,
+    hideBottomSheet: () => null,
+    setToken: (token: string) => null,
+    showSnackbar: (text, type) => null,
+    updateAboutMe: () => null,
+    setModalNonSkippable: (val) => null,
+    logout: () => null,
+    token: null
 }
 
 const AppContext = createContext<IState>(defaultValue)
 
 interface Props {
-  children: React.ReactNode
-  isMobile: boolean
-  token?: string
+    children: React.ReactNode
+    isMobile: boolean
+    token?: string | undefined
 }
 
 export function AppWrapper(props: Props) {
-  const [modal, setModal] = useState<ModalType | null>(null)
-  const [modalArguments, setModalArguments] = useState<any>(null)
-  const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
-  const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
-  const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
-  const [modalNonSkippable, setModalNonSkippable] = useState<boolean>(false)
-  const [token, setToken] = useState<string | null>(props.token ?? null)
-  const [aboutMe, setAboutMe] = useState<IAboutMe | null>(null)
+    const [modal, setModal] = useState<ModalType | null>(null)
+    const [modalArguments, setModalArguments] = useState<any>(null)
+    const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
+    const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
+    const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
+    const [modalNonSkippable, setModalNonSkippable] = useState<boolean>(false)
+    const [token, setToken] = useState<string | null>(props.token ?? null)
+    const [aboutMe, setAboutMe] = useState<IAboutMe | null>(null)
+    const [aboutMeLoaded, setAboutMeLoaded] = useState<boolean>(false)
+    const [isLogged, setIsLogged] = useState<boolean>(false)
+    const [allLoaded, setAllLoaded] = useState<boolean>(false)
+    useEffect(() => {
+        if (props.token) {
+            setIsLogged(true)
+        } else {
+            setIsLogged(false)
+        }
+    }, [props.token])
+    useEffect(() => {
+        const promises = []
 
-  useEffect(() => {
-    setToken(props.token ?? null)
-    if (props.token && !aboutMe) {
-      updateAboutMe()
+        if (props.token) {
+            promises.push(
+                updateAboutMe().catch(() => {
+                    setIsLogged(false)
+                }),
+            )
+        } else {
+            setAboutMeLoaded(true)
+        }
+
+        Promise.all(promises).then((i) => setTimeout(() => setAllLoaded(true), 1))
+
+    }, [])
+
+
+    const updateAboutMe = async (newUser?: IAboutMe) => {
+        if (newUser) {
+            setAboutMe(newUser)
+            setAboutMeLoaded(true)
+        } else {
+            try {
+                const data = await AuthRepository.fetchAboutMe()
+                if (data) {
+                    setAboutMe(data)
+                }
+
+            } catch (err) {
+                if (err instanceof RequestError) {
+                    showSnackbar(err.message, SnackbarType.error)
+                }
+            }
+            setAboutMeLoaded(true)
+        }
     }
-    if (!props.token && aboutMe) {
-      setAboutMe(null)
-    }
-  }, [props.token])
 
-  /** update user data from the server or just set them if passed to parameter */
-  const updateAboutMe = async (newUser?: IAboutMe) => {
-    if (newUser) {
-      setAboutMe(newUser)
-    } else {
-      const data = await UserRepository.fetchAboutMe()
-      if (data) {
-        setAboutMe(data)
-      }
-    }
-  }
+    useEffect(() => {
+        setIsMobile(getIsMobile(props.isMobile))
+    }, [])
 
-  useEffect(() => {
-    setIsMobile(getIsMobile(props.isMobile))
-  }, [])
+    const showModal = (type: ModalType, args?: any) => {
+        if (props.isMobile && ModalsBottomSheet.includes(type)) {
+            showBottomSheet(type, args)
+            return
+        }
 
-  const showModal = (type: ModalType, args?: any) => {
-    if (props.isMobile && ModalsBottomSheet.includes(type)) {
-      showBottomSheet(type, args)
-      return
+        ReactModal.setAppElement('body')
+        setModalArguments(args)
+        setModal(type)
+        if (bottomSheet) {
+            hideBottomSheet()
+        }
     }
 
-    ReactModal.setAppElement('body')
-    setModalArguments(args)
-    setModal(type)
-    if (bottomSheet) {
-      hideBottomSheet()
+    const hideModal = () => {
+        if (bottomSheet) {
+            hideBottomSheet()
+            return
+        }
+        setModal(null)
+        setModalArguments(null)
     }
-  }
 
-  const hideModal = () => {
-    if (bottomSheet) {
-      hideBottomSheet()
-      return
+    const showBottomSheet = (type: ModalType, props?: any) => {
+        ReactModal.setAppElement('body')
+        setModalArguments(props)
+        setBottomSheet(type)
     }
-    setModal(null)
-    setModalArguments(null)
-  }
 
-  const showBottomSheet = (type: ModalType, props?: any) => {
-    ReactModal.setAppElement('body')
-    setModalArguments(props)
-    setBottomSheet(type)
-  }
+    const hideBottomSheet = () => {
+        setBottomSheet(null)
+    }
 
-  const hideBottomSheet = () => {
-    setBottomSheet(null)
-  }
+    const showSnackbar = (text: string, type: SnackbarType) => {
+        setSnackbar({text, type})
+        setTimeout(() => {
+            setSnackbar(null)
+        }, 2000)
+    }
+    const value: IState = {
+        ...defaultValue,
+        isMobile: isMobile,
+        isDesktop: !props.isMobile,
+        isLogged,
+        aboutMeLoaded,
+        allLoaded,
+        modal,
+        modalArguments,
+        bottomSheet,
+        snackbar,
+        aboutMe,
+        updateAboutMe,
+        showModal,
+        showBottomSheet,
+        showSnackbar,
+        hideModal,
+        token,
+        setToken: (token: string) => {
+            Cookies.set(CookiesType.accessToken, token, {
+                expires: CookiesLifeTime.accessToken,
+            })
+            setIsLogged(true)
+            loginState$.next(true)
+        },
 
-  const value: IState = {
-    ...defaultValue,
-    isMobile: isMobile,
-    isDesktop: !props.isMobile,
-    modal,
-    modalArguments,
-    bottomSheet,
-    snackbar,
-    updateAboutMe,
-    showModal,
-    showBottomSheet,
-    showSnackbar: (text, type: SnackbarType) => {
-      setSnackbar({ text, type })
-      setTimeout(() => {
-        setSnackbar(null)
-      }, 2000)
-    },
-    hideModal,
-    token,
-    hideBottomSheet,
-    updateTokenFromCookies: async () => {
-      const oldToken = token
-      const newToken = Cookies.get(CookiesType.accessToken) ?? null
-      setToken(newToken)
-    },
-  }
+        hideBottomSheet,
+        logout: () => {
+            Cookies.remove(CookiesType.accessToken)
+            setIsLogged(false)
+            setAboutMe(null)
+
+            loginState$.next(false)
+        },
+
+    }
 
 
-  return (
-    <AppContext.Provider value={value}>
-      {props.children}
-    </AppContext.Provider>
-  )
+    return (
+        <AppContext.Provider value={value}>
+            {props.children}
+        </AppContext.Provider>
+    )
 }
 
 export function useAppContext() {
-  return useContext(AppContext)
+    return useContext(AppContext)
 }

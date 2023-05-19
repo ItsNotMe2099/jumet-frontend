@@ -1,0 +1,17 @@
+@import "styles/index";
+
+.root {
+  text-align: center;
+  @include secondaryText;
+
+}
+.link{
+  color: $blue500;
+  cursor: pointer;
+  &.active{
+    &:hover{
+      text-decoration: underline;
+    }
+  }
+
+}
