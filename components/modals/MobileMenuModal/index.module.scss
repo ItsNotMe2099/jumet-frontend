@@ -5,10 +5,12 @@
   width: 100vw !important;
   background: $dark500;
   height: 100vh;
-  padding: 32px;
+  padding: 24px 15px;
   border-radius: 0 !important;
-  top: 84px;
+  top: 64px;
   background-color: $dark500 !important;
+  border-top: 1px solid #404757;
+  @include list(20px, false);
 }
 
 .modalBody {
@@ -56,7 +58,23 @@
   color: #4C4958;
 }
 
-.link {
+.link,
+.linkWithIcon {
   @include btnText;
   color: $white;
+}
+
+.linkWithIcon {
+  display: flex;
+  align-items: center;
+
+  span {
+    display: flex;
+    margin-right: 16px;
+  }
+}
+
+.sep {
+  height: 1px;
+  background: #404757;
 }
