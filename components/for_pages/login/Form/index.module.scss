@@ -8,14 +8,6 @@
 
 .btn {
 
-    width: 20%;
-
-    span {
-        gap: 12px;
-        display: flex;
-        align-items: center;
-        color: $white;
-    }
 }
 
 .bottom {
@@ -33,6 +25,3 @@
     color: $blue500;
 }
 
-.alreadyBtn {
-    width: 40% !important;
-}

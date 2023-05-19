@@ -42,7 +42,7 @@
 
 .blue {
   background: $blue500;
-
+  color: $white;
   &:hover {
     box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
   }

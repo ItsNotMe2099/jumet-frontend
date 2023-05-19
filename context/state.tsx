@@ -106,14 +106,14 @@ export function AppWrapper(props: Props) {
 
 
     const updateAboutMe = async (updatedUser?: IAboutMe) => {
-      let newUser:IAboutMe | null
+      let newUser:IAboutMe | null = null
       if (updatedUser) {
         newUser = updatedUser
-            setAboutMe(updatedUser)
-            setAboutMeLoaded(true)
+        setAboutMe(updatedUser)
+        setAboutMeLoaded(true)
         } else {
             try {
-                const newUser = await AuthRepository.fetchAboutMe()
+                 newUser = await AuthRepository.fetchAboutMe()
                 if (newUser) {
                     setAboutMe(newUser)
                 }

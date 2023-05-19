@@ -5,6 +5,6 @@ export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'
     login: string,
     onConfirm: (res: IAuthResponse) => void
-    onCancel: () => void
+    onCancel?: () => void
     onSendAgain: () => Promise<ISendCodeResponse>
 }

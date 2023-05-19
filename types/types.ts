@@ -83,3 +83,11 @@ export interface IDayDescription {
 export type WorkDays = {
   [day in WeekDays]: IDayDescription
 }
+
+export interface IPageable {
+  name: string
+  slug: string
+  seoTitle: string
+  seoKeywords: string
+  seoDescription: string
+}

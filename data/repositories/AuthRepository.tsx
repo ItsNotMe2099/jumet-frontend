@@ -88,6 +88,17 @@ export default class AuthRepository {
   }
 
 
+  static async confirmEmail(data: { email: string, code: string }): Promise<IAuthResponse> {
+    const res = await request<IAuthResponse>({
+        method: 'get',
+        url: '/api/auth/emailConfirmationRedirect',
+        data
+      }
+    )
+    return res
+  }
+
+
   static async fetchAboutMe(token?: string): Promise<IAboutMe> {
     return request({url: '/api/auth/currentUser', token})
   }

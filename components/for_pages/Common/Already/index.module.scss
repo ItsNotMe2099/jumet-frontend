@@ -6,6 +6,7 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
+    align-items: flex-start;
     gap: 12px;
 }
 
@@ -15,7 +16,6 @@
 
 .signIn {
     color: $blue500;
-    width: 20%;
 }
 
 .bottom {
