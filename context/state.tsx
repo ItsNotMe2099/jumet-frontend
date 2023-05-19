@@ -26,7 +26,7 @@ interface IState {
     hideBottomSheet: () => void
     setToken: (token: string) => void
     showSnackbar: (text: string, type: SnackbarType) => void
-    updateAboutMe: (newUser?: IAboutMe) => void
+    updateAboutMe: (newUser?: IAboutMe) => Promise<IAboutMe | null>
     setModalNonSkippable: (val: boolean) => void
     logout: () => void,
     token: string | null
@@ -54,7 +54,7 @@ const defaultValue: IState = {
     hideBottomSheet: () => null,
     setToken: (token: string) => null,
     showSnackbar: (text, type) => null,
-    updateAboutMe: () => null,
+    updateAboutMe: async () => null,
     setModalNonSkippable: (val) => null,
     logout: () => null,
     token: null
@@ -105,15 +105,17 @@ export function AppWrapper(props: Props) {
     }, [])
 
 
-    const updateAboutMe = async (newUser?: IAboutMe) => {
-        if (newUser) {
-            setAboutMe(newUser)
+    const updateAboutMe = async (updatedUser?: IAboutMe) => {
+      let newUser:IAboutMe | null
+      if (updatedUser) {
+        newUser = updatedUser
+            setAboutMe(updatedUser)
             setAboutMeLoaded(true)
         } else {
             try {
-                const data = await AuthRepository.fetchAboutMe()
-                if (data) {
-                    setAboutMe(data)
+                const newUser = await AuthRepository.fetchAboutMe()
+                if (newUser) {
+                    setAboutMe(newUser)
                 }
 
             } catch (err) {
@@ -123,6 +125,7 @@ export function AppWrapper(props: Props) {
             }
             setAboutMeLoaded(true)
         }
+      return newUser
     }
 
     useEffect(() => {

@@ -36,7 +36,7 @@ export default function FinishForm(props: Props) {
         appContext.setToken(res.accessToken)
         }
         if(redirect){
-          router.replace('redirect')
+          router.replace(redirect)
         }else{
           router.replace(Routes.index)
         }

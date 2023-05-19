@@ -17,6 +17,7 @@ import FormError from '@/components/ui/FormError'
 import OtpCodeSendAgain from '@/components/ui/OtpCodeSendAgain'
 
 interface FormData {
+  code: string
   password: string,
   passwordConfirm: string
 }
@@ -63,7 +64,7 @@ export default function PasswordResetForm(props: Props) {
     try {
       const res = await AuthRepository.passwordSet({
         login: props.login,
-        code: props.code,
+        code: data.code,
         newPassword: data.password,
       })
 
@@ -103,6 +104,7 @@ export default function PasswordResetForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <div className={styles.codeArea}>
         <OtpCodeField
           name='code'
           length={4}
@@ -111,7 +113,8 @@ export default function PasswordResetForm(props: Props) {
         />
         {code && <div className={styles.code}>{code}</div>}
         <OtpCodeSendAgain remainSec={remainSec} onSendAgainClick={handleSendAgain}/>
-        <TextField inputStyle={InputStyleType.Password} name='password' label='Новый пароль'
+        </div>
+          <TextField inputStyle={InputStyleType.Password} name='password' label='Новый пароль'
                    validate={Validator.required}/>
         <TextField
           inputStyle={InputStyleType.Password}

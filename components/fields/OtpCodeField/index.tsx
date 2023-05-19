@@ -39,7 +39,7 @@ export default function OtpCodeField(props: Props) {
         focus
         disabled={props.disabled ?? false}
         length={length}
-        initialValue=""
+        initialValue={value}
         onChange={(value, index) => helpers.setValue(value)}
         type="numeric"
         inputMode="number"

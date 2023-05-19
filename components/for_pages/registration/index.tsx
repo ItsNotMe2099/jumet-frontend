@@ -46,7 +46,6 @@ export default function RegPage(props: Props) {
           {label: 'Продавец лома', value: RegType.Seller},
           {label: 'Ломазаготовитель', value: RegType.Buyer},
         ]}
-
       />
 
       {type === RegType.Seller && <SellerRegForm/>}

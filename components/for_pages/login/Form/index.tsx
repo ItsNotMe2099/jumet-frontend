@@ -39,7 +39,7 @@ export default function LoginForm(props: Props) {
         appContext.setToken(accessToken)
         appContext.updateAboutMe()
         if(redirect){
-          router.replace('redirect')
+          router.replace(redirect)
         }else{
           router.replace(Routes.index)
         }

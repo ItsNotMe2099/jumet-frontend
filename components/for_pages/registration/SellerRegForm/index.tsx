@@ -26,8 +26,22 @@ export default function SellerRegForm(props: Props) {
   const authContext = useAuthContext()
   const router = useRouter()
   const [loading, setLoading] = useState(false)
-  const handleCodeConfirmed = (res: IAuthResponse) => {
+
+  const redirect = router.query.redirect as string
+  const handleCodeConfirmed = async (res: IAuthResponse) => {
     appContext.setToken(res.accessToken)
+   const  user = await appContext.updateAboutMe()
+    appContext.hideModal()
+    if(user?.isRegistered){
+      if (redirect) {
+        router.replace(redirect)
+      } else {
+        router.replace(Routes.index)
+      }
+    }else{
+      router.push(Routes.registrationComplete)
+
+    }
   }
 
   const handleSubmit = async (data: {phone: string}) => {

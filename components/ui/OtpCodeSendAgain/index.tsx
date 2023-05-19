@@ -13,12 +13,13 @@ export default function OtpCodeSendAgain(props: Props) {
       props.onSendAgainClick()
     }
   }
+  console.log('props.remainSec', props.remainSec, )
     return (
       <div className={styles.root}>
         Код не пришел?<br/>
         <span onClick={handleSendAgain}
-                                 className={classNames({[styles.link]: true, [styles.active]: props.remainSec && props.remainSec <= 0})}>Запросить код повторно</span>
-        {props.remainSec && props.remainSec > 0 && <>через <Timer seconds={props.remainSec ?? 0}/> сек.</>}
+                                 className={classNames({[styles.link]: true, [styles.active]: (props.remainSec ?? 0) <= 0})}>Запросить код повторно</span>
+        {(props.remainSec ?? 0) > 0 && <> через <Timer seconds={props.remainSec ?? 0}/> сек.</>}
       </div>
     )
 
