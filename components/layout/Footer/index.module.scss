@@ -22,6 +22,10 @@
     @include container;
     gap: 32px;
 
+    @include mq($DesktopWidth, max) {
+        width: 100%;
+    }
+
     @include mq($PhoneWidth, max) {
         gap: 24px;
     }
@@ -32,6 +36,12 @@
     gap: 32px;
     flex-direction: column;
 
+    @include mq(1150px, max) {
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+    }
+
     .top {
         display: flex;
         align-items: center;
@@ -40,6 +50,16 @@
         @include mq($DesktopWidth, max) {
             align-items: baseline;
         }
+
+        @include mq(1150px, max) {
+            flex-direction: row;
+            align-items: center;
+        }
+    }
+
+    @include mq($TabletWidth, max) {
+        flex-direction: column;
+        align-items: flex-start;
     }
 }
 
@@ -49,9 +69,26 @@
     justify-content: space-between;
     gap: 10px;
 
+    @include mq(1370px, max) {
+        justify-content: flex-end;
+        @include list(90px, true)
+    }
+
+    @include mq($MdDesktopWidth, max) {
+        @include list(60px, true)
+    }
+
+    @include mq(1150px, max) {
+        justify-content: center;
+    }
+
+    @include mq($SmDesktopWidth, max) {
+        @include list(15px, true)
+    }
+
     @include mq($TabletWidth, max) {
         flex-direction: column;
-        gap: 24px;
+        @include list(24px, false)
     }
 }
 
@@ -72,7 +109,11 @@
     justify-content: space-between;
     gap: 50px;
 
-    @include mq($DesktopWidth, max) {
+    @include mq(1150px, max) {
+        flex-direction: column-reverse;
+    }
+
+    @include mq($TabletWidth, max) {
         flex-direction: column;
     }
 }
@@ -118,14 +159,15 @@
 .menu {}
 
 .title {
-  font-weight: 700;
-  font-size: 24px;
-  line-height: 40px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 40px;
 
-  @include mq($PhoneWidth, max) {
-    font-size: 22px;
-    line-height: 30px;
-  }
+    @include mq($PhoneWidth, max) {
+        font-size: 22px;
+        line-height: 30px;
+    }
+
     color: $white;
 }
 
@@ -142,8 +184,8 @@
 }
 
 .option {
-  font-weight: 400;
-  font-size: 16px;
+    font-weight: 400;
+    font-size: 16px;
     color: $white;
 
 }
