@@ -29,7 +29,7 @@ export default function Switch(props: Props) {
         height={props.height ?? 24}
         width={props.width ?? 37}
         offColor={props.offColor ?? colors.grey400}
-        onColor={props.onColor ?? colors.yellow}
+        onColor={props.onColor ?? colors.yellow500}
         offHandleColor={props.offHandleColor ?? colors.white}
         onHandleColor={props.onHandleColor ?? colors.white}
       />

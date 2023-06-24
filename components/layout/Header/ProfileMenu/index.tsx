@@ -6,6 +6,7 @@ import IconButton from '@/components/ui/IconButton'
 import UserSvg from '@/components/svg/UserSvg'
 import {colors} from '@/styles/variables'
 import {useAppContext} from '@/context/state'
+import { useRouter } from 'next/router'
 
 interface Option {
   label: string
@@ -23,6 +24,7 @@ enum ActionType{
 export default function ProfileMenu(props: Props){
   const appContext = useAppContext()
   const dropdownRef = useRef(null)
+  const router = useRouter()
 
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)
 
@@ -34,9 +36,11 @@ export default function ProfileMenu(props: Props){
     e.preventDefault()
     switch (item.key) {
       case ActionType.Profile:
+        router.push('/profile')
         break
       case ActionType.Logout:
           setTimeout(() => appContext.logout(), 100)
+          router.push('/')
         break
     }
     setIsActive(false)

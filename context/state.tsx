@@ -80,6 +80,9 @@ export function AppWrapper(props: Props) {
     const [aboutMeLoaded, setAboutMeLoaded] = useState<boolean>(false)
     const [isLogged, setIsLogged] = useState<boolean>(false)
     const [allLoaded, setAllLoaded] = useState<boolean>(false)
+
+    console.log('aboutMe', aboutMe)
+
     useEffect(() => {
         if (props.token) {
             setIsLogged(true)

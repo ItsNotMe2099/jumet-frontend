@@ -1,13 +1,13 @@
 import FileField from '@/components/fields/FileField'
 import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
-import { FileUploadAcceptType } from '@/types/enums'
+import { FileUploadAcceptType, WeekDays } from '@/types/enums'
 import Validator from '@/utils/validator'
 import { useState } from 'react'
 import classNames from 'classnames'
 import SwitchField from '@/components/fields/SwitchField'
 import ScheduleWeekDaysField from '@/components/fields/Schedule/ScheduleWeekDaysField'
-import {ScheduleType} from '@/data/enum/ScheduleType'
+import { ScheduleType } from '@/data/enum/ScheduleType'
 
 
 interface Props {
@@ -21,10 +21,20 @@ export default function WorkingHoursStep(props: Props) {
     props.onNextStep()
   }
 
+  const days = [
+    {title: 'Пн', value: WeekDays.monday},
+    {title: 'Вт', value: WeekDays.tuesday},
+    {title: 'Ср', value: WeekDays.wednesday},
+    {title: 'Чт', value: WeekDays.thursday},
+    {title: 'Пт', value: WeekDays.friday},
+    {title: 'Сб', value: WeekDays.saturday},
+    {title: 'Вс', value: WeekDays.sunday},
+  ]
+
   const initialValues = {
     photo: [],
     always: false,
-    workingDays: null
+    workingDays: days
   }
 
   const formik = useFormik({
@@ -61,9 +71,12 @@ export default function WorkingHoursStep(props: Props) {
             </div>
           </div>
           <div className={styles.wrapper}>
+            <SwitchField name='always' label='Круглосуточно' />
             {option === ScheduleType.WorkAndWeekends ?
               <>
-                <SwitchField name='always' label='Круглосуточно' />
+              </>
+              :
+              <>
                 <div className={styles.options}>
                   <ScheduleWeekDaysField
                     name='workingDays'
@@ -71,9 +84,6 @@ export default function WorkingHoursStep(props: Props) {
                     validate={Validator.weekScheduleRequired}
                   />
                 </div>
-              </>
-              :
-              <>
               </>
             }
           </div>

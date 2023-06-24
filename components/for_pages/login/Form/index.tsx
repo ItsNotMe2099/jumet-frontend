@@ -90,7 +90,7 @@ export default function LoginForm(props: Props) {
           validate={Validator.required}
           inputStyle={InputStyleType.Password} />
         <div className={styles.checkbox}>
-          <CheckBoxField name='checkbox' color={colors.yellow} label='Запомнить пароль' />
+          <CheckBoxField name='checkbox' color={colors.yellow500} label='Запомнить пароль' />
           <Link href={Routes.passwordForgot} className={styles.forget}>
             Забыли пароль?
           </Link>

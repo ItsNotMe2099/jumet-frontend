@@ -1,0 +1,31 @@
+@import "styles/index";
+
+.form {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+  border-radius: $StandartBorderRadius;
+  padding: 20px;
+  background-color: $white;
+
+  @include mq($PhoneWidth, max) {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+.field {
+  width: 70% !important;
+
+  @include mq($PhoneWidth, max) {
+    width: 100% !important;
+  }
+}
+
+.btn {
+  width: 25%;
+
+  @include mq($PhoneWidth, max) {
+    width: 100% !important;
+  }
+}

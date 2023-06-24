@@ -22,7 +22,7 @@ export default function ScheduleWeekDaysField(props: Props) {
   const showError = meta.touched && !!meta.error
   const days = [
     {title: 'Пн', value: WeekDays.monday},
-    {title: 'Вс', value: WeekDays.tuesday},
+    {title: 'Вт', value: WeekDays.tuesday},
     {title: 'Ср', value: WeekDays.wednesday},
     {title: 'Чт', value: WeekDays.thursday},
     {title: 'Пт', value: WeekDays.friday},

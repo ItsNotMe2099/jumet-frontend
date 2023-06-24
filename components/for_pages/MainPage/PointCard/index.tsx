@@ -55,7 +55,7 @@ export default function PointCard(props: Props) {
             {props.item.title}
           </div>
           <div className={styles.rating}>
-            <StarSvg color={colors.yellow} />
+            <StarSvg color={colors.yellow500} />
             <div className={styles.number}>{props.item.rating}</div>
           </div>
         </div>
