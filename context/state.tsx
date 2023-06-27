@@ -1,13 +1,14 @@
-import {createContext, useContext, useEffect, useState} from 'react'
-import {RequestError, SnackbarData} from 'types/types'
-import {CookiesType, ModalType, SnackbarType} from 'types/enums'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { RequestError, SnackbarData } from 'types/types'
+import { CookiesType, ModalType, ProfileMenuSettings, SnackbarType } from 'types/enums'
 import ReactModal from 'react-modal'
-import {getIsMobile} from 'utils/mobile'
+import { getIsMobile } from 'utils/mobile'
 import IAboutMe from '@/data/interfaces/IAboutMe'
 import AuthRepository from '@/data/repositories/AuthRepository'
 import Cookies from 'js-cookie'
-import {Subject} from 'rxjs'
-import {CookiesLifeTime} from '@/types/constants'
+import { Subject } from 'rxjs'
+import { CookiesLifeTime } from '@/types/constants'
+
 interface IState {
     isMobile: boolean
     isDesktop: boolean
@@ -30,6 +31,8 @@ interface IState {
     setModalNonSkippable: (val: boolean) => void
     logout: () => void,
     token: string | null
+    activeOption: string
+    setActiveOption: (option: string) => void
 }
 
 const loginState$ = new Subject<boolean>()
@@ -57,7 +60,9 @@ const defaultValue: IState = {
     updateAboutMe: async () => null,
     setModalNonSkippable: (val) => null,
     logout: () => null,
-    token: null
+    token: null,
+    activeOption: '',
+    setActiveOption: (option: string) => null
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -81,6 +86,9 @@ export function AppWrapper(props: Props) {
     const [isLogged, setIsLogged] = useState<boolean>(false)
     const [allLoaded, setAllLoaded] = useState<boolean>(false)
 
+
+    const [activeOption, setActiveOption] = useState<string>(ProfileMenuSettings.Settings)
+
     console.log('aboutMe', aboutMe)
 
     useEffect(() => {
@@ -90,6 +98,7 @@ export function AppWrapper(props: Props) {
             setIsLogged(false)
         }
     }, [props.token])
+
     useEffect(() => {
         const promises = []
 
@@ -109,14 +118,14 @@ export function AppWrapper(props: Props) {
 
 
     const updateAboutMe = async (updatedUser?: IAboutMe) => {
-      let newUser:IAboutMe | null = null
-      if (updatedUser) {
-        newUser = updatedUser
-        setAboutMe(updatedUser)
-        setAboutMeLoaded(true)
+        let newUser: IAboutMe | null = null
+        if (updatedUser) {
+            newUser = updatedUser
+            setAboutMe(updatedUser)
+            setAboutMeLoaded(true)
         } else {
             try {
-                 newUser = await AuthRepository.fetchAboutMe()
+                newUser = await AuthRepository.fetchAboutMe()
                 if (newUser) {
                     setAboutMe(newUser)
                 }
@@ -128,7 +137,7 @@ export function AppWrapper(props: Props) {
             }
             setAboutMeLoaded(true)
         }
-      return newUser
+        return newUser
     }
 
     useEffect(() => {
@@ -169,11 +178,12 @@ export function AppWrapper(props: Props) {
     }
 
     const showSnackbar = (text: string, type: SnackbarType) => {
-        setSnackbar({text, type})
+        setSnackbar({ text, type })
         setTimeout(() => {
             setSnackbar(null)
         }, 2000)
     }
+
     const value: IState = {
         ...defaultValue,
         isMobile: isMobile,
@@ -192,6 +202,10 @@ export function AppWrapper(props: Props) {
         showSnackbar,
         hideModal,
         token,
+        activeOption,
+        setActiveOption: (option: string) => {
+            setActiveOption(option)
+        },
         setToken: (token: string) => {
             Cookies.set(CookiesType.accessToken, token, {
                 expires: CookiesLifeTime.accessToken,

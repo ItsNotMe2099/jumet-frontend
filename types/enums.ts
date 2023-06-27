@@ -3,6 +3,12 @@ export enum ModalType {
   OtpCode = 'otpCode'
 }
 
+export enum ProfileMenuSettings {
+  Settings = 'settings',
+  Employees = 'employees',
+  Payment = 'payment'
+}
+
 export enum SnackbarType {
   error,
   success,

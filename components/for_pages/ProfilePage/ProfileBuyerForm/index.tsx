@@ -2,7 +2,6 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import { useAppContext } from '@/context/state'
-import PhoneField from '@/components/fields/PhoneField'
 import { InputStyleType } from '@/types/enums'
 import { useState } from 'react'
 import TextField from '@/components/fields/TextField'
@@ -13,7 +12,7 @@ interface Props {
 
 }
 
-export default function ProfileSellerForm(props: Props) {
+export default function ProfileBuyerForm(props: Props) {
 
   const appContext = useAppContext()
 
@@ -24,8 +23,8 @@ export default function ProfileSellerForm(props: Props) {
   }
 
   const initialValues = {
-    phone: appContext.aboutMe?.phone,
-    name: appContext.aboutMe?.name,
+    companyName: appContext.aboutMe?.companyName,
+    email: appContext.aboutMe?.email,
     password: ''
   }
 
@@ -39,19 +38,16 @@ export default function ProfileSellerForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <PhoneField
-          className={styles.field}
-          name='phone'
-          styleType={InputStyleType.Default}
-          label='Телефон'
-          disabled={loading}
-          validate={Validator.combine([Validator.required, Validator.phone])}
-        />
         <TextField
           className={styles.field}
-          name='name'
-          label='Ваше имя'
+          name='companyName'
+          label='Название компании / группы компаний'
           validate={Validator.required} />
+        <TextField
+          className={styles.field}
+          name='email'
+          label='Email'
+          validate={Validator.combine([Validator.required, Validator.email])} />
         <TextField
           className={styles.field}
           inputStyle={InputStyleType.Password}
