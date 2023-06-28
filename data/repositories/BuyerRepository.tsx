@@ -1,4 +1,5 @@
 import request from 'utils/request'
+import IUser from '../interfaces/IUser'
 
 export default class BuyerRepository {
 
@@ -13,5 +14,13 @@ export default class BuyerRepository {
       },
     })
     return res.accessToken
+  }
+
+  static async fetchEmployees(): Promise<IUser[]> {
+    const res = await request<IUser[]>({
+      url: `/api/user`,
+      method: 'get',
+    })
+    return res
   }
 }

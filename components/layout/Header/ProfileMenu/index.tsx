@@ -13,6 +13,7 @@ import MapsSvg from '@/components/svg/MapsSvg'
 import UsersSvg from '@/components/svg/UsersSvg'
 import CashSvg from '@/components/svg/CashSvg'
 import LogoutSvg from '@/components/svg/LogoutSvg'
+import { ProfileMenuSettings } from '@/types/enums'
 
 interface Option {
   label: string
@@ -57,6 +58,15 @@ export default function ProfileMenu(props: Props) {
         break
       case ActionType.Employees:
         router.push('/profile')
+        appContext.setActiveOption(ProfileMenuSettings.Employees)
+        break
+      case ActionType.Payment:
+        router.push('/profile')
+        appContext.setActiveOption(ProfileMenuSettings.Payment)
+        break
+      case ActionType.Places:
+        router.push('/profile')
+        appContext.setActiveOption(ProfileMenuSettings.Places)
         break
       case ActionType.Logout:
         setTimeout(() => appContext.logout(), 100)

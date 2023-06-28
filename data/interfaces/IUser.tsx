@@ -1,7 +1,7 @@
 import {UserRole} from '@/data/enum/UserRole'
 import {Gender} from '@/data/enum/Gender'
 
-export default interface IUSer {
+export default interface IUser {
   id: string;
   role: UserRole;
   phone: string;

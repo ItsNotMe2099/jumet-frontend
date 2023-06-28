@@ -1,0 +1,53 @@
+@import "styles/index";
+
+.root {
+  padding: 20px;
+  border-radius: $StandartBorderRadius;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+}
+
+.firstRow {
+  display: flex;
+  justify-content: space-between;
+
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(12px, false);
+  }
+}
+
+.name {
+  @include h2;
+  color: $dark500;
+}
+
+.email {
+  color: $dark500;
+  @include h3;
+  font-weight: normal;
+}
+
+.secondRaw {
+  @include h3;
+  color: $dark500;
+  font-weight: normal;
+
+  span {
+    @include h3;
+    color: $grey500;
+    font-weight: normal;
+  }
+}
+
+.btn {
+  color: $blue500;
+  @include h3;
+  width: 33%;
+
+  @include mq($PhoneWidth, max) {
+    width: 100%;
+  }
+}
