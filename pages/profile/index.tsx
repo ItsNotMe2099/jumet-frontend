@@ -11,6 +11,7 @@ import { UserRole } from '@/data/enum/UserRole'
 import ProfileSellerForm from '@/components/for_pages/ProfilePage/ProfileSellerForm'
 import { ProfileMenuSettings } from '@/types/enums'
 import ProfileBuyerForm from '@/components/for_pages/ProfilePage/ProfileBuyerForm'
+import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 
 interface Props {
 
@@ -30,16 +31,17 @@ export default function ProfilePage(props: Props) {
     }
   }, [])
 
-  const items = appContext.aboutMe?.role === UserRole.Seller ? [
+  const items = appContext.aboutMe?.role !== UserRole.Seller ? [
     { text: 'Настройки профиля', value: ProfileMenuSettings.Settings },
     { icon: <LogoutSvg color={colors.dark500} />, text: 'Выйти', value: 'exit' },
   ] :
-  [
-    { text: 'Настройки профиля', value: ProfileMenuSettings.Settings },
-    { text: 'Сотрудники', value: ProfileMenuSettings.Employees },
-    { text: 'Оплата сервиса Jumet', value: ProfileMenuSettings.Payment },
-    { icon: <LogoutSvg color={colors.dark500} />, text: 'Выйти', value: 'exit' },
-  ]
+    [
+      { text: 'Настройки профиля', value: ProfileMenuSettings.Settings },
+      { icon: <ChevronDownSvg color={colors.dark500} />, text: 'Мои пункты приема', value: ProfileMenuSettings.Places },
+      { text: 'Сотрудники', value: ProfileMenuSettings.Employees },
+      { text: 'Оплата сервиса Jumet', value: ProfileMenuSettings.Payment },
+      { icon: <LogoutSvg color={colors.dark500} />, text: 'Выйти', value: 'exit' },
+    ]
 
   const handleExit = () => {
     setTimeout(() => appContext.logout(), 100)
@@ -53,13 +55,22 @@ export default function ProfilePage(props: Props) {
           Настройки профиля
         </div>
         <div className={styles.container}>
-          <div className={classNames(styles.menu, {[styles.buyer]: appContext.aboutMe?.role !== UserRole.Buyer})}>
+          <div className={classNames(styles.menu, { [styles.buyer]: appContext.aboutMe?.role !== UserRole.Buyer })}>
             {items.map((i, index) =>
               <div
                 onClick={() => i.value !== 'exit' ? appContext.setActiveOption(i.value) : handleExit()}
                 key={index}
                 className={classNames(styles.option, { [styles.active]: appContext.activeOption === i.value })}>
-                <span>{i.text}</span>{i.icon}
+                <span>{i.text}</span>
+                <div
+                  className=
+                  {classNames(styles.icon,
+                    {
+                      [styles.places]:
+                      appContext.activeOption === ProfileMenuSettings.Places && i.value === ProfileMenuSettings.Places
+                    })}>
+                  {i.icon}
+                </div>
               </div>
             )}
           </div>

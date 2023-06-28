@@ -5,6 +5,7 @@ export enum ModalType {
 
 export enum ProfileMenuSettings {
   Settings = 'settings',
+  Places = 'places',
   Employees = 'employees',
   Payment = 'payment'
 }

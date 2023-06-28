@@ -8,6 +8,11 @@ import { colors } from '@/styles/variables'
 import { useAppContext } from '@/context/state'
 import { useRouter } from 'next/router'
 import { UserRole } from '@/data/enum/UserRole'
+import SettingsSvg from '@/components/svg/SettingsSvg'
+import MapsSvg from '@/components/svg/MapsSvg'
+import UsersSvg from '@/components/svg/UsersSvg'
+import CashSvg from '@/components/svg/CashSvg'
+import LogoutSvg from '@/components/svg/LogoutSvg'
 
 interface Option {
   label: string
@@ -20,6 +25,8 @@ interface Props {
 enum ActionType {
   Profile,
   Employees,
+  Payment,
+  Places,
   Logout
 }
 
@@ -30,14 +37,16 @@ export default function ProfileMenu(props: Props) {
 
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)
 
-  const options = appContext.aboutMe?.role === UserRole.Seller ? [
-    { label: 'Настройки профиля', key: ActionType.Profile },
-    { label: 'Выйти', key: ActionType.Logout },
+  const options = appContext.aboutMe?.role !== UserRole.Seller ? [
+    { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
+    { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
   ] :
     [
-      { label: 'Настройки профиля', key: ActionType.Profile },
-      { label: 'Сотрудники', key: ActionType.Employees },
-      { label: 'Выйти', key: ActionType.Logout },
+      { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
+      { icon: <MapsSvg color={colors.white} />, label: 'Мои пункты приема', key: ActionType.Places },
+      { icon: <UsersSvg color={colors.white} />, label: 'Сотрудники', key: ActionType.Employees },
+      { icon: <CashSvg color={colors.white} />, label: 'Оплата сервиса Jumet', key: ActionType.Payment },
+      { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
     ]
 
   const handleClickItem = (e: React.MouseEvent<HTMLAnchorElement>, item: { key: ActionType }) => {
@@ -68,8 +77,14 @@ export default function ProfileMenu(props: Props) {
         <IconButton bgColor={'dark400'}><UserSvg color={colors.white} /></IconButton>
       </div>
       <nav ref={dropdownRef} className={classNames(styles.dropDown, { [styles.dropDownActive]: isActive })}>
-        {options.map((item, index) => <a key={item.key} className={styles.option} onClick={e => handleClickItem(e, item)}>
-          {item.label}
+        {options.slice(0, options.length - 1).map((item, index) => <a key={item.key} className={styles.option} onClick={e => handleClickItem(e, item)}>
+          {item.icon}<div className={styles.label}>{item.label}</div>
+        </a>)}
+        <div className={styles.wrapper}>
+          <div className={styles.separator} />
+        </div>
+        {options.slice(options.length - 1).map((item, index) => <a key={item.key} className={styles.option} onClick={e => handleClickItem(e, item)}>
+          {item.icon}<div className={styles.label}>{item.label}</div>
         </a>)}
       </nav>
     </div>

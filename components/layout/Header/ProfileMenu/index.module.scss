@@ -41,14 +41,15 @@
 
   a {
     padding: 10px 21px;
-    font-size: 13px;
+    font-size: 15px;
     font-weight: 500;
     color: $white;
 
     &:hover {
       background-color: $dark400;
     }
-    @media screen and (max-width: $xs-max){
+
+    @media screen and (max-width: $xs-max) {
       font-size: 12px;
     }
   }
@@ -81,6 +82,7 @@
   background: $dark500;
   border-radius: 4px;
   min-width: 221px;
+
   .option:nth-child(2) {
     border-top-left-radius: 12px !important;
     border-top-right-radius: 12px !important;
@@ -97,6 +99,7 @@
       border-bottom-right-radius: 12px;
     }
   }
+
   @media screen and (max-width: $xs-max) {
     right: 2px;
     left: auto;
@@ -106,9 +109,7 @@
   }
 }
 
-.dropDownTrigger {
-
-}
+.dropDownTrigger {}
 
 .newAccount {
   justify-content: center;
@@ -143,7 +144,8 @@
 
 .dropdownTriggerActive {
   position: relative;
-  font-size: 13px;
+  font-size: 15px;
+
   color: #000000;
   padding-bottom: 6px;
 }
@@ -154,9 +156,11 @@
 
 .option {
   display: flex;
-  flex-direction: column;
+  //flex-direction: column;
+  align-items: center;
   cursor: pointer;
   z-index: 1;
+  @include list(12px, true);
 
   a {
     display: flex;
@@ -170,22 +174,7 @@
 }
 
 .label {
-  display: flex;
-  align-items: center;
-  margin-right: 7px;
-
-  span {
-    font-size: 13px;
-
-
-    color: #FFFFFF;
-  }
-
-  @media screen and (max-width: $xs-max) {
-    span {
-      font-size: 11px;
-    }
-  }
+  white-space: nowrap;
 }
 
 .active {
@@ -195,7 +184,7 @@
 
 
 
-.rotate{
+.rotate {
   transform: rotate(360deg);
 }
 
@@ -228,6 +217,7 @@
   width: 26px;
   height: 26px;
   margin-right: 7px;
+
   @media screen and (max-width: $xs-max) {
     width: 40px;
     height: 40px;
@@ -238,6 +228,7 @@
       width: 26px;
       height: 26px;
       border-radius: 100%;
+
       @media screen and (max-width: $xs-max) {
         width: 40px;
         height: 40px;
@@ -245,9 +236,20 @@
     }
   }
 }
-.triangle{
+
+.triangle {
   @media screen and (max-width: $xs-max) {
     left: auto !important;
     right: 3.5px;
   }
+}
+
+.separator {
+  height: 1px;
+  background-color: $grey500;
+  margin: 6px 0;
+}
+
+.wrapper {
+  padding: 0 20px;
 }
