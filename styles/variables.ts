@@ -30,6 +30,7 @@ export const colors = {
   dark500: '#151B29',
   dark400: '#232D45',
   blue500: '#4371D6',
+  lightBlue: '#A1B8EA',
   green500: '#548124',
   green400: '#DCEDCA',
   grey500: '#6C7894',

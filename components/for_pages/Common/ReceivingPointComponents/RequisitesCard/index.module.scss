@@ -1,0 +1,45 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    @include list(5px, false);
+
+    .title {
+        @include secondaryText;
+        color: $grey500;
+    }
+}
+
+.title {
+    @include h2;
+}
+
+.value {
+    @include btnText;
+}
+
+.btn {
+    padding: 0 20px;
+    width: 40px;
+    height: 40px;
+}
+
+.bottom {
+    display: flex;
+    @include list(16px, true);
+    align-items: center;
+}
+
+.text {
+    @include btnText;
+}

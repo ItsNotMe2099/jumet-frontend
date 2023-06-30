@@ -4,22 +4,12 @@ import StarSvg from '@/components/svg/StarSvg'
 import { colors } from '@/styles/variables'
 import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
-
-interface IItem {
-  title: string
-  price: string
-  address: string
-  isDelivery?: boolean
-  haveLoading?: boolean
-  rating: string
-  opens?: string
-  closes?: string
-  alwaysOpen?: boolean
-}
+import Link from 'next/link'
+import IPointData from '@/data/interfaces/IPointData'
 
 
 interface Props {
-  item: IItem
+  item: IPointData
 }
 
 export default function PointCard(props: Props) {
@@ -48,31 +38,33 @@ export default function PointCard(props: Props) {
   // format the opening time to display in the UI
 
   return (
-    <div className={styles.root}>
-      <div className={styles.top}>
-        <div className={styles.right}>
-          <div className={styles.title}>
-            {props.item.title}
+    <Link href={`/receivingPoint/${props.item.id}`}>
+      <div className={styles.root}>
+        <div className={styles.top}>
+          <div className={styles.right}>
+            <div className={styles.title}>
+              {props.item.title}
+            </div>
+            <div className={styles.rating}>
+              <StarSvg color={colors.yellow500} />
+              <div className={styles.number}>{props.item.rating}</div>
+            </div>
           </div>
-          <div className={styles.rating}>
-            <StarSvg color={colors.yellow500} />
-            <div className={styles.number}>{props.item.rating}</div>
+          <div className={styles.price}>
+            До {props.item.price} ₽/тонна
           </div>
         </div>
-        <div className={styles.price}>
-          До {props.item.price} ₽/тонна
+        <div className={styles.middle}>
+          {props.item.address}
+        </div>
+        <div className={styles.bottom}>
+          <Badge active={props.item.isDelivery} text='Есть доставка' />
+          <Badge active={props.item.haveLoading} text='Есть погрузка' />
+          <Badge
+            active={currentHour >= opens && currentHour < closes || props.item.alwaysOpen}
+            text={openingStatus} />
         </div>
       </div>
-      <div className={styles.middle}>
-        {props.item.address}
-      </div>
-      <div className={styles.bottom}>
-        <Badge active={props.item.isDelivery} text='Есть доставка' />
-        <Badge active={props.item.haveLoading} text='Есть погрузка' />
-        <Badge
-          active={currentHour >= opens && currentHour < closes || props.item.alwaysOpen}
-          text={openingStatus} />
-      </div>
-    </div>
+    </Link>
   )
 }

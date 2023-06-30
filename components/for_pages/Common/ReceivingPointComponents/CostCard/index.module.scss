@@ -1,0 +1,124 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(32px, false);
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.title {
+    @include h2;
+}
+
+.category {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+        @include btnText;
+    }
+}
+
+.switch {
+    display: flex;
+    @include list(12px, true);
+
+    .text {
+        @include mainText;
+    }
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.table {
+    display: table;
+}
+
+.row {
+    display: table-row;
+
+    .cell:first-child {
+        padding-left: 12px;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+    }
+}
+
+.secondRow {
+    display: table-row;
+    background-color: $grey300;
+
+    .cell:first-child {
+        padding-left: 12px;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+    }
+}
+
+.whiteRow {
+    display: table-row;
+    background-color: $white;
+
+    .cell:first-child {
+        padding-left: 12px;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+    }
+}
+
+.cell {
+    display: table-cell;
+    @include secondaryText;
+    color: $grey500;
+    padding: 0 0 5px 0;
+}
+
+.mix {
+    display: flex;
+    flex-direction: column;
+    @include list(5px, false);
+}
+
+.self {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.price {
+    @include btnText;
+    color: $dark500;
+}
+
+.popover {
+    display: flex;
+    @include list(12px, true);
+}

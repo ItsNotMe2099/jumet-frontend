@@ -1,0 +1,55 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.title {
+    @include h2;
+}
+
+.tabs {
+    display: flex;
+    gap: 8px;
+
+    .tab {
+        width: 25%;
+    }
+
+    .tab2 {
+        width: 50%;
+    }
+}
+
+.cost {
+    display: flex;
+    flex-direction: column;
+    @include list(5px, false);
+}
+
+.top {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.number {
+    @include h2;
+}
+
+.map {
+    :global {
+        .ymaps-2-1-79-map {
+            width: 100% !important;
+            height: 328px !important;
+        }
+    }
+}
+
+.internal {
+    width: 100%;
+}

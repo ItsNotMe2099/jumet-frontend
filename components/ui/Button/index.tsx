@@ -12,7 +12,7 @@ interface Props extends IButton {
   children: React.ReactNode
   styleType: 'small' | 'large'
   font?: 'normal15' | 'normal16'
-  color?: 'blue' | 'dark' | 'white' | 'grey'
+  color?: 'blue' | 'dark' | 'white' | 'grey' | 'lightBlue'
   className?: string
   fluid?: boolean
   buttonRef?: RefObject<any>
