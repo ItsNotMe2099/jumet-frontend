@@ -1,0 +1,13 @@
+@import "styles/index";
+
+.root {}
+
+.trigger {
+    display: flex;
+    @include list(8px, true);
+    height: 24px;
+}
+
+.rotate {
+    transform: rotate(180deg);
+}

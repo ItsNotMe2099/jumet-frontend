@@ -1,4 +1,4 @@
-import IFile from "./IFile"
+
 
 export default interface IPointData {
     id: number

@@ -27,7 +27,7 @@ enum ActionType {
   Profile,
   Employees,
   Payment,
-  Places,
+  ReceivingPoints,
   Logout
 }
 
@@ -44,7 +44,7 @@ export default function ProfileMenu(props: Props) {
   ] :
     [
       { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
-      { icon: <MapsSvg color={colors.white} />, label: 'Мои пункты приема', key: ActionType.Places },
+      { icon: <MapsSvg color={colors.white} />, label: 'Мои пункты приема', key: ActionType.ReceivingPoints },
       { icon: <UsersSvg color={colors.white} />, label: 'Сотрудники', key: ActionType.Employees },
       { icon: <CashSvg color={colors.white} />, label: 'Оплата сервиса Jumet', key: ActionType.Payment },
       { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
@@ -54,19 +54,16 @@ export default function ProfileMenu(props: Props) {
     e.preventDefault()
     switch (item.key) {
       case ActionType.Profile:
-        router.push('/profile')
+        router.push(`/lk/${ProfileMenuSettings.Settings}`)
         break
       case ActionType.Employees:
-        router.push('/profile')
-        appContext.setActiveOption(ProfileMenuSettings.Employees)
+        router.push(`/lk/${ProfileMenuSettings.Employees}`)
         break
       case ActionType.Payment:
-        router.push('/profile')
-        appContext.setActiveOption(ProfileMenuSettings.Payment)
+        router.push(`/lk/${ProfileMenuSettings.Payment}`)
         break
-      case ActionType.Places:
-        router.push('/profile')
-        appContext.setActiveOption(ProfileMenuSettings.Places)
+      case ActionType.ReceivingPoints:
+        router.push(`/lk/${ProfileMenuSettings.ReceivingPoints}`)
         break
       case ActionType.Logout:
         setTimeout(() => appContext.logout(), 100)

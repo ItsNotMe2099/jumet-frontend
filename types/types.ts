@@ -91,3 +91,12 @@ export interface IPageable {
   seoKeywords: string
   seoDescription: string
 }
+
+export interface IMenuItem {
+  id: string | number
+  name: string,
+  slug?: string,
+  link?: string
+  children?: IMenuItem[]
+  color?: string
+}

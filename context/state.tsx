@@ -31,8 +31,6 @@ interface IState {
     setModalNonSkippable: (val: boolean) => void
     logout: () => void,
     token: string | null
-    activeOption: string
-    setActiveOption: (option: string) => void
 }
 
 const loginState$ = new Subject<boolean>()
@@ -61,8 +59,6 @@ const defaultValue: IState = {
     setModalNonSkippable: (val) => null,
     logout: () => null,
     token: null,
-    activeOption: '',
-    setActiveOption: (option: string) => null
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -85,9 +81,6 @@ export function AppWrapper(props: Props) {
     const [aboutMeLoaded, setAboutMeLoaded] = useState<boolean>(false)
     const [isLogged, setIsLogged] = useState<boolean>(false)
     const [allLoaded, setAllLoaded] = useState<boolean>(false)
-
-
-    const [activeOption, setActiveOption] = useState<string>(ProfileMenuSettings.Settings)
 
     console.log('aboutMe', aboutMe)
 
@@ -202,10 +195,6 @@ export function AppWrapper(props: Props) {
         showSnackbar,
         hideModal,
         token,
-        activeOption,
-        setActiveOption: (option: string) => {
-            setActiveOption(option)
-        },
         setToken: (token: string) => {
             Cookies.set(CookiesType.accessToken, token, {
                 expires: CookiesLifeTime.accessToken,
