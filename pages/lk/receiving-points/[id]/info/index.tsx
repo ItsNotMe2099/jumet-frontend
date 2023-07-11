@@ -6,10 +6,10 @@ import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
 
 interface Props {
-
+  
 }
 
-export default function ReceivingPointInfoage(props: Props) {
+export default function ReceivingPointInfoPage(props: Props) {
 
   const router = useRouter()
 
@@ -25,7 +25,7 @@ export default function ReceivingPointInfoage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout>
+      <LkLayout myPointsOpen>
         
       </LkLayout>
     </Layout>

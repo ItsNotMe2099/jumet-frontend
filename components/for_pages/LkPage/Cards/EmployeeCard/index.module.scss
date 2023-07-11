@@ -19,6 +19,11 @@
   }
 }
 
+.top {
+  align-items: center;
+  justify-content: space-between;
+}
+
 .name {
   @include h2;
   color: $dark500;
@@ -31,6 +36,7 @@
 }
 
 .secondRaw {
+  margin-top: 16px;
   @include h3;
   color: $dark500;
   font-weight: normal;
@@ -44,6 +50,7 @@
 
 .btn {
   color: $blue500;
+  margin-top: 16px;
   @include h3;
   width: 33%;
 

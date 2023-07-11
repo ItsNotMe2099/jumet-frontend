@@ -81,7 +81,7 @@ export default function ReceivingPointEmployeesPage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout>
+      <LkLayout myPointsOpen>
         {appContext.aboutMe?.role !== UserRole.Buyer &&
                   /*employees*/tempEmps.map((i, index) =>
           <EmployeeCard user={i} key={index} />

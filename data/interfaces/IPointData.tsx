@@ -17,4 +17,5 @@ export default interface IPointData {
     ogrn: string
     legalAddress: string
     license: string
+    dealsPerMonth?: number
 }

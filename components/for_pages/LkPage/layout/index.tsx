@@ -12,10 +12,12 @@ import Accordion from '../Accordion'
 import Button from '@/components/ui/Button'
 import PlusSvg from '@/components/svg/PlusSvg'
 import { Gender } from '@/data/enum/Gender'
+import { useState } from 'react'
 
 
 interface Props {
   children: React.ReactNode
+  myPointsOpen?: boolean
 }
 
 export default function LkLayout(props: Props) {
@@ -30,66 +32,70 @@ export default function LkLayout(props: Props) {
   }
 
   const receivingPoints = [
-    { id: 1, address: 'г. Сергиев Посад, ул. Мира, 32', employees: [
-      {
-        id: '1',
-        role: UserRole.Buyer,
-        phone: '',
-        login: '',
-        name: 'Валерий Федоров',
-        companyName: '«МеталлВторЧермет»',
-        isRegistered: true,
-        email: 'v.fedor@gmail.com',
-        birthday: new Date(),
-        gender: Gender.male,
-        password: '',
-        readedNotifications: []
-      },
-      {
-        id: '1',
-        role: UserRole.Buyer,
-        phone: '',
-        login: '',
-        name: 'Валерий Федоров',
-        companyName: '«МеталлВторЧермет»',
-        isRegistered: true,
-        email: 'v.fedor@gmail.com',
-        birthday: new Date(),
-        gender: Gender.male,
-        password: '',
-        readedNotifications: []
-      },
-    ] },
-    { id: 2, address: 'г. Сергиев Посад, ул. Ленина, 32', employees: [
-      {
-        id: '1',
-        role: UserRole.Buyer,
-        phone: '',
-        login: '',
-        name: 'Валерий Федоров',
-        companyName: '«МеталлВторЧермет»',
-        isRegistered: true,
-        email: 'v.fedor@gmail.com',
-        birthday: new Date(),
-        gender: Gender.male,
-        password: '',
-        readedNotifications: []
-      },
-      {
-        id: '1',
-        role: UserRole.Buyer,
-        phone: '',
-        login: '',
-        name: 'Валерий Федоров',
-        companyName: '«МеталлВторЧермет»',
-        isRegistered: true,
-        email: 'v.fedor@gmail.com',
-        birthday: new Date(),
-        gender: Gender.male,
-        password: '',
-        readedNotifications: []
-      },
-    ] },
+    {
+      id: 1, address: 'г. Сергиев Посад, ул. Мира, 32', employees: [
+        {
+          id: '1',
+          role: UserRole.Buyer,
+          phone: '',
+          login: '',
+          name: 'Валерий Федоров',
+          companyName: '«МеталлВторЧермет»',
+          isRegistered: true,
+          email: 'v.fedor@gmail.com',
+          birthday: new Date(),
+          gender: Gender.male,
+          password: '',
+          readedNotifications: []
+        },
+        {
+          id: '1',
+          role: UserRole.Buyer,
+          phone: '',
+          login: '',
+          name: 'Валерий Федоров',
+          companyName: '«МеталлВторЧермет»',
+          isRegistered: true,
+          email: 'v.fedor@gmail.com',
+          birthday: new Date(),
+          gender: Gender.male,
+          password: '',
+          readedNotifications: []
+        },
+      ]
+    },
+    {
+      id: 2, address: 'г. Сергиев Посад, ул. Ленина, 32', employees: [
+        {
+          id: '1',
+          role: UserRole.Buyer,
+          phone: '',
+          login: '',
+          name: 'Валерий Федоров',
+          companyName: '«МеталлВторЧермет»',
+          isRegistered: true,
+          email: 'v.fedor@gmail.com',
+          birthday: new Date(),
+          gender: Gender.male,
+          password: '',
+          readedNotifications: []
+        },
+        {
+          id: '1',
+          role: UserRole.Buyer,
+          phone: '',
+          login: '',
+          name: 'Валерий Федоров',
+          companyName: '«МеталлВторЧермет»',
+          isRegistered: true,
+          email: 'v.fedor@gmail.com',
+          birthday: new Date(),
+          gender: Gender.male,
+          password: '',
+          readedNotifications: []
+        },
+      ]
+    },
   ]
 
   const items = appContext.aboutMe?.role !== UserRole.Seller ? [
@@ -134,6 +140,8 @@ export default function LkLayout(props: Props) {
     { text: 'Статистика пункта приёма', value: RPOptions.Statistic },
   ]
 
+  const [myPointsOpen, setMyPointsOpen] = useState<boolean>(props.myPointsOpen as boolean)
+
   return (
     <div className={styles.root}>
       <div className={styles.title}>
@@ -151,17 +159,19 @@ export default function LkLayout(props: Props) {
                 href={i.link}
                 onClick={() => i.value !== 'exit' ? null : handleExit()}
                 key={index}
-                className={classNames(styles.option, { [styles.accordion]: i.value === ProfileMenuSettings.ReceivingPoints,
+                className={classNames(styles.option, {
+                  [styles.accordion]: i.value === ProfileMenuSettings.ReceivingPoints,
                   [styles.active]: (router.asPath.includes(ProfileMenuSettings.ReceivingPoints) &&
                     i.link.includes(ProfileMenuSettings.ReceivingPoints)) || (router.asPath === i.link),
-                  [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints)
+                  [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints) && myPointsOpen
                 })}>
                 {i.value === ProfileMenuSettings.ReceivingPoints ?
                   <Accordion
+                    onOpen={() => setMyPointsOpen(true)}
                     icon={i.icon}
                     text={i.text}
                     link={`/lk/${ProfileMenuSettings.ReceivingPoints}`}
-                    open={router.asPath.includes(ProfileMenuSettings.ReceivingPoints)}
+                    open={router.asPath.includes(ProfileMenuSettings.ReceivingPoints) && myPointsOpen}
                   >{receivingPoints.map((i, index) =>
                     <Accordion
                       key={index}
@@ -172,10 +182,10 @@ export default function LkLayout(props: Props) {
                     >
                       {itemsInReceivingPoint.map((item, index) =>
                         <Link
-                        className={classNames(styles.item, {
-                          [styles.activeItem]: router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/${item.value}`,
-                          [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints)
-                        })}
+                          className={classNames(styles.item, {
+                            [styles.activeItem]: router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/${item.value}`,
+                            [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints)
+                          })}
                           key={index}
                           href={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/${item.value}`}
                         >

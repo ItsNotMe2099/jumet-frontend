@@ -10,6 +10,7 @@ interface Props {
   text: string
   icon?: React.ReactElement
   children?: React.ReactNode
+  onOpen?: () => void
 }
 
 export default function Accordion(props: Props) {
@@ -17,7 +18,7 @@ export default function Accordion(props: Props) {
   const router = useRouter()
 
   return (
-    <Collapsible open={props.open} trigger={
+    <Collapsible onOpen={props.onOpen} open={props.open} trigger={
       <a className={styles.trigger} onClick={() => router.push(props.link)}>
         {props.text}<div className={classNames(styles.icon, {[styles.rotate]: props.open})}>{props.icon}</div></a>}>
       <div className={styles.content}>

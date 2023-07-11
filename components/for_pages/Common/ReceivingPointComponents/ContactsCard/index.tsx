@@ -1,4 +1,3 @@
-import StarSvg from '@/components/svg/StarSvg'
 import styles from './index.module.scss'
 import { colors } from '@/styles/variables'
 import IPointData from '@/data/interfaces/IPointData'
@@ -14,6 +13,7 @@ import Button from '@/components/ui/Button'
 import BookmarkSvg from '@/components/svg/BookmarkSvg'
 import ShareSvg from '@/components/svg/ShareSvg'
 import CardLayout from '../../CardLayout'
+import Rating from '../../Rating'
 
 
 interface Props {
@@ -31,10 +31,7 @@ export default function ContactsCard(props: Props) {
   const currentHour = Number(hour)
 
   return (
-    <CardLayout title={props.item.title} additionalEl={<div className={styles.rating}>
-      <StarSvg color={colors.yellow500} />
-      <div className={styles.number}>{props.item.rating}</div>
-    </div>} topClassName={styles.top}>
+    <CardLayout title={props.item.title} additionalEl={<Rating rating={props.item.rating} />} topClassName={styles.top}>
       <div className={styles.middle}>
         <div className={styles.phone}>
           <PhoneSvg color={colors.dark500} />

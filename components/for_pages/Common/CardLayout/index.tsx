@@ -7,6 +7,7 @@ interface Props {
   title: string
   topClassName?: string
   className?: string
+  contentClassName?: string
 }
 
 export default function CardLayout(props: Props) {
@@ -17,7 +18,7 @@ export default function CardLayout(props: Props) {
         <div className={styles.title}>
           {props.title}
         </div>
-        {props.additionalEl && <div className={styles.additional}>{props.additionalEl}</div>}
+        {props.additionalEl && <div className={classNames(styles.additional, props.contentClassName)}>{props.additionalEl}</div>}
       </div>
       <div className={styles.content}>
         {props.children}

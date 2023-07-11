@@ -1,5 +1,41 @@
 @import "styles/index";
 
-.root {
-  
+.root {}
+
+.additional {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.deals {
+    border-radius: $StandartBorderRadius;
+    padding: 4px 12px;
+    @include mainText;
+    background-color: $grey200;
+    color: $dark500;
+}
+
+.yesDeals {
+    background-color: $green400;
+    color: $green500;
+}
+
+.content {
+    flex: 1;
+    margin-left: 8px;
+}
+
+.btns {
+    margin-top: 20px;
+    display: flex;
+    @include list(12px, true);
+}
+
+.btn {
+    color: $blue500;
+}
+
+.btnFirst {
+    color: $white;
 }
