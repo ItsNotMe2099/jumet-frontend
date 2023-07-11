@@ -6,8 +6,17 @@
     display: flex;
     @include list(8px, true);
     height: 24px;
+    margin: 12px 0;
+    margin-left: 20px;
 }
 
 .rotate {
     transform: rotate(180deg);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    
 }

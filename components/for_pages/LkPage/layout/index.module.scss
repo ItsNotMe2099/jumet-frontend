@@ -47,7 +47,6 @@
     background-color: $white;
     padding: 12px 0px 0px 0px;
     width: 416px;
-    max-height: 108px;
 
     @include mq($PhoneWidth, max) {
         flex-direction: row;
@@ -60,10 +59,6 @@
         margin-bottom: 10px;
         width: 100%;
     }
-}
-
-.buyer {
-    max-height: 252px;
 }
 
 .option {
@@ -107,5 +102,34 @@
 .btnMobile {
     @include mq($PhoneWidth, min) {
         display: none;
+    }
+}
+
+.receiving {
+    background-color: #fff;
+}
+
+.item {
+    padding: 12px 0px 12px 40px;
+}
+
+.activeItem {
+    background: $yellow300;
+    padding: 12px 0px 12px 40px;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        border: 0;
+        border-bottom: 2px solid $dark400;
+    }
+}
+
+.accordion {
+    padding: 0;
+
+    :global{
+        .Collapsible{
+            width: 100%;
+        }
     }
 }

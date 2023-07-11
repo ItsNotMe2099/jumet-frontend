@@ -9,7 +9,7 @@ interface Props {
 
 }
 
-export default function ReceivingPointsPage(props: Props) {
+export default function ReceivingPointStatisticPage(props: Props) {
 
   const router = useRouter()
 

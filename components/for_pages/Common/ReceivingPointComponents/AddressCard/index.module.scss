@@ -21,9 +21,11 @@
 
 .address {
     @include btnText;
+    margin-top: 16px;
 }
 
 .map {
+    margin-top: 24px;
     :global {
         .ymaps-2-1-79-map {
             width: 100% !important;

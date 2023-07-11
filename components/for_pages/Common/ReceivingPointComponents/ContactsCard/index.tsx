@@ -13,6 +13,7 @@ import classNames from 'classnames'
 import Button from '@/components/ui/Button'
 import BookmarkSvg from '@/components/svg/BookmarkSvg'
 import ShareSvg from '@/components/svg/ShareSvg'
+import CardLayout from '../../CardLayout'
 
 
 interface Props {
@@ -30,16 +31,10 @@ export default function ContactsCard(props: Props) {
   const currentHour = Number(hour)
 
   return (
-    <div className={styles.root}>
-      <div className={styles.top}>
-        <div className={styles.title}>
-          {props.item.title}
-        </div>
-        <div className={styles.rating}>
-          <StarSvg color={colors.yellow500} />
-          <div className={styles.number}>{props.item.rating}</div>
-        </div>
-      </div>
+    <CardLayout title={props.item.title} additionalEl={<div className={styles.rating}>
+      <StarSvg color={colors.yellow500} />
+      <div className={styles.number}>{props.item.rating}</div>
+    </div>} topClassName={styles.top}>
       <div className={styles.middle}>
         <div className={styles.phone}>
           <PhoneSvg color={colors.dark500} />
@@ -86,6 +81,6 @@ export default function ContactsCard(props: Props) {
           <ShareSvg color={colors.blue500} />
         </Button>
       </div>
-    </div>
+    </CardLayout >
   )
 }

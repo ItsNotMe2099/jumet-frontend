@@ -1,7 +1,7 @@
-import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
-import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
-
+import styles from './index.module.scss'
+import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
+import CardLayout from '../../CardLayout'
 
 interface Props {
   item: IPointData
@@ -10,14 +10,9 @@ interface Props {
 export default function AddressCard(props: Props) {
 
   return (
-    <div className={styles.root}>
-      <div className={styles.top}>
-        <div className={styles.title}>
-          Адрес пункта приёма лома
-        </div>
-        <div className={styles.address}>
-          {props.item.address}
-        </div>
+    <CardLayout title='Адрес пункта приёма лома'>
+      <div className={styles.address}>
+        {props.item.address}
       </div>
       <div className={styles.map}>
         <YMaps query={{ apikey: 'YOUR_API_KEY' }}>
@@ -29,6 +24,6 @@ export default function AddressCard(props: Props) {
           </Map>
         </YMaps>
       </div>
-    </div>
+    </CardLayout>
   )
 }

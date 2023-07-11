@@ -1,0 +1,19 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.top {
+    display: flex;
+}
+
+.title {
+    @include h2;
+}
+
+.content {}

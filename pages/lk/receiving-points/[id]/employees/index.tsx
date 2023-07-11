@@ -1,26 +1,25 @@
 import Layout from '@/components/layout/Layout'
 //import styles from './index.module.scss'
-import { useAppContext } from '@/context/state'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
-import { UserRole } from '@/data/enum/UserRole'
-import { ProfileMenuSettings } from '@/types/enums'
-import IUser from '@/data/interfaces/IUser'
-import BuyerRepository from '@/data/repositories/BuyerRepository'
-import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
-import { Gender } from '@/data/enum/Gender'
 import LkLayout from '@/components/for_pages/LkPage/layout'
+import { Gender } from '@/data/enum/Gender'
+import { UserRole } from '@/data/enum/UserRole'
+import BuyerRepository from '@/data/repositories/BuyerRepository'
+import IUser from '@/data/interfaces/IUser'
+import { useAppContext } from '@/context/state'
+import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
 
 interface Props {
 
 }
 
-export default function EmpolyeesPage(props: Props) {
-
-  const appContext = useAppContext()
+export default function ReceivingPointEmployeesPage(props: Props) {
 
   const router = useRouter()
+
+  const appContext = useAppContext()
 
   const token = Cookies.get('accessToken')
 
@@ -75,12 +74,10 @@ export default function EmpolyeesPage(props: Props) {
     },
   ]
 
-
   useEffect(() => {
-    if (router.asPath === `/lk/${ProfileMenuSettings.Employees}`) {
-      fetchEmployees()
-    }
-  }, [router.asPath])
+    fetchEmployees()
+  }
+    , [])
 
   return (
     <Layout>

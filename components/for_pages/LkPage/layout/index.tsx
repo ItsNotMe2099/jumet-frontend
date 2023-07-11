@@ -11,6 +11,7 @@ import Link from 'next/link'
 import Accordion from '../Accordion'
 import Button from '@/components/ui/Button'
 import PlusSvg from '@/components/svg/PlusSvg'
+import { Gender } from '@/data/enum/Gender'
 
 
 interface Props {
@@ -29,8 +30,66 @@ export default function LkLayout(props: Props) {
   }
 
   const receivingPoints = [
-    { id: 1, address: 'г. Сергиев Посад, ул. Мира, 32' },
-    { id: 2, address: 'г. Сергиев Посад, ул. Ленина, 32' },
+    { id: 1, address: 'г. Сергиев Посад, ул. Мира, 32', employees: [
+      {
+        id: '1',
+        role: UserRole.Buyer,
+        phone: '',
+        login: '',
+        name: 'Валерий Федоров',
+        companyName: '«МеталлВторЧермет»',
+        isRegistered: true,
+        email: 'v.fedor@gmail.com',
+        birthday: new Date(),
+        gender: Gender.male,
+        password: '',
+        readedNotifications: []
+      },
+      {
+        id: '1',
+        role: UserRole.Buyer,
+        phone: '',
+        login: '',
+        name: 'Валерий Федоров',
+        companyName: '«МеталлВторЧермет»',
+        isRegistered: true,
+        email: 'v.fedor@gmail.com',
+        birthday: new Date(),
+        gender: Gender.male,
+        password: '',
+        readedNotifications: []
+      },
+    ] },
+    { id: 2, address: 'г. Сергиев Посад, ул. Ленина, 32', employees: [
+      {
+        id: '1',
+        role: UserRole.Buyer,
+        phone: '',
+        login: '',
+        name: 'Валерий Федоров',
+        companyName: '«МеталлВторЧермет»',
+        isRegistered: true,
+        email: 'v.fedor@gmail.com',
+        birthday: new Date(),
+        gender: Gender.male,
+        password: '',
+        readedNotifications: []
+      },
+      {
+        id: '1',
+        role: UserRole.Buyer,
+        phone: '',
+        login: '',
+        name: 'Валерий Федоров',
+        companyName: '«МеталлВторЧермет»',
+        isRegistered: true,
+        email: 'v.fedor@gmail.com',
+        birthday: new Date(),
+        gender: Gender.male,
+        password: '',
+        readedNotifications: []
+      },
+    ] },
   ]
 
   const items = appContext.aboutMe?.role !== UserRole.Seller ? [
@@ -61,6 +120,20 @@ export default function LkLayout(props: Props) {
     }
   }
 
+  enum RPOptions {
+    Info = 'info',
+    Employees = 'employees',
+    Reviews = 'reviews',
+    Statistic = 'statistic'
+  }
+
+  const itemsInReceivingPoint = [
+    { text: 'Информация о пункте приема', value: RPOptions.Info },
+    { text: 'Сотрудники пункта приёма', value: RPOptions.Employees },
+    { text: 'Отзывы о пункте приёма', value: RPOptions.Reviews },
+    { text: 'Статистика пункта приёма', value: RPOptions.Statistic },
+  ]
+
   return (
     <div className={styles.root}>
       <div className={styles.title}>
@@ -71,29 +144,49 @@ export default function LkLayout(props: Props) {
           </Button>}
       </div>
       <div className={styles.container}>
-        <div className={classNames(styles.menu, { [styles.buyer]: appContext.aboutMe?.role !== UserRole.Buyer })}>
+        <div className={styles.menu}>
           {items.map((i, index) =>
-            <Link
-              href={i.link}
-              onClick={() => i.value !== 'exit' ? null : handleExit()}
-              key={index}
-              className={classNames(styles.option, { [styles.active]: router.asPath === i.link })}>
-              {i.value === ProfileMenuSettings.ReceivingPoints ?
-                <Accordion
-                  icon={i.icon}
-                  text={i.text}
-                  link={`/lk/${ProfileMenuSettings.ReceivingPoints}`}
-                  open={router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}`}
-                >{receivingPoints.map((i, index) =>
+            i.value !== 'exit' ?
+              <Link
+                href={i.link}
+                onClick={() => i.value !== 'exit' ? null : handleExit()}
+                key={index}
+                className={classNames(styles.option, { [styles.accordion]: i.value === ProfileMenuSettings.ReceivingPoints,
+                  [styles.active]: (router.asPath.includes(ProfileMenuSettings.ReceivingPoints) &&
+                    i.link.includes(ProfileMenuSettings.ReceivingPoints)) || (router.asPath === i.link),
+                  [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints)
+                })}>
+                {i.value === ProfileMenuSettings.ReceivingPoints ?
                   <Accordion
-                    key={index}
-                    icon={<ChevronDownSvg color={colors.dark500} />}
-                    text={i.address}
-                    open={router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`}
-                    link={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`}
-                  />
-                )}</Accordion> : <span>{i.text}</span>}
-            </Link>
+                    icon={i.icon}
+                    text={i.text}
+                    link={`/lk/${ProfileMenuSettings.ReceivingPoints}`}
+                    open={router.asPath.includes(ProfileMenuSettings.ReceivingPoints)}
+                  >{receivingPoints.map((i, index) =>
+                    <Accordion
+                      key={index}
+                      icon={<ChevronDownSvg color={colors.dark500} />}
+                      text={i.address}
+                      open={router.asPath.includes(`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`)}
+                      link={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`}
+                    >
+                      {itemsInReceivingPoint.map((item, index) =>
+                        <Link
+                        className={classNames(styles.item, {
+                          [styles.activeItem]: router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/${item.value}`,
+                          [styles.receiving]: router.asPath.includes(ProfileMenuSettings.ReceivingPoints)
+                        })}
+                          key={index}
+                          href={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/${item.value}`}
+                        >
+                          <span>{item.text}</span>
+                        </Link>
+                      )}
+                    </Accordion>
+                  )}</Accordion> : <span>{i.text}</span>}
+              </Link>
+              :
+              <div onClick={handleExit} className={styles.option}><span>{i.text}</span></div>
           )}
         </div>
         {router.asPath === `/lk/${ProfileMenuSettings.Employees}` &&

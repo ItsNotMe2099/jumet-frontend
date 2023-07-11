@@ -38,7 +38,7 @@ export default function PointCard(props: Props) {
   // format the opening time to display in the UI
 
   return (
-    <Link href={`/receivingPoint/${props.item.id}`}>
+    <Link href={`/receiving-point/${props.item.id}`}>
       <div className={styles.root}>
         <div className={styles.top}>
           <div className={styles.right}>
