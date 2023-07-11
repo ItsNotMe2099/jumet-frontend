@@ -6,12 +6,13 @@ interface Props {
   additionalEl?: React.ReactNode
   title: string
   topClassName?: string
+  className?: string
 }
 
 export default function CardLayout(props: Props) {
 
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, props.className)}>
       <div className={classNames(styles.top, props.topClassName)}>
         <div className={styles.title}>
           {props.title}

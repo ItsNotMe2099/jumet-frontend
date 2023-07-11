@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import { useState } from 'react'
 import QuestionPopover from '@/components/ui/QuestionPopover'
+import CardLayout from '../../CardLayout'
 
 interface Props {
   item: IPointData
@@ -82,10 +83,7 @@ export default function CostCard({ item }: Props) {
   ]
 
   return (
-    <div className={styles.root}>
-      <div className={styles.title}>
-        Стоимость приема лома
-      </div>
+    <CardLayout title='Стоимость приема лома'>
       <div className={styles.top}>
         <div className={styles.category}>
           <div className={styles.popover}>
@@ -185,6 +183,6 @@ export default function CostCard({ item }: Props) {
           </div>
         </div>
       </div>
-    </div>
+    </CardLayout>
   )
 }

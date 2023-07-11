@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import FileDownloadSvg from '@/components/svg/FileDownloadSvg'
 import { colors } from '@/styles/variables'
+import CardLayout from '../../CardLayout'
 
 
 interface Props {
@@ -12,10 +13,7 @@ interface Props {
 export default function RequisitesCard({ item }: Props) {
 
   return (
-    <div className={styles.root}>
-      <div className={styles.title}>
-        Реквизиты
-      </div>
+    <CardLayout title='Реквизиты' className={styles.root}>
       <div className={styles.item}>
         <div className={styles.title}>
           ИНН
@@ -56,6 +54,6 @@ export default function RequisitesCard({ item }: Props) {
           Лицензия ломозаготовителя
         </div>
       </div>
-    </div>
+    </CardLayout>
   )
 }

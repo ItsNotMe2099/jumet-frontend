@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import { useState } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
+import CardLayout from '../../CardLayout'
 
 interface Props {
   item: IPointData
@@ -36,10 +37,7 @@ export default function DeliveryZonesCard({ item }: Props) {
   const [filterRadius, setFilterRadius] = useState<string>(radiusTabs[0].radius)
 
   return (
-    <div className={styles.root}>
-      <div className={styles.title}>
-        Зоны доставки
-      </div>
+    <CardLayout title='Зоны доставки'>
       <div className={styles.tabs}>
         {radiusTabs.map((i, index) =>
           <Tab
@@ -68,6 +66,6 @@ export default function DeliveryZonesCard({ item }: Props) {
           </Map>
         </YMaps>
       </div>
-    </div>
+    </CardLayout>
   )
 }

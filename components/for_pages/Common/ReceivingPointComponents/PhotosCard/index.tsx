@@ -1,4 +1,5 @@
-import styles from './index.module.scss'
+import CardLayout from '../../CardLayout'
+//import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 
 
@@ -9,10 +10,8 @@ interface Props {
 export default function PhotosCard({ item }: Props) {
 
   return (
-    <div className={styles.root}>
-      <div className={styles.title}>
-        Фотографии пункта приёма
-      </div>
-    </div>
+    <CardLayout title='Фотографии пункта приёма'>
+
+    </CardLayout>
   )
 }
