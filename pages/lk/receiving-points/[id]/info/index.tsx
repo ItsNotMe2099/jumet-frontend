@@ -17,6 +17,7 @@ import DeliveryZonesCardLk from '@/components/for_pages/Common/ReceivingPointCom
 import EmployeesCard from '@/components/for_pages/Common/ReceivingPointComponents/EmployeesCard'
 import PlusSvg from '@/components/svg/PlusSvg'
 import { points } from '@/data/temp/points'
+import PhotosCardLk from '@/components/for_pages/Common/ReceivingPointComponents/PhotosCardLk'
 
 interface Props {
   item: IPointData
@@ -55,6 +56,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
           <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
             Редактировать
           </Button>} topClassName={styles.top} />
+        <PhotosCardLk item={item} />
         <RequisitesCard item={item} additionalEl={
           <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
             Редактировать

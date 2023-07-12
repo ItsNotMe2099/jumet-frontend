@@ -1,0 +1,23 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+    width: 70%;
+}
+
+.text {
+    color: $dark500;
+    @include mainText;
+    text-align: center;
+
+    span {
+        @include btnText;
+        text-decoration: underline;
+    }
+}
+
+.btn {
+    width: 122px;
+}
