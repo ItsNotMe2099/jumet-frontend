@@ -10,7 +10,7 @@ export default interface IUser {
   companyName: string;
   isRegistered: boolean;
   email: string;
-  birthday: Date;
+  birthday?: Date;
   gender: Gender;
   password: string;
 

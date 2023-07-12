@@ -1,4 +1,10 @@
+import IUser from "./IUser"
 
+interface IZones {
+    id: number
+    distance: string
+    price: string
+}
 
 export default interface IPointData {
     id: number
@@ -18,4 +24,6 @@ export default interface IPointData {
     legalAddress: string
     license: string
     dealsPerMonth?: number
+    zones: IZones[]
+    employees: IUser[]
 }

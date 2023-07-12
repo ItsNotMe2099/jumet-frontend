@@ -1,0 +1,116 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(32px, false);
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.title {
+    @include h2;
+}
+
+.category {
+    margin-top: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    .text {
+        @include btnText;
+    }
+}
+
+.top, .topSecond {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.topSecond {
+    margin-top: 16px;
+}
+
+.self {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.price {
+    @include btnText;
+    color: $dark500;
+}
+
+.popover {
+    display: flex;
+    @include list(12px, true);
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    .top {
+        color: $grey500;
+        @include secondaryText;
+    }
+
+    .bottom {
+        color: $dark500;
+        @include btnText;
+    }
+}
+
+.table {
+    display: table;
+    width: 100%;
+}
+
+.row {
+    display: table-row;
+
+    .cell:first-child {
+        padding-left: 12px;
+        @include secondaryText;
+        color: $grey500;
+        text-align: start;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+        text-align: end;
+    }
+}
+
+.secondRow {
+    display: table-row;
+    background-color: $grey300;
+
+    .cell:first-child {
+        padding-left: 12px;
+        @include secondaryText;
+        color: $grey500;
+        text-align: start;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+        text-align: end;
+    }
+}

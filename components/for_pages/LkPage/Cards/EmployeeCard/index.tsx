@@ -8,12 +8,16 @@ import CardLayout from '@/components/for_pages/Common/CardLayout'
 
 interface Props {
   user: IUser
+  titleClassName?: string
+  cardLayoutClassName?: string
 }
 
 export default function EmployeeCard(props: Props) {
 
   return (
-    <CardLayout topClassName={styles.top} title={props.user.name} additionalEl={<div className={styles.email}>{props.user.email}</div>}>
+    <CardLayout titleClassName={props.titleClassName}
+      className={props.cardLayoutClassName}
+      topClassName={styles.top} title={props.user.name} additionalEl={<div className={styles.email}>{props.user.email}</div>}>
       <div className={styles.secondRaw}>
         <span>Пункт приёма: </span>г. Сергиев Посад, ул. Зои Космодемьянской, 32
       </div>

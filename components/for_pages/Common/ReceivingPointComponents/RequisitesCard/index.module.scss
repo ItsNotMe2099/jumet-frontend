@@ -3,7 +3,6 @@
 .root {
     display: flex;
     flex-direction: column;
-    @include list(16px, false);
     padding: 20px;
     background-color: $white;
     border-radius: $StandartBorderRadius;
@@ -13,6 +12,7 @@
     display: flex;
     flex-direction: column;
     @include list(5px, false);
+    margin-top: 16px;
 
     .title {
         @include secondaryText;
@@ -38,6 +38,7 @@
     display: flex;
     @include list(16px, true);
     align-items: center;
+    margin-top: 16px;
 }
 
 .text {

@@ -18,6 +18,7 @@
     margin-top: 32px;
     gap: 32px;
     @include list(32px, true);
+    align-items: flex-start;
 
     @include mq($MdDesktopWidth, max) {
         flex-direction: column;

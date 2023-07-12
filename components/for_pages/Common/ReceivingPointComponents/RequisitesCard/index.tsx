@@ -8,12 +8,14 @@ import CardLayout from '../../CardLayout'
 
 interface Props {
   item: IPointData
+  additionalEl?: React.ReactNode
+  topClassName?: string
 }
 
-export default function RequisitesCard({ item }: Props) {
+export default function RequisitesCard({ item, additionalEl, topClassName }: Props) {
 
   return (
-    <CardLayout title='Реквизиты' className={styles.root}>
+    <CardLayout title='Реквизиты' className={styles.root} additionalEl={additionalEl} topClassName={topClassName}>
       <div className={styles.item}>
         <div className={styles.title}>
           ИНН

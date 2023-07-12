@@ -5,12 +5,14 @@ import CardLayout from '../../CardLayout'
 
 interface Props {
   item: IPointData
+  additionalEl?: React.ReactNode
+  topClassName?: string
 }
 
 export default function AddressCard(props: Props) {
 
   return (
-    <CardLayout title='Адрес пункта приёма лома'>
+    <CardLayout title='Адрес пункта приёма лома' additionalEl={props.additionalEl} topClassName={props.topClassName}>
       <div className={styles.address}>
         {props.item.address}
       </div>
