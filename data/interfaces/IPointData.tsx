@@ -26,5 +26,6 @@ export default interface IPointData {
     dealsPerMonth?: number
     zones: IZones[]
     employees: IUser[]
-    photos: any[]
+    photos: any[] //temp
+    reviews: any[] //temp
 }

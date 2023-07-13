@@ -10,6 +10,7 @@ import Snackbar from 'components/layout/Snackbar'
 import Head from 'next/head'
 import { AuthWrapper } from 'context/auth_state'
 import {getToken} from '@/utils/auth'
+import 'swiper/css/bundle'
 
 export interface AppProps extends NextAppProps {
   pageProps: {

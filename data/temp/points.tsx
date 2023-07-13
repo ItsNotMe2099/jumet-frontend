@@ -9,7 +9,18 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: ['/img/photo1.png', '/img/photo2.png', '/img/photo3.png'], reviews: [
+        {
+          phone: '+ 7 (495) 256-16-16', rating: 5, date: '22.01.2022г.',
+          answer: 'Спасибо за добрые слова',
+          comment: 'В целом, неплохой пункт приема. Взвешивают честно – проверял лично на независимых весах. Деньги выдают на кассе сразу после приемки. Из недостатков довольно высокий озвученный процент засора, который не соглашаются уменьшить даже на качественном металле, аргументируя тем, что работают с заводом официально и такой засор устанавливает им завод.'
+        },
+        {
+          phone: '+ 7 (495) 256-16-17', rating: 3, date: '22.01.2022г.',
+          answer: '',
+          comment: 'Хорошая точка для сдачи лома. Есть доставка и погрузка. Цены одни из высоких в городе. '
+        }
+      ],
       employees: [
         {
           id: '1',
@@ -45,7 +56,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 5,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -81,7 +92,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -117,7 +128,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -153,7 +164,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -189,7 +200,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 5,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -225,7 +236,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -261,7 +272,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -297,7 +308,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',
@@ -333,7 +344,7 @@ export const points = {
       inn: '7714886683', entity: 'ООО «Лебедев и Партнеры»', ogrn: '1127747034040', legalAddress: '123290, город Москва, тупик Магистральный 1-й, дом 5А, оф. D504, к.8',
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
-      photos: [],
+      photos: [], reviews: [],
       employees: [
         {
           id: '1',

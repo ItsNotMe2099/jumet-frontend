@@ -10,6 +10,7 @@ import PhotosCard from '@/components/for_pages/Common/ReceivingPointComponents/P
 import DeliveryZonesCard from '@/components/for_pages/Common/ReceivingPointComponents/DeliveryZonesCard'
 import CostCard from '@/components/for_pages/Common/ReceivingPointComponents/CostCard'
 import { points } from '@/data/temp/points'
+import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/ReviewsCard'
 
 interface Props {
   item: IPointData
@@ -25,6 +26,7 @@ export default function ReceivingPoint(props: Props) {
           <AddressCard item={props.item} />
           <CostCard item={props.item} />
           <DeliveryZonesCard item={props.item} />
+          <ReviewsCard item={props.item} />
           <WorkingHoursCard item={props.item} />
           <PhotosCard item={props.item} />
           <RequisitesCard item={props.item} />
