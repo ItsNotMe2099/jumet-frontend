@@ -10,10 +10,26 @@
 
 .top {
     display: flex;
+    align-items: center;
 }
 
 .title {
     @include h2;
+    max-width: 69%;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    @include mq($SmDesktopWidth, max) {
+        max-width: 50%;
+    }
+
+    @include mq($PhoneWidth, max) {
+        max-width: inherit;
+        overflow: inherit;
+        text-overflow: inherit;
+        white-space: inherit;
+    }
 }
 
 .content {}

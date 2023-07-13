@@ -6,6 +6,16 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
+
+    .deals {
+        @include mq($PhoneWidth, max) {
+            display: none;
+        }
+
+        @include mq($PhoneWidth, min) {
+            display: block;
+        }
+    }
 }
 
 .deals {
@@ -14,6 +24,15 @@
     @include mainText;
     background-color: $grey200;
     color: $dark500;
+
+    @include mq($PhoneWidth, min) {
+        display: none;
+    }
+
+    @include mq($PhoneWidth, max) {
+        max-width: 154px;
+        margin-top: 12px;
+    }
 }
 
 .yesDeals {
@@ -30,10 +49,23 @@
     margin-top: 20px;
     display: flex;
     @include list(12px, true);
+
+    @include mq($SmDesktopWidth, max) {
+        flex-direction: column;
+    }
+
+    @include mq($PhoneWidth, max) {
+        margin-top: 12px;
+    }
 }
 
 .btn {
     color: $blue500;
+
+    @include mq($SmDesktopWidth, max) {
+        margin: 0;
+        margin-top: 8px;
+    }
 }
 
 .btnFirst {

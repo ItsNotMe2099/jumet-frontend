@@ -31,7 +31,7 @@ export default function ReceivingPointsPage(props: Props) {
     <Layout>
       <LkLayout>
         {data.data.map((i, index) =>
-          <ReceivingPointCard point={i} key={i.id} />
+          <ReceivingPointCard point={i} key={i.id} href={`${router.asPath}/${i.id}/info`} />
         )}
       </LkLayout>
     </Layout>

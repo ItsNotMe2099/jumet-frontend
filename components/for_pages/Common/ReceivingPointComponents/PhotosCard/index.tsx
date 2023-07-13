@@ -12,7 +12,7 @@ export default function PhotosCard({ item }: Props) {
 
   return (
     <CardLayout title='Фотографии пункта приёма'>
-      {/*<ImageSlider images={item.photos} />*/}
+        {/*<ImageSlider images={item.photos} />*/}
     </CardLayout>
   )
 }

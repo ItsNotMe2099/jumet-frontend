@@ -38,6 +38,7 @@
 
     @include mq($MdDesktopWidth, max) {
         margin-left: 0;
+        width: 100%;
     }
 }
 
@@ -92,6 +93,7 @@
     color: $white;
     @include h3;
     font-weight: normal;
+
 }
 
 .btn {
@@ -103,6 +105,9 @@
 .btnMobile {
     @include mq($PhoneWidth, min) {
         display: none;
+    }
+    @include mq($PhoneWidth, max) {
+        width: 100%;
     }
 }
 

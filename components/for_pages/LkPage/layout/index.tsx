@@ -13,6 +13,7 @@ import Button from '@/components/ui/Button'
 import PlusSvg from '@/components/svg/PlusSvg'
 import { Gender } from '@/data/enum/Gender'
 import { useState } from 'react'
+import { points } from '@/data/temp/points'
 
 
 interface Props {
@@ -150,6 +151,10 @@ export default function LkLayout(props: Props) {
           <Button className={styles.btn} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
             Добавить сотрудника
           </Button>}
+        {router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}` &&
+          <Button className={styles.btn} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
+            Добавить пункт приёма
+          </Button>}
       </div>
       <div className={styles.container}>
         <div className={styles.menu}>
@@ -172,7 +177,7 @@ export default function LkLayout(props: Props) {
                     text={i.text}
                     link={`/lk/${ProfileMenuSettings.ReceivingPoints}`}
                     open={router.asPath.includes(ProfileMenuSettings.ReceivingPoints) && myPointsOpen}
-                  >{receivingPoints.map((i, index) =>
+                  >{points.data.map((i, index) =>
                     <Accordion
                       key={index}
                       icon={<ChevronDownSvg color={colors.dark500} />}
@@ -202,6 +207,10 @@ export default function LkLayout(props: Props) {
         {router.asPath === `/lk/${ProfileMenuSettings.Employees}` &&
           <Button className={styles.btnMobile} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
             Добавить сотрудника
+          </Button>}
+        {router.asPath === `/lk/${ProfileMenuSettings.ReceivingPoints}` &&
+          <Button className={styles.btnMobile} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
+            Добавить пункт приёма
           </Button>}
         <div className={styles.content}>
           {props.children}

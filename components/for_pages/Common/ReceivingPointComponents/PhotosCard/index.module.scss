@@ -1,14 +1,5 @@
 @import "styles/index";
 
 .root {
-    display: flex;
-    flex-direction: column;
-    @include list(16px, false);
-    padding: 20px;
-    background-color: $white;
-    border-radius: $StandartBorderRadius;
-}
-
-.title {
-    @include h2;
+    
 }

@@ -11,12 +11,13 @@ import GraphSvg from '@/components/svg/GraphSvg'
 
 interface Props {
   point: IPointData
+  href?: string
 }
 
-export default function ReceivingPointCard({ point }: Props) {
+export default function ReceivingPointCard({ point, href }: Props) {
 
   return (
-    <CardLayout contentClassName={styles.content} topClassName={styles.top} title={point.title} additionalEl={
+    <CardLayout contentClassName={styles.content} href={href} topClassName={styles.top} title={point.address} additionalEl={
       <div className={styles.additional}>
         <Rating rating={point.rating} />
         <div className={classNames(styles.deals,
@@ -25,6 +26,10 @@ export default function ReceivingPointCard({ point }: Props) {
           })}>{point.dealsPerMonth} сделок за месяц</div>
       </div>
     }>
+      <div className={classNames(styles.deals,
+        {
+          [styles.yesDeals]: point.dealsPerMonth && point.dealsPerMonth > 0
+        })}>{point.dealsPerMonth} сделок за месяц</div>
       <div className={styles.btns}>
         <Button className={styles.btnFirst} color='blue' styleType='large' icon={<GraphSvg color={colors.white} />}>
           Статистика пункта приёма
