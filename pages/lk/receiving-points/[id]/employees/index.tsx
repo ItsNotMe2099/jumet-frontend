@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Layout'
-//import styles from './index.module.scss'
+import styles from './index.module.scss'
 import { useEffect, useState } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
@@ -10,12 +10,16 @@ import BuyerRepository from '@/data/repositories/BuyerRepository'
 import IUser from '@/data/interfaces/IUser'
 import { useAppContext } from '@/context/state'
 import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
+import LkLayoutMobile from '@/components/for_pages/LkPage/layout/mobile'
+import { points } from '@/data/temp/points'
+import { GetServerSideProps } from 'next'
+import IPointData from '@/data/interfaces/IPointData'
 
 interface Props {
-
+  item: IPointData
 }
 
-export default function ReceivingPointEmployeesPage(props: Props) {
+export default function ReceivingPointEmployeesPage({ item }: Props) {
 
   const router = useRouter()
 
@@ -81,14 +85,33 @@ export default function ReceivingPointEmployeesPage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout myPointsOpen>
+      <LkLayout className={styles.desktop} myPointsOpen>
         {appContext.aboutMe?.role !== UserRole.Buyer &&
                   /*employees*/tempEmps.map((i, index) =>
           <EmployeeCard user={i} key={index} />
         )
         }
       </LkLayout>
+
+      <LkLayoutMobile className={styles.mobile} point={item}>
+        {appContext.aboutMe?.role !== UserRole.Buyer &&
+                  /*employees*/tempEmps.map((i, index) =>
+          <EmployeeCard user={i} key={index} />
+        )
+        }
+      </LkLayoutMobile>
     </Layout>
   )
 }
 
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const res = context.query.id as string
+
+  const data = points
+
+  return {
+    props: {
+      item: data.data.find(i => i.id === +res)
+    } as Props
+  }
+}

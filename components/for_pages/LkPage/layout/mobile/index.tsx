@@ -12,9 +12,10 @@ import { colors } from '@/styles/variables'
 interface Props {
   point: IPointData
   children: React.ReactNode
+  className?: string
 }
 
-export default function LkLayoutMobile({ point, children }: Props) {
+export default function LkLayoutMobile({ point, children, className }: Props) {
 
   const router = useRouter()
 
@@ -38,7 +39,7 @@ export default function LkLayoutMobile({ point, children }: Props) {
   ]
 
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, className)}>
       <Link className={styles.back} href={`/lk/${ProfileMenuSettings.ReceivingPoints}`}>
         <ChevronLeftSvg color={colors.grey500} />
         <div className={styles.text}>
