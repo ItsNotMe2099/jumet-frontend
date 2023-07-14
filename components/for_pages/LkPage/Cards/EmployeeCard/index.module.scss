@@ -22,6 +22,12 @@
 .top {
   align-items: center;
   justify-content: space-between;
+
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(12px, false);
+    align-items: flex-start;
+  }
 }
 
 .name {

@@ -6,12 +6,13 @@ import IPointData from '@/data/interfaces/IPointData'
 
 interface Props {
   item: IPointData
+  cardLayoutClass?: string
 }
 
-export default function PhotosCardLk({ item }: Props) {
+export default function PhotosCardLk({ item, cardLayoutClass }: Props) {
 
   return (
-    <CardLayout title='Фотографии пункта приёма'>
+    <CardLayout className={cardLayoutClass} title='Фотографии пункта приёма'>
       <div className={styles.root}>
         <PhotosForm />
       </div>

@@ -7,12 +7,18 @@ interface Props {
   item: IPointData
   additionalEl?: React.ReactNode
   topClassName?: string
+  cardLayoutClass?: string
+  button?: React.ReactNode
 }
 
 export default function AddressCard(props: Props) {
 
   return (
-    <CardLayout title='Адрес пункта приёма лома' additionalEl={props.additionalEl} topClassName={props.topClassName}>
+    <CardLayout
+      className={props.cardLayoutClass}
+      title='Адрес пункта приёма лома'
+      additionalEl={props.additionalEl}
+      topClassName={props.topClassName}>
       <div className={styles.address}>
         {props.item.address}
       </div>
@@ -26,6 +32,7 @@ export default function AddressCard(props: Props) {
           </Map>
         </YMaps>
       </div>
+      {props.button}
     </CardLayout>
   )
 }

@@ -14,11 +14,7 @@
   visibility: hidden;
   border-radius: 3px;
   background: #EBEBEB;
-  min-width: 300px;
-
-  @media screen and (max-width: $xs-max) {
-    width: calc(100vw - 36px);
-  }
+  max-width: 200px;
 }
 
 .inner {
@@ -35,14 +31,6 @@
   visibility: visible;
   top: -60% !important;
   margin: 0 0 0 20px;
-
-  @media screen and (max-width: 1250px) {
-    top: 168% !important;
-    z-index: 10;
-    margin: 0;
-    left: -1198% !important;
-    transform: none !important;
-  }
 }
 
 .question {

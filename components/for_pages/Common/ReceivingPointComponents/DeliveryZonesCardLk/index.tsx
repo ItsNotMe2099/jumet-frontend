@@ -7,12 +7,14 @@ interface Props {
   item: IPointData
   additionalEl?: React.ReactNode
   topClassName?: string
+  button?: React.ReactNode
+  cardLayoutClass?: string
 }
 
-export default function DeliveryZonesCardLk({ item, additionalEl, topClassName }: Props) {
+export default function DeliveryZonesCardLk({ item, additionalEl, topClassName, button, cardLayoutClass }: Props) {
 
   return (
-    <CardLayout title='Зоны доставки' additionalEl={additionalEl} topClassName={topClassName}>
+    <CardLayout className={cardLayoutClass} title='Зоны доставки' additionalEl={additionalEl} topClassName={topClassName}>
       <div className={styles.root}>
         {item.zones.map((i, index) =>
           <div className={styles.item} key={index}>
@@ -54,6 +56,7 @@ export default function DeliveryZonesCardLk({ item, additionalEl, topClassName }
             </div>
           </div>
         )}
+        {button}
       </div>
     </CardLayout>
   )

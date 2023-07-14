@@ -4,6 +4,12 @@
     display: flex;
     flex-direction: column;
     @include list(48px, false);
+
+    .item:first-child {
+        .info {
+            margin-top: 24px;
+        }
+    }
 }
 
 .item {

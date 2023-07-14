@@ -4,18 +4,25 @@ import IPointData from '@/data/interfaces/IPointData'
 import FileDownloadSvg from '@/components/svg/FileDownloadSvg'
 import { colors } from '@/styles/variables'
 import CardLayout from '../../CardLayout'
+import classNames from 'classnames'
 
 
 interface Props {
   item: IPointData
   additionalEl?: React.ReactNode
   topClassName?: string
+  cardLayoutClass?: string
+  button?: React.ReactNode
 }
 
-export default function RequisitesCard({ item, additionalEl, topClassName }: Props) {
+export default function RequisitesCard({ item, additionalEl, topClassName, cardLayoutClass, button }: Props) {
 
   return (
-    <CardLayout title='Реквизиты' className={styles.root} additionalEl={additionalEl} topClassName={topClassName}>
+    <CardLayout
+      title='Реквизиты'
+      className={classNames(styles.root, cardLayoutClass)}
+      additionalEl={additionalEl}
+      topClassName={topClassName}>
       <div className={styles.item}>
         <div className={styles.title}>
           ИНН
@@ -56,6 +63,7 @@ export default function RequisitesCard({ item, additionalEl, topClassName }: Pro
           Лицензия ломозаготовителя
         </div>
       </div>
+      {button}
     </CardLayout>
   )
 }

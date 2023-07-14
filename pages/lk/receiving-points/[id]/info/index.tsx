@@ -18,6 +18,7 @@ import EmployeesCard from '@/components/for_pages/Common/ReceivingPointComponent
 import PlusSvg from '@/components/svg/PlusSvg'
 import { points } from '@/data/temp/points'
 import PhotosCardLk from '@/components/for_pages/Common/ReceivingPointComponents/PhotosCardLk'
+import LkLayoutMobile from '@/components/for_pages/LkPage/layout/mobile'
 
 interface Props {
   item: IPointData
@@ -39,7 +40,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
 
   return (
     <Layout>
-      <LkLayout myPointsOpen>
+      <LkLayout className={styles.desktop} myPointsOpen>
         <AddressCard item={item} additionalEl={
           <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
             Редактировать данные
@@ -71,6 +72,42 @@ export default function ReceivingPointInfoPage({ item }: Props) {
             </Button>
           </div>} topClassName={styles.top} />
       </LkLayout>
+
+      <LkLayoutMobile point={item}>
+        <AddressCard
+          button={<Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            Редактировать
+          </Button>}
+          cardLayoutClass={styles.mobileCard}
+          item={item}
+          topClassName={styles.top} />
+        <DeliveryZonesCardLk cardLayoutClass={styles.mobileCard} item={item}
+          button={<Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            Редактировать
+          </Button>} topClassName={styles.top} />
+        <CostCardLk cardLayoutClass={styles.mobileCard} item={item} button={
+          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            Редактировать
+          </Button>} topClassName={styles.top} />
+        <WorkingHoursCard cardLayoutClass={styles.mobileCard} item={item} button={
+          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            Редактировать
+          </Button>} topClassName={styles.top} />
+        <PhotosCardLk cardLayoutClass={styles.mobileCard} item={item} />
+        <RequisitesCard cardLayoutClass={styles.mobileCard} item={item} button={
+          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            Редактировать
+          </Button>} topClassName={styles.top} />
+        <EmployeesCard cardLayoutClass={styles.mobileCard} item={item} button={
+          <div className={styles.btns}>
+            <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+              Редактировать
+            </Button>
+            <Button className={styles.btnSecond} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
+              Добавить
+            </Button>
+          </div>} topClassName={styles.top} />
+      </LkLayoutMobile>
     </Layout>
   )
 }

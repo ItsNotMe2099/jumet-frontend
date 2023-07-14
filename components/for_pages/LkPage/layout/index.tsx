@@ -11,7 +11,6 @@ import Link from 'next/link'
 import Accordion from '../Accordion'
 import Button from '@/components/ui/Button'
 import PlusSvg from '@/components/svg/PlusSvg'
-import { Gender } from '@/data/enum/Gender'
 import { useState } from 'react'
 import { points } from '@/data/temp/points'
 
@@ -19,6 +18,7 @@ import { points } from '@/data/temp/points'
 interface Props {
   children: React.ReactNode
   myPointsOpen?: boolean
+  className?: string
 }
 
 export default function LkLayout(props: Props) {
@@ -31,73 +31,6 @@ export default function LkLayout(props: Props) {
     setTimeout(() => appContext.logout(), 100)
     router.push('/')
   }
-
-  const receivingPoints = [
-    {
-      id: 1, address: 'г. Сергиев Посад, ул. Мира, 32', employees: [
-        {
-          id: '1',
-          role: UserRole.Buyer,
-          phone: '',
-          login: '',
-          name: 'Валерий Федоров',
-          companyName: '«МеталлВторЧермет»',
-          isRegistered: true,
-          email: 'v.fedor@gmail.com',
-          birthday: new Date(),
-          gender: Gender.male,
-          password: '',
-          readedNotifications: []
-        },
-        {
-          id: '1',
-          role: UserRole.Buyer,
-          phone: '',
-          login: '',
-          name: 'Валерий Федоров',
-          companyName: '«МеталлВторЧермет»',
-          isRegistered: true,
-          email: 'v.fedor@gmail.com',
-          birthday: new Date(),
-          gender: Gender.male,
-          password: '',
-          readedNotifications: []
-        },
-      ]
-    },
-    {
-      id: 2, address: 'г. Сергиев Посад, ул. Ленина, 32', employees: [
-        {
-          id: '1',
-          role: UserRole.Buyer,
-          phone: '',
-          login: '',
-          name: 'Валерий Федоров',
-          companyName: '«МеталлВторЧермет»',
-          isRegistered: true,
-          email: 'v.fedor@gmail.com',
-          birthday: new Date(),
-          gender: Gender.male,
-          password: '',
-          readedNotifications: []
-        },
-        {
-          id: '1',
-          role: UserRole.Buyer,
-          phone: '',
-          login: '',
-          name: 'Валерий Федоров',
-          companyName: '«МеталлВторЧермет»',
-          isRegistered: true,
-          email: 'v.fedor@gmail.com',
-          birthday: new Date(),
-          gender: Gender.male,
-          password: '',
-          readedNotifications: []
-        },
-      ]
-    },
-  ]
 
   const items = appContext.aboutMe?.role !== UserRole.Seller ? [
     { text: 'Настройки профиля', value: ProfileMenuSettings.Settings, link: `/lk/${ProfileMenuSettings.Settings}` },
@@ -144,7 +77,7 @@ export default function LkLayout(props: Props) {
   const [myPointsOpen, setMyPointsOpen] = useState<boolean>(props.myPointsOpen as boolean)
 
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, props.className)}>
       <div className={styles.title}>
         <div className={styles.text}>{getTitle(router.asPath)}</div>
         {router.asPath === `/lk/${ProfileMenuSettings.Employees}` &&
@@ -183,7 +116,7 @@ export default function LkLayout(props: Props) {
                       icon={<ChevronDownSvg color={colors.dark500} />}
                       text={i.address}
                       open={router.asPath.includes(`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`)}
-                      link={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}`}
+                      link={`/lk/${ProfileMenuSettings.ReceivingPoints}/${i.id}/info`}
                     >
                       {itemsInReceivingPoint.map((item, index) =>
                         <Link

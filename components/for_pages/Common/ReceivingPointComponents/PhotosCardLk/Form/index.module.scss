@@ -3,8 +3,13 @@
 .form {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    @include list(24px, false);
     width: 70%;
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+        @include list(8px, false);
+    }
 }
 
 .text {
@@ -20,4 +25,8 @@
 
 .btn {
     width: 122px;
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+    }
 }

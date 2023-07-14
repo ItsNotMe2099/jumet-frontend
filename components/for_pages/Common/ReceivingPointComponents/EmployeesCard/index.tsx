@@ -7,17 +7,20 @@ interface Props {
   item: IPointData
   additionalEl?: React.ReactNode
   topClassName?: string
+  button?: React.ReactNode
+  cardLayoutClass?: string
 }
 
-export default function EmployeesCard({ item, additionalEl, topClassName }: Props) {
+export default function EmployeesCard({ item, additionalEl, topClassName, button, cardLayoutClass }: Props) {
 
   return (
-    <CardLayout title='Сотрудники' additionalEl={additionalEl} topClassName={topClassName}>
+    <CardLayout className={cardLayoutClass} title='Сотрудники' additionalEl={additionalEl} topClassName={topClassName}>
       <div className={styles.root}>
         {item.employees.map((i, index) =>
           <EmployeeCard user={i} key={index} titleClassName={styles.title} cardLayoutClassName={styles.layout} />
         )}
       </div>
+      {button}
     </CardLayout>
   )
 }
