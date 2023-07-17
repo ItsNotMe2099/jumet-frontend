@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {
+    
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    @include list(2px, false);
+}
+
+.title {
+    @include btnText;
+    color: $dark500;
+}
+
+.status {
+    display: flex;
+    @include list(4px, true);
+    align-items: center;
+
+    .text {
+        @include secondaryText;
+        color: $grey500;
+    }
+}
+
+.separator {
+    width: 100%;
+    height: 1px;
+    background-color: $grey300;
+    margin: 12px 0;
+}

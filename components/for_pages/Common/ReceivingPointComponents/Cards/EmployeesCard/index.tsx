@@ -1,5 +1,5 @@
 import IPointData from '@/data/interfaces/IPointData'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 import styles from './index.module.scss'
 import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
 

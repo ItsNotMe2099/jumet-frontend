@@ -4,11 +4,11 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
-import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/ReviewsCard'
 import { points } from '@/data/temp/points'
 import { GetServerSideProps } from 'next'
 import IPointData from '@/data/interfaces/IPointData'
 import LkLayoutMobile from '@/components/for_pages/LkPage/layout/mobile'
+import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/ReviewsCard'
 
 interface Props {
   item: IPointData

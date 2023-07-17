@@ -1,14 +1,15 @@
 import { FileUploadAcceptType } from 'types/enums'
-import {GeoObject} from 'data/interfaces/IYandexGeocoder'
+import { GeoObject } from 'data/interfaces/IYandexGeocoder'
 
 export default class Converter {
 
   static getFileUploadAccept(type: FileUploadAcceptType): string[] {
-    const images = ['.png','.jpg', '.jpeg']
-    const videos = ['.mp4','.mov', '.avi']
-    const scans =['.pdf']
+    const images = ['.png', '.jpg', '.jpeg']
+    const videos = ['.mp4', '.mov', '.avi']
+    const scans = ['.pdf']
     const docs =
       ['.xls', '.xlsx', '.docx', '.doc', '.csv', '.txt', '.odt']
+    const archives = ['.rar', '.7-zip', '.zip']
     switch (type) {
       case FileUploadAcceptType.Image:
         return images
@@ -18,6 +19,8 @@ export default class Converter {
         return [...scans, ...docs]
       case FileUploadAcceptType.Media:
         return [...images, ...videos]
+      case FileUploadAcceptType.Archives:
+        return archives
       default:
         return []
     }

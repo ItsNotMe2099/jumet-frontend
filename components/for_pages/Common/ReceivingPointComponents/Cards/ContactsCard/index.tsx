@@ -12,12 +12,13 @@ import classNames from 'classnames'
 import Button from '@/components/ui/Button'
 import BookmarkSvg from '@/components/svg/BookmarkSvg'
 import ShareSvg from '@/components/svg/ShareSvg'
-import CardLayout from '../../CardLayout'
-import Rating from '../../Rating'
+import CardLayout from '../../../CardLayout'
+import Rating from '../../../Rating'
 
 
 interface Props {
   item: IPointData
+  cardLayoutClass?: string
 }
 
 export default function ContactsCard(props: Props) {
@@ -31,7 +32,7 @@ export default function ContactsCard(props: Props) {
   const currentHour = Number(hour)
 
   return (
-    <CardLayout title={props.item.title} additionalEl={<Rating rating={props.item.rating} />} topClassName={styles.top}>
+    <CardLayout className={props.cardLayoutClass} title={props.item.title} additionalEl={<Rating rating={props.item.rating} />} topClassName={styles.top}>
       <div className={styles.middle}>
         <div className={styles.phone}>
           <PhoneSvg color={colors.dark500} />

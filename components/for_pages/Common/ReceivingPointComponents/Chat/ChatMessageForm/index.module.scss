@@ -1,0 +1,36 @@
+@import "styles/index";
+
+.form {
+    padding: 12px 20px;
+    display: flex;
+    @include list(8px, true);
+    background-color: $grey300;
+    bottom: -32px;
+    width: calc(100% + 40px);
+    left: -20px;
+    position: absolute;
+    align-items: center;
+}
+
+.btn {
+    padding: 8px;
+}
+
+.message {
+
+    input {
+        height: 40px;
+    }
+}
+
+.section {
+    width: 40px;
+    height: 40px;
+    background-color: $white;
+    padding: 8px !important;
+    border: 0;
+}
+
+.attach {
+    height: 40px;
+}

@@ -3,13 +3,14 @@ import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import { useState } from 'react'
 import QuestionPopover from '@/components/ui/QuestionPopover'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 
 interface Props {
   item: IPointData
+  cardLayoutClass?: string
 }
 
-export default function CostCard({ item }: Props) {
+export default function CostCard({ item, cardLayoutClass }: Props) {
 
   const [prices3A, setPrices3A] = useState<boolean>(true)
   const [prices5A, setPrices5A] = useState<boolean>(true)
@@ -83,7 +84,7 @@ export default function CostCard({ item }: Props) {
   ]
 
   return (
-    <CardLayout title='Стоимость приема лома'>
+    <CardLayout className={cardLayoutClass} title='Стоимость приема лома'>
       <div className={styles.top}>
         <div className={styles.category}>
           <div className={styles.popover}>

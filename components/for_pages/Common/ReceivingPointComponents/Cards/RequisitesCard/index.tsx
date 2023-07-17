@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import FileDownloadSvg from '@/components/svg/FileDownloadSvg'
 import { colors } from '@/styles/variables'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 import classNames from 'classnames'
 
 

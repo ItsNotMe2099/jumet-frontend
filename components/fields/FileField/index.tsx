@@ -7,6 +7,7 @@ import styles from './index.module.scss'
 import AddImageSvg from '@/components/svg/AddImageSvg'
 import { colors } from '@/styles/variables'
 import Converter from '@/utils/converter'
+import classNames from 'classnames'
 
 export interface FileFieldProps<T> extends IField<T> {
   accept?: FileUploadAcceptType[]
@@ -14,6 +15,10 @@ export interface FileFieldProps<T> extends IField<T> {
   label?: string
   maxFiles: number
   text: React.ReactNode
+  image: React.ReactNode
+  sectionClass?: string
+  className?: string
+  showPreview?: boolean
 }
 
 const FileField = (props: any & FileFieldProps<string | string[]>) => {
@@ -32,7 +37,7 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
   let arr: string[] = []
 
   return (
-    <div className={styles.root}>
+    <div className={classNames(styles.root, props.className)}>
       {props.label ? <div className={styles.label}>
         {props.label}
       </div> : null}
@@ -41,10 +46,10 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
         return { '': arr }
       }, [accept])} multiple={multiple} maxFiles={maxFiles}>
         {({ getRootProps, getInputProps }) => (
-          <section className={styles.section}>
+          <section className={classNames(styles.section, props.sectionClass)}>
             <div className={styles.content} {...getRootProps()}>
               <input {...getInputProps()} />
-              <AddImageSvg color={colors.grey500} />
+              {props.image}
               <div className={styles.text}>
                 {props.text}
               </div>
@@ -52,7 +57,7 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
           </section>
         )}
       </Dropzone>
-      {field.value && (
+      {field.value && props.showPreview && (
         <div>
           {Array.isArray(field.value)
             ? field.value.map((file) => (
@@ -76,3 +81,8 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
 }
 
 export default FileField
+
+FileField.defaultProps = {
+  image: <AddImageSvg color={colors.grey500} />,
+  showPreview: true
+}

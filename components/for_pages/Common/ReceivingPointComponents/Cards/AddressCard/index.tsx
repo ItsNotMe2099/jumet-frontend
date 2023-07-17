@@ -1,7 +1,7 @@
 import IPointData from '@/data/interfaces/IPointData'
 import styles from './index.module.scss'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 
 interface Props {
   item: IPointData

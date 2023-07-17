@@ -1,6 +1,6 @@
 import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 
 interface Props {

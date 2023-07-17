@@ -31,7 +31,8 @@ export enum FileUploadAcceptType {
   Video = 'video',
   Document = 'document',
   Scan = 'scan',
-  Media = 'media'
+  Media = 'media',
+  Archives = 'archives'
 }
 
 export enum CookiesType {

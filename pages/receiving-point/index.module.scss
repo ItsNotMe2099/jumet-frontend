@@ -1,9 +1,14 @@
 @import "styles/index";
 
 .root {
-    display: flex;
-    @include list(32px, true);
     @include container;
+    position: relative;
+    margin-right: 0;
+    max-width: 1342px !important;
+
+    @include mq($lg-medium, min) {
+        max-width: 1620px !important;
+    }
 }
 
 .content {
@@ -12,5 +17,18 @@
     @include list(12px, false);
     margin-top: 32px;
     margin-bottom: 64px;
-    flex: 1;
+    max-width: 940px;
+    margin-right: 32px;
+}
+
+.chat {
+    position: absolute;
+    height: calc(100% + 32px);
+    right: 0;
+    top: -32px;
+    width: 352px !important;
+
+    @include mq($lg-medium, min) {
+        width: 628px !important;
+    }
 }

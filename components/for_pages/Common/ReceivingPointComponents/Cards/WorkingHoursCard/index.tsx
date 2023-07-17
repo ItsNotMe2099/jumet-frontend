@@ -1,4 +1,4 @@
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import classNames from 'classnames'

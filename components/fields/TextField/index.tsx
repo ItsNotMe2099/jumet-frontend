@@ -16,6 +16,7 @@ interface Props extends IField<string> {
   isNumbersOnly?: boolean
   inputStyle?: InputStyleType
   sign?: string
+  showError?: boolean
 }
 
 export default function TextField(props: Props) {
@@ -61,7 +62,7 @@ export default function TextField(props: Props) {
             placeholder={props.placeholder}
           />
         </div>
-        <FieldError {...meta} />
+        {props.showError && <FieldError {...meta} />}
       </div>
     </div >
   )
@@ -69,5 +70,6 @@ export default function TextField(props: Props) {
 
 TextField.defaultProps = {
   type: 'text',
+  showError: true
 }
 

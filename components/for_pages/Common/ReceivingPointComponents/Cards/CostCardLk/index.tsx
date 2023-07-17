@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
 import QuestionPopover from '@/components/ui/QuestionPopover'
-import CardLayout from '../../CardLayout'
+import CardLayout from '../../../CardLayout'
 import { useState } from 'react'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
 import { colors } from '@/styles/variables'
