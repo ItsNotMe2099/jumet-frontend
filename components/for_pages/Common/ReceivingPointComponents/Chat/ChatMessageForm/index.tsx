@@ -6,9 +6,10 @@ import { colors } from '@/styles/variables'
 import SendSvg from '@/components/svg/SendSvg'
 import TextField from '@/components/fields/TextField'
 import Validator from '@/utils/validator'
-
 import { FileUploadAcceptType } from '@/types/enums'
 import FileField from '@/components/fields/FileField'
+import classNames from 'classnames'
+import { useAppContext } from '@/context/state'
 
 interface Props {
 
@@ -32,9 +33,12 @@ export default function ChatMessageForm(props: Props) {
 
   console.log(formik.values)
 
+  const appContext = useAppContext()
+
   return (
     <FormikProvider value={formik}>
-      <Form className={styles.form}>
+      <Form className={classNames(styles.form, { [styles.inactive]: !appContext.token })}>
+        {!appContext.token && <div className={styles.block} />}
         <FileField
           showPreview={false}
           name='file'

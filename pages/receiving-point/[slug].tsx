@@ -32,7 +32,7 @@ export default function ReceivingPoint(props: Props) {
           <PhotosCard  item={props.item} />
           <RequisitesCard  item={props.item} />
         </div>
-        <Chat className={styles.chat} />
+        <Chat className={styles.chat} messageClass={styles.message} />
       </div>
     </Layout>
   )

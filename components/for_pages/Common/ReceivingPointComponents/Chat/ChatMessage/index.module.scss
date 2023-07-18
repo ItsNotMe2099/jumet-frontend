@@ -1,0 +1,47 @@
+@import "styles/index";
+
+.root {
+    padding: 12px;
+    background-color: $grey200;
+    border-radius: 12px 0px 12px 12px;
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    align-self: flex-end;
+}
+
+.self {
+    background-color: $grey300;
+}
+
+.odd {
+    border-radius: 0px 12px 12px 12px;
+    align-self: flex-start;
+}
+
+.name,
+.time {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.text {
+    @include mainText;
+    color: $dark500;
+}
+
+.body {
+    position: relative;
+    overflow: hidden;
+    display: flex;
+    @include list(8px, true);
+}
+
+.info {
+    float: right;
+    display: flex;
+    @include list(4px, true);
+    align-items: center;
+    @include clearfix;
+    align-self: flex-end;
+}

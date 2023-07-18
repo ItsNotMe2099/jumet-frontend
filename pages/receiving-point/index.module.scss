@@ -32,3 +32,13 @@
         width: 628px !important;
     }
 }
+
+.message {
+    max-width: 312px;
+
+    margin-top: 12px;
+
+    @include mq($lg-medium, min) {
+        max-width: 376px;
+    }
+}
