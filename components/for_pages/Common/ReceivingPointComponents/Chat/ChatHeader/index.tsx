@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { colors } from '@/styles/variables'
 
 interface Props {
-
+  address?: string
 }
 
 export default function ChatHeader(props: Props) {
@@ -12,7 +12,7 @@ export default function ChatHeader(props: Props) {
     <div className={styles.root}>
       <div className={styles.top}>
         <div className={styles.title}>
-          Чат с пунктом приёма
+          {props.address ? <><span>Пункт приёма:</span><>{props.address}</></> : 'Чат с пунктом приёма'}
         </div>
         <div className={styles.status}>
           <DotSvg color={colors.green600} />

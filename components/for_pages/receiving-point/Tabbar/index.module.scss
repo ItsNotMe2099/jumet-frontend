@@ -1,0 +1,22 @@
+@import "styles/index";
+
+.root {
+    display: none;
+    bottom: 0;
+    border-radius: 12px 12px 0px 0px;
+    background: #FFF;
+    box-shadow: 0px -8px 24px 0px rgba(21, 27, 41, 0.10);
+    width: 100%;
+    z-index: 20;
+    top: auto !important;
+    padding: 12px 16px;
+
+    @include mq(820px, max) {
+        display: flex;
+        justify-content: center;
+    }
+}
+
+.btn {
+    width: 100%;
+}

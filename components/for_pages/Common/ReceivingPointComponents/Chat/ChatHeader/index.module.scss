@@ -1,8 +1,6 @@
 @import "styles/index";
 
-.root {
-    
-}
+.root {}
 
 .top {
     display: flex;
@@ -13,6 +11,12 @@
 .title {
     @include btnText;
     color: $dark500;
+
+    span {
+        @include secondaryText;
+        color: $grey500;
+        margin-right: 8px;
+    }
 }
 
 .status {

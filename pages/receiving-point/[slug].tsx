@@ -9,9 +9,13 @@ import CostCard from '@/components/for_pages/Common/ReceivingPointComponents/Car
 import { points } from '@/data/temp/points'
 import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/ReviewsCard'
 import WorkingHoursCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/WorkingHoursCard'
-import PhotosCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/PhotosCard'
+//import PhotosCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/PhotosCard'
 import RequisitesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/RequisitesCard'
 import Chat from '@/components/for_pages/Common/ReceivingPointComponents/Chat'
+import TabBar from '@/components/for_pages/receiving-point/Tabbar'
+import { useState } from 'react'
+import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
+import { colors } from '@/styles/variables'
 
 interface Props {
   item: IPointData
@@ -19,21 +23,35 @@ interface Props {
 
 export default function ReceivingPoint(props: Props) {
 
+  const [showChat, setShowChat] = useState<boolean>(false)
+
   return (
     <Layout>
       <div className={styles.root}>
-        <div className={styles.content}>
-          <ContactsCard  item={props.item} />
-          <AddressCard  item={props.item} />
-          <CostCard  item={props.item} />
-          <DeliveryZonesCard  item={props.item} />
-          <ReviewsCard  item={props.item} />
-          <WorkingHoursCard  item={props.item} />
-          <PhotosCard  item={props.item} />
-          <RequisitesCard  item={props.item} />
+        {!showChat ? <div className={styles.content}>
+          <ContactsCard item={props.item} />
+          <AddressCard item={props.item} />
+          <CostCard item={props.item} />
+          <DeliveryZonesCard item={props.item} />
+          <ReviewsCard item={props.item} />
+          <WorkingHoursCard item={props.item} />
+          {/*<PhotosCard  item={props.item} />*/}
+          <RequisitesCard item={props.item} />
         </div>
+          :
+          <div className={styles.chatLayout}>
+            <div className={styles.header}>
+              <div className={styles.back} onClick={() => setShowChat(false)}>
+                <ChevronLeftSvg color={colors.grey500} />
+                <div className={styles.text}>Назад</div>
+              </div>
+            </div>
+            <Chat address={props.item.address} className={styles.chatMobile} messageClass={styles.message} />
+          </div>
+        }
         <Chat className={styles.chat} messageClass={styles.message} />
       </div>
+      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky />}
     </Layout>
   )
 }

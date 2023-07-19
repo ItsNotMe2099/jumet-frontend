@@ -8,6 +8,7 @@ import classNames from 'classnames'
 interface Props {
   className?: string
   messageClass?: string
+  address?: string
 }
 
 export default function Chat(props: Props) {
@@ -23,13 +24,13 @@ export default function Chat(props: Props) {
     {
       text: '5 тонн арматуры, труб швелера и прочей ерунды. Важно, чтобы у вас была доставка.', time: '14:43',
       user: 'Vasya', unread: true
-    }
+    },
   ]
 
   return (
     <div className={classNames(styles.root, props.className)}>
       <div className={styles.wrapper}>
-        <ChatHeader />
+        <ChatHeader address={props.address} />
         <div className={styles.messages}>
           <ChatMessage className={props.messageClass} message={hardCodedMsg} index={0} />
           {messages.map((i, index) =>

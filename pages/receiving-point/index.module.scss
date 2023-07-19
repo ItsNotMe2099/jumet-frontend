@@ -9,6 +9,10 @@
     @include mq($lg-medium, min) {
         max-width: 1620px !important;
     }
+
+    @include mq(820px, max) {
+        padding: 0;
+    }
 }
 
 .content {
@@ -18,7 +22,15 @@
     margin-top: 32px;
     margin-bottom: 64px;
     max-width: 940px;
-    margin-right: 32px;
+    margin-right: 350px;
+
+    @include mq(820px, max) {
+        margin-right: 0;
+    }
+
+    @include mq($lg-medium, min) {
+        margin-right: 630px;
+    }
 }
 
 .chat {
@@ -31,6 +43,32 @@
     @include mq($lg-medium, min) {
         width: 628px !important;
     }
+
+    @include mq(820px, max) {
+        display: none;
+    }
+}
+
+.chatLayout {}
+
+.header {
+    padding: 24px 15px;
+}
+
+.back {
+    cursor: pointer;
+    display: flex;
+    @include list(8px, true);
+    align-items: center;
+
+    .text {
+        color: $grey500;
+        align-self: center;
+    }
+}
+
+.chatMobile {
+    margin-bottom: 48px;
 }
 
 .message {

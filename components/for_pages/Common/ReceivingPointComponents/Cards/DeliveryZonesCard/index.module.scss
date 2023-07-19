@@ -18,8 +18,19 @@
     margin-top: 16px;
     gap: 8px;
 
+    @include mq($SmDesktopWidth, max) {
+        display: block;
+        @include clearfix;
+    }
+
     .tab {
         width: 25%;
+        @include mq($SmDesktopWidth, max) {
+            float: left;
+            @include clearfix;
+            margin: 0 8px 8px 0;
+        }
+
     }
 
     .tab2 {

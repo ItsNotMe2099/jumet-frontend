@@ -19,6 +19,12 @@
     justify-content: space-between;
     align-items: center;
 
+    @include mq($SmDesktopWidth, max) {
+        flex-direction: column;
+        align-items: flex-start;
+        @include list(12px, false);
+    }
+
     .text {
         @include btnText;
     }
@@ -46,6 +52,10 @@
 .row {
     display: table-row;
 
+    @include mq($MdDesktopWidth, max) {
+        display: none;
+    }
+
     .cell:first-child {
         padding-left: 12px;
     }
@@ -58,6 +68,10 @@
 .secondRow {
     display: table-row;
     background-color: $grey300;
+
+    @include mq($MdDesktopWidth, max) {
+        display: none;
+    }
 
     .cell:first-child {
         padding-left: 12px;
@@ -75,9 +89,41 @@
     }
 }
 
+.mobileSecond {
+    display: table-row;
+    background-color: $grey300;
+
+    @include mq($MdDesktopWidth, min) {
+        display: none;
+    }
+
+    .cell:first-child {
+        padding-left: 12px;
+        text-align: start;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+        text-align: end;
+        padding-left: 24px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+        text-align: end;
+    }
+}
+
 .whiteRow {
     display: table-row;
     background-color: $white;
+
+    @include mq($MdDesktopWidth, max) {
+        display: none;
+    }
 
     .cell:first-child {
         padding-left: 12px;
@@ -85,6 +131,31 @@
 
     .cell:last-child {
         padding-right: 12px;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        @include btnText;
+        color: $dark500;
+    }
+}
+
+.mobileWhite {
+    display: table-row;
+    background-color: $white;
+
+    @include mq($MdDesktopWidth, min) {
+        display: none;
+    }
+
+    .cell:first-child {
+        padding-left: 12px;
+    }
+
+    .cell:last-child {
+        padding-right: 12px;
+        text-align: end;
     }
 
     .cell {
@@ -100,6 +171,14 @@
     @include secondaryText;
     color: $grey500;
     padding: 0 0 5px 0;
+
+    @include mq(1320px, max) {
+        font-size: 12px;
+    }
+
+    @include mq($MdDesktopWidth, max) {
+        @include secondaryText;
+    }
 }
 
 .mix {
@@ -121,4 +200,52 @@
 .popover {
     display: flex;
     @include list(12px, true);
+}
+
+.chevron {
+    cursor: pointer;
+}
+
+.controls {
+    display: flex;
+    @include list(8px, true);
+}
+
+.inner {
+    display: flex;
+    @include list(8px, true);
+    justify-content: flex-end;
+
+    .label {
+        line-height: 24px;
+    }
+}
+
+.mobile {
+    display: table-row;
+
+    @include mq($MdDesktopWidth, min) {
+        display: none;
+    }
+
+    .cell:first-child {
+        padding-left: 12px;
+        @include secondaryText;
+        color: $grey500;
+        text-align: start;
+    }
+
+    .cell:last-child {
+        padding-right: 0;
+    }
+
+    .cell {
+        padding: 8px 0;
+        display: table-cell;
+        text-align: end;
+    }
+}
+
+.layoutTitle {
+    max-width: 100%;
 }
