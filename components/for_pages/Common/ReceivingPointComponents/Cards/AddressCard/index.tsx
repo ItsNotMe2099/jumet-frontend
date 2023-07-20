@@ -9,6 +9,7 @@ interface Props {
   topClassName?: string
   cardLayoutClass?: string
   button?: React.ReactNode
+  cardLayoutTitleClass?: string
 }
 
 export default function AddressCard(props: Props) {
@@ -16,6 +17,7 @@ export default function AddressCard(props: Props) {
   return (
     <CardLayout
       className={props.cardLayoutClass}
+      titleClassName={props.cardLayoutTitleClass}
       title='Адрес пункта приёма лома'
       additionalEl={props.additionalEl}
       topClassName={props.topClassName}>

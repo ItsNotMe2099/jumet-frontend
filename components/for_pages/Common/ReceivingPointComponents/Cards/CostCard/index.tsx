@@ -11,15 +11,16 @@ import { colors } from '@/styles/variables'
 interface Props {
   item: IPointData
   cardLayoutClass?: string
+  cardLayoutTitleClass?: string
 }
 
-export default function CostCard({ item, cardLayoutClass }: Props) {
+export default function CostCard({ item, cardLayoutClass, cardLayoutTitleClass }: Props) {
 
   const [prices3A, setPrices3A] = useState<boolean>(true)
   const [prices5A, setPrices5A] = useState<boolean>(true)
 
   const firstTableFirstRow = [
-    { label: <>Самовывоз продавцом</> },
+    { label: <>Самовывоз<br className={styles.br} /> продавцом</> },
     { label: <>Зона доставки 1<br /> От 1 до 20 км</> },
     { label: <>Зона доставки 2<br /> От 20 до 50 км</> },
     { label: <>Зона доставки 3<br /> От 50 до 100 км</> },
@@ -38,7 +39,7 @@ export default function CostCard({ item, cardLayoutClass }: Props) {
 
   const secondTableFirstRow = [
     { label: <>Вес лома</> },
-    { label: <>Самовывоз продавцом</> },
+    { label: <>Самовывоз<br className={styles.br} /> продавцом</> },
     { label: <>Зона доставки 1<br /> От 1 до 20 км</> },
     { label: <>Зона доставки 2<br /> От 20 до 50 км</> },
     { label: <>Зона доставки 3<br /> От 50 до 100 км</> },
@@ -89,7 +90,7 @@ export default function CostCard({ item, cardLayoutClass }: Props) {
   const [activeOption, setActiveOption] = useState<number>(1)
 
   return (
-    <CardLayout className={cardLayoutClass} titleClassName={styles.layoutTitle} title='Стоимость приема лома'>
+    <CardLayout className={cardLayoutClass} titleClassName={cardLayoutTitleClass} title='Стоимость приема лома'>
       <div className={styles.top}>
         <div className={styles.category}>
           <div className={styles.popover}>
@@ -147,7 +148,7 @@ export default function CostCard({ item, cardLayoutClass }: Props) {
             )}
             {firstTableSecondRow.slice(1).map((i, index) =>
               index + 1 === activeOption &&
-              <div key={index} className={styles.cell}>
+              <div key={index} className={styles.cell} style={{ paddingLeft: '24px' }}>
                 {i.label}
               </div>
             )}

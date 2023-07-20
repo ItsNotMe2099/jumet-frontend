@@ -12,6 +12,7 @@
 
     @include mq(820px, max) {
         padding: 0;
+        background-color: $white;
     }
 }
 
@@ -26,6 +27,8 @@
 
     @include mq(820px, max) {
         margin-right: 0;
+        margin-top: 0;
+        margin-bottom: 0;
     }
 
     @include mq($lg-medium, min) {
@@ -39,6 +42,7 @@
     right: 0;
     top: -32px;
     width: 352px !important;
+    overflow: hidden;
 
     @include mq($lg-medium, min) {
         width: 628px !important;
@@ -78,5 +82,16 @@
 
     @include mq($lg-medium, min) {
         max-width: 376px;
+    }
+}
+
+.layoutTitle {
+    max-width: 100% !important;
+}
+
+.mobileCardTitle {
+    @include mq($PhoneWidth, max) {
+        font-size: 22px;
+        line-height: 30px;
     }
 }

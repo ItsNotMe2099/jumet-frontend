@@ -11,6 +11,8 @@
 
     @include mq($PhoneWidth, max) {
        height: 40px;
+       width: inherit !important;
+       padding: 0 9px;
     }
 }
 

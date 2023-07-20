@@ -8,4 +8,10 @@
 
 .btn {
     width: 189px;
+
+    @include mq($PhoneWidth, max) {
+        font-size: 15px;
+        padding: 8px 16px;
+        height: 40px;
+    }
 }

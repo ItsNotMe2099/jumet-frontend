@@ -13,14 +13,17 @@ interface Props {
   topClassName?: string
   cardLayoutClass?: string
   button?: React.ReactNode
+  cardLayoutTitleClass?: string
 }
 
-export default function RequisitesCard({ item, additionalEl, topClassName, cardLayoutClass, button }: Props) {
+export default function
+  RequisitesCard({ item, additionalEl, topClassName, cardLayoutClass, button, cardLayoutTitleClass }: Props) {
 
   return (
     <CardLayout
       title='Реквизиты'
       className={classNames(styles.root, cardLayoutClass)}
+      titleClassName={cardLayoutTitleClass}
       additionalEl={additionalEl}
       topClassName={topClassName}>
       <div className={styles.item}>

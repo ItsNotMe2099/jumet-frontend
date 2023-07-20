@@ -9,15 +9,16 @@ import YourReviewForm from './Forms/YourReview'
 interface Props {
   item: IPointData
   cardLayoutClass?: string
+  cardLayoutTitleClass?: string
 }
 
-export default function ReviewsCard({ item, cardLayoutClass }: Props) {
+export default function ReviewsCard({ item, cardLayoutClass, cardLayoutTitleClass }: Props) {
 
   const appContext = useAppContext()
   const router = useRouter()
 
   return (
-    <CardLayout className={cardLayoutClass} title='Отзывы'>
+    <CardLayout className={cardLayoutClass} titleClassName={cardLayoutTitleClass} title='Отзывы'>
       <div className={styles.root}>
         {item.reviews.map((i, index) =>
           <ReviewCard item={i} key={index} />

@@ -18,6 +18,11 @@
 .btns {
     display: flex;
     @include list(12px, true);
+
+    @include mq(360px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
 }
 
 .signIn {
@@ -27,4 +32,8 @@
 .signUp {
     flex: 1;
     padding: 0 16px;
+
+    @include mq(360px, max) {
+        padding: 16px;
+    }
 }

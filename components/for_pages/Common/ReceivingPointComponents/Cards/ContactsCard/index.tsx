@@ -19,6 +19,7 @@ import Rating from '../../../Rating'
 interface Props {
   item: IPointData
   cardLayoutClass?: string
+  cardLayoutTitleClass?: string
 }
 
 export default function ContactsCard(props: Props) {
@@ -32,7 +33,8 @@ export default function ContactsCard(props: Props) {
   const currentHour = Number(hour)
 
   return (
-    <CardLayout className={props.cardLayoutClass} title={props.item.title} additionalEl={<Rating rating={props.item.rating} />} topClassName={styles.top}>
+    <CardLayout className={props.cardLayoutClass} titleClassName={props.cardLayoutTitleClass}
+      title={props.item.title} additionalEl={<Rating rating={props.item.rating} />} topClassName={styles.top}>
       <div className={styles.middle}>
         <div className={styles.phone}>
           <PhoneSvg color={colors.dark500} />
@@ -69,7 +71,7 @@ export default function ContactsCard(props: Props) {
         </div>
       </div>
       <div className={styles.bottom}>
-        <Button styleType='large' color='lightBlue'>
+        <Button className={styles.suggest} styleType='large' color='lightBlue'>
           Предложить сделку
         </Button>
         <Button className={styles.btn} styleType='large' color='grey'>

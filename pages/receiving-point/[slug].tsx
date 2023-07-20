@@ -16,6 +16,7 @@ import TabBar from '@/components/for_pages/receiving-point/Tabbar'
 import { useState } from 'react'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
 import { colors } from '@/styles/variables'
+import classNames from 'classnames'
 
 interface Props {
   item: IPointData
@@ -29,14 +30,14 @@ export default function ReceivingPoint(props: Props) {
     <Layout>
       <div className={styles.root}>
         {!showChat ? <div className={styles.content}>
-          <ContactsCard item={props.item} />
-          <AddressCard item={props.item} />
-          <CostCard item={props.item} />
-          <DeliveryZonesCard item={props.item} />
-          <ReviewsCard item={props.item} />
-          <WorkingHoursCard item={props.item} />
+          <ContactsCard cardLayoutTitleClass={classNames(styles.layoutTitle, styles.mobileCardTitle)} item={props.item} />
+          <AddressCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
+          <CostCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
+          <DeliveryZonesCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
+          <ReviewsCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
+          <WorkingHoursCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
           {/*<PhotosCard  item={props.item} />*/}
-          <RequisitesCard item={props.item} />
+          <RequisitesCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
         </div>
           :
           <div className={styles.chatLayout}>

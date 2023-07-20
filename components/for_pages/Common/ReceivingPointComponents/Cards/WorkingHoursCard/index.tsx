@@ -10,6 +10,7 @@ interface Props {
   topClassName?: string
   cardLayoutClass?: string
   button?: React.ReactNode
+  cardLayoutTitleClass?: string
 }
 
 export default function WorkingHoursCard(props: Props) {
@@ -17,6 +18,7 @@ export default function WorkingHoursCard(props: Props) {
   return (
     <CardLayout title='Режим работы'
       className={classNames(styles.root, props.cardLayoutClass)}
+      titleClassName={props.cardLayoutTitleClass}
       additionalEl={props.additionalEl}
       topClassName={props.topClassName}>
       <div className={styles.schedule}>

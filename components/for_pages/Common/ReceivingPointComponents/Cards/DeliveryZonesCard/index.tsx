@@ -8,9 +8,10 @@ import CardLayout from '../../../CardLayout'
 interface Props {
   item: IPointData
   cardLayoutClass?: string
+  cardLayoutTitleClass?: string
 }
 
-export default function DeliveryZonesCard({ item, cardLayoutClass }: Props) {
+export default function DeliveryZonesCard({ item, cardLayoutClass, cardLayoutTitleClass }: Props) {
 
   const radiusTabs = [
     { radius: '1-20' },
@@ -38,7 +39,7 @@ export default function DeliveryZonesCard({ item, cardLayoutClass }: Props) {
   const [filterRadius, setFilterRadius] = useState<string>(radiusTabs[0].radius)
 
   return (
-    <CardLayout className={cardLayoutClass} title='Зоны доставки'>
+    <CardLayout titleClassName={cardLayoutTitleClass} className={cardLayoutClass} title='Зоны доставки'>
       <div className={styles.tabs}>
         {radiusTabs.map((i, index) =>
           <Tab

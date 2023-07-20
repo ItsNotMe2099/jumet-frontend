@@ -26,10 +26,20 @@
 
 .map {
     margin-top: 24px;
+
     :global {
         .ymaps-2-1-79-map {
             width: 100% !important;
             height: 328px !important;
+        }
+    }
+
+    @include mq($PhoneWidth, max) {
+        :global {
+            .ymaps-2-1-79-map {
+                width: 100% !important;
+                height: 210px !important;
+            }
         }
     }
 }
