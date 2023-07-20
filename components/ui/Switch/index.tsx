@@ -3,7 +3,7 @@ import React from 'react'
 import RSwitch from 'react-switch'
 
 interface Props {
-  checked: boolean
+  checked?: boolean | undefined
   onChange: (val: boolean) => void
   height?: number
   width?: number

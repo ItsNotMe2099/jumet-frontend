@@ -5,21 +5,21 @@ import { colors } from '@/styles/variables'
 import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import Link from 'next/link'
-import IPointData from '@/data/interfaces/IPointData'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 
 
 interface Props {
-  item: IPointData
+ item: IReceivingPoint
 }
 
-export default function PointCard(props: Props) {
+export default function ReceivingPointSearchCard(props: Props) {
 
   const date = new Date()
   const timeZone = 'Europe/Moscow'
   const hour = formatInTimeZone(date, timeZone, 'H', { locale: ru })
 
-  const opens = Number(props.item.opens)
-  const closes = Number(props.item.closes)
+  const opens = Number(0)
+  const closes = Number(1)
   const currentHour = Number(hour)
 
   const openingTime = new Date()
@@ -29,7 +29,7 @@ export default function PointCard(props: Props) {
   closingTime.setHours(closes, 0, 0)
 
   let openingStatus
-  if ((currentHour < opens || currentHour >= closes) && !props.item.alwaysOpen) {
+  if ((currentHour < opens || currentHour >= closes)) {
     openingStatus = `Откроется в ${opens}:00`
   } else {
     openingStatus = 'Открыто сейчас'
@@ -43,12 +43,12 @@ export default function PointCard(props: Props) {
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.title}>
-              {props.item.title}
+              {props.item.address}
             </div>
-            <div className={styles.rating}>
+            {props.item.rating && <div className={styles.rating}>
               <StarSvg color={colors.yellow500} />
               <div className={styles.number}>{props.item.rating}</div>
-            </div>
+            </div>}
           </div>
           <div className={styles.price}>
             До {props.item.price} ₽/тонна
@@ -58,10 +58,10 @@ export default function PointCard(props: Props) {
           {props.item.address}
         </div>
         <div className={styles.bottom}>
-          <Badge active={props.item.isDelivery} text='Есть доставка' />
-          <Badge active={props.item.haveLoading} text='Есть погрузка' />
+          <Badge active={props.item.hasDelivery} text='Есть доставка' />
+          <Badge active={props.item.hasLoading} text='Есть погрузка' />
           <Badge
-            active={currentHour >= opens && currentHour < closes || props.item.alwaysOpen}
+            active={currentHour >= opens && currentHour < closes }
             text={openingStatus} />
         </div>
       </div>

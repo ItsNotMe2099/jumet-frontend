@@ -5,8 +5,7 @@ import { ChangeEvent, useState } from 'react'
 import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
 import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
 import { colors } from '@/styles/variables'
-import PointCard from '@/components/for_pages/MainPage/PointCard'
-import FilterComponent from '@/components/for_pages/MainPage/Filter'
+import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import Switch from '@/components/ui/Switch'
 import Tab from '@/components/ui/Tab'
 import { formatInTimeZone } from 'date-fns-tz'
@@ -18,7 +17,7 @@ import Button from '@/components/ui/Button'
 import classNames from 'classnames'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
-import AddressField from '@/components/fields/AddressField'
+import AddressField from '@/components/fields/AddressYandexField'
 import { Formik } from 'formik'
 import { GeoObject, YandexResponseGeocoder } from 'data/interfaces/IYandexGeocoder'
 import { YMapLocationRequest } from '@yandex/ymaps3-types'
@@ -27,6 +26,7 @@ import SwitchFilter from '@/components/ui/SwitchFilter'
 import ListSvg from '@/components/svg/ListSvg'
 import MapSvg from '@/components/svg/MapSvg'
 import { points } from '@/data/temp/points'
+import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
 enum ViewType{
   List = 'list',
   Map = 'map'
@@ -115,16 +115,15 @@ export default function Index() {
           />
           <div className={classNames(styles.left, { [styles.none]: !open })}>
             <FilterComponent title='Адрес расположения лома'
-              element={() =>
-                  <SwitchFilter<ViewType>
-                      active={viewType}
-                      onClick={setViewType}
-                      className={styles.none}
-                      items={[
-                        {label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} />},
-                        {label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} /> },
-                      ]}
-                  />}
+              element={<SwitchFilter<ViewType>
+                active={viewType}
+                onClick={setViewType}
+                className={styles.none}
+                items={[
+                  {label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} />},
+                  {label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} /> },
+                ]}
+              />}
             >
               <Formik initialValues={{}} onSubmit={() => { }}>
                 <AddressField
@@ -206,29 +205,14 @@ export default function Index() {
             </div>
             <HiddenXs>
               <div className={styles.list}>
-                {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
-                  filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
-                    filterIsOpen ?
-                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).map((i, index) =>
-                        <PointCard item={i} key={index} />
-                      )}
+                {data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
-                  filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
-                    filterIsOpen ?
-                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).slice(0, 1).map((i, index) =>
-                        <PointCard item={i} key={index} />
-                      )}
+                {data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
+
                 <Banner />
-                {data.data.filter(i => filterHaveDelivery ? i.isDelivery :
-                  filterHaveLoading ? i.haveLoading : filterAlwaysopen ? i.alwaysOpen :
-                    filterIsOpen ?
-                      (i.opens && currentHour >= +i.opens && i.closes && currentHour < +i.closes || i.alwaysOpen) : i).slice(1).map((i, index) =>
-                        <PointCard item={i} key={index} />
-                      )}
               </div>
             </VisibleXs>
           </div>

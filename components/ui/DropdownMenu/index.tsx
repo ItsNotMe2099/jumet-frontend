@@ -4,19 +4,17 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import { colors } from '@/styles/variables'
+import {IOption} from '@/types/types'
 
-interface IOption {
-  name: string
-}
 
-interface Props {
-  options?: IOption[]
+interface Props<T> {
+  options?: IOption<any>[]
   onTriggerClick?: () => void
   className?: string
   optionClick?: (option: IOption) => void
 }
 
-export default function DropdownMenu(props: Props) {
+export default function DropdownMenu<T>(props: Props) {
   const dropdownRef = useRef(null)
   const { options, optionClick, onTriggerClick } = props
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)

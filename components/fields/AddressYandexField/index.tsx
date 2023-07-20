@@ -25,7 +25,7 @@ interface Props extends IField<string> {
   hasAddress?: boolean
 }
 
-export default function AddressField(props: Props) {
+export default function AddressYandexField(props: Props) {
   const {label, placeholder} = props
   const [field, meta, helpers] = useField(props as any)
   const {setFieldValue, setFieldTouched, validateField} = useFormikContext()

@@ -1,0 +1,7 @@
+@import "styles/index";
+
+.tabs {
+  display: flex;
+  @include list(8px, true);
+
+}

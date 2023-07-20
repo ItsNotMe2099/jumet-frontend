@@ -38,9 +38,9 @@ const FileField = (props: any & FileFieldProps<string | string[]>) => {
 
   return (
     <div className={classNames(styles.root, props.className)}>
-      {props.label ? <div className={styles.label}>
+      {props.label && <div className={styles.label}>
         {props.label}
-      </div> : null}
+      </div>}
       <Dropzone onDrop={onDrop} accept={useMemo(() => {
         (accept)?.forEach((i: FileUploadAcceptType) => { arr = [...arr, ...Converter.getFileUploadAccept(i)] })
         return { '': arr }
