@@ -3,6 +3,7 @@ import IFile from '@/data/interfaces/IFile'
 import { IAddress } from './IAddress'
 import { IScrapMetalCategory } from './IScrapMetalCategory'
 import { ILocation } from './ILocation'
+import { ScrapMetalCategory } from '../enum/ScrapMetalCategory'
 
 export interface ISaleRequest {
   id: number
@@ -10,7 +11,7 @@ export interface ISaleRequest {
   location: ILocation
   photos: IFile[]
   photosIds: number[]
-  scrapMetalCategory: IScrapMetalCategory
+  scrapMetalCategory: ScrapMetalCategory//IScrapMetalCategory
   requiresDelivery: boolean
   requiresLoading: boolean
   contacts: any[]

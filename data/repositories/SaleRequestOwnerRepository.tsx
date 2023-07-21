@@ -7,7 +7,8 @@ export default class SaleRequestOwnerRepository {
   static async create(data: DeepPartial<ISaleRequest>): Promise<ISaleRequest> {
     const res = await request<ISaleRequest>({
       method: 'post',
-      url: '/api/owner/sale-request'
+      url: '/api/owner/sale-request',
+      data
     })
     return res
   }

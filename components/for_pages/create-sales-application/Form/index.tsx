@@ -1,32 +1,77 @@
 import RadioField from '@/components/fields/RadioField'
 import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
-import { FileUploadAcceptType, InputStyleType } from '@/types/enums'
+import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
 import FileField from '@/components/fields/FileField'
 import Switch from '@/components/ui/Switch'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import AddressYandexField from '@/components/fields/AddressYandexField'
 import Tab from '@/components/ui/Tab'
 import TextField from '@/components/fields/TextField'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
 import DropdownMenu from '@/components/ui/DropdownMenu'
+import { useAppContext } from '@/context/state'
+import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
+import { IAddress } from '@/data/interfaces/IAddress'
+import { ILocation } from '@/data/interfaces/ILocation'
+import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
+import Validator from '@/utils/validator'
 
 
 interface Props {
 
 }
 
+interface IData {
+  scrapMetalCategory?: ScrapMetalCategory
+  weight: number
+  photosIds: number[]
+  requeresDelivery: boolean
+  requeresLoading: boolean
+  address: {
+    address: string
+    city: string
+    street: string
+    house: string
+  }
+  price: number
+  searchRadius: number
+  location: ILocation
+  phones: string[]
+}
+
 export default function CreateSalesApplicationForm(props: Props) {
 
-  const handleSubmit = async (/*data*/) => {
+  const [loading, setLoading] = useState<boolean>(false)
 
+  const appContext = useAppContext()
+
+  const handleSubmit = async (data: IData) => {
+    if (data.scrapMetalCategory === ScrapMetalCategory.None) {
+      // Using object destructuring to create a copy of data without the scrapMetalCategory property
+      const { scrapMetalCategory, ...dataWithoutScrapMetalCategory } = data;
+      data = dataWithoutScrapMetalCategory;
+    }
+    setLoading(true)
+    try {
+      await SaleRequestOwnerRepository.create(data)
+    }
+    catch (error: any) {
+      let errorMessage = error.toString()
+      // extract the error message from the error object
+      if (error.response && error.response.data && error.response.data.message) {
+        errorMessage = error.response.data.message
+      }
+      appContext.showSnackbar(errorMessage, SnackbarType.error)
+    }
+    setLoading(false)
   }
 
   const initialValues = {
-    scrapMetalCategory: 'Затрудняюсь определить',
-    weight: null,
+    scrapMetalCategory: ScrapMetalCategory.None,
+    weight: 0,
     photosIds: [],
     requeresDelivery: false,
     requeresLoading: false,
@@ -36,11 +81,11 @@ export default function CreateSalesApplicationForm(props: Props) {
       street: '',
       house: ''
     },
-    price: null,
-    searchRadius: null,
+    price: 0,
+    searchRadius: 0,
     location: {
-      lat: null,
-      lng: null
+      lat: 0,
+      lng: 0
     },
     phones: []
   }
@@ -54,31 +99,31 @@ export default function CreateSalesApplicationForm(props: Props) {
 
   const scrapMetalCategories = [
     {
-      label: 'Mix 3-20А', value: 'Mix 3-20А',
+      label: 'Mix 3-А', value: ScrapMetalCategory.MIX3_12A,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: '3А', value: '3А',
+      label: '3А', value: ScrapMetalCategory.A3,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: '5-12А', value: '5-12А',
+      label: '5-12А', value: ScrapMetalCategory.A5_12,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: '13А', value: '13А',
+      label: '13А', value: ScrapMetalCategory.A13,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: '16А', value: '16А',
+      label: '16А', value: ScrapMetalCategory.A16,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: '20А', value: '20А',
+      label: '20А', value: ScrapMetalCategory.A20,
       description: 'Описание категории лома, например “Части арматуры, металлопрофили, уголки, балки'
     },
     {
-      label: 'Затрудняюсь определить', value: 'Затрудняюсь определить'
+      label: 'Затрудняюсь определить', value: ScrapMetalCategory.None
     },
   ]
 
@@ -136,10 +181,10 @@ export default function CreateSalesApplicationForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressYandexField name='address.city' placeholder='Город' />
+          <AddressYandexField name='address.city' placeholder='Город' validate={Validator.required} />
           <div className={styles.group}>
-            <AddressYandexField name='address.street' placeholder='Улица' />
-            <AddressYandexField className={styles.second} name='address.house' placeholder='Номер дома' />
+            <TextField name='address.street' placeholder='Улица' />
+            <TextField isNumbersOnly className={styles.second} name='address.house' placeholder='Номер дома' />
           </div>
         </div>
         <div className={styles.section}>
@@ -160,7 +205,7 @@ export default function CreateSalesApplicationForm(props: Props) {
             {radiusTabs.map((i, index) =>
               <Tab
                 className={styles.tab}
-                active={filterRadius === i.radius && formik.values.searchRadius === i.radius}
+                active={filterRadius === i.radius && formik.values.searchRadius === +i.radius}
                 text={`${i.radius} км`}
                 key={index}
                 onClick={() => handleRadius(i.radius)} />

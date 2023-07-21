@@ -6,4 +6,5 @@ export enum ScrapMetalCategory {
   A13 = '13A',
   A16 = '16A',
   A20 = '20A',
+  None = 'Затрудняюсь определить'
 }
