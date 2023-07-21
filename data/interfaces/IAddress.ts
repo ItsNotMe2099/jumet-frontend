@@ -1,6 +1,6 @@
 import {ILocation} from '@/data/interfaces/ILocation'
 
-export class IAddress {
+export interface IAddress {
   address: string
   city: string
   street: string

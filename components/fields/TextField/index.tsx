@@ -17,6 +17,7 @@ interface Props extends IField<string> {
   inputStyle?: InputStyleType
   sign?: string
   showError?: boolean
+  dropdown?: () => React.ReactElement
 }
 
 export default function TextField(props: Props) {
@@ -34,6 +35,7 @@ export default function TextField(props: Props) {
         </div> : null}
         <div className={styles.inputWrapper}>
           {props.sign ? <div className={styles.sign}>{props.sign}</div> : null}
+          {props.dropdown && <div className={styles.drop}>{props.dropdown()}</div>}
           {props.inputStyle === InputStyleType.Password ?
             (show ? <EyeSvg onClick={() => setShow(false)} className={styles.icon} color={colors.grey500} />
               :

@@ -25,15 +25,14 @@ import Converter from '@/utils/converter'
 import SwitchFilter from '@/components/ui/SwitchFilter'
 import ListSvg from '@/components/svg/ListSvg'
 import MapSvg from '@/components/svg/MapSvg'
-import { points } from '@/data/temp/points'
 import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
-enum ViewType{
+enum ViewType {
   List = 'list',
   Map = 'map'
 }
 export default function Index() {
 
-  const data = points
+  const data = { total: 0, data: [] }
 
   const date = new Date()
   const timeZone = 'Europe/Moscow'
@@ -49,9 +48,9 @@ export default function Index() {
   ]
 
   const categories = [
-    { name: 'Category1' },
-    { name: 'Category2' },
-    { name: 'Category3' },
+    { label: 'Category1' },
+    { label: 'Category2' },
+    { label: 'Category3' },
   ]
 
   const [filterPrice, setFilterPrice] = useState<string>('low')
@@ -105,13 +104,13 @@ export default function Index() {
             <span>{open ? <>Скрыть фильтр</> : <>Открыть фильтр</>}</span>
           </Button>
           <SwitchFilter<ViewType>
-              active={viewType}
-              onClick={setViewType}
-              className={styles.listMap}
-              items={[
-                {label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} />},
-                {label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} />},
-              ]}
+            active={viewType}
+            onClick={setViewType}
+            className={styles.listMap}
+            items={[
+              { label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} /> },
+              { label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} /> },
+            ]}
           />
           <div className={classNames(styles.left, { [styles.none]: !open })}>
             <FilterComponent title='Адрес расположения лома'
@@ -120,8 +119,8 @@ export default function Index() {
                 onClick={setViewType}
                 className={styles.none}
                 items={[
-                  {label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} />},
-                  {label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} /> },
+                  { label: 'Списком', value: ViewType.List, icon: <ListSvg color={viewType === ViewType.List ? colors.blue500 : colors.dark500} /> },
+                  { label: 'На карте', value: ViewType.Map, icon: <MapSvg color={viewType === ViewType.Map ? colors.blue500 : colors.dark500} /> },
                 ]}
               />}
             >
@@ -205,12 +204,12 @@ export default function Index() {
             </div>
             <HiddenXs>
               <div className={styles.list}>
-                {data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
+                {data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
+                {data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
 
                 <Banner />
               </div>

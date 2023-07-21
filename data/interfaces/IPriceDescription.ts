@@ -1,7 +1,7 @@
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import {IPriceDescriptionByWeight} from '@/data/interfaces/IPriceDescriptionByWeight'
 
-export class IPriceDescription {
+export interface IPriceDescription {
   id: number
   receivingPointId: number
   category: ScrapMetalCategory

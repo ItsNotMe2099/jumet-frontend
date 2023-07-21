@@ -6,13 +6,13 @@ import classNames from 'classnames'
 import Tab from '@/components/ui/Tab'
 
 
-interface Props<T> extends IField<T> {
+interface Props<T extends React.Key | null | undefined> extends IField<T> {
   options: IOption<T>[]
   placeholder?: string
   className?: string
 }
 
-function TabsField<T>(props: Props<T>){
+function TabsField<T extends React.Key | null | undefined>(props: Props<T>){
 
   const [field, meta, helpers] = useField(props.name)
 

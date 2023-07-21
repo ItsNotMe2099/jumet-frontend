@@ -7,7 +7,7 @@ export enum LegalType {
   Ip = 'ip',
   LegalEntity = 'legalEntity',
 }
-export class ICompany {
+export interface ICompany {
   id: number
   legalType: LegalType
   firstName: string

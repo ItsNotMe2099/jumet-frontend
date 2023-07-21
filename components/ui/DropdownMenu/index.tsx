@@ -8,17 +8,18 @@ import {IOption} from '@/types/types'
 
 
 interface Props<T> {
-  options?: IOption<any>[]
+  options?: IOption<T>[]
   onTriggerClick?: () => void
   className?: string
-  optionClick?: (option: IOption) => void
+  optionClick?: (option: IOption<any>) => void
+  currentLabel?: string
 }
 
-export default function DropdownMenu<T>(props: Props) {
+export default function DropdownMenu<T>(props: Props<T>) {
   const dropdownRef = useRef(null)
   const { options, optionClick, onTriggerClick } = props
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)
-  const [currentLabel, setCurrentLabel] = useState<string>('')
+  const [currentLabel, setCurrentLabel] = useState<string | undefined>(props.currentLabel)
 
   const handleClick = (e: React.MouseEvent<HTMLAnchorElement, MouseEvent>) => {
     e.preventDefault()
@@ -27,7 +28,7 @@ export default function DropdownMenu<T>(props: Props) {
 
   console.log(isActive)
 
-  const handleOptionClick = (item: IOption) => {
+  const handleOptionClick = (item: IOption<T>) => {
     setCurrentLabel(item.name)
     setIsActive(false)
     optionClick ? optionClick(item) : null

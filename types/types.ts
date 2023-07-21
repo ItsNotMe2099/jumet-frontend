@@ -1,10 +1,10 @@
-import {UrlObject} from 'url'
-import {HTMLInputTypeAttribute, MouseEventHandler, ReactElement} from 'react'
-import {FieldConfig} from 'formik'
-import {DayType, SnackbarType, WeekDays} from 'types/enums'
+import { UrlObject } from 'url'
+import { HTMLInputTypeAttribute, MouseEventHandler, ReactElement } from 'react'
+import { FieldConfig } from 'formik'
+import { DayType, SnackbarType, WeekDays } from 'types/enums'
 
 
-export class RequestError extends Error{
+export class RequestError extends Error {
   message: string
   code: number
   isNotFoundError: boolean
@@ -26,11 +26,11 @@ export interface IFormStep<S> {
   key: S
 }
 
-export interface IPagination<T>{
+export interface IPagination<T> {
   data: T[]
   total: number
 }
-export interface IPaginationRequest{
+export interface IPaginationRequest {
   page: number
   limit: number
 }
@@ -48,6 +48,7 @@ export interface IOption<T> {
   value?: T
   disabled?: boolean
   description?: string
+  name?: string
 }
 
 export interface ISwitchFilterItem<T> {
@@ -100,3 +101,5 @@ export interface IMenuItem {
   children?: IMenuItem[]
   color?: string
 }
+
+export type RadioStyleType = 'default' | 'tile' | 'row'

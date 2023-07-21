@@ -20,8 +20,8 @@ interface Props extends IField<string> {
   popperStrategy?: 'fixed' | 'absolute' | null
   popperFlip?: boolean
   className?: string
-  onNewAddress: (address: YandexResponseGeocoder) => void
-  onEditClick: () => void
+  onNewAddress?: (address: YandexResponseGeocoder) => void
+  onEditClick?: () => void
   hasAddress?: boolean
 }
 
@@ -129,7 +129,7 @@ export default function AddressYandexField(props: Props) {
       setMessageIsError(true)
     } else {
       // Todo OnChange Address
-      props.onNewAddress(geocoded)
+      props.onNewAddress && props.onNewAddress(geocoded)
       setIsActive(false)
     }
   }
@@ -210,7 +210,7 @@ export default function AddressYandexField(props: Props) {
       setIsExpanded(true)
       inputRef.current?.focus()
     }, 400)
-    props.onEditClick()
+    props.onEditClick && props.onEditClick()
   }
   console.log('setIsExpanded', isExpanded)
   const hasError = !!meta.error && meta.touched

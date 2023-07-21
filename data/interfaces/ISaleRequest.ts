@@ -1,20 +1,20 @@
-import {Address} from 'src/entity/Address'
-import {CoordinatesDto} from 'src/common/dto/CoordinatesDto'
-import {ScrapMetalCategory} from '../common/types/ScrapMetalCategory'
 import {SaleRequestStatus} from '../enum/SaleRequestStatus'
 import IFile from '@/data/interfaces/IFile'
+import { IAddress } from './IAddress'
+import { IScrapMetalCategory } from './IScrapMetalCategory'
+import { ILocation } from './ILocation'
 
-export class ISaleRequest {
+export interface ISaleRequest {
   id: number
   status?: SaleRequestStatus
-  location: CoordinatesDto
+  location: ILocation
   photos: IFile[]
   photosIds: number[]
-  scrapMetalCategory: ScrapMetalCategory
+  scrapMetalCategory: IScrapMetalCategory
   requiresDelivery: boolean
   requiresLoading: boolean
   contacts: any[]
-  address: Address
+  address: IAddress
   phones?: string[]
   ownerId?: string
   price: number

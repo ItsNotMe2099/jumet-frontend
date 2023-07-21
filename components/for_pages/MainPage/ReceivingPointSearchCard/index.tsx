@@ -43,7 +43,7 @@ export default function ReceivingPointSearchCard(props: Props) {
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.title}>
-              {props.item.address}
+              {/*props.item.address*/}
             </div>
             {props.item.rating && <div className={styles.rating}>
               <StarSvg color={colors.yellow500} />
@@ -55,7 +55,7 @@ export default function ReceivingPointSearchCard(props: Props) {
           </div>
         </div>
         <div className={styles.middle}>
-          {props.item.address}
+          {/*props.item.address*/}
         </div>
         <div className={styles.bottom}>
           <Badge active={props.item.hasDelivery} text='Есть доставка' />

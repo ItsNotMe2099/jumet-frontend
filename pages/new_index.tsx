@@ -80,12 +80,12 @@ const  IndexWrapper = () => {
             </div>
             <HiddenXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, key) => <ReceivingPointSearchCard item={i} index={key}/>)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
                 <Banner />
               </div>
             </VisibleXs>
