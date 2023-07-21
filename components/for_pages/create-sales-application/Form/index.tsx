@@ -5,7 +5,7 @@ import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enum
 import SwitchField from '@/components/fields/SwitchField'
 import FileField from '@/components/fields/FileField'
 import Switch from '@/components/ui/Switch'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import AddressYandexField from '@/components/fields/AddressYandexField'
 import Tab from '@/components/ui/Tab'
 import TextField from '@/components/fields/TextField'
@@ -14,7 +14,6 @@ import Button from '@/components/ui/Button'
 import DropdownMenu from '@/components/ui/DropdownMenu'
 import { useAppContext } from '@/context/state'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
-import { IAddress } from '@/data/interfaces/IAddress'
 import { ILocation } from '@/data/interfaces/ILocation'
 import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
 import Validator from '@/utils/validator'
@@ -51,8 +50,8 @@ export default function CreateSalesApplicationForm(props: Props) {
   const handleSubmit = async (data: IData) => {
     if (data.scrapMetalCategory === ScrapMetalCategory.None) {
       // Using object destructuring to create a copy of data without the scrapMetalCategory property
-      const { scrapMetalCategory, ...dataWithoutScrapMetalCategory } = data;
-      data = dataWithoutScrapMetalCategory;
+      const { scrapMetalCategory, ...dataWithoutScrapMetalCategory } = data
+      data = dataWithoutScrapMetalCategory
     }
     setLoading(true)
     try {
@@ -181,7 +180,7 @@ export default function CreateSalesApplicationForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressYandexField name='address.city' placeholder='Город' validate={Validator.required} />
+          <AddressYandexField name='address.address' placeholder='Город' validate={Validator.required} />
           <div className={styles.group}>
             <TextField name='address.street' placeholder='Улица' />
             <TextField isNumbersOnly className={styles.second} name='address.house' placeholder='Номер дома' />
