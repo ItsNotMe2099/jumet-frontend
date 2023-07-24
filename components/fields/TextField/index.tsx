@@ -1,18 +1,17 @@
 import styles from './index.module.scss'
-import { useField } from 'formik'
+import {FieldConfig, useField} from 'formik'
 import classNames from 'classnames'
-import { ReactElement, useEffect, useState } from 'react'
-import { FieldValidator } from 'formik/dist/types'
-import { useIMask } from 'react-imask'
-import { AsYouType, isValidPhoneNumber } from 'libphonenumber-js'
+import {ReactElement, useEffect, useState} from 'react'
+import {FieldValidator} from 'formik/dist/types'
+import {useIMask} from 'react-imask'
+import {AsYouType, isValidPhoneNumber} from 'libphonenumber-js'
 import cx from 'classnames'
 import Converter from 'utils/converter'
-import { IField } from 'types/types'
+import {IField} from 'types/types'
 import FieldError from 'components/fields/FieldError'
 import EyeSvg from '@/components/svg/EyeSvg'
-import { colors } from '@/styles/variables'
+import {colors} from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
-import SearchSvg from '@/components/svg/SearchSvg'
 
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv'
 
@@ -26,10 +25,10 @@ interface Props extends IField<string> {
   suffix?: 'clear' | 'arrow' | string | ReactElement
   staticSuffix?: 'clear' | 'arrow' | string | ReactElement
   prefix?: string | ReactElement
+  prefixClassName?: string
+  suffixClassName?: string
   onChange?: (val: string) => void
   noAutoComplete?: boolean
-  numbersOnly?: boolean
-  search?: boolean
 }
 
 export default function InputField(props: Props) {
@@ -39,12 +38,12 @@ export default function InputField(props: Props) {
   const defaultCardCvvPattern = '0000'
   const [focused, setFocus] = useState(false)
   const [obscureShow, setObscureShow] = useState(false)
-  const [field, meta, helpers] = useField(props.name)
+  const [field, meta, helpers] = useField(props as FieldConfig)
   const [phoneIsValid, setPhoneIsValid] = useState(false)
   const [pattern, setPattern] = useState<string | null>(props.format === 'phone' ? defaultPhonePattern : props.format === 'cardExpiry' ? defaultCardExpiryPattern : null)
   const showError = meta.touched && !!meta.error && !focused
-  const { ref, maskRef } = useIMask({ mask: pattern as any || /.*/ })
-  const autoCompleteProps: any = props.noAutoComplete ? { autoComplete: 'off', autoCorrect: 'off' } : {}
+  const {ref, maskRef} = useIMask({mask: pattern as any || /.*/})
+  const autoCompleteProps: any = props.noAutoComplete ? {autoComplete: 'off', autoCorrect: 'off'} : {}
   useEffect(() => {
 
     if (maskRef.current && (props.format === 'phone' || props.format === 'phoneAndEmail')) {
@@ -103,24 +102,35 @@ export default function InputField(props: Props) {
     }
   }
   const renderSuffix = () => {
+    if (typeof props.suffix === 'string') {
+      return <div className={cx(styles.suffix)}>{props.suffix}</div>
+    }
     return props.suffix
   }
   const renderPrefix = () => {
     if (typeof props.prefix === 'string') {
-      return <div className={cx(styles.prefix, styles.currency)}>{props.prefix}</div>
+      return <div className={cx(styles.prefix)}>{props.prefix}</div>
     }
     return props.prefix
   }
-
   return (
-    <div className={classNames(styles.root, props.className, props.errorClassName && { [props.errorClassName]: showError })}>
+    <div className={classNames(styles.root, props.className, {
+      [props.errorClassName]: showError,
+    })}>
       <div className={styles.wrapper}>
-        <div className={classNames(styles.inputWrapper, { [styles.withLabel]: props.label, [styles.withStaticSuffix]: !!props.staticSuffix })}>
-          {props.label &&
-            <div className={styles.label}>
-              {props.label}
-            </div>
-          }
+        {props.label &&
+          <div className={styles.label}>
+            {props.label}
+          </div>
+        }
+        <div className={classNames(styles.inputWrapper, {
+          [styles.withLabel]: props.label,
+          [styles.withPrefix]: !!props.prefix,
+          [styles.withSuffix]: !!props.suffix,
+            [styles.inputError]: showError,
+          [styles.inputFocused]: focused,
+        })}>
+
           {props.staticSuffix && (
             props.staticSuffix
           )}
@@ -128,17 +138,8 @@ export default function InputField(props: Props) {
             {...field}
             onChange={(e) => {
               field.onChange(e)
-              if (props.numbersOnly) {
-                const numericValue = e.currentTarget.value.replace(/\D/g, '')
-                helpers.setValue(numericValue)
-                if (props.onChange) {
-                  props.onChange(numericValue)
-                }
-              } else {
-                helpers.setValue(e.currentTarget.value)
-                if (props.onChange) {
-                  props.onChange(e.currentTarget.value)
-                }
+              if (props.onChange) {
+                props.onChange(e.currentTarget.value)
               }
             }}
             disabled={props.disabled}
@@ -163,14 +164,15 @@ export default function InputField(props: Props) {
             {...autoCompleteProps}
           />
           {props.obscure && (
-            <div className={classNames(styles.obscure)} onClick={() => { setObscureShow(!obscureShow) }}>
-              obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500} />
+            <div className={classNames(styles.obscure)} onClick={() => {
+              setObscureShow(!obscureShow)
+            }}>
+              (obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500}/>
               :
-              <EyeCloseSvg color={colors.grey500} />
+              <EyeCloseSvg color={colors.grey500}/>
 
             </div>
           )}
-          {props.search && <SearchSvg className={styles.obscure} color={colors.grey500} />}
           {props.prefix && (
             renderPrefix()
           )}

@@ -11,10 +11,14 @@
 .input {
   height: $StandartHeight;
   border-radius: $StandartBorderRadius;
-  border: 1px solid $grey400;
   width: 100%;
   padding: 0 16px;
-
+  border: 0;
+  flex: 1;
+  -webkit-appearance: none;
+  &:-webkit-autofill{
+    -wкebkit-text-fill-color: $grey500 !important;
+  }
   &::placeholder {
     @include mainText;
     color: $grey500;
@@ -26,36 +30,36 @@
     padding-left: 49px;
   }
   &.inputError{
+    color: $red500;
+  }
+  &.inputFocused{
+
+  }
+
+}
+
+
+.label{
+  color: $dark500;
+  @include label;
+}
+
+
+.inputWrapper {
+  position: relative;
+  border: 1px solid $grey400;
+  border-radius: $StandartBorderRadius;
+  &.withPrefix, &.withSuffix{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+  &.inputError{
     border-color: $red500;
   }
   &.inputFocused{
     border-color: $dark400;
   }
-}
-
-
-.label,
-.sign {
-  color: $dark500;
-  @include btnText;
-}
-
-.sign {
-  position: absolute;
-  z-index: 1;
-  right: 12px;
-  top: 12px;
-}
-
-.drop {
-  position: absolute;
-  z-index: 1;
-  right: 0;
-  top: 0;
-}
-
-.inputWrapper {
-  position: relative;
 }
 
 .icon {
@@ -71,7 +75,12 @@
   flex-direction: column;
   gap: 8px;
 }
-
+.suffix{
+  padding-right: 12px;
+}
+.prefix{
+  padding-left: 16px;
+}
 
 .obscure{
   position: absolute;

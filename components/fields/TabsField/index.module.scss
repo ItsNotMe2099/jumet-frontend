@@ -1,9 +1,14 @@
 @import "styles/index";
 .root{
 
+  &.fluid{
+    .tab{
+      flex: 1;
+    }
+  }
 }
 .tab{
-  flex: 1;
+  padding: 0px 16px;
 }
 .label{
   @include label;
