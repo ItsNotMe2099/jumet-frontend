@@ -1,4 +1,4 @@
-import TextField from '@/components/fields/TextField'
+import TextField from '@/components/fields/InputField'
 import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'

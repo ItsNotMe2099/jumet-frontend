@@ -1,4 +1,4 @@
-import {useEffect, useRef, useState} from 'react'
+import { useEffect, useRef, useState } from 'react'
 import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import FilterSvg from '@/components/svg/FilterSvg'
@@ -10,19 +10,19 @@ import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
 import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
-import {IOption, ListViewType} from '@/types/types'
+import { IOption, ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import AddressYandexField from '@/components/fields/AddressYandexField'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
 import TabsField from '@/components/fields/TabsField'
 import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
-import TextField from '@/components/fields/TextField'
-import {useAppContext} from '@/context/state'
-import {RemoveScroll} from 'react-remove-scroll'
+import InputField from '@/components/fields/InputField'
+import { useAppContext } from '@/context/state'
+import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
 
-interface IFormData extends IReceivingPointSearchRequest{
+interface IFormData extends IReceivingPointSearchRequest {
   radiusCustom?: number | null
 }
 
@@ -59,7 +59,7 @@ export default function MainFilter(props: Props) {
     setIsOpenMobileFilter(!isOpenMobileFilter)
   }
   useEffect(() => {
-    if(!initValuesRef.current) {
+    if (!initValuesRef.current) {
       initValuesRef.current = true
       return
     }
@@ -102,49 +102,46 @@ export default function MainFilter(props: Props) {
         </Button>
         {appContext.isMobile && viewTypeFilter}
         <RemoveScroll enabled={!!appContext.isMobile && isOpenMobileFilter}>
-        <div className={classNames(styles.filters, { [styles.none]: !isOpenMobileFilter })}>
-          {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500}/></div>}
-          <div className={styles.filtersWrapper}>
+          <div className={classNames(styles.filters, { [styles.none]: !isOpenMobileFilter })}>
+            {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500} /></div>}
+            <div className={styles.filtersWrapper}>
 
-          <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile && viewTypeFilter}>
-              <AddressYandexField
-                hasAddress={!!searchContext.filter.location}
-                name={'address'}
-                placeholder='Город, улица, дом'
-              />
-          </FilterComponent>
-          <FilterComponent title='Радиус поиска пунктов приёма'>
-              <TabsField<number> options={radiusTabs} name={'radius'} />
-              <TextField
-                placeholder='Свой радиус поиска'
-                label='км'
-                isNumbersOnly
-                name={'radiusCustom'}/>
-          </FilterComponent>
-          <FilterComponent title='Категория лома'>
-            <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
-              name={'scrapMetalCategory'} />
-          </FilterComponent>
-          <FilterComponent title='Вес лома'>
-            <TextField
-              placeholder='Вес'
-              isNumbersOnly
-              а
-              name={'weight'} />
-          </FilterComponent>
-          <FilterComponent title='Доставка и погрузка'>
-            <div className={styles.switches}>
-              <SwitchField name={'hasDelivery'} label={'Есть доставка'} />
-              <SwitchField name={'hasLoading'} label={'Есть погрузка'} />
+              <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
+                <AddressYandexField
+                  hasAddress={!!searchContext.filter.location}
+                  name={'address'}
+                  placeholder='Город, улица, дом'
+                />
+              </FilterComponent>
+              <FilterComponent title='Радиус поиска пунктов приёма'>
+                <TabsField<number> options={radiusTabs} name={'radius'} />
+                <InputField
+                  placeholder='Свой радиус поиска'
+                  label='км'
+                  name={'radiusCustom'} />
+              </FilterComponent>
+              <FilterComponent title='Категория лома'>
+                <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
+                  name={'scrapMetalCategory'} />
+              </FilterComponent>
+              <FilterComponent title='Вес лома'>
+                <InputField
+                  placeholder='Вес'
+                  name={'weight'} />
+              </FilterComponent>
+              <FilterComponent title='Доставка и погрузка'>
+                <div className={styles.switches}>
+                  <SwitchField name={'hasDelivery'} label={'Есть доставка'} />
+                  <SwitchField name={'hasLoading'} label={'Есть погрузка'} />
+                </div>
+              </FilterComponent>
+              <FilterComponent title='Режим работы'>
+                <TabsField<string> options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
+                  name={'openType'} />
+              </FilterComponent>
+
             </div>
-          </FilterComponent>
-          <FilterComponent title='Режим работы'>
-            <TabsField<string> options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
-              name={'openType'} />
-          </FilterComponent>
-
           </div>
-        </div>
         </RemoveScroll>
       </Form>
     </FormikProvider>

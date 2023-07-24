@@ -34,7 +34,7 @@ export default function StarRatingsField(props: Props) {
         numberOfStars={5}
         changeRating={onStarClick}
       />
-      <FieldError {...meta} />
+      <FieldError showError={showError}>{meta.error}</FieldError>
     </div >
   )
 }

@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { InputStyleType, IOption } from 'types/types'
+import { IOption } from 'types/types'
 import ReactSelect from 'react-select'
 import { DropdownIndicatorProps } from 'react-select/dist/declarations/src/components/indicators'
 import { GroupBase } from 'react-select/dist/declarations/src/types'
@@ -9,10 +9,9 @@ import usePressAndHover from '@/components/hooks/usePressAndHover'
 
 interface Props<T> {
   label?: string
-  styleType: InputStyleType
   options: IOption<T>[]
   value: T
-  onChange: (value: T) => void
+  onChange: (value: T | undefined) => void
   hasError?: boolean
   placeholder?: string
 }
@@ -41,7 +40,7 @@ export default function Select<T>(props: Props<T>) {
           [styles.error]: props.hasError,
           [styles.hover]: hover,
           [styles.press]: press,
-        }, styles[props.styleType])}
+        })}
         classNamePrefix="yg-select"
         isSearchable={false}
         placeholder={props.placeholder}

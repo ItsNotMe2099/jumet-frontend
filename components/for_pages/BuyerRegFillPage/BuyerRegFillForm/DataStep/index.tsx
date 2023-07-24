@@ -1,4 +1,4 @@
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import styles from './index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
@@ -52,10 +52,10 @@ export default function DataStep(props: Props) {
             ломозаготовителя на своем устройстве</div>}
         />
         <div className={styles.address}>
-          <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />
+          <InputField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />
           <div className={styles.bottom}>
-            <TextField className={styles.input} placeholder='Улица' name='street' validate={Validator.required} />
-            <TextField className={styles.input} placeholder='Номер дома' isNumbersOnly name='number' validate={Validator.required} />
+            <InputField className={styles.input} placeholder='Улица' name='street' validate={Validator.required} />
+            <InputField className={styles.input} placeholder='Номер дома' name='number' validate={Validator.required} />
           </div>
           <FieldArray name='phones'>
             {arrayHelpers => (

@@ -7,6 +7,7 @@ interface Props<T> {
   active?: T
   onSelect?: (item: T) => void
   items?: ISwitchFilterItem<T>[]
+  onClick?: (value: T) => void
 }
 
 export default function SwitchFilter<T>(props: Props<T>) {

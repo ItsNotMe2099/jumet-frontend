@@ -1,4 +1,4 @@
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import styles from './index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
@@ -62,7 +62,7 @@ export default function DeliveryZoneStep(props: Props) {
                     <div className={styles.number}>
                       Зона доставки {index + 1}
                     </div>
-                    <TextField
+                    <InputField
                       key={index}
                       label={'Название зоны доставки'}
                       name={`items[${index}].name`}
@@ -73,28 +73,23 @@ export default function DeliveryZoneStep(props: Props) {
                         Расстояние от пункта приёма
                       </div>
                       <div className={styles.from}>
-                        <TextField
+                        <InputField
                           key={index}
                           name={`items[${index}].distanceFrom`}
                           validate={Validator.required}
-                          sign='км'
                           placeholder='От'
-                          isNumbersOnly
                         />
-                        <TextField
+                        <InputField
                           key={index}
                           name={`items[${index}].distanceTo`}
                           validate={Validator.required}
-                          sign='км'
                           placeholder='До'
-                          isNumbersOnly
                         />
                       </div>
                     </div>
-                    <TextField
+                    <InputField
                       key={index}
                       label={'Стоимость доставки, ₽'}
-                      sign='за тонну'
                       name={`items[${index}].price`}
                       validate={Validator.required}
                     />

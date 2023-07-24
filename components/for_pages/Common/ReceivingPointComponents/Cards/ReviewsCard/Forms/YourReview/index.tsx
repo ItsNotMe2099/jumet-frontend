@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import TextField from '@/components/fields/TextField'
+import TextField from '@/components/fields/InputField'
 import StarRatingsField from '@/components/fields/StarRatingsField'
 
 

@@ -60,7 +60,7 @@ export default function PhoneField(props: Props & FieldConfig) {
 
         onChange={handleChange}
       />
-      <FieldError {...meta} />
+      <FieldError showError={showError}>{meta.error}</FieldError>
     </div>
   )
 }

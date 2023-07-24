@@ -8,10 +8,9 @@ import Switch from '@/components/ui/Switch'
 import { useState } from 'react'
 import AddressYandexField from '@/components/fields/AddressYandexField'
 import Tab from '@/components/ui/Tab'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
-import DropdownMenu from '@/components/ui/DropdownMenu'
 import { useAppContext } from '@/context/state'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
 import { ILocation } from '@/data/interfaces/ILocation'
@@ -158,8 +157,7 @@ export default function CreateSalesApplicationForm(props: Props) {
           options={scrapMetalCategories}
           styleType='default'
         />
-        <TextField isNumbersOnly name='weight' label='Вес лома' dropdown={() =>
-          <DropdownMenu className={styles.drop} currentLabel={options[0].name} options={options} />} />
+        <InputField name='weight' label='Вес лома' />
         <FileField
           name='photosIds'
           label='Фотографии лома'
@@ -182,8 +180,8 @@ export default function CreateSalesApplicationForm(props: Props) {
           </div>
           <AddressYandexField name='address.address' placeholder='Город' validate={Validator.required} />
           <div className={styles.group}>
-            <TextField name='address.street' placeholder='Улица' />
-            <TextField isNumbersOnly className={styles.second} name='address.house' placeholder='Номер дома' />
+            <InputField name='address.street' placeholder='Улица' />
+            <InputField className={styles.second} name='address.house' placeholder='Номер дома' />
           </div>
         </div>
         <div className={styles.section}>
@@ -194,7 +192,7 @@ export default function CreateSalesApplicationForm(props: Props) {
             <Switch onChange={() => setPriceEdit(!priceEdit)} checked={priceEdit} />
             <div className={styles.label}>Указать желаемую цену за лом</div>
           </div>
-          {priceEdit && <TextField isNumbersOnly name='price' placeholder='Моя цена за лом' />}
+          {priceEdit && <InputField name='price' placeholder='Моя цена за лом' />}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
@@ -210,7 +208,7 @@ export default function CreateSalesApplicationForm(props: Props) {
                 onClick={() => handleRadius(i.radius)} />
             )}
           </div>
-          <TextField name='searchRadius' placeholder='Свой радиус поиска' sign='км' />
+          <InputField name='searchRadius' placeholder='Свой радиус поиска' />
         </div>
         <PhoneField styleType={InputStyleType.Default} name='phones[0]' label='Ваш телефон' />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>

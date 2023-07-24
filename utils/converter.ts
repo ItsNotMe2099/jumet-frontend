@@ -3,6 +3,10 @@ import { GeoObject } from 'data/interfaces/IYandexGeocoder'
 
 export default class Converter {
 
+  static convertLibphonenumberToMask = (value: string): string => value
+    .replace('x', '+')
+    .replaceAll('x', '0')
+
   static getFileUploadAccept(type: FileUploadAcceptType): string[] {
     const images = ['.png', '.jpg', '.jpeg']
     const videos = ['.mp4', '.mov', '.avi']

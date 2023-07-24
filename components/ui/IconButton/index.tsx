@@ -7,7 +7,7 @@ interface Props extends IButton{
   children: React.ReactNode
   className?: string
   buttonRef?: RefObject<any>
-  bgColor: 'transparent' | 'white' | 'dark400'
+  bgColor?: 'transparent' | 'white' | 'dark400'
   size?: 'normal' | 'medium' | 'large'
 }
 
@@ -23,7 +23,7 @@ export default function IconButton(props: Props) {
         href={typeof props.href == 'object' ? props.href.href! : props.href}
         target={props.isExternalHref ? '_blank' : ''}
         rel={props.isExternalHref ? 'noreferrer' : ''}
-        className={classNames([styles.root, props.className],  styles[props.bgColor])}
+        className={classNames([styles.root, props.className],  props.bgColor && styles[props.bgColor])}
         onClick={props.onClick}
       >
         {props.children}
@@ -34,7 +34,7 @@ export default function IconButton(props: Props) {
   return (
     <button
       ref={props.buttonRef}
-      className={classNames([styles.root, props.className], styles[props.bgColor], styles[props.size ?? 'normal'])}
+      className={classNames([styles.root, props.className], props.bgColor && styles[props.bgColor], styles[props.size ?? 'normal'])}
       type={props.type ?? 'button'}
       form={props.form}
       onClick={props.onClick}

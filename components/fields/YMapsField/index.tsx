@@ -36,7 +36,7 @@ export default function YMapsField(props: Props) {
           onChange={props.onChange}
           onBlur={props.onBlur}
         />
-        <FieldError {...meta} />
+        <FieldError showError={showError}>{meta.error}</FieldError>
       </div>
     </div>
   )

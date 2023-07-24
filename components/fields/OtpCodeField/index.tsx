@@ -23,9 +23,9 @@ export default function OtpCodeField(props: Props) {
   const handleComplete = (value: string) => {
     console.log('handleComplete', value)
     helpers.setValue(value)
-    if(props.onComplete) {
+    if (props.onComplete) {
       setTimeout(() => {
-        if(props.onComplete) {
+        if (props.onComplete) {
           props.onComplete(value)
         }
       }, 100)
@@ -50,7 +50,7 @@ export default function OtpCodeField(props: Props) {
         autoSelect={true}
         regexCriteria={/^[ A-Za-z0-9_@./#&+-]*$/}
       />
-      <FieldError {...meta} />
+      <FieldError showError={showError}>{meta.error}</FieldError>
     </div>
   )
 }

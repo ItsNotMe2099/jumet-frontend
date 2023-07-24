@@ -1,16 +1,16 @@
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import styles from './index.module.scss'
-import {Form, FormikProvider, useFormik} from 'formik'
+import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import {InputStyleType, SnackbarType} from '@/types/enums'
-import {useAuthContext} from '@/context/auth_state'
-import {useState} from 'react'
+import { SnackbarType } from '@/types/enums'
+import { useAuthContext } from '@/context/auth_state'
+import { useState } from 'react'
 import AuthRepository from '@/data/repositories/AuthRepository'
-import {RequestError} from '@/types/types'
-import {useAppContext} from '@/context/state'
-import {useRouter} from 'next/router'
-import {Routes} from '@/types/routes'
+import { RequestError } from '@/types/types'
+import { useAppContext } from '@/context/state'
+import { useRouter } from 'next/router'
+import { Routes } from '@/types/routes'
 import OtpCodeField from '@/components/fields/OtpCodeField'
 import useInterval from 'use-interval'
 import FormError from '@/components/ui/FormError'
@@ -105,23 +105,22 @@ export default function PasswordResetForm(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         <div className={styles.codeArea}>
-        <OtpCodeField
-          name='code'
-          length={4}
-          showError={!!error}
-          disabled={loadingSendAgain || loading}
-        />
-        {code && <div className={styles.code}>{code}</div>}
-        <OtpCodeSendAgain remainSec={remainSec} onSendAgainClick={handleSendAgain}/>
+          <OtpCodeField
+            name='code'
+            length={4}
+            showError={!!error}
+            disabled={loadingSendAgain || loading}
+          />
+          {code && <div className={styles.code}>{code}</div>}
+          <OtpCodeSendAgain remainSec={remainSec} onSendAgainClick={handleSendAgain} />
         </div>
-          <TextField inputStyle={InputStyleType.Password} name='password' label='Новый пароль'
-                   validate={Validator.required}/>
-        <TextField
-          inputStyle={InputStyleType.Password}
+        <InputField name='password' label='Новый пароль'
+          validate={Validator.required} />
+        <InputField
           name='passwordConfirm'
           label='Повторите пароль'
-          validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])}/>
-          <FormError error={error}/>
+          validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])} />
+        <FormError error={error} />
         <Button type='submit' className={styles.btn} styleType='large' color='blue' spinner={loading}>
           Изменить пароль
         </Button>

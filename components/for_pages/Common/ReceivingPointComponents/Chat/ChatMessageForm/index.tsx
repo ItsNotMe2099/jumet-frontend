@@ -4,7 +4,7 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import AttachSvg from '@/components/svg/AttachSvg'
 import { colors } from '@/styles/variables'
 import SendSvg from '@/components/svg/SendSvg'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import Validator from '@/utils/validator'
 import { FileUploadAcceptType } from '@/types/enums'
 import FileField from '@/components/fields/FileField'
@@ -48,9 +48,8 @@ export default function ChatMessageForm(props: Props) {
           sectionClass={styles.section}
           className={styles.attach}
         />
-        <TextField
+        <InputField
           className={styles.message}
-          showError={false}
           validate={Validator.required}
           name='message'
           placeholder='Сообщение'

@@ -1,20 +1,20 @@
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import {InputStyleType, SnackbarType} from '@/types/enums'
+import { SnackbarType } from '@/types/enums'
 import Already from '@/components/for_pages/Common/Already'
 import { useAuthContext } from '@/context/auth_state'
 import { Routes } from '@/types/routes'
 import AuthRepository from '@/data/repositories/AuthRepository'
-import {RequestError} from '@/types/types'
-import {useRouter} from 'next/router'
-import {useState} from 'react'
-import {useAppContext} from '@/context/state'
+import { RequestError } from '@/types/types'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useAppContext } from '@/context/state'
 
 interface Props {
-  onComplete: (data?: {email: string}) => void
+  onComplete: (data?: { email: string }) => void
 }
 
 export default function BuyerRegForm(props: Props) {
@@ -26,7 +26,7 @@ export default function BuyerRegForm(props: Props) {
     setLoading(true)
     try {
       const res = await AuthRepository.buyerRegister(data)
-      props.onComplete({email: data.email})
+      props.onComplete({ email: data.email })
     } catch (err) {
       console.log('ErrIs', err instanceof RequestError)
       if (err instanceof RequestError) {
@@ -55,11 +55,10 @@ export default function BuyerRegForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <TextField name='companyName' label='Название компании / группы компаний' validate={Validator.required} />
-        <TextField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />
-        <TextField inputStyle={InputStyleType.Password} name='password' label='Пароль' validate={Validator.required} />
-        <TextField
-          inputStyle={InputStyleType.Password}
+        <InputField name='companyName' label='Название компании / группы компаний' validate={Validator.required} />
+        <InputField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />
+        <InputField name='password' label='Пароль' validate={Validator.required} />
+        <InputField
           name='passwordConfirm'
           label='Повторите пароль'
           validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])} />

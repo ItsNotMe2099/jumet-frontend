@@ -5,7 +5,7 @@ import { useAppContext } from '@/context/state'
 import PhoneField from '@/components/fields/PhoneField'
 import { InputStyleType } from '@/types/enums'
 import { useState } from 'react'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
 
 
@@ -47,14 +47,13 @@ export default function ProfileSellerForm(props: Props) {
           disabled={loading}
           validate={Validator.combine([Validator.required, Validator.phone])}
         />
-        <TextField
+        <InputField
           className={styles.field}
           name='name'
           label='Ваше имя'
           validate={Validator.required} />
-        <TextField
+        <InputField
           className={styles.field}
-          inputStyle={InputStyleType.Password}
           name='password'
           label='Пароль'
           validate={Validator.required} />

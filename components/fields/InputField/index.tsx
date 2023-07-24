@@ -1,16 +1,16 @@
 import styles from './index.module.scss'
-import {FieldConfig, useField} from 'formik'
+import { useField } from 'formik'
 import classNames from 'classnames'
-import {ReactElement, useEffect, useState} from 'react'
+import { ReactElement, useEffect, useState } from 'react'
 import { FieldValidator } from 'formik/dist/types'
 import { useIMask } from 'react-imask'
 import { AsYouType, isValidPhoneNumber } from 'libphonenumber-js'
 import cx from 'classnames'
-import Converter from 'utils/Converter'
-import {IField} from 'types/types'
+import Converter from 'utils/converter'
+import { IField } from 'types/types'
 import FieldError from 'components/fields/FieldError'
 import EyeSvg from '@/components/svg/EyeSvg'
-import {colors} from '@/styles/variables'
+import { colors } from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
 
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv'
@@ -25,7 +25,7 @@ interface Props extends IField<string> {
   suffix?: 'clear' | 'arrow' | string | ReactElement
   staticSuffix?: 'clear' | 'arrow' | string | ReactElement
   prefix?: string | ReactElement
-  onChange?: (val) => void
+  onChange?: (val: string) => void
   noAutoComplete?: boolean
 }
 
@@ -36,12 +36,12 @@ export default function InputField(props: Props) {
   const defaultCardCvvPattern = '0000'
   const [focused, setFocus] = useState(false)
   const [obscureShow, setObscureShow] = useState(false)
-  const [field, meta, helpers] = useField(props as FieldConfig)
+  const [field, meta, helpers] = useField(props.name)
   const [phoneIsValid, setPhoneIsValid] = useState(false)
-  const [pattern, setPattern] = useState<string | null>(props.format === 'phone' ? defaultPhonePattern : props.format  === 'cardExpiry' ? defaultCardExpiryPattern : null)
+  const [pattern, setPattern] = useState<string | null>(props.format === 'phone' ? defaultPhonePattern : props.format === 'cardExpiry' ? defaultCardExpiryPattern : null)
   const showError = meta.touched && !!meta.error && !focused
   const { ref, maskRef } = useIMask({ mask: pattern as any || /.*/ })
-  const autoCompleteProps: any = props.noAutoComplete ? {autoComplete: 'off', autoCorrect: 'off'} : {}
+  const autoCompleteProps: any = props.noAutoComplete ? { autoComplete: 'off', autoCorrect: 'off' } : {}
   useEffect(() => {
 
     if (maskRef.current && (props.format === 'phone' || props.format === 'phoneAndEmail')) {
@@ -71,15 +71,15 @@ export default function InputField(props: Props) {
         }
       }
     }
-    if(props.format === 'cardExpiry'){
+    if (props.format === 'cardExpiry') {
       setPattern(defaultCardExpiryPattern)
       updateValueFromMask()
     }
-    if(props.format === 'cardPan'){
+    if (props.format === 'cardPan') {
       setPattern(defaultCardPanPattern)
       updateValueFromMask()
     }
-    if(props.format === 'cardCvv'){
+    if (props.format === 'cardCvv') {
       setPattern(defaultCardCvvPattern)
       updateValueFromMask()
     }
@@ -103,15 +103,15 @@ export default function InputField(props: Props) {
     return props.suffix
   }
   const renderPrefix = () => {
-    if(typeof props.prefix === 'string') {
-      return  <div className={cx(styles.prefix, styles.currency)}>{props.prefix}</div>
+    if (typeof props.prefix === 'string') {
+      return <div className={cx(styles.prefix, styles.currency)}>{props.prefix}</div>
     }
     return props.prefix
   }
   return (
-    <div className={classNames(styles.root, props.className, {[props.errorClassName]: showError})}>
+    <div className={classNames(styles.root, props.className, props.errorClassName && { [props.errorClassName]: showError })}>
       <div className={styles.wrapper}>
-        <div className={classNames(styles.inputWrapper, {[styles.withLabel]: props.label, [styles.withStaticSuffix]: !!props.staticSuffix})}>
+        <div className={classNames(styles.inputWrapper, { [styles.withLabel]: props.label, [styles.withStaticSuffix]: !!props.staticSuffix })}>
           {props.label &&
             <div className={styles.label}>
               {props.label}
@@ -124,7 +124,7 @@ export default function InputField(props: Props) {
             {...field}
             onChange={(e) => {
               field.onChange(e)
-              if(props.onChange){
+              if (props.onChange) {
                 props.onChange(e.currentTarget.value)
               }
             }}
@@ -151,7 +151,7 @@ export default function InputField(props: Props) {
           />
           {props.obscure && (
             <div className={classNames(styles.obscure)} onClick={() => { setObscureShow(!obscureShow) }}>
-              (obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500} />
+              obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500} />
               :
               <EyeCloseSvg color={colors.grey500} />
 

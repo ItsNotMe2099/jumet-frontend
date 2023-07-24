@@ -2,17 +2,17 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import {InputStyleType, SnackbarType} from '@/types/enums'
-import TextField from '@/components/fields/TextField'
+import { SnackbarType } from '@/types/enums'
+import InputField from '@/components/fields/InputField'
 import { useAuthContext } from '@/context/auth_state'
 import AuthRepository from '@/data/repositories/AuthRepository'
-import {RequestError} from '@/types/types'
-import {useRouter} from 'next/router'
-import {useState} from 'react'
-import {useAppContext} from '@/context/state'
-import {Routes} from '@/types/routes'
+import { RequestError } from '@/types/types'
+import { useRouter } from 'next/router'
+import { useState } from 'react'
+import { useAppContext } from '@/context/state'
+import { Routes } from '@/types/routes'
 
-interface FormData{
+interface FormData {
   name: string,
   password: string,
   passwordConfirm: string
@@ -32,14 +32,14 @@ export default function FinishForm(props: Props) {
     try {
       const res = await AuthRepository.sellerCompleteRegistration(data)
 
-      if(res.accessToken){
+      if (res.accessToken) {
         appContext.setToken(res.accessToken)
-        }
-        if(redirect){
-          router.replace(redirect)
-        }else{
-          router.replace(Routes.index)
-        }
+      }
+      if (redirect) {
+        router.replace(redirect)
+      } else {
+        router.replace(Routes.index)
+      }
 
     } catch (err) {
       console.log('ErrIs', err instanceof RequestError)
@@ -67,10 +67,9 @@ export default function FinishForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <TextField name='name' label='Ваше имя' validate={Validator.required} />
-        <TextField inputStyle={InputStyleType.Password} name='password' label='Придумайте пароль' validate={Validator.required} />
-        <TextField
-          inputStyle={InputStyleType.Password}
+        <InputField name='name' label='Ваше имя' validate={Validator.required} />
+        <InputField name='password' label='Придумайте пароль' validate={Validator.required} />
+        <InputField
           name='passwordConfirm'
           label='Повторите пароль'
           validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])} />
