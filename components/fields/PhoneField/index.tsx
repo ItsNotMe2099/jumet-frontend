@@ -18,6 +18,7 @@ interface Props extends IField<string> {
   defaultCountry?: string
   countrySelectClassName?: string
   styleType: InputStyleType
+  inputClass?: string
 }
 
 export default function PhoneField(props: Props & FieldConfig) {
@@ -40,7 +41,7 @@ export default function PhoneField(props: Props & FieldConfig) {
           [styles.input]: true,
           [styles.inputError]: showError,
           [styles.inputFocused]: focused,
-        })}
+        }, props.inputClass)}
         placeholder={props.placeholder}
         onFocus={(e) => {
           setFocus(true)

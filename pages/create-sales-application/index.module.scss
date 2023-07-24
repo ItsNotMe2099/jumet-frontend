@@ -6,6 +6,10 @@
     margin-top: 38px;
     margin-bottom: 64px;
     background-color: $white;
+
+    @include mq($SmDesktopWidth, max) {
+        margin: 0;
+    }
 }
 
 .container {
@@ -15,6 +19,13 @@
     @include container;
     width: 50%;
     padding: 32px 20px;
+
+    @include mq($SmDesktopWidth, max) {
+        width: 100%;
+        padding: 0;
+        padding-top: 24px;
+        padding-bottom: 48px;
+    }
 }
 
 .title {

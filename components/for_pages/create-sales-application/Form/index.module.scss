@@ -4,6 +4,18 @@
     display: flex;
     flex-direction: column;
     @include list(24px, false);
+
+    input {
+        @include mq($PhoneWidth, max) {
+            height: 40px;
+        }
+    }
+
+    .input {
+        @include mq($PhoneWidth, max) {
+            height: 40px;
+        }
+    }
 }
 
 .text {
@@ -55,15 +67,27 @@
     .tab {
         width: 75px;
         height: 48px;
+
+        @include mq($PhoneWidth, max) {
+            height: 40px;
+        }
     }
 }
 
 .btn {
     width: 28%;
+
+    @include mq($SmDesktopWidth, max) {
+        width: 100%;
+    }
+
+    @include mq($PhoneWidth, max) {
+        height: 40px;
+    }
 }
 
 .drop {
-    a{
+    a {
         border: 0;
         @include list(8px, true);
     }

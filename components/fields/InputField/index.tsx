@@ -127,15 +127,15 @@ export default function InputField(props: Props) {
             onChange={(e) => {
               field.onChange(e)
               if (props.numbersOnly) {
-                const numericValue = e.currentTarget.value.replace(/\D/g, '');
-                helpers.setValue(numericValue);
+                const numericValue = e.currentTarget.value.replace(/\D/g, '')
+                helpers.setValue(numericValue)
                 if (props.onChange) {
-                  props.onChange(numericValue);
+                  props.onChange(numericValue)
                 }
               } else {
-                helpers.setValue(e.currentTarget.value);
+                helpers.setValue(e.currentTarget.value)
                 if (props.onChange) {
-                  props.onChange(e.currentTarget.value);
+                  props.onChange(e.currentTarget.value)
                 }
               }
             }}

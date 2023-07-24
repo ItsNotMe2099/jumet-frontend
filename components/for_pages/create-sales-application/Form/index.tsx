@@ -209,7 +209,7 @@ export default function CreateSalesApplicationForm(props: Props) {
           </div>
           <InputField numbersOnly name='searchRadius' placeholder='Свой радиус поиска' />
         </div>
-        <PhoneField styleType={InputStyleType.Default} name='phones[0]' label='Ваш телефон' />
+        <PhoneField inputClass={styles.input} styleType={InputStyleType.Default} name='phones[0]' label='Ваш телефон' />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
           Создать заявку
         </Button>
