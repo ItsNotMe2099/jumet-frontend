@@ -3,16 +3,16 @@ import styles from './index.module.scss'
 
 
 interface Props {
-  children?: React.ReactNode
+  children?: ReactElement | ReactElement[]
   title: string
-  element?: ReactElement
+  preHeader?: ReactElement | null
 }
 
 export default function MainFilterSectionLayout(props: Props) {
 
   return (
     <div className={styles.root}>
-      {props.element}
+      {props.preHeader}
       <div className={styles.title}>
         {props.title}
       </div>

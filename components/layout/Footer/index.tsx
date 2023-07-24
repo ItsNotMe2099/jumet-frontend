@@ -6,6 +6,7 @@ import { CONTACTS, LINKS } from '@/types/constants'
 import Button from '@/components/ui/Button'
 import { format } from 'date-fns'
 import VKSvg from '@/components/svg/VKSvg'
+import {Routes} from '@/types/routes'
 
 interface Props {
 
@@ -46,7 +47,7 @@ export default function Footer(props: Props) {
                 <Link href={CONTACTS.tel}>{CONTACTS.tel}</Link>
               </div>
             </div>
-            <Button className={styles.btn} styleType='large' color='white'>
+            <Button className={styles.btn} styleType='large' color='white' href={Routes.createSalesApplication}>
               Продать лом
             </Button>
           </div>

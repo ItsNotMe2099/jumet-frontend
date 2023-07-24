@@ -6,6 +6,7 @@ import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import RussiaSvg from '@/components/svg/RussiaSvg'
 import Russia2Svg from '@/components/svg/Russia2Svg'
+import {Routes} from '@/types/routes'
 
 interface Props {
   className?: string
@@ -33,7 +34,7 @@ export default function Banner(props: Props) {
       <div className={styles.middle}>
         Создайте заявку на продажу лома и получите<HiddenXs><br /></HiddenXs>предложения от разных покупателей
       </div>
-      <Button className={styles.btn} styleType='large' color='white'>
+      <Button className={styles.btn} href={Routes.createSalesApplication} styleType='large' color='white'>
         Продать лом
       </Button>
     </div>

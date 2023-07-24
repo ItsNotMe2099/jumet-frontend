@@ -1,7 +1,7 @@
 import styles from 'components/fields/Schedule/ScheduleWeekDaysField/index.module.scss'
 import {IField, WorkDays} from 'types/types'
 import { useField} from 'formik'
-import FieldError from 'components/ui/FieldError'
+import FieldError from 'components/fields/FieldError'
 import {DayType, WeekDays} from 'types/enums'
 //import ActionsDropDown from 'components/ui/ActionsDropdown'
 import ScheduleIntervalsField from 'components/fields/Schedule/ScheduleIntervalsField'

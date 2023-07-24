@@ -1,25 +1,24 @@
 import React from 'react'
-import Select from 'react-select'
 import { useField } from 'formik'
-import { IField } from '@/types/types'
+import {IField, IOption} from '@/types/types'
 import styles from './index.module.scss'
 import classNames from 'classnames'
+import Select from '@/components/fields/Select'
+import FieldError from '@/components/fields/FieldError'
 
-interface IOption {
-  value?: string
-  label: string
-}
 
-interface Props extends IField<string> {
-  options: IOption[]
+
+interface Props<T> extends IField<T> {
+  options: IOption<T>[]
   placeholder?: string
   className?: string
+  errorClassName?: string
 }
 
-const SelectField = (props: Props) => {
+export default function SelectField<T>(props: Props<T>) {
 
   const [field, meta, helpers] = useField(props.name)
-
+  const showError = meta.touched && !!meta.error
   const handleChange = (selectedOption: any) => {
     helpers.setValue(selectedOption)
   }
@@ -34,24 +33,23 @@ const SelectField = (props: Props) => {
 
   return (
     <div className={classNames(styles.root, props.className)}>
-      <label>{props.label}</label>
-      <Select
-        {...field}
-        {...props}
-        className={classNames({
-          [styles.input]: true
-        })}
-        classNamePrefix='ma-select'
-        value={getValue()}
-        onChange={handleChange}
+      <div className={classNames({
+        [styles.label]: true,
+      })}>
+        {props.label}
+      </div>
+      <Select<T>
+        label={props.label}
         options={props.options}
-        placeholder={props.placeholder}
+        value={field.value}
+        hasError={showError}
+        placeholder={props.placeholder ?? props.label}
+        onChange={(value) => {
+          helpers.setValue(value)
+        }}
       />
-      {meta.touched && meta.error ? (
-        <div className="error">{meta.error}</div>
-      ) : null}
+      <FieldError className={props.errorClassName} showError={showError}>{meta.error}</FieldError>
     </div>
   )
 }
 
-export default SelectField

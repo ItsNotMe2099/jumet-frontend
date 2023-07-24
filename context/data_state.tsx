@@ -1,5 +1,6 @@
-import {createContext, useContext, useState} from 'react'
+import {createContext, useContext, useEffect, useState} from 'react'
 import {IScrapMetalCategory} from '@/data/interfaces/IScrapMetalCategory'
+import ScrapMetalCategoryRepository from '@/data/repositories/ScrapMetalCategoryRepository'
 
 interface IState {
   scrapMetalCategories: IScrapMetalCategory[]
@@ -19,6 +20,9 @@ interface Props {
 export function DataWrapper(props: Props) {
   const [scrapMetalCategories, setScrapMetalCategories] = useState<IScrapMetalCategory[]>([])
 
+  useEffect(() => {
+    ScrapMetalCategoryRepository.fetch().then(i => setScrapMetalCategories(i))
+  }, [])
   const value: IState = {
     ...defaultValue,
     scrapMetalCategories

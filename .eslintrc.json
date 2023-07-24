@@ -3,10 +3,12 @@
   "plugins": ["unused-imports"],
   "rules": {
     "semi": ["error", "never"],
+    "no-unsafe-optional-chaining": "off",
     "react/no-unknown-property": "off",
     "unused-imports/no-unused-imports": "error",
     "@next/next/no-img-element": "off",
     "no-console": "warn",
+    "react-hooks/exhaustive-deps": "off",
     "quotes": ["error", "single"],
     "jsx-a11y/alt-text": "off",
     "react/jsx-key": "off",

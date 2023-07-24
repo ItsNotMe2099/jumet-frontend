@@ -15,6 +15,8 @@ interface IReceivingPointFilter extends IReceivingPointSearchRequest {
 interface IState {
   filter: IReceivingPointFilter
   data: IPagination<IReceivingPoint>
+  isLoaded: boolean
+  isLoading: boolean
   page: number
   setPage: (page: number) => void
   setFilter: (data: IReceivingPointFilter) => void
@@ -25,6 +27,8 @@ interface IState {
 const defaultValue: IState = {
   filter: {page: 1, limit: 10},
   data: {data: [], total: 0},
+  isLoaded: false,
+  isLoading: false,
   page: 1,
   setPage: (page: number) => null,
   setFilter: (data: IReceivingPointFilter) => null,
@@ -41,6 +45,8 @@ interface Props {
 
 export function ReceivingPointSearchWrapper(props: Props) {
   const [data, setData] = useState<IPagination<IReceivingPoint>>({data: [], total: 0})
+  const [isLoading, setIsLoading] = useState<boolean>(false)
+  const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [filter, setFilter] = useState<IReceivingPointFilter>( {page: 1, limit: 10})
   const [page, setPage] = useState<number>(1)
   const [viewType, setViewType] = useState<ViewType>(ViewType.List)
@@ -48,13 +54,17 @@ export function ReceivingPointSearchWrapper(props: Props) {
   useEffect(() => {
     filterRef.current = filter
   }, [filter])
+  const init = async () => {
+    await Promise.all([fetch()])
+    setIsLoaded(true)
+  }
   const fetch = async ({page}: { page: number } = {page: 1}) => {
     const res = await ReceivingPointRepository.search({...filterRef.current, page})
     setData(res)
   }
 
   useEffect(() => {
-    fetch({page: 1})
+    init()
   }, [])
 
   const value: IState = {
@@ -67,7 +77,15 @@ export function ReceivingPointSearchWrapper(props: Props) {
       setPage(page)
       fetch({page})
     },
-    setViewType: (viewType) => setViewType(viewType)
+    setViewType: (viewType) => setViewType(viewType),
+    setFilter: async (data) => {
+      filterRef.current = filter
+      setFilter(data)
+      setIsLoading(true)
+      setPage(1)
+      await fetch({page: 1})
+      setIsLoading(false)
+    }
   }
 
 

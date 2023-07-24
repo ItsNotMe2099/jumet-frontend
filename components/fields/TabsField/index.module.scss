@@ -1,5 +1,13 @@
 @import "styles/index";
+.root{
 
+}
+.tab{
+  flex: 1;
+}
+.label{
+  @include label;
+}
 .tabs {
   display: flex;
   @include list(8px, true);

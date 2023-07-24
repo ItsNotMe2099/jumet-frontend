@@ -23,4 +23,11 @@ export class Routes {
     return '/'
   }
 
+  static get createSalesApplication () {
+    return '/create-sales-application'
+  }
+  static get salesIndex() {
+    return '/sales'
+  }
+
 }

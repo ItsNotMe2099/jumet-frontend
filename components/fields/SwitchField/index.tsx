@@ -28,7 +28,7 @@ export default function SwitchField(props: Props & FieldConfig) {
           checked={field.value}
           />
           {props.label ?
-          <div className={styles.label}>
+          <div className={styles.label} onClick={() => handleChange(!field.value)}>
             {props.label}
           </div> : null}
     </div>

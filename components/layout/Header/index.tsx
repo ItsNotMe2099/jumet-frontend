@@ -74,7 +74,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
             {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.registration} className={styles.btn} styleType='large' color='blue'>
               Купить лом
             </Button>}
-            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.registration} className={styles.btn} styleType='large' color='blue'>
+            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.createSalesApplication} className={styles.btn} styleType='large' color='blue'>
               Продать лом
             </Button>}
             {!appContext.isLogged && <>

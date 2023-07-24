@@ -2,10 +2,11 @@ import styles from './index.module.scss'
 import { useField } from 'formik'
 import RadioFieldItem from 'components/fields/RadioField/RadioFieldItem'
 import { IField, IOption, RadioStyleType } from 'types/types'
-import FieldError from 'components/ui/FieldError'
+import FieldError from 'components/fields/FieldError'
 import classNames from 'classnames'
 
-interface Props<T> extends IField<any> {
+
+interface Props<T> extends IField<T> {
   options: IOption<T>[],
   label?: string
   disabled?: boolean
@@ -25,7 +26,7 @@ export default function RadioField<T>(props: Props<T>) {
     }
     helpers.setValue(value)
   }
-  
+
   return (
     <div className={classNames(styles.root, {
       [styles.styleTiles]: props.styleType === 'tile',

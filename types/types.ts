@@ -101,5 +101,8 @@ export interface IMenuItem {
   children?: IMenuItem[]
   color?: string
 }
-
+export enum ListViewType{
+  List = 'list',
+  Map = 'map'
+}
 export type RadioStyleType = 'default' | 'tile' | 'row'

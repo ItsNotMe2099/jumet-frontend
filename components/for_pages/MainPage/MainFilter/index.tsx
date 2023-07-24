@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from 'react'
+import {useEffect, useRef, useState} from 'react'
 import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import FilterSvg from '@/components/svg/FilterSvg'
@@ -8,31 +8,41 @@ import ListSvg from '@/components/svg/ListSvg'
 import MapSvg from '@/components/svg/MapSvg'
 import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
-import { Form, Formik, FormikProvider, useFormik } from 'formik'
-import Input from '@/components/ui/Input'
+import { Form, FormikProvider, useFormik } from 'formik'
 import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
-import { IOption } from '@/types/types'
+import {IOption, ListViewType} from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import AddressYandexField from '@/components/fields/AddressYandexField'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
 import TabsField from '@/components/fields/TabsField'
 import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
+import TextField from '@/components/fields/TextField'
+import {useAppContext} from '@/context/state'
+import {RemoveScroll} from 'react-remove-scroll'
+import CloseModalBtn from '@/components/ui/CloseModalBtn'
 
+interface IFormData extends IReceivingPointSearchRequest{
+  radiusCustom?: number | null
+}
 
 interface Props {
   title: string
+  viewType: ListViewType
+  onSetViewType: (viewType: ListViewType) => void
 }
 
 export default function MainFilter(props: Props) {
   const searchContext = useReceivingPointSearchContext()
   const dataContext = useDataContext()
-  const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
-  const [open, setOpen] = useState<boolean>(false)
+  const appContext = useAppContext()
 
-  const initialValues: IReceivingPointSearchRequest = {
+  const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
+  const initValuesRef = useRef<boolean>(false)
+  const initialValues: IFormData = {
     location: null,
     radius: null,
+    radiusCustom: null,
     scrapMetalCategory: null,
     weight: null,
     hasDelivery: false,
@@ -41,13 +51,21 @@ export default function MainFilter(props: Props) {
   const handleSubmit = () => {
 
   }
-  const formik = useFormik<IReceivingPointSearchRequest>({
+  const formik = useFormik<IFormData>({
     initialValues,
     onSubmit: handleSubmit
   })
   const handleToggleMobileFilter = () => {
-    setIsOpenMobileFilter(isOpenMobileFilter)
+    setIsOpenMobileFilter(!isOpenMobileFilter)
   }
+  useEffect(() => {
+    if(!initValuesRef.current) {
+      initValuesRef.current = true
+      return
+    }
+    console.log('ChangeFormikValue11')
+    searchContext.setFilter(formik.values)
+  }, [formik.values])
   const viewTypeFilter = (<SwitchFilter<ViewType>
     active={searchContext.viewType}
     onClick={searchContext.setViewType}
@@ -72,42 +90,47 @@ export default function MainFilter(props: Props) {
     { label: '50км', value: 50 },
   ]
 
+  console.log('FormkikValue', formik.values)
+
   return (
+
     <FormikProvider value={formik}>
       <Form className={styles.root}>
-        <Button onClick={handleToggleMobileFilter} className={styles.open} color='blue' styleType='small'>
+        <Button onClick={handleToggleMobileFilter} fluid className={styles.mobileOpenToggle} color='blue' styleType='small'>
           <FilterSvg color={colors.white} />
           <span>{isOpenMobileFilter ? <>Скрыть фильтр</> : <>Открыть фильтр</>}</span>
         </Button>
-        {viewTypeFilter}
-        <div className={classNames(styles.left, { [styles.none]: !open })}>
-          <FilterComponent title='Адрес расположения лома' element={viewTypeFilter}>
-            <Formik initialValues={{}} onSubmit={() => {
-            }}>
+        {appContext.isMobile && viewTypeFilter}
+        <RemoveScroll enabled={!!appContext.isMobile && isOpenMobileFilter}>
+        <div className={classNames(styles.filters, { [styles.none]: !isOpenMobileFilter })}>
+          {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500}/></div>}
+          <div className={styles.filtersWrapper}>
+
+          <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile && viewTypeFilter}>
               <AddressYandexField
                 hasAddress={!!searchContext.filter.location}
                 name={'address'}
                 placeholder='Город, улица, дом'
               />
-            </Formik>
           </FilterComponent>
           <FilterComponent title='Радиус поиска пунктов приёма'>
-            <>
               <TabsField<number> options={radiusTabs} name={'radius'} />
-              <Input
+              <TextField
                 placeholder='Свой радиус поиска'
                 label='км'
                 isNumbersOnly
-                onChange={(e: ChangeEvent<HTMLInputElement>) => searchContext.setFilter({ radius: parseInt(e.target.value, 10) })}
-                className={styles.km} />
-            </>
+                name={'radiusCustom'}/>
           </FilterComponent>
           <FilterComponent title='Категория лома'>
-            <SelectField options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
+            <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
               name={'scrapMetalCategory'} />
           </FilterComponent>
           <FilterComponent title='Вес лома'>
-
+            <TextField
+              placeholder='Вес'
+              isNumbersOnly
+              а
+              name={'weight'} />
           </FilterComponent>
           <FilterComponent title='Доставка и погрузка'>
             <div className={styles.switches}>
@@ -116,11 +139,13 @@ export default function MainFilter(props: Props) {
             </div>
           </FilterComponent>
           <FilterComponent title='Режим работы'>
-            <TabsField<string> options={[{ label: 'Открыто сейчас', value: '' }, { label: 'Круглосуточно', value: '' }]}
+            <TabsField<string> options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
               name={'openType'} />
           </FilterComponent>
-        </div>
 
+          </div>
+        </div>
+        </RemoveScroll>
       </Form>
     </FormikProvider>
   )
