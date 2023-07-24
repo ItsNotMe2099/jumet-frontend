@@ -27,6 +27,7 @@ interface Props extends IField<string> {
   prefix?: string | ReactElement
   onChange?: (val: string) => void
   noAutoComplete?: boolean
+  numbersOnly?: boolean
 }
 
 export default function InputField(props: Props) {
@@ -108,6 +109,7 @@ export default function InputField(props: Props) {
     }
     return props.prefix
   }
+
   return (
     <div className={classNames(styles.root, props.className, props.errorClassName && { [props.errorClassName]: showError })}>
       <div className={styles.wrapper}>
@@ -124,8 +126,17 @@ export default function InputField(props: Props) {
             {...field}
             onChange={(e) => {
               field.onChange(e)
-              if (props.onChange) {
-                props.onChange(e.currentTarget.value)
+              if (props.numbersOnly) {
+                const numericValue = e.currentTarget.value.replace(/\D/g, '');
+                helpers.setValue(numericValue);
+                if (props.onChange) {
+                  props.onChange(numericValue);
+                }
+              } else {
+                helpers.setValue(e.currentTarget.value);
+                if (props.onChange) {
+                  props.onChange(e.currentTarget.value);
+                }
               }
             }}
             disabled={props.disabled}

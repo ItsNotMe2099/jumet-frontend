@@ -47,6 +47,9 @@ export default function CreateSalesApplicationForm(props: Props) {
   const appContext = useAppContext()
 
   const handleSubmit = async (data: IData) => {
+    data.price = parseFloat(data.price.toString())
+    data.searchRadius = parseFloat(data.searchRadius.toString())
+    data.weight = parseFloat(data.weight.toString())
     if (data.scrapMetalCategory === ScrapMetalCategory.None) {
       // Using object destructuring to create a copy of data without the scrapMetalCategory property
       const { scrapMetalCategory, ...dataWithoutScrapMetalCategory } = data
@@ -157,7 +160,7 @@ export default function CreateSalesApplicationForm(props: Props) {
           options={scrapMetalCategories}
           styleType='default'
         />
-        <InputField name='weight' label='Вес лома' />
+        <InputField numbersOnly name='weight' label='Вес лома' />
         <FileField
           name='photosIds'
           label='Фотографии лома'
@@ -178,11 +181,7 @@ export default function CreateSalesApplicationForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressYandexField name='address.address' placeholder='Город' validate={Validator.required} />
-          <div className={styles.group}>
-            <InputField name='address.street' placeholder='Улица' />
-            <InputField className={styles.second} name='address.house' placeholder='Номер дома' />
-          </div>
+          <AddressYandexField name='address.address' placeholder='Адрес' validate={Validator.required} />
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
@@ -192,7 +191,7 @@ export default function CreateSalesApplicationForm(props: Props) {
             <Switch onChange={() => setPriceEdit(!priceEdit)} checked={priceEdit} />
             <div className={styles.label}>Указать желаемую цену за лом</div>
           </div>
-          {priceEdit && <InputField name='price' placeholder='Моя цена за лом' />}
+          {priceEdit && <InputField numbersOnly name='price' placeholder='Моя цена за лом' />}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
@@ -202,13 +201,13 @@ export default function CreateSalesApplicationForm(props: Props) {
             {radiusTabs.map((i, index) =>
               <Tab
                 className={styles.tab}
-                active={filterRadius === i.radius && formik.values.searchRadius === +i.radius}
+                active={filterRadius === i.radius && formik.values.searchRadius.toString() === i.radius}
                 text={`${i.radius} км`}
                 key={index}
                 onClick={() => handleRadius(i.radius)} />
             )}
           </div>
-          <InputField name='searchRadius' placeholder='Свой радиус поиска' />
+          <InputField numbersOnly name='searchRadius' placeholder='Свой радиус поиска' />
         </div>
         <PhoneField styleType={InputStyleType.Default} name='phones[0]' label='Ваш телефон' />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>

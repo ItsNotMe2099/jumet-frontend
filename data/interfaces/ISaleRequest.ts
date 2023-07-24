@@ -1,7 +1,7 @@
 import {SaleRequestStatus} from '../enum/SaleRequestStatus'
 import IFile from '@/data/interfaces/IFile'
 import { IAddress } from './IAddress'
-import { IScrapMetalCategory } from './IScrapMetalCategory'
+//import { IScrapMetalCategory } from './IScrapMetalCategory'
 import { ILocation } from './ILocation'
 import { ScrapMetalCategory } from '../enum/ScrapMetalCategory'
 
