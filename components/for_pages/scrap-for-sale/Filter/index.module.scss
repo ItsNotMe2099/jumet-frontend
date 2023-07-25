@@ -1,7 +1,6 @@
 @import "styles/index";
 
-.root {
-}
+.root {}
 
 
 .filters {
@@ -17,34 +16,40 @@
     display: flex;
     flex-direction: column;
   }
+
   @include mq($MdDesktopWidth, max) {
     width: 100%;
   }
 }
-.filtersWrapper{
+
+.filtersWrapper {
   display: flex;
   flex-direction: column;
   @include list(12px);
+
   @include mq($PhoneWidth, max) {
     flex: 1;
     overflow-y: auto;
     padding: 8px 16px 24px 16px;
   }
 }
-.mobileHeader{
+
+.mobileHeader {
   display: flex;
   flex-direction: row;
   align-items: center;
   font-weight: 700;
   font-size: 18px;
   padding: 20px 16px 16px 16px;
-  .title{
+
+  .title {
     flex: 1;
   }
 }
 
 .mobileOpenToggle {
   margin-bottom: 12px;
+
   @include mq($MdDesktopWidth, min) {
     display: none;
   }
@@ -90,4 +95,9 @@
   display: flex;
   flex-direction: column;
   @include list(12px);
+}
+
+.weight {
+  display: flex;
+  @include list(8px, true);
 }

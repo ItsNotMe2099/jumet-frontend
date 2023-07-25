@@ -3,13 +3,13 @@ import {ILocation} from '@/data/interfaces/ILocation'
 import {IPaginationRequest} from '@/data/interfaces/IPaginationRequest'
 
 export interface ISaleRequestSearchRequest extends IPaginationRequest {
-  location?: ILocation;
-  radius?: number;
-  scrapMetalCategory?: ScrapMetalCategory;
-  weightMin: number,
-  weightMax:number
-  priceMin: number
-  priceMax: number
-  requiresDelivery: true,
-  requiresLoading: true
+  location?: ILocation | null
+  radius?: number | null
+  scrapMetalCategory?: ScrapMetalCategory | null
+  weightMin?: number | null
+  weightMax?:number | null
+  priceMin?: number | null
+  priceMax?: number | null
+  requiresDelivery?: boolean
+  requiresLoading?: boolean
 }

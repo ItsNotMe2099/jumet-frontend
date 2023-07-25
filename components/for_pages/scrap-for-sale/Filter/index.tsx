@@ -9,21 +9,22 @@ import MapSvg from '@/components/svg/MapSvg'
 import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
-import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
+import { ViewType } from '@/context/receiving_point_search_state'
 import { IOption, ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
-import AddressYandexField from '@/components/fields/AddressYandexField'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
 import TabsField from '@/components/fields/TabsField'
-import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
 import InputField from '@/components/fields/InputField'
 import { useAppContext } from '@/context/state'
 import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
+import { ISaleRequestSearchRequest } from '@/data/interfaces/ISaleRequestSearchRequest'
+import { useSaleRequestSearchContext } from '@/context/sale_request_search_state'
 
-interface IFormData extends IReceivingPointSearchRequest {
+interface IFormData extends ISaleRequestSearchRequest {
   radiusCustom?: number | null
+  id: number | null
 }
 
 interface Props {
@@ -33,27 +34,31 @@ interface Props {
 }
 
 export default function Filter(props: Props) {
-  const searchContext = useReceivingPointSearchContext()
+  const searchContext = useSaleRequestSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
 
-  const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
+  const [isOpenMobileFilter, setIsOpenMobileFilter] = useState<boolean>(false)
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
+    id: null,
     location: null,
     radius: null,
     radiusCustom: null,
     scrapMetalCategory: null,
-    weight: null,
-    hasDelivery: false,
-    hasLoading: false
+    weightMin: null,
+    weightMax: null,
+    priceMin: null,
+    priceMax: null,
+    requiresDelivery: false,
+    requiresLoading: false
   }
   const handleSubmit = () => {
-
+    
   }
   const formik = useFormik<IFormData>({
     initialValues,
-    onSubmit: handleSubmit
+    onSubmit: handleSubmit,
   })
   const handleToggleMobileFilter = () => {
     setIsOpenMobileFilter(!isOpenMobileFilter)
@@ -106,12 +111,10 @@ export default function Filter(props: Props) {
             {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500} /></div>}
             <div className={styles.filtersWrapper}>
 
-              <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
-                <AddressYandexField
-                  hasAddress={!!searchContext.filter.location}
-                  name={'address'}
-                  placeholder='Город, улица, дом'
-                />
+              <FilterComponent title='Поиск по номеру заявки' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
+                <InputField
+                  numbersOnly
+                  name={'id'} />
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>
                 <TabsField<number> options={radiusTabs} name={'radius'} />
@@ -126,15 +129,33 @@ export default function Filter(props: Props) {
                   name={'scrapMetalCategory'} />
               </FilterComponent>
               <FilterComponent title='Вес лома'>
-                <InputField
-                  numbersOnly
-                  placeholder='Вес'
-                  name={'weight'} />
+                <div className={styles.weight}>
+                  <InputField
+                    numbersOnly
+                    placeholder='От'
+                    name={'weightMin'} />
+                  <InputField
+                    numbersOnly
+                    placeholder='До'
+                    name={'weightMax'} />
+                </div>
+              </FilterComponent>
+              <FilterComponent title='Цена лома'>
+                <div className={styles.weight}>
+                  <InputField
+                    numbersOnly
+                    placeholder='От'
+                    name={'priceMin'} />
+                  <InputField
+                    numbersOnly
+                    placeholder='До'
+                    name={'priceMax'} />
+                </div>
               </FilterComponent>
               <FilterComponent title='Доставка и погрузка'>
                 <div className={styles.switches}>
-                  <SwitchField name={'hasDelivery'} label={'Есть доставка'} />
-                  <SwitchField name={'hasLoading'} label={'Есть погрузка'} />
+                  <SwitchField name={'requiresDelivery'} label={'Есть доставка'} />
+                  <SwitchField name={'requiresLoading'} label={'Есть погрузка'} />
                 </div>
               </FilterComponent>
             </div>

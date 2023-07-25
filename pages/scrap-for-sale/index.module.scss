@@ -92,6 +92,12 @@
     }
 }
 
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .total {
     @include mainText;
     color: $grey500;

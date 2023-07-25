@@ -10,18 +10,20 @@ import ru from 'date-fns/locale/ru'
 import classNames from 'classnames'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
-import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
-import { useReceivingPointSearchContext } from '@/context/receiving_point_search_state'
 import { ListViewType } from '@/types/types'
 import { useAppContext } from '@/context/state'
 import Sticky from 'react-stickynode'
 import Filter from '@/components/for_pages/scrap-for-sale/Filter'
+import { SaleRequestSearchWrapper, useSaleRequestSearchContext } from '@/context/sale_request_search_state'
+import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
 
 interface Props {
 
 }
 
-export default function ScrapForSale(props: Props) {
+
+
+const ScrapForSaleWrapper = (props: Props) => {
 
   const appContext = useAppContext()
 
@@ -31,13 +33,28 @@ export default function ScrapForSale(props: Props) {
 
   const [filterPrice, setFilterPrice] = useState<string>('low')
   const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
-  const searchContext = useReceivingPointSearchContext()
+  const searchContext = useSaleRequestSearchContext()
 
   return (
     <Layout>
       <div className={styles.root}>
-        <div className={styles.title}>
-          Лом на продажу
+
+        <div className={styles.top}>
+          <div className={styles.title}>
+            Лом на продажу
+          </div>
+          <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
+            {filterPrice === 'low' ?
+              <>
+                <div className={styles.text}>Вначале с большей ценой</div>
+                <SortTopToBottomSvg color={colors.dark500} />
+              </>
+              :
+              <>
+                <div className={styles.text}>Вначале с меньшей ценой</div>
+                <SortBottomToTopSvg color={colors.dark500} />
+              </>}
+          </div>
         </div>
         <div className={styles.container}>
 
@@ -47,28 +64,15 @@ export default function ScrapForSale(props: Props) {
             </Sticky>
           </div>
           <div className={styles.right}>
-            <div className={styles.top}>
-              <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
-                {filterPrice === 'low' ?
-                  <>
-                    <div className={styles.text}>Вначале с большей ценой</div>
-                    <SortTopToBottomSvg color={colors.dark500} />
-                  </>
-                  :
-                  <>
-                    <div className={styles.text}>Вначале с меньшей ценой</div>
-                    <SortBottomToTopSvg color={colors.dark500} />
-                  </>}
-              </div>
-            </div>
+
             <HiddenXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
                 <Banner />
               </div>
             </VisibleXs>
@@ -77,4 +81,10 @@ export default function ScrapForSale(props: Props) {
       </div>
     </Layout>
   )
+}
+
+export default function ScrapForSale() {
+  return (<SaleRequestSearchWrapper>
+    <ScrapForSaleWrapper />
+  </SaleRequestSearchWrapper>)
 }
