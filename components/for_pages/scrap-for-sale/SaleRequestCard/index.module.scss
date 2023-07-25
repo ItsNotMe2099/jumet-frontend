@@ -6,6 +6,12 @@
   display: flex;
   justify-content: space-between;
   background-color: $white;
+
+  @include mq($TabletWidth, max) {
+    padding: 16px;
+    flex-direction: column;
+    @include list(16px, false);
+  }
 }
 
 .left {
@@ -52,6 +58,11 @@
   display: flex;
   align-items: center;
   justify-content: center;
+  @include mainText;
+
+  @include mq($PhoneWidth, max) {
+    height: 30px;
+  }
 }
 
 .right {
@@ -63,6 +74,11 @@
   position: relative;
   width: 179px;
   height: 128px;
+
+  @include mq($TabletWidth, max) {
+    width: 258px;
+    height: 185px;
+  }
 
   img {
     border-radius: 12px;

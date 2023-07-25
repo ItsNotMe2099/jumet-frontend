@@ -1,6 +1,5 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import Banner from '@/components/for_pages/MainPage/Banner'
 import { useState } from 'react'
 import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
 import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
@@ -16,6 +15,7 @@ import Sticky from 'react-stickynode'
 import Filter from '@/components/for_pages/scrap-for-sale/Filter'
 import { SaleRequestSearchWrapper, useSaleRequestSearchContext } from '@/context/sale_request_search_state'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
+import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
 
 interface Props {
 
@@ -35,6 +35,16 @@ const ScrapForSaleWrapper = (props: Props) => {
   const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
   const searchContext = useSaleRequestSearchContext()
 
+  const data = [
+    {
+      weight: 11, id: 1, address: { address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32' },
+      scrapMetalCategory: ScrapMetalCategory.MIX3_12A, price: 200000,
+      photos: [
+
+      ]
+    }
+  ]
+
   return (
     <Layout>
       <div className={styles.root}>
@@ -43,18 +53,20 @@ const ScrapForSaleWrapper = (props: Props) => {
           <div className={styles.title}>
             Лом на продажу
           </div>
-          <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
-            {filterPrice === 'low' ?
-              <>
-                <div className={styles.text}>Вначале с большей ценой</div>
-                <SortTopToBottomSvg color={colors.dark500} />
-              </>
-              :
-              <>
-                <div className={styles.text}>Вначале с меньшей ценой</div>
-                <SortBottomToTopSvg color={colors.dark500} />
-              </>}
-          </div>
+          <HiddenXs>
+            <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
+              {filterPrice === 'low' ?
+                <>
+                  <div className={styles.text}>Вначале с большей ценой</div>
+                  <SortTopToBottomSvg color={colors.dark500} />
+                </>
+                :
+                <>
+                  <div className={styles.text}>Вначале с меньшей ценой</div>
+                  <SortBottomToTopSvg color={colors.dark500} />
+                </>}
+            </div>
+          </HiddenXs>
         </div>
         <div className={styles.container}>
 
@@ -64,22 +76,36 @@ const ScrapForSaleWrapper = (props: Props) => {
             </Sticky>
           </div>
           <div className={styles.right}>
-
+            <div className={styles.top}>
+              <VisibleXs>
+                <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
+                  {filterPrice === 'low' ?
+                    <>
+                      <div className={styles.text}>Вначале с большей ценой</div>
+                      <SortTopToBottomSvg color={colors.dark500} />
+                    </>
+                    :
+                    <>
+                      <div className={styles.text}>Вначале с меньшей ценой</div>
+                      <SortBottomToTopSvg color={colors.dark500} />
+                    </>}
+                </div>
+              </VisibleXs>
+            </div>
             <HiddenXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
+                {data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
-                <Banner />
+                {data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
               </div>
             </VisibleXs>
           </div>
         </div>
       </div>
-    </Layout>
+    </Layout >
   )
 }
 

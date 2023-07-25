@@ -1,4 +1,4 @@
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
+//import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import styles from './index.module.scss'
 import Image from 'next/image'
 import JumetSvg from '@/components/svg/JumetSvg'
@@ -6,7 +6,7 @@ import { colors } from '@/styles/variables'
 import Link from 'next/link'
 
 interface Props {
-  item: ISaleRequest
+  item: any
 }
 
 export default function SaleRequestCard({ item }: Props) {
