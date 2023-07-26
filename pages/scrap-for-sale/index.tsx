@@ -76,8 +76,8 @@ const ScrapForSaleWrapper = (props: Props) => {
             </Sticky>
           </div>
           <div className={styles.right}>
-            <div className={styles.top}>
-              <VisibleXs>
+            <VisibleXs>
+              <div className={styles.top}>
                 <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
                   {filterPrice === 'low' ?
                     <>
@@ -90,8 +90,8 @@ const ScrapForSaleWrapper = (props: Props) => {
                       <SortBottomToTopSvg color={colors.dark500} />
                     </>}
                 </div>
-              </VisibleXs>
-            </div>
+              </div>
+            </VisibleXs>
             <HiddenXs>
               <div className={styles.list}>
                 {data.map((i, index) => <SaleRequestCard item={i} key={index} />)}

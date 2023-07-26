@@ -47,6 +47,10 @@
 .bottom {
   display: flex;
   @include list(8px, true);
+
+  .item:last-child {
+    white-space: nowrap;
+  }
 }
 
 .item {
@@ -54,14 +58,14 @@
   background-color: $green400;
   color: $green500;
   border-radius: 12px;
-  height: 40px;
+  min-height: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   @include mainText;
 
   @include mq($PhoneWidth, max) {
-    height: 30px;
+    min-height: 30px;
   }
 }
 
