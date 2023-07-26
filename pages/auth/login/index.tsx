@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Layout'
-import {useState} from 'react'
+import { useState} from 'react'
 import {LoginType} from '@/types/enums'
 import CenterLayout from '@/components/for_pages/Common/CenterLayout'
 import Heading from '@/components/ui/Heading'
@@ -11,7 +11,6 @@ import LoginForm from '@/components/for_pages/login/Form'
 export default function SignIn() {
 
   const [type, setType] = useState<LoginType>(LoginType.Seller)
-
   return (
     <Layout>
     <CenterLayout>

@@ -80,6 +80,7 @@ const  IndexWrapper = () => {
 }
 
 export default function IndexPage(){
+  console.log('LoadIndexPage')
   return (<ReceivingPointSearchWrapper>
     <IndexWrapper/>
   </ReceivingPointSearchWrapper>)

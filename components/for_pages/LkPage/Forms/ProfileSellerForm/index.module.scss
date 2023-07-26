@@ -1,31 +1,27 @@
 @import "styles/index";
-
-.form {
-  display: flex;
-  flex-direction: column;
-  @include list(24px, false);
-  border-radius: $StandartBorderRadius;
+.root{
+  background: $white;
   padding: 20px;
-  background-color: $white;
-
+  border-radius: $StandartBorderRadius;
   @include mq($PhoneWidth, max) {
     background-color: transparent;
     padding: 0;
   }
 }
-
-.field {
-  width: 70% !important;
-
+.form {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+  background-color: $white;
+  max-width: 484px;
   @include mq($PhoneWidth, max) {
-    width: 100% !important;
+    max-width: 100%;
   }
 }
 
+.changePassword{
+  align-self: flex-start;
+}
 .btn {
-  width: 25%;
-
-  @include mq($PhoneWidth, max) {
-    width: 100% !important;
-  }
+ align-self: flex-start;
 }

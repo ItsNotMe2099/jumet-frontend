@@ -37,7 +37,7 @@ export default class Validator {
   }
 
   static passwordsMustMatch = (allValues: any) => (value: string): string | undefined => {
-    return value !== allValues.password ? 'form_field_validation_password_match' : undefined
+    return value !== allValues.password ? 'Пароли не совпадают' : undefined
   }
   static password(value: string): string | undefined {
     return value && value.length <= 6

@@ -7,7 +7,7 @@ import SendSvg from '@/components/svg/SendSvg'
 import InputField from '@/components/fields/InputField'
 import Validator from '@/utils/validator'
 import { FileUploadAcceptType } from '@/types/enums'
-import FileField from '@/components/fields/FileField'
+import FileField from '@/components/fields/Files/FileField'
 import classNames from 'classnames'
 import { useAppContext } from '@/context/state'
 

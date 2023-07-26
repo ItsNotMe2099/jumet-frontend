@@ -1,7 +1,7 @@
 
 export class Routes {
-  static get login() {
-    return '/auth/login'
+  static login(redirect?: string) {
+    return `/auth/login${redirect ? `?redirect=${redirect}` : ''}`
   }
 
   static get registration() {
@@ -19,15 +19,66 @@ export class Routes {
     return '/auth/registration-complete'
   }
 
+
   static get index() {
     return '/'
   }
 
-  static get createSalesApplication () {
-    return '/create-sales-application'
+  static get receivingPoints() {
+    return '/'
   }
-  static get salesIndex() {
+
+  static get sales() {
     return '/sales'
+  }
+
+
+
+  static get lk() {
+    return '/lk'
+  }
+  static get lkProfileSettings() {
+    return '/lk/profile-settings'
+  }
+  static get lkMyRepresentatives() {
+    return '/lk/representatives'
+  }
+  static get lkSalesApplications() {
+    return '/lk/sales-applications'
+  }
+  static get lkSalesCreate () {
+    return '/lk/sales-applications/create'
+  }
+
+  static get lkEmployees() {
+    return '/lk/sales-applications'
+  }
+  static get lkReceivingPoints() {
+    return '/lk/receiving-points'
+  }
+
+  static lkReceivingPoint(id: string | number) {
+    return `/lk/receiving-points/${id}`
+  }
+  static  lkReceivingPointInfo(id: string | number) {
+    return `${this.lkReceivingPoint(id)}/info`
+  }
+  static  lkReceivingPointEmployees(id: string | number) {
+    return `${this.lkReceivingPoint(id)}/employees`
+  }
+  static  lkReceivingPointReviews(id: string | number) {
+    return `${this.lkReceivingPoint(id)}/reviews`
+  }
+  static  lkReceivingPointStat(id: string | number) {
+    return `${this.lkReceivingPoint(id)}/stat`
+  }
+
+  static get lkPayment() {
+    return '/lk/payment'
+  }
+
+  static get lkDeals() {
+    return '/lk/deals'
   }
 
 }

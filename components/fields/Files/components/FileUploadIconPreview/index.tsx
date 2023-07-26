@@ -60,7 +60,7 @@ export default function FileUploadIconPreview(props: Props) {
           {props.isImage && props.value && (
             <img
               className={classNames({
-                [styles.resultFile]: true,
+                [styles.resultImage]: true,
                 [styles.hover]: hover && props.hover,
               })}
               src={ImageHelper.urlFromFile(props.value, Preset.xsCrop)}

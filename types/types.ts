@@ -93,13 +93,13 @@ export interface IPageable {
   seoDescription: string
 }
 
-export interface IMenuItem {
-  id: string | number
+export interface IMenuItem<T> {
   name: string,
-  slug?: string,
+  key?: T | string
   link?: string
-  children?: IMenuItem[]
+  children?: IMenuItem<T>[]
   color?: string
+  icon?: ReactElement
 }
 export enum ListViewType{
   List = 'list',

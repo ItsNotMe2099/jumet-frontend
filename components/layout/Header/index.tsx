@@ -22,14 +22,25 @@ interface Props {
   restProps?: any
 }
 
-const menuNotAuth = [
-  { link: '', label: 'Пункты приёма лома' },
-  { link: '', label: 'Купить лом' },
-]
+
 
 const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFromTop?: number }>((props, ref) => {
 
   const appContext = useAppContext()
+
+  const menuNotAuth = [
+    { link: Routes.receivingPoints, label: 'Пункты приёма лома' },
+    { link: Routes.sales, label: 'Лом на продажу' },
+  ]
+
+  const menuAuth = appContext.aboutMe?.role === UserRole.Seller ? [
+    { link: Routes.receivingPoints, label: 'Пункты приёма лома' },
+    { link: Routes.lkSalesApplications, label: 'Мои заявки на продажу' },
+    { link: Routes.lkDeals, label: 'Сделки' },
+  ] : [
+    { link: Routes.sales, label: 'Лом на продажу' },
+    { link: Routes.lkDeals, label: 'Сделки' },
+  ]
 
   const handleOpenMobileMenu = () => {
     if (typeof window !== undefined) {
@@ -58,7 +69,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
           </div>
         </div>
         <div className={styles.middle}>
-          {menuNotAuth.map((i, index) =>
+          {(appContext.isLogged  ? menuAuth : menuNotAuth).map((i, index) =>
             <Link key={index} className={styles.link} href={i.link}>
               {i.label}
             </Link>
@@ -71,14 +82,14 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
               <IconButton bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
               <ProfileMenu/>
             </div>}
-            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.registration} className={styles.btn} styleType='large' color='blue'>
+            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.sales} className={styles.btn} styleType='large' color='blue'>
               Купить лом
             </Button>}
-            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.createSalesApplication} className={styles.btn} styleType='large' color='blue'>
+            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.lkSalesCreate} className={styles.btn} styleType='large' color='blue'>
               Продать лом
             </Button>}
             {!appContext.isLogged && <>
-              <Button href={Routes.login} className={styles.btn} styleType='large' color='dark'>
+              <Button href={Routes.login()} className={styles.btn} styleType='large' color='dark'>
               <UserSvg color={colors.white} />
               <div>Войти</div>
             </Button>

@@ -6,7 +6,9 @@ export default interface IUser {
   role: UserRole;
   phone: string;
   login: string;
-  name: string;
+  firstName: string;
+  lastName: string;
+  patronymic: string;
   companyName: string;
   isRegistered: boolean;
   email: string;

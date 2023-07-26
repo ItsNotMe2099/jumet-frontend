@@ -1,5 +1,11 @@
+@import "styles/index";
 .root{
-  color: #ED4700;
+  position: absolute;
+  bottom: 2px;
+  background: $white;
+  transform: translateY(50%);
+  left: 20px;
+  color: $red500;
   font-size: 12px;
   font-weight: 500;
   z-index: 1;

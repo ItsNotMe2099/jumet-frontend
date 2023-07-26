@@ -1,0 +1,17 @@
+@import "../../../../../../styles/index";
+
+.root {
+    @include container;
+    margin-top: 38px;
+    margin-bottom: 64px;
+}
+
+.btn {
+
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}

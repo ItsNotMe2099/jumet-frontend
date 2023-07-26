@@ -1,0 +1,28 @@
+@import "styles/index";
+
+.root {
+  padding: 12px 0px 12px 20px;
+  cursor: pointer;
+  @include btnText;
+  display: flex;
+  @include list(12px, true);
+  align-items: center;
+
+  @include mq($PhoneWidth, max) {
+    flex-shrink: 0;
+    padding: 0;
+  }
+}
+.hover{
+  background-color: $yellow300;
+}
+.active {
+  border-left: 4px solid $yellow500;
+  background: $yellow300;
+
+  @include mq($PhoneWidth, max) {
+    background-color: transparent;
+    border: 0;
+    border-bottom: 2px solid $dark400;
+  }
+}

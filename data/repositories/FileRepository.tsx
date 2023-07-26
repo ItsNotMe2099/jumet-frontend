@@ -5,10 +5,16 @@ import {AxiosRequestConfig} from 'axios'
 export default class FileRepository {
   static async uploadFile(file: File, config?: AxiosRequestConfig): Promise<IFile> {
     return request({
-      url: '/api/',
+      url: '/api/user-asset/upload',
       file: file,
       method: 'put',
       config
+    })
+  }
+  static async deleteMyFile(id: string): Promise<void> {
+    return request({
+      url: `/api/user-asset/${id}`,
+      method: 'delete',
     })
   }
 }

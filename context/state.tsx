@@ -1,6 +1,6 @@
 import { createContext, useContext, useEffect, useState } from 'react'
 import { RequestError, SnackbarData } from 'types/types'
-import { CookiesType, ModalType, ProfileMenuSettings, SnackbarType } from 'types/enums'
+import { CookiesType, ModalType, SnackbarType } from 'types/enums'
 import ReactModal from 'react-modal'
 import { getIsMobile } from 'utils/mobile'
 import IAboutMe from '@/data/interfaces/IAboutMe'
@@ -70,6 +70,7 @@ interface Props {
 }
 
 export function AppWrapper(props: Props) {
+  //  const router = useRouter()
     const [modal, setModal] = useState<ModalType | null>(null)
     const [modalArguments, setModalArguments] = useState<any>(null)
     const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
@@ -81,8 +82,6 @@ export function AppWrapper(props: Props) {
     const [aboutMeLoaded, setAboutMeLoaded] = useState<boolean>(false)
     const [isLogged, setIsLogged] = useState<boolean>(false)
     const [allLoaded, setAllLoaded] = useState<boolean>(false)
-
-    console.log('aboutMe', aboutMe)
 
     useEffect(() => {
         if (props.token) {
@@ -201,6 +200,7 @@ export function AppWrapper(props: Props) {
             })
             setIsLogged(true)
             loginState$.next(true)
+
         },
 
         hideBottomSheet,

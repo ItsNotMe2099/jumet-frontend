@@ -43,21 +43,10 @@
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    border-radius: $StandartBorderRadius;
-    background-color: $white;
-    padding: 12px 0px 0px 0px;
+
     width: 416px;
 
     @include mq($PhoneWidth, max) {
-        flex-direction: row;
-        overflow-x: scroll;
-        background-color: transparent;
-        padding: 0;
-        border-radius: 0;
-        @include scroll_hide;
-        @include list(20px, true);
         margin-bottom: 10px;
         width: 100%;
     }

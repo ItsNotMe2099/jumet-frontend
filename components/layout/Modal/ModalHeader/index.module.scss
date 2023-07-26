@@ -3,11 +3,17 @@
 .root{
   display: flex;
   align-items: flex-start;
+  flex-direction: column;
   width: 100%;
-  padding: 16px;
+  padding: 20px;
 
 }
-
+.close{
+  align-self: stretch;
+  flex: 1;
+  display: flex;
+  justify-content: flex-end;
+}
 
 
 .left{
@@ -34,11 +40,6 @@
 
 
 .title {
-  font-weight: 600;
-  font-size: 22px;
-  color: $white;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+ @include h2;
 }
 

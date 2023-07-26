@@ -36,7 +36,7 @@ export default function LinkButton(props: Props) {
   return (
     <button
       ref={props.buttonRef}
-      type={props.type}
+      type={props.type ?? 'button'}
       form={props.form}
       onClick={(e) => {
         if (props.onClick && !props.spinner && !props.disabled) {

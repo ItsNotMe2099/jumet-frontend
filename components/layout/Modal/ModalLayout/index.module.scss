@@ -3,14 +3,12 @@
   display: flex;
   flex-direction: column;
   flex: 1;
-  background: $white;
   width: 796px;
-
-  background: white;
-  border-radius: 30px;
+  background-color: $white;
+  border-radius: $StandartBorderRadius !important;
 
   &.fixed{
-    
+
 
   }
 

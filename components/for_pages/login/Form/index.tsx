@@ -59,7 +59,7 @@ export default function LoginForm(props: Props) {
   }
 
   const initialValues = {
-    phone: '',
+    phone: '+79',
     email: '',
     password: '',
     checkbox: false

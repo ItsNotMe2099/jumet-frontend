@@ -2,8 +2,9 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import { useAppContext } from '@/context/state'
+import { InputStyleType } from '@/types/enums'
 import { useState } from 'react'
-import InputField from '@/components/fields/InputField'
+import TextField from '@/components/fields/TextField'
 import Button from '@/components/ui/Button'
 
 
@@ -37,18 +38,19 @@ export default function ProfileBuyerForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <InputField
+        <TextField
           className={styles.field}
           name='companyName'
           label='Название компании / группы компаний'
           validate={Validator.required} />
-        <InputField
+        <TextField
           className={styles.field}
           name='email'
           label='Email'
           validate={Validator.combine([Validator.required, Validator.email])} />
-        <InputField
+        <TextField
           className={styles.field}
+          inputStyle={InputStyleType.Password}
           name='password'
           label='Пароль'
           validate={Validator.required} />

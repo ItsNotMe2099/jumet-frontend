@@ -1,6 +1,7 @@
 export enum ModalType {
   MobileMenu = 'mobileMenu',
-  OtpCode = 'otpCode'
+  OtpCode = 'otpCode',
+  PasswordChange = 'passwordChange'
 }
 
 export enum ProfileMenuSettings {

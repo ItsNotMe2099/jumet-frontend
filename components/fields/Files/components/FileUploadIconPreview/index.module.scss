@@ -1,7 +1,7 @@
-@import "../../../../../styles/index";
+@import "styles/index";
 
 $width: 105px;
-$height: 77px;
+$height: 55px;
 
 .root{
   position: relative;
@@ -109,11 +109,17 @@ $height: 77px;
 
 .text{
   flex: 1;
-  padding-left: 14px;
-  font-weight: 500;
+  color: $dark500;
+  @include mainText;
+  text-align: center;
+
+  span {
+    @include btnText;
+    text-decoration: underline;
+  }
 }
 .label{
-  
+
 }
 .error{
   font-size: 11px;

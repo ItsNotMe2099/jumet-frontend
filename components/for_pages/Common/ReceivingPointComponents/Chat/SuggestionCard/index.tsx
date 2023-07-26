@@ -20,7 +20,7 @@ export default function SuggestionCard(props: Props) {
             Представьтесь, чтобы доставить сообщение
           </div>
           <div className={styles.btns}>
-            <Button href={Routes.login} className={styles.signIn} color='grey' styleType='large'>
+            <Button href={Routes.login()} className={styles.signIn} color='grey' styleType='large'>
               Войти
             </Button>
             <Button href={Routes.registration} className={styles.signUp} color='blue' styleType='large'>

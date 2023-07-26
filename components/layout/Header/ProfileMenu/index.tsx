@@ -13,7 +13,7 @@ import MapsSvg from '@/components/svg/MapsSvg'
 import UsersSvg from '@/components/svg/UsersSvg'
 import CashSvg from '@/components/svg/CashSvg'
 import LogoutSvg from '@/components/svg/LogoutSvg'
-import { ProfileMenuSettings } from '@/types/enums'
+import {Routes} from '@/types/routes'
 
 interface Option {
   label: string
@@ -38,7 +38,7 @@ export default function ProfileMenu(props: Props) {
 
   const [isActive, setIsActive] = useDetectOutsideClick(dropdownRef, false)
 
-  const options = appContext.aboutMe?.role !== UserRole.Seller ? [
+  const options = appContext.aboutMe?.role === UserRole.Seller ? [
     { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
     { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
   ] :
@@ -54,20 +54,20 @@ export default function ProfileMenu(props: Props) {
     e.preventDefault()
     switch (item.key) {
       case ActionType.Profile:
-        router.push(`/lk/${ProfileMenuSettings.Settings}`)
+        router.push(Routes.lkProfileSettings)
         break
       case ActionType.Employees:
-        router.push(`/lk/${ProfileMenuSettings.Employees}`)
+        router.push(Routes.lkEmployees)
         break
       case ActionType.Payment:
-        router.push(`/lk/${ProfileMenuSettings.Payment}`)
+        router.push(Routes.lkPayment)
         break
       case ActionType.ReceivingPoints:
-        router.push(`/lk/${ProfileMenuSettings.ReceivingPoints}`)
+        router.push(Routes.lkReceivingPoints)
         break
       case ActionType.Logout:
         setTimeout(() => appContext.logout(), 100)
-        router.push('/')
+        router.push(Routes.index)
         break
     }
     setIsActive(false)

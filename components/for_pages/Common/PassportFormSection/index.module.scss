@@ -1,0 +1,9 @@
+@import "styles/index";
+.root{
+  @include list(12px);
+}
+.row{
+  display: flex;
+  justify-content: stretch;
+  @include list(12px, true);
+}

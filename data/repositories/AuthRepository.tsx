@@ -2,6 +2,7 @@ import request from 'utils/request'
 import IAboutMe from '../interfaces/IAboutMe'
 import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
+import {IPasswordChangeRequest} from '@/data/interfaces/IPasswordChangeRequest'
 
 export default class AuthRepository {
 
@@ -87,6 +88,15 @@ export default class AuthRepository {
     return res.accessToken
   }
 
+  static async passwordChange(data: IPasswordChangeRequest): Promise<boolean> {
+    const res = await request<boolean>({
+      method: 'post',
+      url: '/api/auth/changePassword',
+      data,
+    })
+    return res
+  }
+
 
   static async confirmEmail(data: { email: string, code: string }): Promise<IAuthResponse> {
     const res = await request<IAuthResponse>({
@@ -101,12 +111,5 @@ export default class AuthRepository {
 
   static async fetchAboutMe(token?: string): Promise<IAboutMe> {
     return request({url: '/api/auth/currentUser', token})
-  }
-
-  static async deleteMyFile(id: number): Promise<void> {
-    return request({
-      url: '/api/',
-      method: 'delete',
-    })
   }
 }

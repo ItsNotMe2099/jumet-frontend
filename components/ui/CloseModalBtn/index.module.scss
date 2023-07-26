@@ -1,6 +1,9 @@
 @import "styles/index";
 
 .root{
+  width: 24px;
+  height: 24px;
+
   &.defaultPosition{
     position: absolute;
     top: 39px;

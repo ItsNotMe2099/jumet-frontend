@@ -3,7 +3,7 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import { FileUploadAcceptType } from '@/types/enums'
 import Button from '@/components/ui/Button'
-import FileField from '@/components/fields/FileField'
+import FileField from '@/components/fields/Files/FileField'
 
 
 interface Props {
