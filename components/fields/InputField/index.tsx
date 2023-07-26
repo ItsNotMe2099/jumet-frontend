@@ -12,6 +12,7 @@ import FieldError from 'components/fields/FieldError'
 import EyeSvg from '@/components/svg/EyeSvg'
 import { colors } from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
+import SearchSvg from '@/components/svg/SearchSvg'
 
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv'
 
@@ -28,6 +29,7 @@ interface Props extends IField<string> {
   onChange?: (val: string) => void
   noAutoComplete?: boolean
   numbersOnly?: boolean
+  search?: boolean
 }
 
 export default function InputField(props: Props) {
@@ -168,6 +170,7 @@ export default function InputField(props: Props) {
 
             </div>
           )}
+          {props.search && <SearchSvg className={styles.obscure} color={colors.grey500} />}
           {props.prefix && (
             renderPrefix()
           )}

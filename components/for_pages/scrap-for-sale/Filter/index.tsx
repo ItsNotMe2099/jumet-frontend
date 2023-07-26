@@ -42,7 +42,10 @@ export default function Filter(props: Props) {
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
     id: null,
-    location: null,
+    location: {
+      lat: 56.795132,
+      lng: 40.1633231
+    },
     radius: null,
     radiusCustom: null,
     scrapMetalCategory: null,
@@ -54,7 +57,7 @@ export default function Filter(props: Props) {
     requiresLoading: false
   }
   const handleSubmit = () => {
-    
+
   }
   const formik = useFormik<IFormData>({
     initialValues,
@@ -68,7 +71,8 @@ export default function Filter(props: Props) {
       initValuesRef.current = true
       return
     }
-    console.log('ChangeFormikValue11')
+    console.log('ChangeFormikValue11', formik.values)
+
     searchContext.setFilter(formik.values)
   }, [formik.values])
   const viewTypeFilter = (<SwitchFilter<ViewType>
@@ -114,6 +118,7 @@ export default function Filter(props: Props) {
               <FilterComponent title='Поиск по номеру заявки' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
                 <InputField
                   numbersOnly
+                  search
                   name={'id'} />
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>

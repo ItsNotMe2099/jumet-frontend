@@ -79,7 +79,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
     },
     setViewType: (viewType) => setViewType(viewType),
     setFilter: async (data) => {
-      filterRef.current = filter
+      filterRef.current = data
       setFilter(data)
       setIsLoading(true)
       setPage(1)

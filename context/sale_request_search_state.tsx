@@ -51,6 +51,7 @@ export function SaleRequestSearchWrapper(props: Props) {
   const [page, setPage] = useState<number>(1)
   const [viewType, setViewType] = useState<ViewType>(ViewType.List)
   const filterRef = useRef<ISaleRequestFilter>(filter)
+
   useEffect(() => {
     filterRef.current = filter
   }, [filter])
@@ -79,7 +80,7 @@ export function SaleRequestSearchWrapper(props: Props) {
     },
     setViewType: (viewType) => setViewType(viewType),
     setFilter: async (data) => {
-      filterRef.current = filter
+      filterRef.current = data
       setFilter(data)
       setIsLoading(true)
       setPage(1)
