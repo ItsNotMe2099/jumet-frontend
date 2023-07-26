@@ -6,6 +6,12 @@
     background-color: $white;
     display: flex;
     justify-content: space-between;
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        padding: 16px;
+        @include list(12px, false);
+    }
 }
 
 .left {
@@ -27,6 +33,11 @@
     img {
         border-radius: 12px;
     }
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+        height: 158px;
+    }
 }
 
 .title {
@@ -43,6 +54,14 @@
         flex-direction: column;
         @include list(4px, false);
     }
+
+    @include mq(1150px, max) {
+        @include list(16px, true);
+    }
+
+    @include mq(1024px, max) {
+        @include list(28px, true);
+    }
 }
 
 .top {
@@ -58,6 +77,16 @@
 .controls {
     display: flex;
     @include list(12px, true);
+
+    @include mq(1024px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+
+    @include mq($PhoneWidth, max) {
+        margin-bottom: 12px !important;
+        margin-top: 0 !important;
+    }
 }
 
 .btn {
@@ -74,4 +103,34 @@
     justify-content: center;
     @include btnText;
     color: $blue500;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column-reverse;
+    }
+}
+
+.first,
+.second {
+    display: flex;
+    @include list(40px, true);
+
+    @include mq(1150px, max) {
+        @include list(16px, true);
+    }
+
+    @include mq(1024px, max) {
+        flex-direction: column;
+        @include list(16px, false);
+    }
+}
+
+.btn,
+.btnFirst {
+    height: 40px;
 }

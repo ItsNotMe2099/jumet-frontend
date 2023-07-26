@@ -26,8 +26,8 @@ interface IData {
   scrapMetalCategory?: ScrapMetalCategory
   weight: number
   photosIds: number[]
-  requeresDelivery: boolean
-  requeresLoading: boolean
+  requiresDelivery: boolean
+  requiresLoading: boolean
   address: {
     address: string
     city: string
@@ -74,8 +74,8 @@ export default function CreateSaleRequestForm(props: Props) {
     scrapMetalCategory: ScrapMetalCategory.None,
     weight: 0,
     photosIds: [],
-    requeresDelivery: false,
-    requeresLoading: false,
+    requiresDelivery: false,
+    requiresLoading: false,
     address: {
       address: '',
       city: '',
@@ -174,8 +174,8 @@ export default function CreateSaleRequestForm(props: Props) {
           <div className={styles.label}>
             Доставка и погрузка
           </div>
-          <SwitchField name='requeresDelivery' label='Нужна доставка' />
-          <SwitchField name='requeresLoading' label='Нужна погрузка' />
+          <SwitchField name='requiresDelivery' label='Нужна доставка' />
+          <SwitchField name='requiresLoading' label='Нужна погрузка' />
         </div>
         <div className={styles.section}>
           <div className={styles.label}>

@@ -16,7 +16,7 @@
     display: flex;
     border-bottom: 1px solid $grey400;
     padding-bottom: 8px;
-    @include list(8px, true);
+    @include list(20px, true);
 }
 
 .status {
