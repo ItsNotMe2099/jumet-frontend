@@ -1,0 +1,77 @@
+@import "styles/index";
+
+.root {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.right {
+    background-color: $grey300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    position: relative;
+    width: 212px;
+    height: 152px;
+
+    img {
+        border-radius: 12px;
+    }
+}
+
+.title {
+    @include h2;
+    color: $text;
+}
+
+.info {
+    display: flex;
+    @include list(40px, true);
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        @include list(4px, false);
+    }
+}
+
+.top {
+    color: $dark500;
+    @include btnText;
+}
+
+.bottom {
+    color: $grey500;
+    @include secondaryText;
+}
+
+.controls {
+    display: flex;
+    @include list(12px, true);
+}
+
+.btn {
+    color: $blue500;
+}
+
+.plus {
+    background-color: $white;
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include btnText;
+    color: $blue500;
+}

@@ -40,7 +40,7 @@ interface IData {
   phones: string[]
 }
 
-export default function CreateSalesApplicationForm(props: Props) {
+export default function CreateSaleRequestForm(props: Props) {
 
   const [loading, setLoading] = useState<boolean>(false)
 

@@ -1,12 +1,12 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import CreateSalesApplicationForm from '@/components/for_pages/create-sales-application/Form'
+import CreateSaleRequestForm from '@/components/for_pages/create-sale-request/Form'
 
 interface Props {
 
 }
 
-export default function CreateSalesApplication(props: Props) {
+export default function CreateSaleRequest(props: Props) {
 
   return (
     <Layout>
@@ -15,7 +15,7 @@ export default function CreateSalesApplication(props: Props) {
           <div className={styles.title}>
             Продать лом выгодно
           </div>
-          <CreateSalesApplicationForm />
+          <CreateSaleRequestForm />
         </div>
       </div>
     </Layout>
