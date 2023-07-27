@@ -39,8 +39,9 @@ export default function DataStep(props: Props) {
   const handleSubmit = async (data: IFormData) => {
       console.log('SubmitData', data)
     props.onSubmit({
+      name: data.address?.address,
       company: {...data.company, licenseScan: data.licenseScan},
-      phones: data.phones,
+      phones: data.phones?.map(i => i.phone),
       location: data.location,
       address: data.address,
 
@@ -85,7 +86,7 @@ export default function DataStep(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         {!isCompanyDetailsEdit && <CompanyField name={'inn'}  label='ИНН юр.лица*' onChange={handleChangeCompanyByInn} validate={Validator.required}/>}
-        {(formik.values.inn || formik.values.company) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company!} />}
+        {(formik.values.inn || formik.values.company?.inn) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company!} />}
         <FileField
           name='licenseScan'
           accept={[FileUploadAcceptType.Image, FileUploadAcceptType.Document]}

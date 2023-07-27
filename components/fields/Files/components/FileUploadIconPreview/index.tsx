@@ -31,8 +31,10 @@ export default function FileUploadIconPreview(props: Props) {
     }
     if(props.isImage){
       return <AddImageSvg color={colors.dark500}/>
-    }else{
+    }else if(!props.value){
       return <AttachSvg color={colors.dark500}/>
+    }else{
+      return null
     }
 
   }
