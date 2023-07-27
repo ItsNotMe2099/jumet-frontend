@@ -47,7 +47,7 @@ export class Routes {
     return '/lk/my-sale-requests'
   }
   static get lkSalesCreate () {
-    return '/create-sale-request'
+    return '/my-sale-requests'
   }
 
   static get lkEmployees() {
