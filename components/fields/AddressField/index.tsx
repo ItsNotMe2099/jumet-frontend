@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import {FieldConfig, useField} from 'formik'
+import { useField} from 'formik'
 import cx from 'classnames'
 import {AddressSuggestions} from 'react-dadata'
 import {runtimeConfig} from '@/config/runtimeConfig'
@@ -14,10 +14,15 @@ interface Props extends IField<IAddress | string | null>{
   onChange?: (val: IAddress | string | null) => void
 }
 export default function AddressField(props: Props) {
-  const [field, meta, helpers] = useField(props as FieldConfig)
+  const [field, meta, helpers] = useField(props as any)
   const showError = !!meta.error && meta.touched
 
-  const handleChange = (val: DaDataSuggestion<DaDataAddress>) => {
+  const handleChange = (val?: DaDataSuggestion<DaDataAddress>) => {
+    if(!val){
+      helpers.setValue(null)
+      props.onChange?.(null)
+      return
+    }
     if(props.isString){
       helpers.setValue(val.value)
       props.onChange?.(val.value)

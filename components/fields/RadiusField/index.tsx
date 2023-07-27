@@ -53,13 +53,13 @@ export default function RadiusField<T>(props: Props<T>) {
 
 
   return (
-    <FormikProvider<IFormData> value={formik}>
+    <FormikProvider value={formik}>
       <Form className={classNames(styles.root, props.className)}>
       <TabsField<number> label={props.label}  options={options} name={'radius'} onChange={handleChangeTab}/>
       <InputField
         suffix={'км'}
         placeholder='Свой радиус поиска'
-        isNumbersOnly
+        type={'number'}
         name={'radiusCustom'}
         onChange={handleChangeCustom}/>
       <FieldError className={props.errorClassName} showError={showError}>{meta.error}</FieldError>

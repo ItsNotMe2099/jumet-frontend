@@ -17,7 +17,7 @@ export default function EmployeeCard(props: Props) {
   return (
     <CardLayout titleClassName={props.titleClassName}
       className={props.cardLayoutClassName}
-      topClassName={styles.top} title={props.user.name} additionalEl={<div className={styles.email}>{props.user.email}</div>}>
+      topClassName={styles.top} title={props.user.firstName} additionalEl={<div className={styles.email}>{props.user.email}</div>}>
       <div className={styles.secondRaw}>
         <span>Пункт приёма: </span>г. Сергиев Посад, ул. Зои Космодемьянской, 32
       </div>

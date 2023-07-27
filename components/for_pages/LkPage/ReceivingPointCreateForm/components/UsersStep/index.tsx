@@ -1,22 +1,23 @@
 import InputField from '@/components/fields/InputField'
-import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/PersonnelStep/index.module.scss'
+import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/UsersStep/index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
-import StepsControls from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/StepsControls'
+import FormStepFooter from '@/components/ui/FormStepFooter'
+import {IFormStepProps} from '@/types/types'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 
 
-interface Props {
-  onNextStep: (data?: any) => void
-  onBack?: () => void
+interface Props extends IFormStepProps<IReceivingPoint>{
+
 }
 
-export default function PersonnelStep(props: Props) {
+export default function UsersStep(props: Props) {
 
   const handleSubmit = async (/*data*/) => {
-    props.onNextStep()
+
   }
 
   const initialValues = {
@@ -57,7 +58,7 @@ export default function PersonnelStep(props: Props) {
             </>
           )}
         </FieldArray>
-        <StepsControls onBack={props.onBack} />
+        <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
       </Form>
     </FormikProvider>
   )

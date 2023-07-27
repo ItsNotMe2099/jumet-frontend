@@ -7,8 +7,9 @@ export interface IPriceDescription {
   category: ScrapMetalCategory
   priceDependsOnWeight: boolean
   priceDependsOnRubbish: boolean
-  price: number
-  pricesByWeight: IPriceDescriptionByWeight[]
+  price?: number
+  pricesByWeight?: IPriceDescriptionByWeight[]
+  rubbishInPercents?: number
   ownerId?: number
   createdAt: Date
 }

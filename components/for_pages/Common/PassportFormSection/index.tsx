@@ -2,18 +2,8 @@ import styles from './index.module.scss'
 import Validator from '@/utils/validator'
 import {FileUploadAcceptType} from '@/types/enums'
 import InputField from '@/components/fields/InputField'
-import AttachSvg from '@/components/svg/AttachSvg'
-import {colors} from '@/styles/variables'
 import FileField from '@/components/fields/Files/FileField'
 
-
-interface IFormData {
-  phone: string;
-  firstName: string;
-  lastName: string;
-  patronymic: string;
-
-}
 
 interface Props {
 
@@ -52,7 +42,6 @@ export default function PassportFormSection(props: Props) {
         vertical
         text={<div>Перетащите сюда или <span>выберите фото</span><br />
           страницы паспорта с фотографией</div>}
-        image={<AttachSvg color={colors.dark500}/>}
       />
     </div>
   )

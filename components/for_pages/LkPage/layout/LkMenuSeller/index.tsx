@@ -13,7 +13,6 @@ enum MenuItemType {
 
 
 interface Props {
-  children: React.ReactNode
   myPointsOpen?: boolean
   className?: string
 }

@@ -1,6 +1,6 @@
 @import "styles/index";
 .root{
-
+  @include list(8px);
   &.fluid{
     .tab{
       flex: 1;

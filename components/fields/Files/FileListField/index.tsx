@@ -25,7 +25,7 @@ interface IAbortControllerWithId extends AbortController{
 }
 interface Props extends IField<IFile[] | null> {
   isImage?: boolean
-  vertical: boolean,
+  vertical?: boolean,
   accept?: FileUploadAcceptType[]
   maxFiles?: number,
   maxSize?: number

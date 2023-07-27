@@ -14,10 +14,10 @@ import CurrentUserRepository from '@/data/repositories/CurrentUserRepository'
 
 
 interface IFormData{
-  phone: string;
-  firstName: string;
-  lastName: string;
-  patronymic: string;
+  phone: string | null;
+  firstName: string | null;
+  lastName: string | null;
+  patronymic: string | null;
 
 }
 interface Props {
@@ -46,11 +46,11 @@ export default function ProfileSellerForm(props: Props) {
     setLoading(false)
   }
 
-  const initialValues = {
-    phone: appContext.aboutMe?.phone,
-    firstName: appContext.aboutMe?.firstName,
-    lastName: appContext.aboutMe?.firstName,
-    patronymic: appContext.aboutMe?.firstName,
+  const initialValues: IFormData = {
+    phone: appContext.aboutMe?.phone ?? null,
+    firstName: appContext.aboutMe?.firstName?? null,
+    lastName: appContext.aboutMe?.firstName?? null,
+    patronymic: appContext.aboutMe?.firstName?? null,
   }
 
   const formik = useFormik({

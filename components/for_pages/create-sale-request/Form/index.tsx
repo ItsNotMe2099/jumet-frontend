@@ -116,7 +116,7 @@ export default function CreateSalesRequestForm(props: Props) {
           options={scrapMetalCategories}
           styleType='default'
         />
-        <InputField isNumbersOnly name='weight' label='Вес лома' suffix={'тонн'} />
+        <InputField type={'number'} name='weight' label='Вес лома' suffix={'тонн'} />
         <FileField
           name='photosIds'
           label='Фотографии лома'
@@ -140,7 +140,7 @@ export default function CreateSalesRequestForm(props: Props) {
           <AddressYandexField name='address.address' placeholder='Город' validate={Validator.required} />
           <div className={styles.group}>
             <InputField name='address.street' placeholder='Улица' />
-            <InputField isNumbersOnly className={styles.second} name='address.house' placeholder='Номер дома' />
+            <InputField type={'number'} className={styles.second} name='address.house' placeholder='Номер дома' />
           </div>
         </div>
         <div className={styles.section}>
@@ -150,7 +150,7 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.switch}>
             <SwitchField name={'hasCustomPrice'} label={'Указать желаемую цену за лом'} />
           </div>
-          {formik.values.hasCustomPrice && <InputField isNumbersOnly name='price' suffix={'₽/т'} placeholder='Моя цена за лом' />}
+          {formik.values.hasCustomPrice && <InputField type={'number'} name='price' suffix={'₽/т'} placeholder='Моя цена за лом' />}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>

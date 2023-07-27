@@ -6,7 +6,6 @@ import AddressField from '@/components/fields/AddressField'
 import {useMemo, useState} from 'react'
 import Button from '@/components/ui/Button'
 import RadioField from '@/components/fields/RadioField'
-import {DeepPartial} from '@/types/types'
 
 interface IInfoItem {
   label: string;
@@ -15,7 +14,7 @@ interface IInfoItem {
 
 interface Props  {
   onEditToggle?: (isEdit: boolean) => void
-  company: DeepPartial<ICompany>
+  company: ICompany
 }
 
 export default function CompanyDetailsFormSection(props: Props) {
@@ -25,7 +24,7 @@ export default function CompanyDetailsFormSection(props: Props) {
   const fields = useMemo<IInfoItem[]>(() => {
     return [
       {label: 'Наименование юр. лица', value: value.name},
-      {label: 'Форма собственности', value: value.legalType as string},
+      {label: 'Форма собственности', value: value.legalType === LegalType.LegalEntity ? 'Юридическое лицо' : 'ИП'},
       {label: 'Юрюдический адрес', value: value.address},
       {label: 'ИНН', value: value.inn},
       {label: 'ОГРН', value: value.ogrn},
@@ -52,9 +51,9 @@ export default function CompanyDetailsFormSection(props: Props) {
               label='Наименование юр. лица'
               validate={Validator.required}/>
             <RadioField<LegalType>
+              styleType={'default'}
               name={'company.legalType'}
               label='Форма собственности'
-              isString
               options={[{label: 'Юридическиео лицо', value: LegalType.LegalEntity},
                 {label: 'Индивидуальный предприниматель', value: LegalType.Ip}]}
               validate={Validator.required}/>

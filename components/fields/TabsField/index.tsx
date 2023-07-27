@@ -32,8 +32,8 @@ function TabsField<T>(props: Props<T>){
         className={styles.tab}
         active={i.value === field.value}
         text={`${i.label}`}
-        key={i.value}
-        onClick={() => handleChange(i.value)}/>
+        key={`${i.value}`}
+        onClick={() => handleChange(i.value as T)}/>
       )}
       </div>
       <FieldError showError={meta.touched && !!meta.error}>{meta.error}</FieldError>

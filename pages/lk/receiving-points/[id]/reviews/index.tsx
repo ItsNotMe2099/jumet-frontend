@@ -4,16 +4,10 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
-import { points } from '@/data/temp/points'
-import { GetServerSideProps } from 'next'
-import IPointData from '@/data/interfaces/IPointData'
-import LkLayoutMobile from '@/components/for_pages/LkPage/layout/mobile'
-import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/ReviewsCard'
 
-interface Props {
-  item: IPointData
+interface Props{
+
 }
-
 export default function ReceivingPointReviewsPage(props: Props) {
 
   const router = useRouter()
@@ -30,25 +24,14 @@ export default function ReceivingPointReviewsPage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout className={styles.desktop} myPointsOpen>
-        <ReviewsCard item={props.item} />
+      <LkLayout className={styles.desktop} >
+        {/*<ReviewsCard item={props.item} />*/}
       </LkLayout>
 
-      <LkLayoutMobile className={styles.mobile} point={props.item}>
+      {/*<LkLayoutMobile className={styles.mobile} point={props.item}>
         <ReviewsCard item={props.item} />
-      </LkLayoutMobile>
+      </LkLayoutMobile>*/}
     </Layout>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = context.query.id as string
-
-  const data = points
-
-  return {
-    props: {
-      item: data.data.find(i => i.id === +res)
-    } as Props
-  }
-}

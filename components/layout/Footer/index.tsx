@@ -47,7 +47,7 @@ export default function Footer(props: Props) {
                 <Link href={CONTACTS.tel}>{CONTACTS.tel}</Link>
               </div>
             </div>
-            <Button className={styles.btn} styleType='large' color='white' href={Routes.createSalesApplication}>
+            <Button className={styles.btn} styleType='large' color='white' href={Routes.lkSalesCreate}>
               Продать лом
             </Button>
           </div>

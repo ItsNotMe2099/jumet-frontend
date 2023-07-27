@@ -25,8 +25,8 @@ export default function ReceivingPointPage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout myPointsOpen>
-        
+      <LkLayout>
+
       </LkLayout>
     </Layout>
   )

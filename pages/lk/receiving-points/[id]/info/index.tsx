@@ -5,7 +5,6 @@ import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
 import AddressCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/AddressCard'
-import { GetServerSideProps } from 'next'
 import IPointData from '@/data/interfaces/IPointData'
 import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
@@ -14,8 +13,6 @@ import CostCardLk from '@/components/for_pages/Common/ReceivingPointComponents/C
 import DeliveryZonesCardLk from '@/components/for_pages/Common/ReceivingPointComponents/Cards/DeliveryZonesCardLk'
 import EmployeesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/EmployeesCard'
 import PlusSvg from '@/components/svg/PlusSvg'
-import { points } from '@/data/temp/points'
-import LkLayoutMobile from '@/components/for_pages/LkPage/layout/mobile'
 import WorkingHoursCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/WorkingHoursCard'
 import PhotosCardLk from '@/components/for_pages/Common/ReceivingPointComponents/Cards/PhotosCardLk'
 import RequisitesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/RequisitesCard'
@@ -40,7 +37,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
 
   return (
     <Layout>
-      <LkLayout className={styles.desktop} myPointsOpen>
+      <LkLayout className={styles.desktop} >
         <AddressCard item={item} additionalEl={
           <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
             Редактировать данные
@@ -73,7 +70,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
           </div>} topClassName={styles.top} />
       </LkLayout>
 
-      <LkLayoutMobile point={item}>
+      {/* <LkLayoutMobile point={item}>
         <AddressCard
           button={<Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
             Редактировать
@@ -107,19 +104,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
               Добавить
             </Button>
           </div>} topClassName={styles.top} />
-      </LkLayoutMobile>
+      </LkLayoutMobile>*/}
     </Layout>
   )
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const res = context.query.id as string
-
-  const data = points
-
-  return {
-    props: {
-      item: data.data.find(i => i.id === +res)
-    } as Props
-  }
 }

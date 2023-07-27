@@ -7,7 +7,7 @@ import { ChangeEvent } from 'react'
 interface Props {
   placeholder?: string
   label?: string
-  isNumbersOnly?: boolean
+
   className?: string
   onChange?: (e: ChangeEvent<HTMLInputElement>) => void
   labelType?: LabelStyleType
@@ -21,10 +21,7 @@ export default function Input(props: Props) {
         className={classNames(styles.input, props.className)}
         placeholder={props.placeholder}
         onChange={props.onChange}
-        onInput=
-        {props.isNumbersOnly ?
-          (e: ChangeEvent<HTMLInputElement>) => { e.target.value = e.target.value.replace(/[^0-9]/g, '') } : undefined}
-      />
+        />
     </div>
   )
 }

@@ -16,7 +16,7 @@ interface Props  extends IField<ILocation | null>{
 
 export default function MapField(props: Props) {
   const {label, placeholder, className} = props
-  const [field, meta, helpers] = useField(props)
+  const [field, meta, helpers] = useField(props as any)
   const placemarkRef = useRef<any>()
   const {value} = field
   const [showTipAnimation, setShowTipAnimation] = useState<boolean>(false)
@@ -38,7 +38,7 @@ export default function MapField(props: Props) {
       <div className={classNames([styles.root, props.className])}>
         <YMap  defaultState={{ center: value ? [value.lat, value.lng] : [44.497415, 34.169506], zoom: 17 }}
               className={props.mapClassName}
-               onBoundsChange={(val) => {
+               onBoundsChange={(val: any) => {
                  const newCenter = val.originalEvent.newCenter
                  helpers.setValue({lat: newCenter[0], lng: newCenter[1]})
                }}

@@ -1,5 +1,5 @@
 import SuccessBlock from '@/components/for_pages/Common/SuccessBlock'
-import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/FinalStep/index.module.scss'
+import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/ApproveStep/index.module.scss'
 import Button from '@/components/ui/Button'
 
 
@@ -7,7 +7,7 @@ interface Props {
 
 }
 
-export default function FinalStep(props: Props) {
+export default function ApproveStep(props: Props) {
 
   return (
     <div className={styles.root}>

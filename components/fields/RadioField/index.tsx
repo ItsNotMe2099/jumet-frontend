@@ -10,7 +10,7 @@ interface Props<T> extends IField<T> {
   options: IOption<T>[],
   label?: string
   disabled?: boolean
-  styleType: RadioStyleType
+  styleType?: RadioStyleType
   errorClassName?: string
 }
 

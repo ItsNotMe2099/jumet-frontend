@@ -21,6 +21,7 @@ import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
 import { ISaleRequestSearchRequest } from '@/data/interfaces/ISaleRequestSearchRequest'
 import { useSaleRequestSearchContext } from '@/context/sale_request_search_state'
+import SearchSvg from '@/components/svg/SearchSvg'
 
 interface IFormData extends ISaleRequestSearchRequest {
   radiusCustom?: number | null
@@ -117,8 +118,8 @@ export default function Filter(props: Props) {
 
               <FilterComponent title='Поиск по номеру заявки' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
                 <InputField
-                  numbersOnly
-                  search
+                  type={'number'}
+                  prefix={<SearchSvg color={colors.grey400}/>}
                   name={'id'} />
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>
@@ -126,7 +127,7 @@ export default function Filter(props: Props) {
                 <InputField
                   placeholder='Свой радиус поиска'
                   label='км'
-                  numbersOnly
+                  type={'number'}
                   name={'radiusCustom'} />
               </FilterComponent>
               <FilterComponent title='Категория лома'>
@@ -136,11 +137,11 @@ export default function Filter(props: Props) {
               <FilterComponent title='Вес лома'>
                 <div className={styles.weight}>
                   <InputField
-                    numbersOnly
+                    type={'number'}
                     placeholder='От'
                     name={'weightMin'} />
                   <InputField
-                    numbersOnly
+                    type={'number'}
                     placeholder='До'
                     name={'weightMax'} />
                 </div>
@@ -148,11 +149,11 @@ export default function Filter(props: Props) {
               <FilterComponent title='Цена лома'>
                 <div className={styles.weight}>
                   <InputField
-                    numbersOnly
+                    type={'number'}
                     placeholder='От'
                     name={'priceMin'} />
                   <InputField
-                    numbersOnly
+                    type={'number'}
                     placeholder='До'
                     name={'priceMax'} />
                 </div>

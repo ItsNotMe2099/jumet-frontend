@@ -6,9 +6,9 @@ import {ReactElement} from 'react'
 
 interface Props {
   children: React.ReactNode
-  title: string
+  title?: string
   actions?: ReactElement | ReactElement[] | null
-  menu: ReactElement
+  menu?: ReactElement
   className?: string
 }
 

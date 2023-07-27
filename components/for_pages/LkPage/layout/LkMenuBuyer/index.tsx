@@ -8,12 +8,12 @@ import {colors} from '@/styles/variables'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import {useRouter} from 'next/router'
 import Link from 'next/link'
-import Accordion from '../Accordion'
 import Button from '@/components/ui/Button'
 import PlusSvg from '@/components/svg/PlusSvg'
 import {useState} from 'react'
 import {points} from '@/data/temp/points'
 import {Routes} from '@/types/routes'
+import Accordion from '@/components/for_pages/LkPage/Accordion'
 
 
 interface Props {

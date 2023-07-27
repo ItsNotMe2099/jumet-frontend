@@ -5,7 +5,6 @@ import {FileUploadAcceptType, InputStyleType} from '@/types/enums'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import {colors} from '@/styles/variables'
-import StepsControls from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/StepsControls'
 import FileField from '@/components/fields/Files/FileField'
 import PhoneField from '@/components/fields/PhoneField'
 import AddressField from '@/components/fields/AddressField'
@@ -16,22 +15,50 @@ import {DeepPartial} from 'typeorm'
 import {ICompany} from '@/data/interfaces/ICompany'
 import CompanyDetailsFormSection from '@/components/for_pages/Common/CompanyDetailsFormSection'
 import {useState} from 'react'
+import FormStepFooter from '@/components/ui/FormStepFooter'
+import {IFormStepProps} from '@/types/types'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import {ILocation} from '@/data/interfaces/ILocation'
+import IFile from '@/data/interfaces/IFile'
 
+interface IFormData {
+  inn?: string | null
+  company?: ICompany | null
+  address?: DeepPartial<IAddress> | null
+  phones?: {phone: string}[]
+  location?: ILocation | null
+  licenseScan?: IFile | null
+}
 
-interface Props {
-  onNextStep: (data?: any) => void
+interface Props extends IFormStepProps<DeepPartial<IReceivingPoint>>{
+
 }
 
 export default function DataStep(props: Props) {
   const [isCompanyDetailsEdit, setIsCompanyDetailsEdit] = useState(false)
-  const handleSubmit = async (/*data*/) => {
-    props.onNextStep()
+  const handleSubmit = async (data: IFormData) => {
+      console.log('SubmitData', data)
+    props.onSubmit({
+      company: {...data.company, licenseScan: data.licenseScan},
+      phones: data.phones,
+      location: data.location,
+      address: data.address,
+
+    } as DeepPartial<IReceivingPoint>)
   }
 
-  const initialValues = {
-    address: '',
-    street: '',
-    number: '',
+  const initialValues: IFormData = {
+    inn: null,
+    company: {
+      name: null,
+      inn: null,
+      kpp: null,
+      ogrn: null,
+      address: null,
+      legalType: null
+    },
+    address: null,
+    location: null,
     phones: [{ phone: '' }],
   }
 
@@ -41,12 +68,12 @@ export default function DataStep(props: Props) {
   })
 
   console.log('formik.values', formik.values)
-  const handleChangeAddress = (address: IAddress) => {
-    if(address.location) {
+  const handleChangeAddress = (address: IAddress | string | null) => {
+    if( typeof address !== 'string' && address?.location) {
       formik.setFieldValue('location', address.location)
     }
   }
-  const handleChangeCompanyByInn = (company: DeepPartial<ICompany>) => {
+  const handleChangeCompanyByInn = (company: ICompany | null) => {
     if(company) {
       formik.setFieldValue('company', company)
     }
@@ -58,7 +85,7 @@ export default function DataStep(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         {!isCompanyDetailsEdit && <CompanyField name={'inn'}  label='ИНН юр.лица*' onChange={handleChangeCompanyByInn} validate={Validator.required}/>}
-        {(formik.values.inn || formik.values.company) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company} />}
+        {(formik.values.inn || formik.values.company) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company!} />}
         <FileField
           name='licenseScan'
           accept={[FileUploadAcceptType.Image, FileUploadAcceptType.Document]}
@@ -75,7 +102,7 @@ export default function DataStep(props: Props) {
             {arrayHelpers => (
               <>
                 <div className={styles.phones}>
-                  {formik.values.phones.map((i, index) =>
+                  {formik.values.phones?.map((i, index) =>
                     <PhoneField
                       styleType={InputStyleType.Default}
                       key={index}
@@ -93,7 +120,7 @@ export default function DataStep(props: Props) {
             )}
           </FieldArray>
         </div>
-        <StepsControls />
+        <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
       </Form>
     </FormikProvider>
   )

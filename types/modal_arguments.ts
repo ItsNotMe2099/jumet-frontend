@@ -1,5 +1,6 @@
 import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
+import {ILocation} from "@/data/interfaces/ILocation";
 
 export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'

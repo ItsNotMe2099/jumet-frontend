@@ -5,12 +5,14 @@ import {FieldArray} from 'formik'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import {colors} from '@/styles/variables'
+import Validator from '@/utils/validator'
 
 
 interface Props {
   title: string
   category: string
   values: any
+  setFieldValue: (name: string, value: any) => void
 }
 
 export default function PriceCategoryFormSection(props: Props) {
@@ -18,24 +20,32 @@ export default function PriceCategoryFormSection(props: Props) {
   const isDependsOnWeight = props.values['priceDependsOnWeight']
   const isDependsOnRubbish = props.values['priceDependsOnRubbish']
   console.log('values', props.values)
+  const handleChangePriceDependsOnWeight = (val: boolean) => {
+    if(val && !props.values[`${prefix}pricesByWeight`]){
+      props.setFieldValue(`${prefix}pricesByWeight`, [{minWeightInTons: null, maxWeightInTons: null, price: null}] )
+    }
+
+  }
+
   return (
 
     <div className={styles.root}>
       <div className={styles.title}>{props.title}</div>
-      <SwitchField name={`${prefix}priceDependsOnWeight`} label={'Цены за тонну зависят от веса'}/>
+      <SwitchField name={`${prefix}priceDependsOnWeight`} label={'Цены за тонну зависят от веса'} onChange={handleChangePriceDependsOnWeight}/>
       <SwitchField name={`${prefix}priceDependsOnRubbish`} label={'Цены за вычетом засора'}/>
-      {isDependsOnRubbish && <InputField name={`${prefix}rubbishInPercents`} label={''} suffix={'%'}/>}
+      {isDependsOnRubbish && <InputField name={`${prefix}rubbishInPercents`} type={'number'} label={''} suffix={'%'} validate={Validator.required}/>}
+      {!isDependsOnWeight && <InputField name={`${prefix}price`} label={'Цена'} type={'number'} suffix={'₽/т'} validate={Validator.required}/>}
 
       {isDependsOnWeight && <FieldArray name={`${prefix}pricesByWeight`}>
         {arrayHelpers => (
           <div className={styles.weightSection}>
-              {props.values['pricesByWeight'].map((item, index) => (<div className={styles.weightField}>
+              {props.values['pricesByWeight']?.map((item: any, index: number) => (<div className={styles.weightField}>
                   <div key={index} className={styles.row}>
                     <div className={styles.label}>Диапазон веса в тонах</div>
-                    <InputField name={`${prefix}pricesByWeight[${index}].minWeightInTons`} placeholder={'От'} suffix={'т'}/>
-                    <InputField name={`${prefix}pricesByWeight[${index}].maxWeightInTons`} placeholder={'До'} suffix={'т'}/>
+                    <InputField name={`${prefix}pricesByWeight[${index}].minWeightInTons`} type={'number'} placeholder={'От'} suffix={'т'} validate={Validator.required}/>
+                    <InputField name={`${prefix}pricesByWeight[${index}].maxWeightInTons`} type={'number'} placeholder={'До'} suffix={'т'} validate={Validator.required}/>
                   </div>
-                  <InputField isNumbersOnly name={`${prefix}pricesByWeight[${index}].price`} suffix={'₽/т'} labe='Цена лома'/>
+                  <InputField type={'number'} name={`${prefix}pricesByWeight[${index}].price`} suffix={'₽/т'} placeholder='Цена лома' validate={Validator.required}/>
                 </div>
               ))}
             <Button onClick={() => arrayHelpers.push({minWeightInTons: null, maxWeightInTons: null, price: null})}

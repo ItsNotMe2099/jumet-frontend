@@ -10,7 +10,7 @@ import {MouseEventHandler} from 'react'
 interface Props {
   children: string
   href?: string | undefined
-  onClick?: () => void | null
+  onClick?: (() => void) | null
 }
 
 export default function LkMenuItem(props: Props) {

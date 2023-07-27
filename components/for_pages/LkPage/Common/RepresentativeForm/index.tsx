@@ -8,7 +8,6 @@ import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
 import {RequestError} from '@/types/types'
 import RepresentativeRepository from '@/data/repositories/RepresentativeRepository'
-import {DeepPartial} from 'typeorm'
 import {IPassportData} from '@/data/interfaces/IPassportData'
 import PassportFormSection from '@/components/for_pages/Common/PassportFormSection'
 import FormError from '@/components/ui/FormError'
@@ -19,7 +18,7 @@ interface IFormData{
   firstName: string | null,
   lastName: string | null,
   patronymic: string | null,
-  passport: DeepPartial<IPassportData>
+  passport: IPassportData
 
 }
 interface Props {
@@ -29,7 +28,7 @@ interface Props {
 export default function RepresentativeForm(props: Props) {
 
   const appContext = useAppContext()
-  const [error, setError] = useState(null)
+  const [error, setError] = useState<any>(null)
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleSubmit = async (data: IFormData) => {

@@ -43,7 +43,7 @@ export default function FileUploadPreview(props: Props) {
       props.onDelete()
     }
   }
-  const getText = (): ReactElement | string => {
+  const getText = (): ReactElement | string | null => {
     if (props.progress > -1) {
       return <div>{props.labelLoading ?? 'Файл загружается'}  {props.progress}% <LinkButton onClick={handleCancel}>Отмена</LinkButton></div>
     }
@@ -51,7 +51,7 @@ export default function FileUploadPreview(props: Props) {
       return <div>{props.labelExist ?? `Можете загрузить ${props.isImage ? 'новое' : 'новый'}`} <LinkButton onClick={handleDelete}>Удалить</LinkButton></div>
     }
     if(props.text){
-      return props.text
+      return props.text as ReactElement | string
     }
     return <div>{props.labelNew ?? `Загрузите ${props.isImage ? 'изображение' : 'файл'}`}</div>
   }

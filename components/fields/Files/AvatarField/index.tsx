@@ -7,7 +7,6 @@ import FileRepository from 'data/repositories/FileRepository'
 import { Preset, SnackbarType } from 'types/enums'
 import { FieldConfig, useField } from 'formik'
 import LinkButton from 'components/ui/LinkButton'
-import AuthRepository from 'data/repositories/AuthRepository'
 import { useAppContext } from 'context/state'
 import { Circle } from 'rc-progress'
 import { colors } from 'styles/variables'
@@ -37,9 +36,9 @@ export default function AvatarField(props: Props) {
   const handleDelete: MouseEventHandler = async (e) => {
     e.preventDefault()
     e.stopPropagation()
-    if (field.value) {
+    if (field.value?.id) {
       try {
-        await AuthRepository.deleteMyFile(field.value.id)
+        await FileRepository.deleteMyFile(field.value.id)
         helpers.setValue(null)
         appContext.updateAboutMe()
       } catch (err) {

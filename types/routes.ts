@@ -73,6 +73,18 @@ export class Routes {
     return `${this.lkReceivingPoint(id)}/stat`
   }
 
+  static get lkReceivingPointCreate() {
+    return '/lk/receiving-points/create'
+  }
+
+  static lkReceivingPointEdit(id: string | number) {
+    return `/lk/receiving-points/edit/${id}/info`
+  }
+
+  static lkReceivingPointEditStep(id: string | number, step: string) {
+    return `/lk/receiving-points/edit/${id}/${step}`
+  }
+
   static get lkPayment() {
     return '/lk/payment'
   }

@@ -34,7 +34,7 @@ export default function Banner(props: Props) {
       <div className={styles.middle}>
         Создайте заявку на продажу лома и получите<HiddenXs><br /></HiddenXs>предложения от разных покупателей
       </div>
-      <Button className={styles.btn} href={Routes.createSalesApplication} styleType='large' color='white'>
+      <Button className={styles.btn} href={Routes.lkSalesCreate} styleType='large' color='white'>
         Продать лом
       </Button>
     </div>

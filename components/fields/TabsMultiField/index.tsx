@@ -22,7 +22,7 @@ function TabsMultiField<T>(props: Props<T>){
   const handleChange = (value: T) => {
     props.onChange?.(value)
     if(field.value.includes(value)){
-      helpers.setValue(field.value.filter(i => i !== value))
+      helpers.setValue(field.value.filter((i: T) => i !== value))
     }else{
       helpers.setValue([...field.value, value])
     }
@@ -36,8 +36,8 @@ function TabsMultiField<T>(props: Props<T>){
         className={styles.tab}
         active={field.value.includes(i.value)}
         text={`${i.label}`}
-        key={i.value}
-        onClick={() => handleChange(i.value)}/>
+        key={`${i.value}`}
+        onClick={() => handleChange(i.value as T)}/>
       )}
       </div>
       <FieldError showError={meta.touched && !!meta.error}>{meta.error}</FieldError>

@@ -4,7 +4,6 @@ import { useEffect } from 'react'
 import { useRouter } from 'next/router'
 import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
-import ReceivingPointCard from '@/components/for_pages/LkPage/Cards/ReceivingPointCard'
 import { points } from '@/data/temp/points'
 
 interface Props {
@@ -30,9 +29,9 @@ export default function ReceivingPointsPage(props: Props) {
   return (
     <Layout>
       <LkLayout>
-        {data.data.map((i, index) =>
+        {/*data.data.map((i, index) =>
           <ReceivingPointCard point={i} key={i.id} href={`${router.asPath}/${i.id}/info`} />
-        )}
+        )*/}
       </LkLayout>
     </Layout>
   )

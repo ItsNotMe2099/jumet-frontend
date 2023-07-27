@@ -19,7 +19,7 @@ interface Props  extends IField<ILocation | null>{
 
 export default function MapFullscreenField(props: Props) {
   const [open, setOpen] = useState<boolean>(false)
-  const [field, meta, helpers] = useField(props)
+  const [field, meta, helpers] = useField(props as any)
   const showError = meta.touched && !!meta.error
   const appContext = useAppContext()
   const handleOpen = () => {

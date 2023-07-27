@@ -12,7 +12,7 @@ interface Props<T> {
   description?: string
   children?: ReactElement | ReactElement[]
   onChange: (val: T) => void
-  styleType: RadioStyleType
+  styleType?: RadioStyleType
 
 }
 export default function RadioFieldItem<T>(props: Props<T>) {

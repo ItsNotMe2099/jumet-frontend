@@ -1,4 +1,4 @@
-import { FieldConfig, useField, useFormikContext } from 'formik'
+import { useField, useFormikContext } from 'formik'
 import styles from 'components/fields/CheckBoxField/index.module.scss'
 import { IField } from '@/types/types'
 // @ts-ignore
@@ -11,20 +11,24 @@ interface Props extends IField<boolean> {
   checked?: boolean
   disabled?: boolean
   color?: string
+  onChange?: (val: boolean) => void
 }
 
 const CheckBoxField = (props: Props) => {
 
   // @ts-ignore
-  const [field, meta, helpers] = useField(props as FieldConfig)
+  const [field, meta, helpers] = useField(props as any)
   const { setFieldValue, setFieldTouched, validateField } = useFormikContext()
   const hasError = !!meta.error && meta.touched
-
+  const handleChange = (val: boolean) => {
+    helpers.setValue(val)
+    props.onChange?.(val)
+  }
   return (
     <ReactCheckBox
       checked={field.value}
       disabled={props.disabled}
-      onChange={(val: boolean) => setFieldValue(props.name, val)}
+      onChange={handleChange}
       icon={<div className={styles.wrapper}><CheckBoxSvg className={styles.icon} color={colors.dark500} /></div>}
       borderColor={props.color}
       borderRadius={4}

@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { FieldConfig, useField } from 'formik'
+import { useField } from 'formik'
 import { IField } from 'types/types'
 import FieldError from 'components/fields/FieldError'
 import StarRatings from 'react-star-ratings'
@@ -11,7 +11,7 @@ interface Props extends IField<string> {
 
 export default function StarRatingsField(props: Props) {
   // @ts-ignore
-  const [field, meta, helpers] = useField(props as FieldConfig)
+  const [field, meta, helpers] = useField(props as any)
   const showError = meta.touched && !!meta.error
 
   const onStarClick = (nextValue: number) => {

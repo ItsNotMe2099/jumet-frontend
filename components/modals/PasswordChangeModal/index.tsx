@@ -4,7 +4,7 @@ import {useAppContext} from '@/context/state'
 import {OtpCodeModalArguments} from '@/types/modal_arguments'
 import {Form, FormikProvider, useFormik} from 'formik'
 import InputField from '@/components/fields/InputField'
-import {InputStyleType, SnackbarType} from '@/types/enums'
+import { SnackbarType} from '@/types/enums'
 import Validator from '@/utils/validator'
 import FormError from '@/components/ui/FormError'
 import {useState} from 'react'
@@ -59,22 +59,22 @@ const PasswordChangeModal = (props: Props) => {
     onSubmit: handleSubmit
   })
   const body = (
-    <FormikProvider<IFormData> value={formik}>
+    <FormikProvider value={formik}>
       <Form className={styles.form}>
         <InputField
-          inputStyle={InputStyleType.Password}
+          obscure={true}
           type='password'
           name='oldPassword'
           label='Старый пароль'
           validate={Validator.combine([Validator.required])}/>
         <InputField
-          inputStyle={InputStyleType.Password}
+          obscure={true}
           type='password'
           name='password'
           label='Повторите пароль'
           validate={Validator.combine([Validator.required])}/>
         <InputField
-          inputStyle={InputStyleType.Password}
+          obscure={true}
           type='password'
           name='passwordConfirm'
           label='Повторите пароль'

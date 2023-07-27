@@ -4,7 +4,7 @@
   position: relative;
   display: flex;
   flex-direction: column;
-@include list(8px);
+  @include list(8px);
   width: 100%;
 }
 

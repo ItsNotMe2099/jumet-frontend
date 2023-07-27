@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import {FieldConfig, useField} from 'formik'
+import { useField} from 'formik'
 import classNames from 'classnames'
 import {ReactElement, useEffect, useState} from 'react'
 import {FieldValidator} from 'formik/dist/types'
@@ -38,7 +38,7 @@ export default function InputField(props: Props) {
   const defaultCardCvvPattern = '0000'
   const [focused, setFocus] = useState(false)
   const [obscureShow, setObscureShow] = useState(false)
-  const [field, meta, helpers] = useField(props as FieldConfig)
+  const [field, meta, helpers] = useField(props as any)
   const [phoneIsValid, setPhoneIsValid] = useState(false)
   const [pattern, setPattern] = useState<string | null>(props.format === 'phone' ? defaultPhonePattern : props.format === 'cardExpiry' ? defaultCardExpiryPattern : null)
   const showError = meta.touched && !!meta.error && !focused
@@ -115,7 +115,7 @@ export default function InputField(props: Props) {
   }
   return (
     <div className={classNames(styles.root, props.className, {
-      [props.errorClassName]: showError,
+      [props.errorClassName as string]: showError,
     })}>
       <div className={styles.wrapper}>
         {props.label &&

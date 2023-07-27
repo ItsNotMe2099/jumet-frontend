@@ -11,7 +11,7 @@ export default class FileRepository {
       config
     })
   }
-  static async deleteMyFile(id: string): Promise<void> {
+  static async deleteMyFile(id: number | string): Promise<void> {
     return request({
       url: `/api/user-asset/${id}`,
       method: 'delete',

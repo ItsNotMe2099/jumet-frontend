@@ -1,8 +1,8 @@
 import {IPassportData} from '@/data/interfaces/IPassportData'
 
 export interface ICurrentUserUpdateRequest {
-  firstName?: string,
-  lastName?: string
-  patronymic?: string
-  passport?: IPassportData
+  firstName?: string | null,
+  lastName?: string | null
+  patronymic?: string | null
+  passport?: IPassportData | null
 }

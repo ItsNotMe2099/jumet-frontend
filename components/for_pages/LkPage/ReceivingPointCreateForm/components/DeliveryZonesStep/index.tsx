@@ -6,13 +6,14 @@ import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
-import StepsControls from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/StepsControls'
 import YMapsField from '@/components/fields/YMapsField'
+import FormStepFooter from '@/components/ui/FormStepFooter'
+import {IFormStepProps} from '@/types/types'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 
 
-interface Props {
-  onNextStep: (data?: any) => void
-  onBack?: () => void
+interface Props extends IFormStepProps<IReceivingPoint>{
+
 }
 
 interface IFormData {
@@ -26,7 +27,7 @@ interface IFormData {
 export default function DeliveryZoneStep(props: Props) {
 
   const handleSubmit = async (/*data*/) => {
-    props.onNextStep()
+
   }
 
   const [formData, setFormData] = useState<IFormData[]>([])
@@ -77,24 +78,24 @@ export default function DeliveryZoneStep(props: Props) {
                           key={index}
                           name={`items[${index}].distanceFrom`}
                           validate={Validator.required}
-                          sign='км'
+                          suffix='км'
                           placeholder='От'
-                          isNumbersOnly
+                          type={'number'}
                         />
                         <InputField
                           key={index}
                           name={`items[${index}].distanceTo`}
                           validate={Validator.required}
-                          sign='км'
+                          suffix='км'
                           placeholder='До'
-                          isNumbersOnly
+                          type={'number'}
                         />
                       </div>
                     </div>
                     <InputField
                       key={index}
                       label={'Стоимость доставки, ₽'}
-                      sign='за тонну'
+                      suffix='за тонну'
                       name={`items[${index}].price`}
                       validate={Validator.required}
                     />
@@ -110,7 +111,7 @@ export default function DeliveryZoneStep(props: Props) {
           )
           }
         </FieldArray>
-        <StepsControls onBack={props.onBack} />
+        <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
       </Form>
     </FormikProvider>
   )

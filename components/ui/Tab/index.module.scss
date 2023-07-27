@@ -18,6 +18,7 @@
 
 .text{
     @include mainText;
+    white-space: nowrap;
 }
 
 .active{

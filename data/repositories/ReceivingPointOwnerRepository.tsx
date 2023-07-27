@@ -23,6 +23,14 @@ export default class ReceivingPointOwnerRepository {
     return res
   }
 
+  static async fetchById(id: number): Promise<IReceivingPoint> {
+    const res = await request<IReceivingPoint>({
+      method: 'get',
+      url: `/api/owner/receiving-point/${id}`,
+    })
+    return res
+  }
+
   static async fetch(): Promise<IReceivingPoint[]> {
     const res = await request<IReceivingPoint[]>({
       method: 'get',

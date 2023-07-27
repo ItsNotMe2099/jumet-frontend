@@ -5,19 +5,19 @@ import Switch from 'components/ui/Switch'
 import classNames from 'classnames'
 
 interface Props {
-  onChange?: () => void
+  onChange?: (val: boolean) => void
   label?: string
   className?: string
 }
 
 export default function SwitchField(props: Props & FieldConfig) {
   //@ts-ignore
-  const [field, meta] = useField(props)
+  const [field, meta] = useField(props as any)
   const { setFieldValue } = useFormikContext()
   const hasError = !!meta.error && meta.touched
 
   const handleChange = (val: boolean) => {
-    props.onChange && props.onChange()
+    props.onChange?.(val)
     setFieldValue(field.name, val)
   }
 

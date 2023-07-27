@@ -8,7 +8,6 @@ import { UserRole } from '@/data/enum/UserRole'
 import { ProfileMenuSettings } from '@/types/enums'
 import IUser from '@/data/interfaces/IUser'
 import BuyerRepository from '@/data/repositories/BuyerRepository'
-import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
 import { Gender } from '@/data/enum/Gender'
 import LkLayout from '@/components/for_pages/LkPage/layout'
 
@@ -84,12 +83,12 @@ export default function EmpolyeesPage(props: Props) {
 
   return (
     <Layout>
-      <LkLayout>
-        {appContext.aboutMe?.role !== UserRole.Buyer &&
-                  /*employees*/tempEmps.map((i, index) =>
+      <LkLayout title={'Сотдруники'}>
+        {/*appContext.aboutMe?.role !== UserRole.Buyer &&
+             tempEmps.map((i, index) =>
           <EmployeeCard user={i} key={index} />
         )
-        }
+        */}
       </LkLayout>
     </Layout>
   )

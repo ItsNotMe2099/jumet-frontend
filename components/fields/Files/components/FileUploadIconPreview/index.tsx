@@ -8,6 +8,7 @@ import DocumentPreview from 'components/ui/DocumentPreview'
 import {colors} from 'styles/variables'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
 import AddImageSvg from '@/components/svg/AddImageSvg'
+import AttachSvg from '@/components/svg/AttachSvg'
 
 
 interface Props {
@@ -29,9 +30,9 @@ export default function FileUploadIconPreview(props: Props) {
       return props.icon
     }
     if(props.isImage){
-      return <AddImageSvg color={colors.grey500}/>
+      return <AddImageSvg color={colors.dark500}/>
     }else{
-      return <></>
+      return <AttachSvg color={colors.dark500}/>
     }
 
   }

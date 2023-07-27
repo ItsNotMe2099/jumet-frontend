@@ -2,7 +2,6 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import { useAppContext } from '@/context/state'
-import { InputStyleType } from '@/types/enums'
 import { useState } from 'react'
 import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
@@ -50,9 +49,9 @@ export default function ProfileBuyerForm(props: Props) {
           validate={Validator.combine([Validator.required, Validator.email])} />
         <InputField
           className={styles.field}
-          inputStyle={InputStyleType.Password}
           name='password'
           label='Пароль'
+          obscure={true}
           validate={Validator.required} />
         <Button disabled={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
           Сохранить

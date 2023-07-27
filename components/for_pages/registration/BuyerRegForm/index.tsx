@@ -68,7 +68,7 @@ export default function BuyerRegForm(props: Props) {
         <Already
           topText='Уже есть аккаунт на Jumet?'
           btnText='Войти'
-          link={Routes.login} />
+          link={Routes.login()} />
       </Form>
     </FormikProvider>
   )

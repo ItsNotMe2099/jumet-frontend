@@ -42,13 +42,13 @@ export enum CookiesType {
 }
 
 export enum WeekDays {
-  monday = 'monday',
-  tuesday = 'tuesday',
-  wednesday = 'wednesday',
-  thursday = 'thursday',
-  friday = 'friday',
-  saturday = 'saturday',
-  sunday = 'sunday',
+  monday = 1,
+  tuesday = 2,
+  wednesday = 3,
+  thursday = 4,
+  friday = 5,
+  saturday = 6,
+  sunday = 7,
 }
 
 export enum DayType {

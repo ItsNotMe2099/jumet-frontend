@@ -106,3 +106,14 @@ export enum ListViewType{
   Map = 'map'
 }
 export type RadioStyleType = 'default' | 'tile' | 'row'
+export interface IScheduleFieldDayDescription{
+  active: boolean,
+  startAt: string,
+  finishAt: string
+}
+export interface IFormStepProps<T> {
+  error?: string | null,
+  loading?: boolean
+  onSubmit: (data: any) => Promise<void>,
+  onBack?: () => void
+}

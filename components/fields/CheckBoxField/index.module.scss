@@ -3,6 +3,7 @@
 .root {
   position: relative;
   gap: 12px;
+  cursor: pointer;
   span:first-child{
     cursor: pointer;
   }
@@ -23,5 +24,5 @@
 }
 
 .icon {
-  
+
 }

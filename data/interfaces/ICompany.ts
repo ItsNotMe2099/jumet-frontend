@@ -9,7 +9,7 @@ export enum LegalType {
 }
 export interface ICompany {
   id?: number
-  legalType?: LegalType
+  legalType?: LegalType | null
   firstName?: string
   lastName?: string
   middleName?: string
