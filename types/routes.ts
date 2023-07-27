@@ -29,7 +29,7 @@ export class Routes {
   }
 
   static get sales() {
-    return '/sales'
+    return '/scrap-for-sale'
   }
 
 
@@ -44,10 +44,10 @@ export class Routes {
     return '/lk/representatives'
   }
   static get lkSalesApplications() {
-    return '/lk/sales-applications'
+    return '/lk/my-sale-requests'
   }
   static get lkSalesCreate () {
-    return '/lk/sales-applications/create'
+    return '/create-sale-request'
   }
 
   static get lkEmployees() {

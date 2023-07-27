@@ -3,9 +3,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
-import FileField from '@/components/fields/Files/FileField'
 import { useState } from 'react'
-import AddressYandexField from '@/components/fields/AddressYandexField'
 import InputField from '@/components/fields/InputField'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
@@ -17,6 +15,10 @@ import Validator from '@/utils/validator'
 import RadiusField from '@/components/fields/RadiusField'
 import {useDataContext} from '@/context/data_state'
 import {IOption} from '@/types/types'
+import AddressField from '@/components/fields/AddressField'
+import MapFullscreenField from '@/components/fields/MapFullscreenField'
+import {IAddress} from '@/data/interfaces/IAddress'
+import FileListField from '@/components/fields/Files/FileListField'
 
 
 interface Props {
@@ -48,7 +50,7 @@ export default function CreateSalesRequestForm(props: Props) {
 
   const appContext = useAppContext()
 
-  const handleSubmit = async (data: IData) => {
+  const handleSubmit = async (data: any) => {
     if (data.scrapMetalCategory === ScrapMetalCategory.None) {
       // Using object destructuring to create a copy of data without the scrapMetalCategory property
       const { scrapMetalCategory, ...dataWithoutScrapMetalCategory } = data
@@ -75,19 +77,11 @@ export default function CreateSalesRequestForm(props: Props) {
     photosIds: [],
     requeresDelivery: false,
     requeresLoading: false,
-    address: {
-      address: '',
-      city: '',
-      street: '',
-      house: ''
-    },
+    address: null,
     price: 0,
     hasCustomPrice: false,
     searchRadius: 0,
-    location: {
-      lat: 0,
-      lng: 0
-    },
+    location: null,
     phones: []
   }
 
@@ -104,7 +98,11 @@ export default function CreateSalesRequestForm(props: Props) {
       label: 'Затрудняюсь определить', value: 'none'
     },
   ]
-
+  const handleChangeAddress = (address: IAddress | string | null) => {
+    if( typeof address !== 'string' && address?.location) {
+      formik.setFieldValue('location', address.location)
+    }
+  }
 
 
   return (
@@ -117,14 +115,12 @@ export default function CreateSalesRequestForm(props: Props) {
           styleType='default'
         />
         <InputField type={'number'} name='weight' label='Вес лома' suffix={'тонн'} />
-        <FileField
-          name='photosIds'
+        <FileListField
+          name='photos'
           label='Фотографии лома'
           accept={[FileUploadAcceptType.Image]}
           vertical
           isImage
-          text={<div className={styles.text}>Перетащите сюда или <span>выберите фото</span><br />
-            лома на своем устройстве</div>}
         />
         <div className={styles.section}>
           <div className={styles.label}>
@@ -137,11 +133,8 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressYandexField name='address.address' placeholder='Город' validate={Validator.required} />
-          <div className={styles.group}>
-            <InputField name='address.street' placeholder='Улица' />
-            <InputField type={'number'} className={styles.second} name='address.house' placeholder='Номер дома' />
-          </div>
+          <AddressField name={'address'} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
+          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
         </div>
         <div className={styles.section}>
           <div className={styles.label}>

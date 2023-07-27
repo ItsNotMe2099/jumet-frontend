@@ -51,7 +51,7 @@ export default function AddressField(props: Props) {
           {props.label}
         </div>
       }
-      <AddressSuggestions currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{className: classNames({
+      <AddressSuggestions currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{placeholder: props.placeholder, className: classNames({
           [styles.input]: true,
           [styles.inputError]: showError,
         })}}  onChange={handleChange} token={runtimeConfig.DADATA_KEY} />

@@ -6,7 +6,6 @@ import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
-import YMapsField from '@/components/fields/YMapsField'
 import FormStepFooter from '@/components/ui/FormStepFooter'
 import {IFormStepProps} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
@@ -99,7 +98,6 @@ export default function DeliveryZoneStep(props: Props) {
                       name={`items[${index}].price`}
                       validate={Validator.required}
                     />
-                    <YMapsField name='coordinates' onMapClick={(e) => handleMapClick(e)} />
                   </div>
                 ))}
               </div>
