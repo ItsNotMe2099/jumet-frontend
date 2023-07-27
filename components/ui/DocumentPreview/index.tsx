@@ -33,7 +33,7 @@ export default function DocumentPreview(props: Props) {
  return (
    <div className={styles.root}>
      {!isValid && <div className={styles.ext}>.{ext}</div>}
-     {isValid && <div className={styles.icon}><img src={`/images/icons/files/${ext}.svg`}/></div>}
+     {isValid && <div className={styles.icon}><img src={`/img/icons/files/${ext}.svg`}/></div>}
      {props.name && <div className={styles.name}>{props.name}</div>}
    </div>
  )

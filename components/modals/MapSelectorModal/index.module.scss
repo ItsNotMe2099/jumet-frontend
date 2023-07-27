@@ -1,0 +1,49 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  width: 700px;
+  min-height: 532px;
+  background: $white;
+  border-radius: $StandartBorderRadius;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.form{
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100%;
+  min-height: 100%;
+}
+.mapWrapper{
+  flex: 1 1;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+}
+.map{
+
+  margin-bottom: 0px !important;
+  min-height: 100% !important;
+  height: 100% !important;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: stretch;
+  .yaMap{
+    flex: 1;
+  }
+}
+.bottom{
+  padding: 15px;
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  > * + * { margin-left: 20px}
+}

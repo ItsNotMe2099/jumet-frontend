@@ -1,7 +1,10 @@
-@import "../../../../../../styles/index";
+@import "styles/index";
 
-.form {
+.root {
     display: flex;
     flex-direction: column;
-    gap: 24px;
+  @include list(48px)
+}
+.categories{
+  @include list(48px)
 }

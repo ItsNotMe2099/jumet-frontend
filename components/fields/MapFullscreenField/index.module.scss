@@ -1,0 +1,30 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  @include list(8px);
+}
+.label{
+  @include label;
+  margin-bottom: 5px;
+}
+.body{
+  display: flex;
+  flex-direction: column;
+@include list(16px);
+}
+.map{
+position: relative;
+  display: flex;
+}
+
+.placemark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 2;
+}
+.image{
+  max-width: 100%;
+}

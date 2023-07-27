@@ -7,7 +7,7 @@ import classNames from 'classnames'
 import SwitchField from '@/components/fields/SwitchField'
 import ScheduleWeekDaysField from '@/components/fields/Schedule/ScheduleWeekDaysField'
 import { ScheduleType } from '@/data/enum/ScheduleType'
-import FileField from '@/components/fields/Files/FileField'
+import FileListField from '@/components/fields/Files/FileListField'
 
 interface Props {
   onNextStep: (data?: any) => void
@@ -31,7 +31,7 @@ export default function WorkingHoursStep(props: Props) {
   ]
 
   const initialValues = {
-    photo: [],
+    photos: [],
     always: false,
     workingDays: days
   }
@@ -48,8 +48,8 @@ export default function WorkingHoursStep(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <FileField
-          name='photo'
+        <FileListField
+          name='photos'
           accept={[FileUploadAcceptType.Image]}
           label='Фотографии пункта приема'
           validate={Validator.required}

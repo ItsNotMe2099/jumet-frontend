@@ -1,4 +1,4 @@
-import TextField from '@/components/fields/InputField'
+import InputField from '@/components/fields/InputField'
 import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
@@ -67,7 +67,7 @@ export default function PasswordForgotForm(props: Props) {
           validate={Validator.phone}
           styleType={InputStyleType.Default}
         />}
-        {props.mode === LoginType.Buyer && <TextField name='email' label='Email'
+        {props.mode === LoginType.Buyer && <InputField name='email' label='Email'
                                                       validate={Validator.combine([Validator.required, Validator.email])}/>}
 
         <Button spinner={loading} type='submit' className={styles.btn} styleType='large' color='blue'>

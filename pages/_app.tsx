@@ -1,5 +1,6 @@
 import 'normalize.css'
 import 'styles/globals.scss'
+import 'react-dadata/dist/react-dadata.css'
 import type { AppProps as NextAppProps } from 'next/app'
 import App, { AppContext } from 'next/app'
 import { useEffect } from 'react'

@@ -8,6 +8,7 @@ import { ModalType } from '@/types/enums'
 import MobileMenuModal from '@/components/modals/MobileMenuModal'
 import OtpCodeModal from '@/components/modals/OtpCodeModal'
 import PasswordChangeModal from '@/components/modals/PasswordChangeModal'
+import MapSelectorModal from '@/components/modals/MapSelectorModal'
 
 
 interface Props { }
@@ -37,6 +38,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.PasswordChange} {...commonSettings}>
           {appContext.modal === ModalType.PasswordChange && <PasswordChangeModal onRequestClose={commonSettings.onRequestClose} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.MapSelector} {...commonSettings}>
+          {appContext.modal === ModalType.MapSelector && <MapSelectorModal isBottomSheet={false} />}
         </Modal>
       </div>
     </RemoveScroll>

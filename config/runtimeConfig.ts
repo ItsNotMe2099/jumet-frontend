@@ -8,7 +8,7 @@ interface IRuntimeConfig {
   PROD: boolean
   MAP_KEY: string
   CACHE_TIME_HOURS: number
-  BOOKING_COMPLETE_ANYTIME: boolean
+  DADATA_KEY: string
 }
 
 interface IServerRuntimeConfig {

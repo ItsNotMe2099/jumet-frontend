@@ -1,0 +1,53 @@
+@import "styles/index";
+
+.root{
+  width: 100%;
+  height: 100%;
+}
+.placemark {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -100%);
+  z-index: 2;
+}
+.tip{
+  position: absolute;
+  bottom: 5px;
+  left: 5px;
+  color: $dark500;
+  background: rgba(255, 255, 255,0.8);
+  padding: 5px;
+  font-size: 12px;
+  @media (max-width: $xs-max) {
+    font-size: 11px;
+  }
+  &.isActive {
+    animation: 1s wiggle ease infinite;
+    color: $blue500;
+  }
+
+
+}
+@keyframes wiggle {
+  0% {
+    transform: rotate(-3deg);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+  }
+  20% {
+    transform: rotate(15deg);
+  }
+  40% {
+    transform: rotate(-10deg);
+  }
+  60% {
+    transform: rotate(5deg);
+  }
+  90% {
+    transform: rotate(-1deg);
+  }
+  100% {
+    transform: rotate(0);
+    box-shadow: 0 2px 2px rgba(0,0,0,.2);
+  }
+}

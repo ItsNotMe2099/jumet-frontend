@@ -4,7 +4,7 @@ import Validator from '@/utils/validator'
 import {useAppContext} from '@/context/state'
 import { SnackbarType} from '@/types/enums'
 import {useState} from 'react'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
 import {RequestError} from '@/types/types'
 import RepresentativeRepository from '@/data/repositories/RepresentativeRepository'
@@ -78,17 +78,17 @@ export default function RepresentativeForm(props: Props) {
         <Spacer basis={16}/>
         <div className={styles.heading}>ФИО Представителя*</div>
         <Spacer basis={8}/>
-        <TextField
+        <InputField
           name='lastName'
           placeholder='Фамилия'
           validate={Validator.required} />
         <Spacer basis={12}/>
-        <TextField
+        <InputField
           name='firstName'
           placeholder='Имя'
           validate={Validator.required} />
         <Spacer basis={12}/>
-        <TextField
+        <InputField
           name='patronymic'
           placeholder='Отчество'
           validate={Validator.required} />

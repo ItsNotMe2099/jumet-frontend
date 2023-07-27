@@ -10,8 +10,8 @@ module.exports = {
     NODE_ENV: process.env.NODE_ENV || 'development',
     DEV: process.env.NODE_ENV === 'development',
     PROD: process.env.NODE_ENV !== 'development',
-    MAP_KEY: '00451464-c5d7-4f92-96bd-88b3f00ff218',
-    BOOKING_COMPLETE_ANYTIME:  process.env.BOOKING_COMPLETE_ANYTIME ? true : false,
+    MAP_KEY: process.env.MAP_KEY,
+    DADATA_KEY:  process.env.DADATA_KEY ,
   },
   serverRuntimeConfig: {
     HOST_INNER: process.env.HOST_INNER,

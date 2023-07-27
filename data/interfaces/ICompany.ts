@@ -8,23 +8,24 @@ export enum LegalType {
   LegalEntity = 'legalEntity',
 }
 export interface ICompany {
-  id: number
-  legalType: LegalType
-  firstName: string
-  lastName: string
-  middleName: string
-  name: string
-  inn: string
-  kpp: string
-  address: string
-  phone: string
-  legalAddressSame: boolean
-  legalAddress: string
-  bankAccount: string
-  bankBik: string
-  licenseScan: IFile
-  licenseScanId: number
-  ownerId: string
-  receivingPoints: IReceivingPoint[]
-  createdAt: Date
+  id?: number
+  legalType?: LegalType
+  firstName?: string
+  lastName?: string
+  middleName?: string
+  name?: string | null
+  inn?: string| null
+  kpp?: string| null
+  ogrn?: string| null
+  address?: string | null
+  phone?: string | null
+  legalAddressSame?: boolean | null
+  legalAddress?: string | null
+  bankAccount?: string | null
+  bankBik?: string | null
+  licenseScan?: IFile | null
+  licenseScanId?: number | null
+  ownerId?: string | null
+  receivingPoints?: IReceivingPoint[]
+  createdAt?: Date
 }

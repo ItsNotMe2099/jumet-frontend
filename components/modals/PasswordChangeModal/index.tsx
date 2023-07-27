@@ -3,7 +3,7 @@ import ModalLayout from 'components/layout/Modal/ModalLayout'
 import {useAppContext} from '@/context/state'
 import {OtpCodeModalArguments} from '@/types/modal_arguments'
 import {Form, FormikProvider, useFormik} from 'formik'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import {InputStyleType, SnackbarType} from '@/types/enums'
 import Validator from '@/utils/validator'
 import FormError from '@/components/ui/FormError'
@@ -61,19 +61,19 @@ const PasswordChangeModal = (props: Props) => {
   const body = (
     <FormikProvider<IFormData> value={formik}>
       <Form className={styles.form}>
-        <TextField
+        <InputField
           inputStyle={InputStyleType.Password}
           type='password'
           name='oldPassword'
           label='Старый пароль'
           validate={Validator.combine([Validator.required])}/>
-        <TextField
+        <InputField
           inputStyle={InputStyleType.Password}
           type='password'
           name='password'
           label='Повторите пароль'
           validate={Validator.combine([Validator.required])}/>
-        <TextField
+        <InputField
           inputStyle={InputStyleType.Password}
           type='password'
           name='passwordConfirm'

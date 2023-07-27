@@ -5,7 +5,7 @@ import {useAppContext} from '@/context/state'
 import PhoneField from '@/components/fields/PhoneField'
 import {InputStyleType, ModalType, SnackbarType} from '@/types/enums'
 import {useState} from 'react'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
 import LinkButton from '@/components/ui/LinkButton'
 import {omit} from '@/utils/omit'
@@ -71,15 +71,15 @@ export default function ProfileSellerForm(props: Props) {
           disabled={true}
           validate={Validator.combine([Validator.required, Validator.phone])}
         />
-        <TextField
+        <InputField
           name='lastName'
           label='Ваша фамилия'
           validate={Validator.required} />
-        <TextField
+        <InputField
           name='firstName'
           label='Ваше имя'
           validate={Validator.required} />
-        <TextField
+        <InputField
           name='patronymic'
           label='Ваше отчество'
           validate={Validator.required} />

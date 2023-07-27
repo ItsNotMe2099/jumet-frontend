@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import Validator from '@/utils/validator'
 import {FileUploadAcceptType} from '@/types/enums'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import AttachSvg from '@/components/svg/AttachSvg'
 import {colors} from '@/styles/variables'
 import FileField from '@/components/fields/Files/FileField'
@@ -22,25 +22,25 @@ interface Props {
 export default function PassportFormSection(props: Props) {
   return (
     <div className={styles.root}>
-      <TextField
+      <InputField
         name='passport.address'
         placeholder='Адрес регистрации'
         validate={Validator.required}/>
       <div className={styles.row}>
-        <TextField
+        <InputField
           name='passport.series'
           placeholder='Серия паспорта'
           validate={Validator.required}/>
-        <TextField
+        <InputField
           name='passport.number'
           placeholder='Номер паспорта'
           validate={Validator.required}/>
       </div>
-      <TextField
+      <InputField
         name='passport.date'
         placeholder='Дата выдачи'
         validate={Validator.required}/>
-      <TextField
+      <InputField
         name='passport.issuedBy'
         placeholder='Кем выдан'
         validate={Validator.required}/>

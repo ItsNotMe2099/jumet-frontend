@@ -1,15 +1,21 @@
-import TextField from '@/components/fields/TextField'
 import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DataStep/index.module.scss'
 import {FieldArray, Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
-import Input from '@/components/ui/Input'
-import {FileUploadAcceptType, InputStyleType, LabelStyleType} from '@/types/enums'
+import {FileUploadAcceptType, InputStyleType} from '@/types/enums'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import {colors} from '@/styles/variables'
 import StepsControls from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/StepsControls'
 import FileField from '@/components/fields/Files/FileField'
 import PhoneField from '@/components/fields/PhoneField'
+import AddressField from '@/components/fields/AddressField'
+import MapFullscreenField from '@/components/fields/MapFullscreenField'
+import {IAddress} from '@/data/interfaces/IAddress'
+import CompanyField from '@/components/fields/CompanyField'
+import {DeepPartial} from 'typeorm'
+import {ICompany} from '@/data/interfaces/ICompany'
+import CompanyDetailsFormSection from '@/components/for_pages/Common/CompanyDetailsFormSection'
+import {useState} from 'react'
 
 
 interface Props {
@@ -17,7 +23,7 @@ interface Props {
 }
 
 export default function DataStep(props: Props) {
-
+  const [isCompanyDetailsEdit, setIsCompanyDetailsEdit] = useState(false)
   const handleSubmit = async (/*data*/) => {
     props.onNextStep()
   }
@@ -35,11 +41,24 @@ export default function DataStep(props: Props) {
   })
 
   console.log('formik.values', formik.values)
-
+  const handleChangeAddress = (address: IAddress) => {
+    if(address.location) {
+      formik.setFieldValue('location', address.location)
+    }
+  }
+  const handleChangeCompanyByInn = (company: DeepPartial<ICompany>) => {
+    if(company) {
+      formik.setFieldValue('company', company)
+    }
+  }
+  const handleToggleEditCompanyDetails = (isEdit: boolean) => {
+    setIsCompanyDetailsEdit(isEdit)
+  }
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <Input labelType={LabelStyleType.Static} label='ИНН юр.лица*' />
+        {!isCompanyDetailsEdit && <CompanyField name={'inn'}  label='ИНН юр.лица*' onChange={handleChangeCompanyByInn} validate={Validator.required}/>}
+        {(formik.values.inn || formik.values.company) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company} />}
         <FileField
           name='licenseScan'
           accept={[FileUploadAcceptType.Image, FileUploadAcceptType.Document]}
@@ -50,11 +69,8 @@ export default function DataStep(props: Props) {
             ломозаготовителя на своем устройстве</div>}
         />
         <div className={styles.address}>
-          <TextField placeholder='Город' name='address' label='Адрес пункта приёма*' validate={Validator.required} />
-          <div className={styles.bottom}>
-            <TextField className={styles.input} placeholder='Улица' name='street' validate={Validator.required} />
-            <TextField className={styles.input} placeholder='Номер дома' isNumbersOnly name='number' validate={Validator.required} />
-          </div>
+          <AddressField name={'address'} label={'Адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
+          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
           <FieldArray name='phones'>
             {arrayHelpers => (
               <>

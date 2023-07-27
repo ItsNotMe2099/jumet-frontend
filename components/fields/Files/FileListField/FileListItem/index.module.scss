@@ -33,7 +33,7 @@ $height: 77px;
   &:hover{
     svg{
       path{
-        fill: $red;
+        fill: $blue500;
       }
     }
   }
@@ -42,5 +42,5 @@ $height: 77px;
 .error{
   font-size: 11px;
   margin-top: 4px;
-  color: $red;
+  color: $red500;
 }

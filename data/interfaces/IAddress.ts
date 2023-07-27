@@ -1,14 +1,12 @@
 import {ILocation} from '@/data/interfaces/ILocation'
 
 export interface IAddress {
-  address: string
-  city: string
-  street: string
-  house: string
-  entrance: string
-  floor: string
-  apartment: string
-  intercomCode: string
-  comment: string
-  location: ILocation
+  address?: string | null
+  city?: string | null
+  region?: string | null
+  street?: string | null
+  house?: string | null
+  entrance?: string | null
+  floor?: string | null
+  location?: ILocation | null
 }

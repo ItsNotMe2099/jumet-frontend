@@ -1,4 +1,4 @@
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/PersonnelStep/index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
@@ -40,12 +40,12 @@ export default function PersonnelStep(props: Props) {
             <>
               {formik.values.items.map((item, index) => (
                 <>
-                  <TextField
+                  <InputField
                     label={'Имя и фамилия сотрудника'}
                     name={`items[${index}].name`}
                     validate={Validator.required}
                   />
-                  <TextField
+                  <InputField
                     label={'Email сотрудника'}
                     name={`items[${index}].email`}
                     validate={Validator.combine([Validator.required, Validator.email])}

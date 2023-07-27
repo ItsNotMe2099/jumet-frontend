@@ -8,3 +8,7 @@ export interface OtpCodeModalArguments extends ISendCodeResponse{
     onCancel?: () => void
     onSendAgain: () => Promise<ISendCodeResponse>
 }
+export interface MapSelectorModalArguments {
+  onChange: (location: ILocation | null) => void,
+  location: ILocation | null
+}

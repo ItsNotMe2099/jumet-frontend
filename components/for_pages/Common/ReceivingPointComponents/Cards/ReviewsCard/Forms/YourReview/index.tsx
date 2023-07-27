@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import TextField from '@/components/fields/InputField'
+import InputField from '@/components/fields/InputField'
 import StarRatingsField from '@/components/fields/StarRatingsField'
 
 
@@ -31,7 +31,7 @@ export default function YourReviewForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <TextField
+        <InputField
           validate={Validator.required}
           name='text'
           label='Ваш отзыв'

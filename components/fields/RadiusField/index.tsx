@@ -5,7 +5,7 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import FieldError from '@/components/fields/FieldError'
 import TabsField from '@/components/fields/TabsField'
-import TextField from '@/components/fields/TextField'
+import InputField from '@/components/fields/InputField'
 interface IFormData {
   radius?: number | null,
   radiusCustom?: number | null
@@ -56,7 +56,7 @@ export default function RadiusField<T>(props: Props<T>) {
     <FormikProvider<IFormData> value={formik}>
       <Form className={classNames(styles.root, props.className)}>
       <TabsField<number> label={props.label}  options={options} name={'radius'} onChange={handleChangeTab}/>
-      <TextField
+      <InputField
         suffix={'км'}
         placeholder='Свой радиус поиска'
         isNumbersOnly
