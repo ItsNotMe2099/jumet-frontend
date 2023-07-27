@@ -1,0 +1,59 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.address {
+    @include btnText;
+    color: $dark500;
+}
+
+.info {
+    display: flex;
+    @include list(8px, true);
+}
+
+.badge {
+    padding: 12px;
+    background-color: $grey200;
+    border-radius: 12px;
+}
+
+.desc {
+    @include mainText;
+    color: $dark500;
+    width: 50%;
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+}
+
+.right {
+    display: flex;
+    @include list(12px, true);
+}
+
+.btn {
+    color: $blue500;
+}
+
+.additional {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.inner {
+    display: flex;
+    @include list(12px, true);
+}
+
+.date {
+    @include secondaryText;
+    color: $grey500;
+}

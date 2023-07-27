@@ -19,8 +19,9 @@ export const points = {
           phone: '+ 7 (495) 256-16-17', rating: 3, date: '22.01.2022г.',
           answer: '',
           comment: 'Хорошая точка для сдачи лома. Есть доставка и погрузка. Цены одни из высоких в городе. '
-        }
+        },
       ],
+      createdAt: "2023-07-27T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -57,6 +58,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 5,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -93,6 +95,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -129,6 +132,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -165,6 +169,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 0,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -201,6 +206,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 5,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -237,6 +243,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -273,6 +280,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -309,6 +317,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
@@ -345,6 +354,7 @@ export const points = {
       license: 'http://ncz.tj/system/files/Legislation/2_ru.pdf', dealsPerMonth: 10,
       zones: [{ id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }, { id: 1, distance: 'От 1 до 20 км', price: '1 000 ₽/т' }],
       photos: [], reviews: [],
+      createdAt: "2023-07-21T13:26:05.498Z",
       employees: [
         {
           id: '1',
