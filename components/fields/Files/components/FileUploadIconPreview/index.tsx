@@ -25,7 +25,7 @@ interface Props {
 
 export default function FileUploadIconPreview(props: Props) {
   const [avatarRef, press, hover] = usePressAndHover()
-  const getIcon = (): ReactElement => {
+  const getIcon = (): ReactElement | null => {
     if(props.icon){
       return props.icon
     }
