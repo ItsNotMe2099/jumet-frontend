@@ -8,6 +8,7 @@ import { useState } from 'react'
 import classNames from 'classnames'
 import { points } from '@/data/temp/points'
 import SuggestionCard from '@/components/for_pages/suggestions-for-sale-request/SuggestionCard'
+import SideCard from '@/components/for_pages/suggestions-for-sale-request/SideCard'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -16,6 +17,8 @@ interface Props {
 export default function SuggestionsForSaleRequest({ saleRequest }: Props) {
 
   const [status, setStatus] = useState<'all' | 'new' | 'familiar' | 'declined'>('all')
+
+  console.log(saleRequest)
 
 
 
@@ -57,7 +60,7 @@ export default function SuggestionsForSaleRequest({ saleRequest }: Props) {
             )}
           </div>
           <div className={styles.side}>
-            
+            <SideCard item={saleRequest} />
           </div>
         </div>
       </div>

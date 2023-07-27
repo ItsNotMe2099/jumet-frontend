@@ -51,9 +51,18 @@
 .inner {
     display: flex;
     @include list(12px, true);
+    align-items: center;
 }
 
 .date {
     @include secondaryText;
     color: $grey500;
+}
+
+.new {
+    padding: 3px 12px;
+    background-color: $blue500;
+    color: $white;
+    @include secondaryText;
+    border-radius: 24px;
 }

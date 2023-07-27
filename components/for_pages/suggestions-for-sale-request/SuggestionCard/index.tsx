@@ -6,6 +6,7 @@ import ChatSvg from '@/components/svg/ChatSvg'
 import { colors } from '@/styles/variables'
 import { format } from 'date-fns'
 import { ru } from 'date-fns/locale'
+import isToday from 'date-fns/isToday'
 
 interface Props {
   point: any//IReceivingPoint
@@ -13,6 +14,13 @@ interface Props {
 }
 
 export default function SuggestionCard({ point, suggestion }: Props) {
+
+  const createdAtDate = new Date(point.createdAt)
+  const today = isToday(createdAtDate)
+
+  const formatDate = today
+    ? format(createdAtDate, 'HH:mm', { locale: ru })
+    : format(createdAtDate, 'dd MMMM', { locale: ru })
 
   const badges = [
     { text: `${point.price} ₽/т` },
@@ -22,11 +30,12 @@ export default function SuggestionCard({ point, suggestion }: Props) {
 
   return (
     <CardLayout title={point.title as string} contentClassName={styles.additional} additionalEl={
-    <div className={styles.inner}>
-      <div className={styles.date}>
-        {format(new Date(point.createdAt), 'dd MMMM', { locale: ru })}
+      <div className={styles.inner}>
+        {today && <div className={styles.new}>Новое предложение</div>}
+        <div className={styles.date}>
+          {today ? 'Сегодня ' + formatDate : formatDate}
+        </div>
       </div>
-    </div>
     }>
       <div className={styles.root}>
         <div className={styles.address}>

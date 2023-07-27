@@ -1,0 +1,33 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+
+    .item {
+        display: flex;
+        flex-direction: column-reverse;
+        @include list(4px, false);
+    }
+}
+
+.top {
+    color: $dark500;
+    @include btnText;
+}
+
+.bottom {
+    color: $grey500;
+    @include secondaryText;
+}
+
+.btn {
+    color: $blue500;
+}
