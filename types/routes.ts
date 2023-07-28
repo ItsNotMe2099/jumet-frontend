@@ -28,8 +28,15 @@ export class Routes {
     return '/'
   }
 
-  static get sales() {
-    return '/scrap-for-sale'
+  static receivingPoint(id: number) {
+    return `/receiving-point/${id}`
+  }
+
+  static get saleRequests() {
+    return '/sale-requests'
+  }
+  static saleRequest(id: string) {
+    return `/sales-requests/${id}`
   }
 
 
@@ -43,11 +50,17 @@ export class Routes {
   static get lkMyRepresentatives() {
     return '/lk/representatives'
   }
-  static get lkSalesApplications() {
-    return '/lk/my-sale-requests'
+  static get lkSaleRequests() {
+    return '/lk/sale-requests'
   }
-  static get lkSalesCreate () {
-    return '/my-sale-requests'
+  static lkSaleRequest(id: number | string) {
+    return `/lk/sale-requests/${id}`
+  }
+  static lkSaleRequestEdit(id: number | string) {
+    return `/lk/sale-requests/edit/${id}`
+  }
+  static get lkSaleRequestCreate () {
+    return '/lk/sale-requests/create'
   }
 
   static get lkEmployees() {
@@ -60,7 +73,7 @@ export class Routes {
   static lkReceivingPoint(id: string | number) {
     return `/lk/receiving-points/${id}`
   }
-  static  lkReceivingPointInfo(id: string | number) {
+  static  lkReceivingPointEdtInfo(id: string | number) {
     return `${this.lkReceivingPoint(id)}/info`
   }
   static  lkReceivingPointEmployees(id: string | number) {

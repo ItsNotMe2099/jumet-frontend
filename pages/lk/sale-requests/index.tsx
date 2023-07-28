@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
+import styles from 'pages/lk/sale-requests/index.module.scss'
 import { useState, useEffect } from 'react'
 import classNames from 'classnames'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
@@ -11,7 +11,7 @@ interface Props {
 
 }
 
-export default function MySaleRequests(props: Props) {
+export default function LkSalesRequestsPage(props: Props) {
 
   const [status, setStatus] = useState<'active' | 'completed'>('active')
   const [data, setData] = useState<ISaleRequest[]>([])

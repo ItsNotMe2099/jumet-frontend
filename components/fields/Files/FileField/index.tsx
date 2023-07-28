@@ -21,6 +21,7 @@ interface Props extends IField<IFile | null> {
   accept?: FileUploadAcceptType[]
   text?: React.ReactNode
   label?: string
+  maxSize?: number
 }
 
 export default function FileField(props: Props) {
@@ -68,6 +69,7 @@ export default function FileField(props: Props) {
       setError(fileRejections[0].errors[0].message)
     }
   }
+
   const onDrop = async (acceptedFiles: File[],
     fileRejections: FileRejection[],
     event: DropEvent) => {
@@ -110,6 +112,7 @@ export default function FileField(props: Props) {
     <div className={styles.container}>
       {props.label ? <div className={styles.label}>{props.label}</div> : null}
       <div className={styles.root} {...getRootProps()} data-field={props.name}>
+        <input {...getInputProps()} />
         <FileUploadPreview
           isImage={props.isImage ?? false}
           labelLoading={props.labelLoading}

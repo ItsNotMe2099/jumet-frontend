@@ -12,7 +12,6 @@ import FieldError from 'components/fields/FieldError'
 import EyeSvg from '@/components/svg/EyeSvg'
 import {colors} from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
-import Formatter from '@/utils/formatter'
 
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv' | 'number' | 'price' | 'weight'
 
@@ -28,7 +27,7 @@ export interface InputFieldProps extends IField<string | number> {
   prefix?: string | ReactElement
   prefixClassName?: string
   suffixClassName?: string
-  onChange?: (val: string | number | null) => void
+  onChange?: (val: string) => void
   noAutoComplete?: boolean
   max?: number,
   min?: number
@@ -60,22 +59,6 @@ const getInitialPatternFromFormat = (format: FormatType | undefined) => {
         return null
     }
 }
-const formatValue = (format: FormatType, value: string | number | null) => {
-  switch (format){
-    case 'phone':
-      return value ? Formatter.cleanPhone(`${value}`) : null
-    case 'number':
-    case 'price':
-    case 'weight':
-      return value ? parseInt(`${value}`.replace(/\D+/g, ''), 10) : null
-    case 'cardExpiry':
-    case 'cardPan':
-    case 'cardCvv':
-    case 'phoneAndEmail':
-    default:
-      return value
-  }
-}
 export default function InputField(props: Props) {
 
   const [focused, setFocus] = useState(false)
@@ -84,19 +67,16 @@ export default function InputField(props: Props) {
   const [phoneIsValid, setPhoneIsValid] = useState(false)
   const [pattern, setPattern] = useState<string | null | NumberConstructor>(getInitialPatternFromFormat(props.format))
   const showError = meta.touched && !!meta.error && !focused
+  console.log('pattern', pattern)
   const {ref, maskRef} = useIMask({mask: pattern as any || /.*/, ...(props.format && ['number', 'price', 'weight'].includes(props.format) ? {
       mask: Number,
+      thousandsSeparator: ' ',
       max: props.max ?? 10000,
       min: props.min ?? 0,
 
     } : {})}, {onAccept: (value) => {
-      const formatted = formatValue(props.format!, value as string | null)
-      console.log('formatted', formatted, ':', value)
-      helpers.setValue(formatted)
-      props.onChange?.(formatted)
-      setTimeout(() => {
-        maskRef.current?.updateValue()
-      }, 50)
+      helpers.setValue(value)
+      props.onChange?.(value)
     }})
   const autoCompleteProps: any = props.noAutoComplete ? {autoComplete: 'off', autoCorrect: 'off'} : {}
   useEffect(() => {
@@ -192,10 +172,6 @@ export default function InputField(props: Props) {
               [styles.withSuffix]: !!props.suffix,
               [styles.withPrefix]: !!props.prefix,
             })}
-            {...!props.format ? {onChange: (e) => {
-              field.onChange(e)
-              props.onChange?.(e.currentTarget.value)
-              }} : {}}
             placeholder={props.placeholder}
             onFocus={(e) => {
 

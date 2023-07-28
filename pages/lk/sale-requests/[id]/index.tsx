@@ -1,5 +1,5 @@
 import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
+import styles from 'pages/lk/sale-requests/[id]/index.module.scss'
 import { GetServerSideProps } from 'next'
 import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
@@ -14,7 +14,7 @@ interface Props {
   saleRequest: ISaleRequest
 }
 
-export default function SuggestionsForSaleRequest({ saleRequest }: Props) {
+export default function LkSaleRequestPage({ saleRequest }: Props) {
 
   const [status, setStatus] = useState<'all' | 'new' | 'familiar' | 'declined'>('all')
 

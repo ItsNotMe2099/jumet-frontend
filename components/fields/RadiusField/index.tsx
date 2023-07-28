@@ -46,8 +46,8 @@ export default function RadiusField<T>(props: Props<T>) {
     formik.setFieldValue('radiusCustom', '')
   }
 
-  const handleChangeCustom = (radius: string) => {
-    helpers.setValue(parseInt(radius, 10))
+  const handleChangeCustom = (radius: number | null) => {
+    helpers.setValue(radius)
     formik.setFieldValue('radius', null)
   }
 
@@ -59,9 +59,9 @@ export default function RadiusField<T>(props: Props<T>) {
       <InputField
         suffix={'км'}
         placeholder='Свой радиус поиска'
-        type={'number'}
+        format={'number'}
         name={'radiusCustom'}
-        onChange={handleChangeCustom}/>
+        onChange={(val) => handleChangeCustom(val as number | null)}/>
       <FieldError className={props.errorClassName} showError={showError}>{meta.error}</FieldError>
       </Form>
     </FormikProvider>

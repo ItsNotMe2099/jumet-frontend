@@ -2,13 +2,13 @@ import InputField from '@/components/fields/InputField'
 import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DeliveryZonesStep/index.module.scss'
 import { FieldArray, Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
-import { useState } from 'react'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import { colors } from '@/styles/variables'
 import FormStepFooter from '@/components/ui/FormStepFooter'
 import {IFormStepProps} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import {IDeliveryArea} from '@/data/interfaces/IDeliveryArea'
 
 
 interface Props extends IFormStepProps<IReceivingPoint>{
@@ -16,24 +16,19 @@ interface Props extends IFormStepProps<IReceivingPoint>{
 }
 
 interface IFormData {
-  name: string
-  price: string
-  distanceFrom: string
-  distanceTo: string
-  coordinates: { lat: '', lng: '' }
+  deliveryAreas: IDeliveryArea[]
 }
 
 export default function DeliveryZoneStep(props: Props) {
 
-  const handleSubmit = async (/*data*/) => {
-
+  const handleSubmit = async (data: IFormData) => {
+    await props.onSubmit(data)
   }
 
-  const [formData, setFormData] = useState<IFormData[]>([])
 
-  const initialValues = {
-    items: [
-      { name: '', price: '', distanceFrom: '', distanceTo: '' },
+  const initialValues: IFormData = {
+    deliveryAreas: [
+      { name: null, deliveryPricePerTon: null, fromDistance: null, toDistance: null },
     ],
   }
 
@@ -42,22 +37,17 @@ export default function DeliveryZoneStep(props: Props) {
     onSubmit: handleSubmit
   })
 
-  const handleMapClick = (e: ymaps.Event) => {
-    const lat = e.get('coords')[0]
-    const lng = e.get('coords')[1]
-    formik.setFieldValue('coordinates', { lat, lng })
-  }
 
   console.log('formik.values', formik.values)
 
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <FieldArray name='items'>
+        <FieldArray name='deliveryAreas'>
           {arrayHelpers => (
             <>
               <div className={styles.items}>
-                {formik.values.items.map((item, index) => (
+                {formik.values.deliveryAreas.map((item, index) => (
                   <div key={index} className={styles.item}>
                     <div className={styles.number}>
                       Зона доставки {index + 1}
@@ -65,7 +55,7 @@ export default function DeliveryZoneStep(props: Props) {
                     <InputField
                       key={index}
                       label={'Название зоны доставки'}
-                      name={`items[${index}].name`}
+                      name={`deliveryAreas[${index}].name`}
                       validate={Validator.required}
                     />
                     <div className={styles.distance}>
@@ -75,19 +65,19 @@ export default function DeliveryZoneStep(props: Props) {
                       <div className={styles.from}>
                         <InputField
                           key={index}
-                          name={`items[${index}].distanceFrom`}
+                          name={`deliveryAreas[${index}].fromDistance`}
                           validate={Validator.required}
                           suffix='км'
+                          format={'number'}
                           placeholder='От'
-                          type={'number'}
                         />
                         <InputField
                           key={index}
-                          name={`items[${index}].distanceTo`}
+                          name={`deliveryAreas[${index}].toDistance`}
                           validate={Validator.required}
+                          format={'number'}
                           suffix='км'
                           placeholder='До'
-                          type={'number'}
                         />
                       </div>
                     </div>
@@ -95,13 +85,14 @@ export default function DeliveryZoneStep(props: Props) {
                       key={index}
                       label={'Стоимость доставки, ₽'}
                       suffix='за тонну'
-                      name={`items[${index}].price`}
+                      format={'price'}
+                      name={`deliveryAreas[${index}].deliveryPricePerTon`}
                       validate={Validator.required}
                     />
                   </div>
                 ))}
               </div>
-              <Button onClick={() => arrayHelpers.push({ name: '', price: '', distance: '' })} type='button' className={styles.add} styleType='large' color='grey'>
+              <Button onClick={() => arrayHelpers.push({ name: null, deliveryPricePerTon: null, fromDistance: null, toDistance: null })} type='button' className={styles.add} styleType='large' color='grey'>
                 <CirclePlusSvg color={colors.blue500} />
                 Добавить еще зону доставки
               </Button>

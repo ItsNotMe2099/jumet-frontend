@@ -131,7 +131,7 @@ export default function ReceivingPointCreateForm(props: Props) {
       try{
         const res = await ReceivingPointOwnerRepository.create(data)
         setReceivingPoint(i => ({...i, ...res}))
-        await router.push('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(receivingPoint!.id, steps[currentStepIndex + 1].key), {
+        await router.replace('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(res!.id, steps[currentStepIndex + 1].key), {
           shallow: true
         })
       }catch (err) {

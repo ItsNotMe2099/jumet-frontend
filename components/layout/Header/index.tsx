@@ -30,15 +30,15 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
 
   const menuNotAuth = [
     { link: Routes.receivingPoints, label: 'Пункты приёма лома' },
-    { link: Routes.sales, label: 'Лом на продажу' },
+    { link: Routes.saleRequests, label: 'Лом на продажу' },
   ]
 
   const menuAuth = appContext.aboutMe?.role === UserRole.Seller ? [
     { link: Routes.receivingPoints, label: 'Пункты приёма лома' },
-    { link: Routes.lkSalesApplications, label: 'Мои заявки на продажу' },
+    { link: Routes.lkSaleRequests, label: 'Мои заявки на продажу' },
     { link: Routes.lkDeals, label: 'Сделки' },
   ] : [
-    { link: Routes.sales, label: 'Лом на продажу' },
+    { link: Routes.saleRequests, label: 'Лом на продажу' },
     { link: Routes.lkDeals, label: 'Сделки' },
   ]
 
@@ -82,10 +82,10 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
               <IconButton bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
               <ProfileMenu/>
             </div>}
-            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.sales} className={styles.btn} styleType='large' color='blue'>
+            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.saleRequests} className={styles.btn} styleType='large' color='blue'>
               Купить лом
             </Button>}
-            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.lkSalesCreate} className={styles.btn} styleType='large' color='blue'>
+            {appContext.isLogged && appContext.aboutMe?.role === UserRole.Seller && <Button href={Routes.lkSaleRequestCreate} className={styles.btn} styleType='large' color='blue'>
               Продать лом
             </Button>}
             {!appContext.isLogged && <>

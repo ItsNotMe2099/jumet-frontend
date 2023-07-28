@@ -6,13 +6,17 @@ import {IField} from '@/types/types'
 import FieldError from '@/components/fields/FieldError'
 import {ICompany, LegalType} from '@/data/interfaces/ICompany'
 import {PartySuggestions} from 'react-dadata'
+import {useEffect, useRef} from 'react'
 interface Props extends IField<ICompany | null>{
   query?: any
   onChange?: (val: ICompany | null) => void
 }
 export default function CompanyField(props: Props) {
   const [field, meta, helpers] = useField(props as any)
+  const suggestionRef = useRef<PartySuggestions | null>(null)
+  useEffect(() => {
 
+  }, [field.value])
   const handleChange = (val: any) => {
     console.log('SetVal', val)
     if(!val){
@@ -30,6 +34,7 @@ export default function CompanyField(props: Props) {
     }
     helpers.setValue(newCompany)
     props.onChange?.(newCompany)
+    suggestionRef.current?.setInputValue(newCompany.inn!)
   }
     const showError = !!meta.error && meta.touched
   return (
@@ -39,7 +44,7 @@ export default function CompanyField(props: Props) {
           {props.label}
         </div>
       }
-      <PartySuggestions currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{className: classNames({
+      <PartySuggestions ref={suggestionRef} value={field.value?.inn ?? field.value} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{className: classNames({
           [styles.input]: true,
           [styles.inputError]: showError,
         })}} onChange={handleChange} token={runtimeConfig.DADATA_KEY} />

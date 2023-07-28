@@ -1,12 +1,12 @@
 import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
+import styles from 'pages/lk/sale-requests/create/index.module.scss'
 import CreateSaleRequestForm from '@/components/for_pages/create-sale-request/Form'
 
 interface Props {
 
 }
 
-export default function CreateSaleRequest(props: Props) {
+export default function LkSaleRequestPage(props: Props) {
 
   return (
     <Layout>

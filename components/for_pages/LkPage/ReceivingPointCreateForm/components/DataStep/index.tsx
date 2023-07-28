@@ -20,6 +20,7 @@ import {IFormStepProps} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ILocation} from '@/data/interfaces/ILocation'
 import IFile from '@/data/interfaces/IFile'
+import Formatter from '@/utils/formatter'
 
 interface IFormData {
   inn?: string | null
@@ -41,7 +42,7 @@ export default function DataStep(props: Props) {
     props.onSubmit({
       name: data.address?.address,
       company: {...data.company, licenseScan: data.licenseScan},
-      phones: data.phones?.map(i => i.phone),
+      phones: data.phones?.map(i => Formatter.cleanPhone(i.phone)),
       location: data.location,
       address: data.address,
 
@@ -93,6 +94,7 @@ export default function DataStep(props: Props) {
           label='Лицензия ломозаготовителя*'
           validate={Validator.required}
           vertical
+          isImage={true}
           text={<div className={styles.text}>Перетащите сюда или <span>выберите фото</span> лицензии<br />
             ломозаготовителя на своем устройстве</div>}
         />

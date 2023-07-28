@@ -21,9 +21,7 @@ interface Props {
 
 }
 
-
-
-const ScrapForSaleWrapper = (props: Props) => {
+const SaleRequestsPageWrapper = (props: Props) => {
 
   const appContext = useAppContext()
 
@@ -109,8 +107,8 @@ const ScrapForSaleWrapper = (props: Props) => {
   )
 }
 
-export default function ScrapForSale() {
+export default function SaleRequestsPage() {
   return (<SaleRequestSearchWrapper>
-    <ScrapForSaleWrapper />
+    <SaleRequestsPageWrapper />
   </SaleRequestSearchWrapper>)
 }

@@ -11,7 +11,7 @@ interface Props {
 
 }
 
-export default function ProfileSettingsPage(props: Props) {
+export default function LkRepresentativesPage(props: Props) {
   const appContext = useAppContext()
   const menu = <LkMenuSeller/>
 
