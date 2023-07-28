@@ -1,0 +1,49 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+    padding: 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.top {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.title {
+    @include h2;
+}
+
+.address {
+    @include btnText;
+    margin-top: 16px;
+}
+
+.map {
+    margin-top: 24px;
+
+    :global {
+        .ymaps-2-1-79-map {
+            width: 100% !important;
+            height: 328px !important;
+        }
+    }
+
+    @include mq($PhoneWidth, max) {
+        :global {
+            .ymaps-2-1-79-map {
+                width: 100% !important;
+                height: 210px !important;
+            }
+        }
+    }
+}
+
+.internal {
+    width: 100%;
+}
