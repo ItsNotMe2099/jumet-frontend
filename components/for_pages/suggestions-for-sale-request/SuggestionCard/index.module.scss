@@ -14,28 +14,66 @@
 .info {
     display: flex;
     @include list(8px, true);
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        @include list(8px, false);
+    }
 }
 
 .badge {
     padding: 12px;
     background-color: $grey200;
     border-radius: 12px;
+
+    @include mq($PhoneWidth, max) {
+        align-self: flex-start;
+    }
 }
 
 .desc {
     @include mainText;
     color: $dark500;
     width: 50%;
+
+    @include mq(704px, max) {
+        width: 100%;
+    }
 }
 
 .controls {
     display: flex;
     justify-content: space-between;
+
+    @include mq(704px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
 }
 
 .right {
     display: flex;
     @include list(12px, true);
+
+    @include mq(704px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+
+    button {
+        height: 40px;
+    }
+}
+
+.left {
+    .btn {
+        width: 100%;
+        height: 40px;
+    }
+
+    @include mq(704px, max) {
+        margin: 20px 0 0 0;
+    }
 }
 
 .btn {
@@ -65,4 +103,11 @@
     color: $white;
     @include secondaryText;
     border-radius: 24px;
+}
+
+.top {
+    @include mq($PhoneWidth, max) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
 }

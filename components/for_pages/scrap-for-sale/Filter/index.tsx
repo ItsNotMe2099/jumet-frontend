@@ -32,12 +32,15 @@ interface Props {
   title: string
   viewType: ListViewType
   onSetViewType: (viewType: ListViewType) => void
+  loaded?: boolean
 }
 
 export default function Filter(props: Props) {
   const searchContext = useSaleRequestSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
+
+  console.log('LOADED', props.loaded)
 
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState<boolean>(false)
   const initValuesRef = useRef<boolean>(false)
@@ -119,7 +122,7 @@ export default function Filter(props: Props) {
               <FilterComponent title='Поиск по номеру заявки' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
                 <InputField
                   type={'number'}
-                  prefix={<SearchSvg color={colors.grey400}/>}
+                  prefix={<SearchSvg color={colors.grey400} />}
                   name={'id'} />
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>

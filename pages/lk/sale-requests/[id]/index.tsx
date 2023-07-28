@@ -33,24 +33,26 @@ export default function LkSaleRequestPage({ saleRequest }: Props) {
           Заявка №245 от {format(new Date(saleRequest.createdAt), 'dd.MM.yyyy')}
         </div>
         <div className={styles.switch}>
-          <div onClick={() => setStatus('all')} className={classNames(styles.status, { [styles.active]: status === 'all' })}>
-            Все предложения
-            {status === 'all' && <div className={styles.line} />}
-          </div>
-          <div onClick={() => setStatus('new')}
-            className={classNames(styles.status, { [styles.active]: status === 'new' })}>
-            Новые
-            {status === 'new' && <div className={styles.line} />}
-          </div>
-          <div onClick={() => setStatus('familiar')}
-            className={classNames(styles.status, { [styles.active]: status === 'familiar' })}>
-            Знакомые
-            {status === 'familiar' && <div className={styles.line} />}
-          </div>
-          <div onClick={() => setStatus('declined')}
-            className={classNames(styles.status, { [styles.active]: status === 'declined' })}>
-            Отклоненные
-            {status === 'declined' && <div className={styles.line} />}
+          <div className={styles.wrapper}>
+            <div onClick={() => setStatus('all')} className={classNames(styles.status, { [styles.active]: status === 'all' })}>
+              Все предложения
+              {status === 'all' && <div className={styles.line} />}
+            </div>
+            <div onClick={() => setStatus('new')}
+              className={classNames(styles.status, { [styles.active]: status === 'new' })}>
+              Новые
+              {status === 'new' && <div className={styles.line} />}
+            </div>
+            <div onClick={() => setStatus('familiar')}
+              className={classNames(styles.status, { [styles.active]: status === 'familiar' })}>
+              Знакомые
+              {status === 'familiar' && <div className={styles.line} />}
+            </div>
+            <div onClick={() => setStatus('declined')}
+              className={classNames(styles.status, { [styles.active]: status === 'declined' })}>
+              Отклоненные
+              {status === 'declined' && <div className={styles.line} />}
+            </div>
           </div>
         </div>
         <div className={styles.container}>

@@ -11,6 +11,10 @@
     display: flex;
     @include list(32px, true);
     margin-top: 24px;
+
+    @include mq(1064px, max) {
+        flex-direction: column-reverse;
+    }
 }
 
 .title {
@@ -20,16 +24,13 @@
 
 .switch {
     margin-top: 32px;
-    display: flex;
-    border-bottom: 1px solid $grey400;
-    padding-bottom: 8px;
-    @include list(20px, true);
 }
 
 .status {
     cursor: pointer;
     color: $grey500;
     @include mainText;
+    white-space: nowrap;
 }
 
 .active {
@@ -50,4 +51,19 @@
     display: flex;
     flex-direction: column;
     @include list(12px, false);
+}
+
+.side {
+    margin-left: 0;
+    margin-bottom: 16px;
+}
+
+.wrapper {
+    display: flex;
+    border-bottom: 1px solid $grey400;
+    padding-bottom: 8px;
+    @include list(20px, true);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    @include scroll_hide;
 }

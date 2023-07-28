@@ -29,7 +29,7 @@ export default function SuggestionCard({ point, suggestion }: Props) {
   ]
 
   return (
-    <CardLayout title={point.title as string} contentClassName={styles.additional} additionalEl={
+    <CardLayout topClassName={styles.top} title={point.title as string} contentClassName={styles.additional} additionalEl={
       <div className={styles.inner}>
         {today && <div className={styles.new}>Новое предложение</div>}
         <div className={styles.date}>

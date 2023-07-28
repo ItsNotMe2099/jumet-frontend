@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
 import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
 import { colors } from '@/styles/variables'
@@ -13,9 +13,10 @@ import { ListViewType } from '@/types/types'
 import { useAppContext } from '@/context/state'
 import Sticky from 'react-stickynode'
 import Filter from '@/components/for_pages/scrap-for-sale/Filter'
-import { SaleRequestSearchWrapper, useSaleRequestSearchContext } from '@/context/sale_request_search_state'
+import { SaleRequestSearchWrapper } from '@/context/sale_request_search_state'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
-import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
+import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
+import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 
 interface Props {
 
@@ -31,17 +32,24 @@ const SaleRequestsPageWrapper = (props: Props) => {
 
   const [filterPrice, setFilterPrice] = useState<string>('low')
   const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
-  const searchContext = useSaleRequestSearchContext()
+  const [data, setData] = useState<ISaleRequest[]>([])
 
-  const data = [
-    {
-      weight: 11, id: 1, address: { address: 'г. Сергиев Посад, ул. Зои Космодемьянской, 32' },
-      scrapMetalCategory: ScrapMetalCategory.MIX3_12A, price: 200000,
-      photos: [
+  const fetchSaleRequests = async () => {
+    await SaleRequestRepository.search({
+      location: {
+        lat: 56.795132,
+        lng: 40.1633231
+      }
+    }).then(data => {
+      if (data) {
+        setData(data.data)
+      }
+    })
+  }
 
-      ]
-    }
-  ]
+  useEffect(() => {
+    fetchSaleRequests()
+  }, [])
 
   return (
     <Layout>

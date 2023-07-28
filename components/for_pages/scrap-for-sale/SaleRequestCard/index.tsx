@@ -37,7 +37,7 @@ export default function SaleRequestCard({ item }: Props) {
           </div>
         </div>
         <div className={styles.right}>
-          {item.photos.length > 0 && item.photos[0].source ?
+          {item.photos && item.photos[0].source ?
             <Image src={item.photos[0].source} alt='' fill />
             :
             <JumetSvg color={colors.white} />
