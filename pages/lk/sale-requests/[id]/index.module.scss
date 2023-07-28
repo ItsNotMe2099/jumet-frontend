@@ -54,8 +54,10 @@
 }
 
 .side {
-    margin-left: 0;
-    margin-bottom: 16px;
+    @include mq(1064px, max) {
+        margin-left: 0;
+        margin-bottom: 16px;
+    }
 }
 
 .wrapper {
