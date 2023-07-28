@@ -1,19 +1,10 @@
 import request from 'utils/request'
-import {DeepPartial, IPagination} from '@/types/types'
+import { IPagination} from '@/types/types'
 import {IDealOffer} from '@/data/interfaces/IDealOffer'
 import {IDealOfferListRequest} from '@/data/interfaces/IDealOfferListRequest'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 
 export default class DealOfferRepository {
-
-  static async ау(data: DeepPartial<IDealOffer>): Promise<IDealOffer> {
-    const res = await request<IDealOffer>({
-      method: 'post',
-      url: '/api/owner/deal-offer',
-      data
-    })
-    return res
-  }
 
   static async fetchBySaleRequestId(saleRequestId: number, data: IDealOfferListRequest): Promise<IPagination<IDealOffer>> {
     const res = await request<IPagination<IDealOffer>>({
@@ -23,6 +14,16 @@ export default class DealOfferRepository {
     })
     return res
   }
+
+  static async fetch(data: IDealOfferListRequest): Promise<IPagination<IDealOffer>> {
+    const res = await request<IPagination<IDealOffer>>({
+      method: 'post',
+      url: '/api/deal-offer',
+      data,
+    })
+    return res
+  }
+
   static async fetchById(id: number): Promise<IDealOffer> {
     const res = await request<IDealOffer>({
       method: 'post',
