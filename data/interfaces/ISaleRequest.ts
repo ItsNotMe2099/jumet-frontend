@@ -11,7 +11,7 @@ export interface ISaleRequest {
   location: ILocation
   photos: IFile[]
   photosIds: number[]
-  scrapMetalCategory: ScrapMetalCategory//IScrapMetalCategory
+  scrapMetalCategory: ScrapMetalCategory
   requiresDelivery: boolean
   requiresLoading: boolean
   contacts: any[]
@@ -20,6 +20,8 @@ export interface ISaleRequest {
   ownerId?: string
   price: number
   weight: number
+  offersCount: number
+  newOffersCount: number
   searchRadius: number
-  createdAt: Date
+  createdAt: string
 }

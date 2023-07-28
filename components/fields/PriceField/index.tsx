@@ -59,7 +59,7 @@ const getInitialPatternFromFormat = (format: FormatType | undefined) => {
         return null
     }
 }
-export default function InputField(props: Props) {
+export default function PriceField(props: Props) {
 
   const [focused, setFocus] = useState(false)
   const [obscureShow, setObscureShow] = useState(false)
