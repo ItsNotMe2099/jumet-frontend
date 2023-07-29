@@ -18,7 +18,6 @@ export default function LkSaleRequestPage({ saleRequest }: Props) {
 
   const [status, setStatus] = useState<'all' | 'new' | 'familiar' | 'declined'>('all')
 
-  console.log(saleRequest)
 
 
 

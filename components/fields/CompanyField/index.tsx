@@ -18,7 +18,6 @@ export default function CompanyField(props: Props) {
 
   }, [field.value])
   const handleChange = (val: any) => {
-    console.log('SetVal', val)
     if(!val){
       helpers.setValue(null)
       props.onChange?.(null)

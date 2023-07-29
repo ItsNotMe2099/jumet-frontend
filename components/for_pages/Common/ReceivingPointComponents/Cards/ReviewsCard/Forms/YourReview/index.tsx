@@ -26,7 +26,7 @@ export default function YourReviewForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <FormikProvider value={formik}>

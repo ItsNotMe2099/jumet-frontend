@@ -44,7 +44,6 @@ export default function PricesStep(props: Props) {
       scrapMetalCategories: data.scrapMetalCategories,
       prices
     }
-    console.log('newData', newData)
     props.onSubmit(newData)
   }
 
@@ -58,7 +57,7 @@ export default function PricesStep(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
   const mapCategories = useMemo<{[key: string]: IScrapMetalCategory}>(() => {
     const map: {[key: string]: IScrapMetalCategory} = {}
     dataContext.scrapMetalCategories.forEach(i => map[i.category] = i)

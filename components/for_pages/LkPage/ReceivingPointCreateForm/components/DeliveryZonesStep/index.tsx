@@ -40,7 +40,7 @@ export default function DeliveryZoneStep(props: Props) {
   })
 
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <FormikProvider value={formik}>

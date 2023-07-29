@@ -21,7 +21,6 @@ export default function OtpCodeField(props: Props) {
   const showError = meta.touched && !!meta.error
   const authContext = useAuthContext()
   const handleComplete = (value: string) => {
-    console.log('handleComplete', value)
     helpers.setValue(value)
     if (props.onComplete) {
       setTimeout(() => {

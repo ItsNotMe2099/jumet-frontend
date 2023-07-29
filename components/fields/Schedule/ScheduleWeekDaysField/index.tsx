@@ -33,8 +33,6 @@ export default function ScheduleWeekDaysField(props: Props) {
     ...ac,
     [a.value]: {active: true, startAt: null, finishAt: null}
   }), {}) as WorkDays
-  console.log('value11', value, days)
-
 
   const handleToggleActive = (day:IScheduleDay,active: boolean) => {
 

@@ -18,7 +18,7 @@ export default function LkPage(props: Props) {
 
   const token = Cookies.get('accessToken')
 
-  console.log('ROUTER', router.asPath)
+
 
   useEffect(() => {
     if (!token) {
@@ -29,7 +29,7 @@ export default function LkPage(props: Props) {
   return (
     <Layout>
       <LkLayout>
-        
+
       </LkLayout>
     </Layout>
   )

@@ -28,7 +28,7 @@ export default function BuyerRegForm(props: Props) {
       const res = await AuthRepository.buyerRegister(data)
       props.onComplete({ email: data.email })
     } catch (err) {
-      console.log('ErrIs', err instanceof RequestError)
+
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)
       }
@@ -50,7 +50,7 @@ export default function BuyerRegForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <FormikProvider value={formik}>

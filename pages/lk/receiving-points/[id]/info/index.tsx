@@ -27,7 +27,7 @@ export default function ReceivingPointInfoPage({ item }: Props) {
 
   const token = Cookies.get('accessToken')
 
-  console.log('ROUTER', router.asPath)
+
 
   useEffect(() => {
     if (!token) {

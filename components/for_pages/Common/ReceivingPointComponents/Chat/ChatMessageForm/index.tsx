@@ -28,8 +28,6 @@ export default function ChatMessageForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log(formik.values)
-
   const appContext = useAppContext()
 
   return (

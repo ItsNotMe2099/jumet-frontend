@@ -16,7 +16,7 @@ export default function ReceivingPointsPage(props: Props) {
 
   const token = Cookies.get('accessToken')
 
-  console.log('ROUTER', router.asPath)
+
 
   useEffect(() => {
     if (!token) {

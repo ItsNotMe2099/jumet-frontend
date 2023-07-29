@@ -40,8 +40,6 @@ export default function Filter(props: Props) {
   const dataContext = useDataContext()
   const appContext = useAppContext()
 
-  console.log('LOADED', props.loaded)
-
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState<boolean>(false)
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
@@ -75,8 +73,6 @@ export default function Filter(props: Props) {
       initValuesRef.current = true
       return
     }
-    console.log('ChangeFormikValue11', formik.values)
-
     searchContext.setFilter(formik.values)
   }, [formik.values])
   const viewTypeFilter = (<SwitchFilter<ViewType>
@@ -102,8 +98,6 @@ export default function Filter(props: Props) {
     { label: '20 км', value: 20 },
     { label: '50км', value: 50 },
   ]
-
-  console.log('FormkikValue', formik.values)
 
   return (
 

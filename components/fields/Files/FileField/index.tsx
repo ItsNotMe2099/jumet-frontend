@@ -42,11 +42,9 @@ export default function FileField(props: Props) {
     })
     return obj
   }, [props.accept])
-  console.log('dropzoneAccept', dropzoneAccept)
   const handleDelete = async () => {
     if (field.value) {
       try {
-        console.log('field.value', field.value)
         await FileRepository.deleteMyFile(field.value.id)
         helpers.setValue(null)
       } catch (err) {

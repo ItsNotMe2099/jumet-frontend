@@ -47,7 +47,7 @@ export default function LoginForm(props: Props) {
         appContext.showSnackbar('Token error', SnackbarType.error)
       }
     } catch (err) {
-      console.log('ErrIs', err instanceof RequestError)
+
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)
       }
@@ -70,7 +70,7 @@ export default function LoginForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
 
   return (

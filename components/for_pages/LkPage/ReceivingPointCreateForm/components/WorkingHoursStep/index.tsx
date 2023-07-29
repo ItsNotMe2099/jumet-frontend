@@ -68,7 +68,6 @@ export default function WorkingHoursStep(props: Props) {
         }
       }
     }
-    console.log('submitData', submitData, data)
     props.onSubmit(submitData)
 
   }
@@ -96,7 +95,7 @@ export default function WorkingHoursStep(props: Props) {
   })
 
 
-  console.log('formik.values', formik.values)
+
   const handle24HoursChange = (value: boolean) => {
     if(!value){
     return

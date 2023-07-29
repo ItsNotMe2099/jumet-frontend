@@ -88,8 +88,6 @@ async function request<T = any>(options: string | Options): Promise<T> {
     return jsonData
   }
 
-  console.log('Error URL: ', correctUrl)
-
   throw new RequestError(jsonData?.errors || res.statusText || 'Ошибка', res.status ?? 500)
 }
 

@@ -23,10 +23,7 @@ export default function RegLayout(props: Props) {
     { text: 'Режим работы и фото' }
   ]
 
-
   const router = useRouter()
-
-  console.log(router)
 
   return (
     <div className={styles.root}>

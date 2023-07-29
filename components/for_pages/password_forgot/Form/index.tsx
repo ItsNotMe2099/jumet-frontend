@@ -34,7 +34,7 @@ export default function PasswordForgotForm(props: Props) {
 
       router.push(Routes.passwordReset({login, code: res.code}))
     } catch (err) {
-      console.log('ErrIs', err instanceof RequestError)
+
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)
       }
@@ -55,7 +55,7 @@ export default function PasswordForgotForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
 
   return (

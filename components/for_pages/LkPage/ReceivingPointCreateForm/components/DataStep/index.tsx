@@ -38,7 +38,6 @@ interface Props extends IFormStepProps<DeepPartial<IReceivingPoint>>{
 export default function DataStep(props: Props) {
   const [isCompanyDetailsEdit, setIsCompanyDetailsEdit] = useState(false)
   const handleSubmit = async (data: IFormData) => {
-      console.log('SubmitData', data)
     props.onSubmit({
       name: data.address?.address,
       company: {...data.company, licenseScan: data.licenseScan},
@@ -69,7 +68,7 @@ export default function DataStep(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
   const handleChangeAddress = (address: IAddress | string | null) => {
     if( typeof address !== 'string' && address?.location) {
       formik.setFieldValue('location', address.location)

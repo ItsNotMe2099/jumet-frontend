@@ -21,7 +21,6 @@ export default function PriceCategoryFormSection(props: Props) {
   const prefix = `category_${props.category}.`
   const isDependsOnWeight = props.values['priceDependsOnWeight']
   const isDependsOnRubbish = props.values['priceDependsOnRubbish']
-  console.log('values', props.values)
   const handleChangePriceDependsOnWeight = (val: boolean) => {
     if(val && !props.values[`${prefix}pricesByWeight`]){
       props.setFieldValue(`${prefix}pricesByWeight`, [{minWeightInTons: null, maxWeightInTons: null, price: null}] )

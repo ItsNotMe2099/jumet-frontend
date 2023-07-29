@@ -17,7 +17,6 @@ export default function PhotosCard({ item, cardLayoutClass }: Props) {
   const imageRef = useRef<GallerySliderRef | null>(null)
 
   const handleChangeGallery = (index: number) => {
-    console.log('HandleChange', index)
     imageRef.current?.setSlide(index)
   }
 

@@ -67,7 +67,7 @@ export default function RepresentativeForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <div className={styles.root}>

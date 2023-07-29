@@ -31,7 +31,6 @@ export default function ProfileSellerForm(props: Props) {
   const [loading, setLoading] = useState<boolean>(false)
 
   const handleSubmit = async (data: IFormData) => {
-    console.log('Submit', omit(data, ['phone']))
     setLoading(true)
     try {
       const res = await CurrentUserRepository.update(omit(data, ['phone']))
@@ -58,7 +57,7 @@ export default function ProfileSellerForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <div className={styles.root}>

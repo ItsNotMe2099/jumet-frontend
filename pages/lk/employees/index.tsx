@@ -23,7 +23,7 @@ export default function EmpolyeesPage(props: Props) {
 
   const token = Cookies.get('accessToken')
 
-  console.log('ROUTER', router.asPath)
+
 
   useEffect(() => {
     if (!token) {
@@ -32,8 +32,6 @@ export default function EmpolyeesPage(props: Props) {
   }, [])
 
   const [employees, setEmployees] = useState<IUser[]>([])
-
-  console.log('employees', employees)
 
   const fetchEmployees = () => {
     BuyerRepository.fetchEmployees().then(data => {

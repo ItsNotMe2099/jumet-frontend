@@ -13,7 +13,6 @@ export default function OtpCodeSendAgain(props: Props) {
       props.onSendAgainClick()
     }
   }
-  console.log('props.remainSec', props.remainSec, )
     return (
       <div className={styles.root}>
         Код не пришел?<br/>

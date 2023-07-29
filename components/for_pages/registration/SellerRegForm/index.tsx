@@ -53,7 +53,7 @@ export default function SellerRegForm(props: Props) {
 
 
     } catch (err) {
-      console.log('ErrIs', err instanceof RequestError)
+
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)
       }
@@ -73,7 +73,7 @@ export default function SellerRegForm(props: Props) {
   })
 
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <FormikProvider value={formik}>

@@ -28,7 +28,6 @@ export default class Validator {
 
   static weekScheduleRequired(value: any): string | undefined {
     const keys = value ? Object.keys(value) : []
-    console.log('value122', value)
     for(const key of keys){
       if(value[key]?.active && value[key]?.startAt && value[key]?.finishAt){
         return undefined

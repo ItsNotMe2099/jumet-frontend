@@ -63,7 +63,6 @@ export default function MainFilter(props: Props) {
       initValuesRef.current = true
       return
     }
-    console.log('ChangeFormikValue11')
     searchContext.setFilter(formik.values)
   }, [formik.values])
   const viewTypeFilter = (<SwitchFilter<ViewType>
@@ -89,8 +88,6 @@ export default function MainFilter(props: Props) {
     { label: '20 км', value: 20 },
     { label: '50км', value: 50 },
   ]
-
-  console.log('FormkikValue', formik.values)
 
   return (
 

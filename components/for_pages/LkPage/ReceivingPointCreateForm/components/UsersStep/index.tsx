@@ -34,7 +34,7 @@ export default function UsersStep(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   return (
     <FormikProvider value={formik}>

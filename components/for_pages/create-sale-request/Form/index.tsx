@@ -92,7 +92,7 @@ export default function CreateSalesRequestForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  console.log('formik.values', formik.values)
+
 
   const scrapMetalCategories: IOption<string>[] = [
     ...dataContext.scrapMetalCategories.map(i => ({label: i.name, value: i.category, description: i.description})),
