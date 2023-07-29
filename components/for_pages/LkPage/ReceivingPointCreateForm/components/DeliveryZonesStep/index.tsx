@@ -9,6 +9,8 @@ import FormStepFooter from '@/components/ui/FormStepFooter'
 import {IFormStepProps} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {IDeliveryArea} from '@/data/interfaces/IDeliveryArea'
+import PriceField from '@/components/fields/PriceField'
+import DistanceField from '@/components/fields/DistanceField'
 
 
 interface Props extends IFormStepProps<IReceivingPoint>{
@@ -63,7 +65,7 @@ export default function DeliveryZoneStep(props: Props) {
                         Расстояние от пункта приёма
                       </div>
                       <div className={styles.from}>
-                        <InputField
+                        <DistanceField
                           key={index}
                           name={`deliveryAreas[${index}].fromDistance`}
                           validate={Validator.required}
@@ -71,7 +73,7 @@ export default function DeliveryZoneStep(props: Props) {
                           format={'number'}
                           placeholder='От'
                         />
-                        <InputField
+                        <DistanceField
                           key={index}
                           name={`deliveryAreas[${index}].toDistance`}
                           validate={Validator.required}
@@ -81,7 +83,7 @@ export default function DeliveryZoneStep(props: Props) {
                         />
                       </div>
                     </div>
-                    <InputField
+                    <PriceField
                       key={index}
                       label={'Стоимость доставки, ₽'}
                       suffix='за тонну'

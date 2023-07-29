@@ -12,7 +12,6 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
 import { IOption, ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
-import AddressYandexField from '@/components/fields/AddressYandexField'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
 import TabsField from '@/components/fields/TabsField'
@@ -21,6 +20,7 @@ import InputField from '@/components/fields/InputField'
 import { useAppContext } from '@/context/state'
 import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
+import AddressField from '@/components/fields/AddressField'
 
 interface IFormData extends IReceivingPointSearchRequest {
   radiusCustom?: number | null
@@ -107,8 +107,7 @@ export default function MainFilter(props: Props) {
             <div className={styles.filtersWrapper}>
 
               <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
-                <AddressYandexField
-                  hasAddress={!!searchContext.filter.location}
+                <AddressField
                   name={'address'}
                   placeholder='Город, улица, дом'
                 />

@@ -4,7 +4,6 @@ import { Form, FormikProvider, useFormik } from 'formik'
 import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
 import { useState } from 'react'
-import InputField from '@/components/fields/InputField'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
 import { useAppContext } from '@/context/state'
@@ -19,6 +18,8 @@ import AddressField from '@/components/fields/AddressField'
 import MapFullscreenField from '@/components/fields/MapFullscreenField'
 import {IAddress} from '@/data/interfaces/IAddress'
 import FileListField from '@/components/fields/Files/FileListField'
+import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
+import PriceField from '@/components/fields/PriceField'
 
 
 interface Props {
@@ -73,15 +74,16 @@ export default function CreateSalesRequestForm(props: Props) {
 
   const initialValues = {
     scrapMetalCategory: ScrapMetalCategory.None,
-    weight: 0,
+    weight: null,
     photosIds: [],
-    requeresDelivery: false,
-    requeresLoading: false,
+    requiresDelivery: false,
+    requiresLoading: false,
     address: null,
-    price: 0,
+    price: null,
     hasCustomPrice: false,
-    searchRadius: 0,
+    searchRadius: null,
     location: null,
+    radius: null,
     phones: []
   }
 
@@ -114,7 +116,7 @@ export default function CreateSalesRequestForm(props: Props) {
           options={scrapMetalCategories}
           styleType='default'
         />
-        <InputField type={'number'} name='weight' label='Вес лома' suffix={'тонн'} />
+        <WeightWithUnitField name='weight' label='Вес лома'  />
         <FileListField
           name='photos'
           label='Фотографии лома'
@@ -143,15 +145,15 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.switch}>
             <SwitchField name={'hasCustomPrice'} label={'Указать желаемую цену за лом'} />
           </div>
-          {formik.values.hasCustomPrice && <InputField type={'number'} name='price' suffix={'₽/т'} placeholder='Моя цена за лом' />}
+          {formik.values.hasCustomPrice && <PriceField name='price' suffix={'₽/т'} placeholder='Моя цена за лом' validate={Validator.required}/>}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
             Радиус поиска пунктов приёма
           </div>
-         <RadiusField name={'radius'}/>
+         <RadiusField name={'radius'} validate={Validator.required}/>
         </div>
-        <PhoneField styleType={InputStyleType.Default} name='phones[0]' label='Ваш телефон' />
+        <PhoneField styleType={InputStyleType.Default} name='phone' label='Ваш телефон' />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
           Создать заявку
         </Button>

@@ -13,7 +13,7 @@ interface Props {
   previewPath?: string
   vertical?: boolean
   progress: number
-  error?: string | null
+  error?: string
   labelLoading?: string
   onCancel?: () => void
   onDelete?: () => void

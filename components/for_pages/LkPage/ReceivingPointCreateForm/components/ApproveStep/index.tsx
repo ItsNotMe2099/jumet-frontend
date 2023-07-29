@@ -18,7 +18,7 @@ export default function ApproveStep(props: Props) {
         </>}
         additionalComp={() =>
           <Button className={styles.btn} styleType='large' color='blue'>
-            Войти
+            Открыть страницу пункта приема
           </Button>
         }
       />

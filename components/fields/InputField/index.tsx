@@ -14,9 +14,10 @@ import {colors} from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
 import Formatter from '@/utils/formatter'
 
+export type InputValueType<T> = T | null | undefined
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv' | 'number' | 'price' | 'weight'
 
-export interface InputFieldProps extends IField<string | number> {
+export interface InputFieldProps<T> extends IField<InputValueType<T>> {
   obscure?: boolean
   format?: FormatType
   blurValidate?: FieldValidator
@@ -28,14 +29,14 @@ export interface InputFieldProps extends IField<string | number> {
   prefix?: string | ReactElement
   prefixClassName?: string
   suffixClassName?: string
-  onChange?: (val: string | number | null) => void
+  onChange?: (val: InputValueType<T> ) => void
   noAutoComplete?: boolean
   max?: number,
   min?: number
+  formatValue?: (val: InputValueType<T>) => InputValueType<T>
+  parseValue?: (val: InputValueType<T>) => InputValueType<T>
 }
-interface Props extends InputFieldProps{
 
-}
 const defaultPhonePattern = '+0[00000000000000000000]'
 const defaultCardExpiryPattern = '00/00'
 const defaultCardPanPattern = '0000 0000 0000 0000000b gj'
@@ -60,23 +61,7 @@ const getInitialPatternFromFormat = (format: FormatType | undefined) => {
         return null
     }
 }
-const formatValue = (format: FormatType, value: string | number | null) => {
-  switch (format){
-    case 'phone':
-      return value ? Formatter.cleanPhone(`${value}`) : null
-    case 'number':
-    case 'price':
-    case 'weight':
-      return value ? parseInt(`${value}`.replace(/\D+/g, ''), 10) : null
-    case 'cardExpiry':
-    case 'cardPan':
-    case 'cardCvv':
-    case 'phoneAndEmail':
-    default:
-      return value
-  }
-}
-export default function InputField(props: Props) {
+export default function InputField<T extends string | number>(props: InputFieldProps<T>) {
 
   const [focused, setFocus] = useState(false)
   const [obscureShow, setObscureShow] = useState(false)
@@ -84,14 +69,36 @@ export default function InputField(props: Props) {
   const [phoneIsValid, setPhoneIsValid] = useState(false)
   const [pattern, setPattern] = useState<string | null | NumberConstructor>(getInitialPatternFromFormat(props.format))
   const showError = meta.touched && !!meta.error && !focused
+  const formatValue = (value: InputValueType<T>) => {
+    return props.formatValue ? props.formatValue(value) : value
+  }
+  const parseValue = (value: InputValueType<T>) => {
+    return props.parseValue ? props.parseValue(value) : value
+  }
+
+  const formatValueByType = (format: FormatType, value: InputValueType<T>): string | number | null | undefined => {
+    switch (format){
+      case 'phone':
+        return value ? Formatter.cleanPhone(`${value}`) : null
+      case 'number':
+      case 'price':
+      case 'weight':
+        return value ? parseInt(`${value}`.replace(/\D+/g, ''), 10) : null
+      case 'cardExpiry':
+      case 'cardPan':
+      case 'cardCvv':
+      case 'phoneAndEmail':
+      default:
+        return value
+    }
+  }
   const {ref, maskRef} = useIMask({mask: pattern as any || /.*/, ...(props.format && ['number', 'price', 'weight'].includes(props.format) ? {
       mask: Number,
       max: props.max ?? 10000,
       min: props.min ?? 0,
 
     } : {})}, {onAccept: (value) => {
-      const formatted = formatValue(props.format!, value as string | null)
-      console.log('formatted', formatted, ':', value)
+      const formatted = formatValue(formatValueByType(props.format!, value as any  as InputValueType<T>) as InputValueType<T>)
       helpers.setValue(formatted)
       props.onChange?.(formatted)
       setTimeout(() => {
@@ -127,6 +134,8 @@ export default function InputField(props: Props) {
           updateValueFromMask()
         }
       }
+    }else{
+      maskRef.current?.updateValue()
     }
 
 
@@ -181,7 +190,7 @@ export default function InputField(props: Props) {
           )}
           <input
             name={field.name}
-            value={field.value}
+            value={`${parseValue(field.value) ?? ''}`}
             disabled={props.disabled}
             ref={props.format && ref as any}
             type={props.obscure ? (obscureShow ? 'text' : 'password') : props.type ?? 'text'}
@@ -189,12 +198,12 @@ export default function InputField(props: Props) {
               [styles.input]: true,
               [styles.inputError]: showError,
               [styles.inputFocused]: focused,
-              [styles.withSuffix]: !!props.suffix,
               [styles.withPrefix]: !!props.prefix,
             })}
             {...!props.format ? {onChange: (e) => {
-              field.onChange(e)
-              props.onChange?.(e.currentTarget.value)
+              const formatted = formatValue(e.currentTarget.value as InputValueType<T>)
+              helpers.setValue(formatted)
+              props.onChange?.(formatted)
               }} : {}}
             placeholder={props.placeholder}
             onFocus={(e) => {

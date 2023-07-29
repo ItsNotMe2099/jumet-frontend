@@ -1,6 +1,6 @@
 @import "media";
 @import "html";
-
+@import "styles/variables";
 
 @mixin mq($width, $type: min) {
   @if $type ==max {
@@ -197,7 +197,7 @@
     color: $grey500;
   }
   &.withSuffix{
-    padding-right: 40px;
+    padding-right: 8px;
   }
   &.withPrefix{
     padding-left: 49px;
@@ -225,4 +225,32 @@
   &.inputFocused{
     border-color: $dark400;
   }
+}
+
+
+@mixin dropDown() {
+  z-index: $zIndexDropDown;
+  background: $white;
+  border-radius: 8px;
+  border: 1px solid $grey400;
+  margin-top: 2px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+  transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
+  padding: 6px 0px;
+  &.opened {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    margin-top: 18px;
+  }
+}
+
+@mixin dropDownChevron() {
+  &.reversed {
+    transform: rotate(180deg);
+  }
+
+  transition: transform 0.3s ease;
 }

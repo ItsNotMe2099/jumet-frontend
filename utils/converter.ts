@@ -8,7 +8,7 @@ export default class Converter {
     .replaceAll('x', '0')
 
   static getFileUploadAccept(type: FileUploadAcceptType): {[key: string]: string[]} {
-    const images = {'image/png': ['.png'], 'img/jpeg': ['jpg']}
+    const images = {'image/png': ['.png'], 'image/jpeg': ['jpeg']}
     const videos = {'video/mp4': ['.mp4'], 'video/mpeg': ['.mpeg'], 'video/x-msvideo': ['.avi']}
     const scans = {'application/pdf': ['.pdd']}
     const docs = {

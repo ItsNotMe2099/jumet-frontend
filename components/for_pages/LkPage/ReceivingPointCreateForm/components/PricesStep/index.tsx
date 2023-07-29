@@ -45,6 +45,7 @@ export default function PricesStep(props: Props) {
       prices
     }
     console.log('newData', newData)
+    props.onSubmit(newData)
   }
 
   const initialValues: IFormData & any = {

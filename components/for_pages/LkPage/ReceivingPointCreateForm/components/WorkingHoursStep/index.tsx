@@ -69,6 +69,7 @@ export default function WorkingHoursStep(props: Props) {
       }
     }
     console.log('submitData', submitData, data)
+    props.onSubmit(submitData)
 
   }
 

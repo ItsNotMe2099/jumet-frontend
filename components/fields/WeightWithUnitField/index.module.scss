@@ -1,0 +1,10 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  @include list(8px);
+
+}
+.dropDownValue{
+  padding-left: 10px;
+}

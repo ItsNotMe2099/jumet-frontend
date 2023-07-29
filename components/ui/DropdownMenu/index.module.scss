@@ -2,89 +2,58 @@
 
 .root {
   position: relative;
-  margin-bottom: 15px;
-  width: 100%;
-}
-
-.dropDown {
-  position: absolute;
-  background: #ffffff;
-  opacity: 0;
-  visibility: hidden;
-  max-height: 200px;
-  overflow-y: auto;
-  box-shadow: 0px 0px 4px rgba(0, 0, 0, 0.1);
-  z-index: 5;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  margin-top: 10px;
-
-  a {
-    padding: 17px 21px;
-    @include btnText;
-
-    &:hover {
-      background-color: $grey200;
-    }
+  &.fluid{
+    width: 100%;
   }
 }
 
-.dropDownActive {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
-  filter: drop-shadow(0px 0px 10px rgba(0, 0, 0, 0.25));
-  background: #fff;
-  border-radius: 8px;
+.valueWrapper{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex: 1;
+  cursor: pointer;
+  @include list(12px, true)
+
 }
+.value{
+
+}
+.chevron{
+  @include dropDownChevron;
+  width: 24px;
+  height: 24px;
+}
+.dropDown{
+  @include  dropDown;
+}
+
 
 .dropDownTrigger {
-  height: $StandartHeight;
-  border-radius: $StandartBorderRadius;
-  border: 1px solid $grey400;
-  width: 100%;
-  padding: 0 16px;
-  display: flex;
-  color: #000;
-  flex-shrink: 0;
-  position: relative;
-  width: 100%;
-  margin: 0px;
-  font-size: 13px;
-  justify-content: space-between;
-
 }
-
-
-.dropdownTriggerActive {
-  position: relative;
-  font-size: 13px;
-  color: #000000;
-  padding-bottom: 6px;
+.active{
+flex: 1;
 }
 
 .option {
+  position: relative;
   display: flex;
   flex-direction: column;
   cursor: pointer;
-  @include btnText;
-}
+  padding: 8px 16px;
+  font-weight: 400;
+  font-size: 16px;
 
-.label {
-  display: flex;
-  align-items: center;
-  @include btnText;
+  &.optionActive{
+    &:before{
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      background-color: $yellow500;
+      width: 4px;
 
-  span {
-    span{
-      color: $grey500;
-      font-weight: 400;
     }
   }
-}
-
-.arrow {
-  display: flex;
-  align-self: center;
 }

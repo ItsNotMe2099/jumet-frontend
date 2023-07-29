@@ -4,7 +4,7 @@ import {ReactElement} from 'react'
 
 interface Props {
   showError?: boolean,
-  className?: string
+  className?: string  | null
   children?: ReactElement | string | undefined
 }
 
