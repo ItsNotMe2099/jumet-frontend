@@ -13,4 +13,8 @@
 
 .suggest {
     max-width: 202px;
+
+    @include mq($PhoneWidth, max) {
+        max-width: 100%;
+    }
 }

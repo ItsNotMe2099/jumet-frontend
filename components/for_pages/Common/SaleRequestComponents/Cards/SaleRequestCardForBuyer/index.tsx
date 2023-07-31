@@ -30,7 +30,7 @@ export default function SaleRequestCardForBuyer({ item }: Props) {
   ]
 
   return (
-    <CardLayout title={'Заявка на продажу лома №256'} className={styles.card}>
+    <CardLayout titleClassName={styles.title} title={'Заявка на продажу лома №256'} className={styles.card}>
       <div className={styles.info}>
         <div className={styles.top}>
           {first.map((i, index) =>

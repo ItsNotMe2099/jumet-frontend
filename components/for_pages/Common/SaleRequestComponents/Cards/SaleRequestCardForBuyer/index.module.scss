@@ -13,12 +13,21 @@
     display: flex;
     flex-direction: column;
     @include list(24px, false);
+
+    @include mq($SmDesktopWidth, max) {
+        @include list(12px, false);
+    }
 }
 
 .top,
 .bottom {
     display: flex;
     @include list(24px, true);
+
+    @include mq($SmDesktopWidth, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
 }
 
 .item {
@@ -65,5 +74,14 @@
         padding: 0 16px;
         height: 40px;
         font-size: 15px;
+        flex: 1;
+    }
+}
+
+.title {
+    max-width: 100%;
+
+    @include mq($PhoneWidth, max) {
+        @include h1;
     }
 }

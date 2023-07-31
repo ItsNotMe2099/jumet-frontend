@@ -6,6 +6,10 @@ import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import AddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/AddressCard'
 import SaleRequestCardForBuyer from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestCardForBuyer'
 import Chat from '@/components/for_pages/Common/ReceivingPointComponents/Chat'
+import { useState } from 'react'
+import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
+import { colors } from '@/styles/variables'
+import TabBar from '@/components/for_pages/receiving-point/Tabbar'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -13,15 +17,30 @@ interface Props {
 
 
 export default function SaleRequestPage({ saleRequest }: Props) {
+
+  const [showChat, setShowChat] = useState<boolean>(false)
+
   return (
     <Layout>
       <div className={styles.root}>
-        <div className={styles.content}>
+        {!showChat ? <div className={styles.content}>
           <SaleRequestCardForBuyer item={saleRequest} />
           <AddressCard cardLayoutTitleClass={styles.layoutTitle} item={saleRequest} />
         </div>
+          :
+          <div className={styles.chatLayout}>
+            <div className={styles.header}>
+              <div className={styles.back} onClick={() => setShowChat(false)}>
+                <ChevronLeftSvg color={colors.grey500} />
+                <div className={styles.text}>Назад</div>
+              </div>
+            </div>
+            <Chat className={styles.chatMobile} messageClass={styles.message} />
+          </div>
+        }
         <Chat className={styles.chat} messageClass={styles.message} />
       </div>
+      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky />}
     </Layout>
   )
 }

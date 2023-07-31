@@ -15,6 +15,7 @@
         background-color: $white;
     }
 }
+
 .content {
     display: flex;
     flex-direction: column;
@@ -60,4 +61,26 @@
     @include mq($lg-medium, min) {
         max-width: 376px;
     }
+}
+
+.chatLayout {}
+
+.header {
+    padding: 24px 15px;
+}
+
+.back {
+    cursor: pointer;
+    display: flex;
+    @include list(8px, true);
+    align-items: center;
+
+    .text {
+        color: $grey500;
+        align-self: center;
+    }
+}
+
+.chatMobile {
+    margin-bottom: 48px;
 }
