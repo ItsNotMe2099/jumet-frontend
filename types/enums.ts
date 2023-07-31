@@ -3,6 +3,7 @@ export enum ModalType {
   OtpCode = 'otpCode',
   PasswordChange = 'passwordChange',
   MapSelector = 'mapSelector',
+  DealOffer = 'dealOffer',
 }
 
 export enum ProfileMenuSettings {

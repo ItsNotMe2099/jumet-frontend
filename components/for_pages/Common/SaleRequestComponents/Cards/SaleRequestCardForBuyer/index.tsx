@@ -5,6 +5,8 @@ import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import Button from '@/components/ui/Button'
 import ShareSvg from '@/components/svg/ShareSvg'
 import { colors } from '@/styles/variables'
+import { useAppContext } from '@/context/state'
+import { ModalType } from '@/types/enums'
 
 
 interface Props {
@@ -12,6 +14,8 @@ interface Props {
 }
 
 export default function SaleRequestCardForBuyer({ item }: Props) {
+
+  const appContext = useAppContext()
 
   const first = [
     { text1: 'Примерный вес', text2: item.weight },
@@ -54,7 +58,7 @@ export default function SaleRequestCardForBuyer({ item }: Props) {
         </div>
       </div>
       <div className={styles.controls}>
-        <Button className={styles.suggest} styleType='large' color='blue'>
+        <Button onClick={() => appContext.showModal(ModalType.DealOffer, item.id)} className={styles.suggest} styleType='large' color='blue'>
           Предложить сделку
         </Button>
         <Button className={styles.btn} styleType='large' color='grey'>

@@ -33,11 +33,11 @@ export default function SelectField<T>(props: Props<T>) {
 
   return (
     <div className={classNames(styles.root, props.className)}>
-      <div className={classNames({
+      {/*<div className={classNames({
         [styles.label]: true,
       })}>
         {props.label}
-      </div>
+    </div>*/}
       <Select<T>
         label={props.label}
         options={props.options}

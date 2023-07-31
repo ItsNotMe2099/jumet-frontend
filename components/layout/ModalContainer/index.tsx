@@ -8,6 +8,7 @@ import MobileMenuModal from '@/components/modals/MobileMenuModal'
 import OtpCodeModal from '@/components/modals/OtpCodeModal'
 import PasswordChangeModal from '@/components/modals/PasswordChangeModal'
 import MapSelectorModal from '@/components/modals/MapSelectorModal'
+import DealOfferModal from '@/components/modals/DealOfferModal'
 
 
 interface Props { }
@@ -34,6 +35,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.MapSelector} {...commonSettings}>
           {appContext.modal === ModalType.MapSelector && <MapSelectorModal isBottomSheet={false} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.DealOffer} {...commonSettings}>
+          {appContext.modal === ModalType.DealOffer && <DealOfferModal onRequestClose={commonSettings.onRequestClose} />}
         </Modal>
       </div>
     </RemoveScroll>

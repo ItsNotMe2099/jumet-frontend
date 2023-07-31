@@ -121,6 +121,7 @@
 .label{
   z-index: 1;
   @include label;
+  margin-bottom: 8px;
 }
 
 .icon{

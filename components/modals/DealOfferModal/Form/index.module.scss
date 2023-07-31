@@ -1,0 +1,16 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+}
+
+.title {
+    color: $dark500;
+    @include h2;
+}
+
+.suggest {
+    max-width: 202px;
+}
