@@ -5,3 +5,65 @@
     margin-top: 32px;
     margin-bottom: 64px;
 }
+
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.title {
+    @include h1;
+}
+
+.switch {
+    margin-top: 32px;
+}
+
+.status {
+    cursor: pointer;
+    color: $grey500;
+    @include mainText;
+    white-space: nowrap;
+}
+
+.active {
+    position: relative;
+    color: $dark500;
+    @include btnText;
+}
+
+.line {
+    width: 100%;
+    height: 2px;
+    background-color: $dark500;
+    position: absolute;
+    bottom: -9px;
+}
+
+.wrapper {
+    display: flex;
+    border-bottom: 1px solid $grey400;
+    padding-bottom: 8px;
+    @include list(20px, true);
+    overflow-x: scroll;
+    overflow-y: hidden;
+    @include scroll_hide;
+}
+
+.container {
+    display: flex;
+    @include list(32px, true);
+    margin-top: 24px;
+
+    @include mq(1064px, max) {
+        flex-direction: column-reverse;
+    }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+    width: 100%;
+}

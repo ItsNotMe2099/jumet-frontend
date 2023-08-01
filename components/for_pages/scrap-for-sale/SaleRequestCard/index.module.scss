@@ -1,11 +1,14 @@
 @import "styles/index";
 
 .root {
+  background-color: $white;
   padding: 20px;
   border-radius: 12px;
+}
+
+.container {
   display: flex;
   justify-content: space-between;
-  background-color: $white;
 
   @include mq($TabletWidth, max) {
     padding: 16px;
@@ -87,4 +90,93 @@
   img {
     border-radius: 12px;
   }
+}
+
+.status {
+  padding: 4px 12px;
+  border-radius: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $white;
+}
+
+.applied {
+  background-color: $blue500;
+}
+
+.accepted {
+  background-color: $green400;
+}
+
+.rejected {
+  background-color: $red500;
+}
+
+.offer {
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 8px 12px;
+  background-color: $grey200;
+  display: flex;
+  @include list(10px, true);
+  align-items: center;
+  max-width: 206px;
+  cursor: pointer;
+
+  .text {
+    color: $dark500;
+    @include mainText;
+  }
+}
+
+.letter {
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+  border-top: 1px solid $grey400;
+  padding-top: 20px;
+  margin-top: 20px;
+}
+
+.header {
+  display: flex;
+  @include list(16px, true);
+  align-items: center;
+
+  .title {
+    @include h3;
+    color: $dark500;
+  }
+}
+
+.date {
+  @include secondaryText;
+  color: $grey500;
+}
+
+.info {
+  display: flex;
+  @include list(8px, true);
+
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(8px, false);
+  }
+}
+
+.badge {
+  padding: 12px;
+  background-color: $grey200;
+  border-radius: 12px;
+
+  @include mq($PhoneWidth, max) {
+    align-self: flex-start;
+  }
+}
+
+.cover {
+  @include mainText;
+  color: $dark500;
+  max-width: 516px;
 }
