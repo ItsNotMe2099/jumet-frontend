@@ -39,11 +39,6 @@ export class Routes {
     return `/sales-requests/${id}`
   }
 
-  static dealOffers() {
-    return '/deal-offers'
-  }
-
-
   static get lk() {
     return '/lk'
   }

@@ -5,7 +5,7 @@ interface Props {
 
 }
 
-export default function LkDealOffersPage(props: Props) {
+export default function LkDealsPage(props: Props) {
 
   return (
     <Layout>
