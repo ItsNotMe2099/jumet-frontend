@@ -21,4 +21,12 @@ export default class SaleRequestOwnerRepository {
     return res
   }
 
+  static async fetchActive(): Promise<ISaleRequest[]> {
+    const res = await request<ISaleRequest[]>({
+      method: 'get',
+      url: '/api/owner/sale-request?statuses=draft,published',
+    })
+    return res
+  }
+
 }

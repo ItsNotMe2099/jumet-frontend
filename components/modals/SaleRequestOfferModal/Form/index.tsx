@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
 import { useAppContext } from '@/context/state'
@@ -12,18 +12,21 @@ import { ILocation } from '@/data/interfaces/ILocation'
 import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
 import Validator from '@/utils/validator'
 import RadiusField from '@/components/fields/RadiusField'
-import {useDataContext} from '@/context/data_state'
-import {IOption} from '@/types/types'
+import { useDataContext } from '@/context/data_state'
+import { IOption } from '@/types/types'
 import AddressField from '@/components/fields/AddressField'
 import MapFullscreenField from '@/components/fields/MapFullscreenField'
-import {IAddress} from '@/data/interfaces/IAddress'
+import { IAddress } from '@/data/interfaces/IAddress'
 import FileListField from '@/components/fields/Files/FileListField'
 import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
 import PriceField from '@/components/fields/PriceField'
+import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
+import { format } from 'date-fns'
+import Select from '@/components/fields/Select'
 
 
 interface Props {
-
+  pointId: number
 }
 
 interface IData {
@@ -45,10 +48,11 @@ interface IData {
   phones: string[]
 }
 
-export default function CreateSalesRequestForm(props: Props) {
-  
+export default function SaleRequestOfferForm(props: Props) {
+
   const dataContext = useDataContext()
   const [loading, setLoading] = useState<boolean>(false)
+  const [data, setData] = useState<ISaleRequest[]>([])
 
   const appContext = useAppContext()
 
@@ -74,6 +78,7 @@ export default function CreateSalesRequestForm(props: Props) {
   }
 
   const initialValues = {
+    receivingPointId: props.pointId,
     scrapMetalCategory: ScrapMetalCategory.None,
     weight: null,
     photosIds: [],
@@ -96,28 +101,46 @@ export default function CreateSalesRequestForm(props: Props) {
 
 
   const scrapMetalCategories: IOption<string>[] = [
-    ...dataContext.scrapMetalCategories.map(i => ({label: i.name, value: i.category, description: i.description})),
+    ...dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category, description: i.description })),
     {
       label: 'Затрудняюсь определить', value: 'none'
     },
   ]
   const handleChangeAddress = (address: IAddress | string | null) => {
-    if( typeof address !== 'string' && address?.location) {
+    if (typeof address !== 'string' && address?.location) {
       formik.setFieldValue('location', address.location)
     }
   }
 
+  const fetchMySaleRequests = async () => {
+    await SaleRequestOwnerRepository.fetchActive().then(data => {
+      if (data) {
+        setData(data)
+      }
+    })
+  }
+
+  useEffect(() => {
+    fetchMySaleRequests()
+  }, [])
+
+  const [option, setOption] = useState<number | null | undefined>(null)
+
+  const options = data.map(i => { return { label: format(new Date(i.createdAt), 'dd.MM.yyyy'), value: i.id } })
+
+  console.log(formik.values)
 
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+      <Select label='Мои заявки на продажу лома' options={options} value={option} onChange={(value) => setOption(value)} />
         <RadioField<string>
           label='Категория лома'
           name='scrapMetalCategory'
           options={scrapMetalCategories}
           styleType='default'
         />
-        <WeightWithUnitField name='weight' label='Вес лома'  />
+        <WeightWithUnitField name='weight' label='Вес лома' />
         <FileListField
           name='photos'
           label='Фотографии лома'
@@ -136,8 +159,8 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressField name={'address'} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
-          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
+          <AddressField name={'address'} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress} />
+          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required} />
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
@@ -146,17 +169,17 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.switch}>
             <SwitchField name={'hasCustomPrice'} label={'Указать желаемую цену за лом'} />
           </div>
-          {formik.values.hasCustomPrice && <PriceField name='price' suffix={'₽/т'} placeholder='Моя цена за лом' validate={Validator.required}/>}
+          {formik.values.hasCustomPrice && <PriceField name='price' suffix={'₽/т'} placeholder='Моя цена за лом' validate={Validator.required} />}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
             Радиус поиска пунктов приёма
           </div>
-         <RadiusField name={'radius'} validate={Validator.required}/>
+          <RadiusField name={'radius'} validate={Validator.required} />
         </div>
         <PhoneField styleType={InputStyleType.Default} name='phone' label='Ваш телефон' />
         <Button type='submit' className={styles.btn} styleType='large' color='blue'>
-          Создать заявку
+          Предложить сделку
         </Button>
       </Form>
     </FormikProvider>
