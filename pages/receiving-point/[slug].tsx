@@ -45,7 +45,6 @@ export default function ReceivingPoint(props: Props) {
             </div>
             <Chat address={receivingPoint.address?.address} className={styles.chatMobile}
                   messageClass={styles.message}/>
-
           </div>
         }
         <Chat className={styles.chat} messageClass={styles.message}/>
@@ -73,19 +72,4 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     }
   }
 
->>>>>>> ebc9528 (refactor receiving points)
-}
-
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-  const id = context.query?.slug as string
-
-  // Fetch data only if 'id' is present and is a number
-  const res = await ReceivingPointRepository.searchById(+id)
-
-  return {
-    props: {
-      item: res // Assuming res contains the fetched data
-    }
-  }
 }

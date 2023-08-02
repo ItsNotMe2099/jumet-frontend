@@ -7,7 +7,7 @@ import DeliveryZonesCardLk from '@/components/for_pages/LkPage/ReceivingPoint/Ca
 import EmployeesCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/EmployeesLkCard'
 import WorkingHoursCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/WorkingHoursLkCard'
 import PhotosCardLk from '@/components/for_pages/LkPage/ReceivingPoint/Cards/PhotosLkCard'
-import RequisitesCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/CompanyLkCard'
+import CompanyLkCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/CompanyLkCard'
 import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
@@ -28,7 +28,7 @@ const ReceivingPointInfoPageWrapper = (props: Props) => {
       <CostCardLk/>
       <WorkingHoursCard/>
       <PhotosCardLk/>
-      <RequisitesCard/>
+      <CompanyLkCard/>
       <EmployeesCard/>
     </LkLayout>
   )
