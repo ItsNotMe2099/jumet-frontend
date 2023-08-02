@@ -9,7 +9,7 @@ import OtpCodeModal from '@/components/modals/OtpCodeModal'
 import PasswordChangeModal from '@/components/modals/PasswordChangeModal'
 import MapSelectorModal from '@/components/modals/MapSelectorModal'
 import DealOfferModal from '@/components/modals/DealOfferModal'
-
+import {ConfirmModal} from '@/components/modals/ConfirmModal'
 
 interface Props { }
 
@@ -38,6 +38,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.DealOffer} {...commonSettings}>
           {appContext.modal === ModalType.DealOffer && <DealOfferModal onRequestClose={commonSettings.onRequestClose} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.Confirm} {...commonSettings}>
+          {appContext.modal === ModalType.Confirm && <ConfirmModal isBottomSheet={false} />}
         </Modal>
       </div>
     </RemoveScroll>

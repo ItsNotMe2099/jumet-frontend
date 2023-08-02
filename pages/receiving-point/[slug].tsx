@@ -1,61 +1,79 @@
-import AddressCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/AddressCard'
-import ContactsCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/ContactsCard'
-import CostCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/CostCard'
-import DeliveryZonesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/DeliveryZonesCard'
-import RequisitesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/RequisitesCard'
-import ReviewsCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/ReviewsCard'
-import WorkingHoursCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/WorkingHoursCard'
-import Layout from '@/components/layout/Layout'
-import { useState } from 'react'
-import styles from './index.module.scss'
-import classNames from 'classnames'
-import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
-import Chat from '@/components/for_pages/Common/ReceivingPointComponents/Chat'
-import TabBar from '@/components/for_pages/receiving-point/Tabbar'
-import { colors } from '@/styles/variables'
-import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
-import { useEffect } from 'react'
-import { GetServerSideProps } from 'next'
+import {GetServerSideProps} from 'next'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointRepository from '@/data/repositories/ReceivingPointRepository'
+import styles from './index.module.scss'
+import {useState} from 'react'
+import ContactsViewCard from '@/components/for_pages/ReceivingPoint/Cards/ContactsViewCard'
+import AddressViewCard from '@/components/for_pages/ReceivingPoint/Cards/AddressViewCard'
+import PricesViewCard from '@/components/for_pages/ReceivingPoint/Cards/PricesViewCard'
+import DeliveryZonesViewCard from '@/components/for_pages/ReceivingPoint/Cards/DeliveryZonesViewCard'
+import WorkingHoursViewCard from '@/components/for_pages/ReceivingPoint/Cards/WorkingHoursViewCard'
+import CompanyViewCard from '@/components/for_pages/ReceivingPoint/Cards/CompanyViewCard'
+import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
+import {colors} from '@/styles/variables'
+import Chat from '@/components/for_pages/Common/ReceivingPoint/Chat'
+import TabBar from '@/components/for_pages/ReceivingPoint/Tabbar'
+import Layout from '@/components/layout/Layout'
+import ReviewsViewCard from '@/components/for_pages/ReceivingPoint/Cards/ReviewsCard'
 
 interface Props {
-  item: IReceivingPoint
+  receivingPoint: IReceivingPoint;
 }
 
 export default function ReceivingPoint(props: Props) {
-
+  const receivingPoint = props.receivingPoint
   const [showChat, setShowChat] = useState<boolean>(false)
-
-  //return null
-
   return (
     <Layout>
       <div className={styles.root}>
         {!showChat ? <div className={styles.content}>
-          <ContactsCard cardLayoutTitleClass={classNames(styles.layoutTitle, styles.mobileCardTitle)} item={props.item} />
-          <AddressCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-          <CostCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-          <DeliveryZonesCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-          <ReviewsCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-          <WorkingHoursCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-          <RequisitesCard cardLayoutTitleClass={styles.layoutTitle} item={props.item} />
-        </div>
+            <ContactsViewCard receivingPoint={receivingPoint}/>
+            <AddressViewCard receivingPoint={receivingPoint}/>
+            <PricesViewCard receivingPoint={receivingPoint}/>
+            <DeliveryZonesViewCard receivingPoint={receivingPoint}/>
+            <ReviewsViewCard receivingPoint={receivingPoint} />
+            <WorkingHoursViewCard receivingPoint={receivingPoint}/>
+            <CompanyViewCard receivingPoint={receivingPoint}/>
+          </div>
           :
           <div className={styles.chatLayout}>
             <div className={styles.header}>
               <div className={styles.back} onClick={() => setShowChat(false)}>
-                <ChevronLeftSvg color={colors.grey500} />
+                <ChevronLeftSvg color={colors.grey500}/>
                 <div className={styles.text}>Назад</div>
               </div>
             </div>
-            <Chat address={props.item.address.address as string} className={styles.chatMobile} messageClass={styles.message} />
+            <Chat address={receivingPoint.address?.address} className={styles.chatMobile}
+                  messageClass={styles.message}/>
+
           </div>
         }
-        <Chat className={styles.chat} messageClass={styles.message} />
+        <Chat className={styles.chat} messageClass={styles.message}/>
       </div>
-      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky />}
+      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky/>}
     </Layout>
   )
+
+
+}
+
+export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
+  const id = parseInt(context.query?.slug as string, 10)
+  try {
+    const receivingPoint = await ReceivingPointRepository.fetchById(id)
+    return {
+      props: {
+        receivingPoint,
+      } as Props
+    }
+  } catch (e) {
+    console.error(e)
+    return {
+      notFound: true
+    }
+  }
+
+>>>>>>> ebc9528 (refactor receiving points)
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {

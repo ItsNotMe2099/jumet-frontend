@@ -44,6 +44,7 @@ export default function AddressField(props: Props) {
     helpers.setValue(newAddress)
     props.onChange?.(newAddress)
   }
+  console.log('AddressValue', field.value?.address ?? field.value)
     return (
     <div className={cx(styles.root, {[styles.hasError]: !!meta.error && meta.touched})}>
       {props.label &&
@@ -51,7 +52,7 @@ export default function AddressField(props: Props) {
           {props.label}
         </div>
       }
-      <AddressSuggestions currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
+      <AddressSuggestions defaultQuery={field.value?.address ?? field.value} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
         placeholder: props.placeholder ?? '',
         className: classNames({
           [styles.input]: true,

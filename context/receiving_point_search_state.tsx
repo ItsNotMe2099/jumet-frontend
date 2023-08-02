@@ -8,11 +8,8 @@ export enum ViewType {
   List = 'list',
   Map = 'map'
 }
+
 interface IReceivingPointFilter extends IReceivingPointSearchRequest {
-  location: {
-    lat: 56.795132,
-    lng: 40.1633231
-  }
 }
 
 interface IState {
@@ -53,10 +50,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
   const [data, setData] = useState<IPagination<IReceivingPoint>>({ data: [], total: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [filter, setFilter] = useState<IReceivingPointFilter>({ page: 1, limit: 10, location: {
-    lat: 56.795132,
-    lng: 40.1633231
-  } })
+  const [filter, setFilter] = useState<IReceivingPointFilter>({page: 1, limit: 10})
   const [page, setPage] = useState<number>(1)
   const [viewType, setViewType] = useState<ViewType>(ViewType.List)
   const filterRef = useRef<IReceivingPointFilter>(filter)
@@ -67,8 +61,16 @@ export function ReceivingPointSearchWrapper(props: Props) {
     await Promise.all([fetch()])
     setIsLoaded(true)
   }
-  const fetch = async ({ page }: { page: number } = { page: 1 }) => {
-    const res = await ReceivingPointRepository.search({ ...filterRef.current, page })
+
+  const fetch = async ({page}: { page: number } = {page: 1}) => {
+    const res = await ReceivingPointRepository.search({
+      ...filterRef.current, ...(!filterRef?.current?.location ? {
+        location: {
+          lat: 56.795132,
+          lng: 40.1633231
+        }
+      } : {}), page
+    })
     setData(res)
   }
 
@@ -78,6 +80,8 @@ export function ReceivingPointSearchWrapper(props: Props) {
 
   const value: IState = {
     ...defaultValue,
+    isLoaded,
+    isLoading,
     data,
     filter,
     page,

@@ -42,8 +42,16 @@ export default class ReceivingPointOwnerRepository {
   static async fetchUsers(receivingPointId: number): Promise<IUser[]> {
     const res = await request<IUser[]>({
       method: 'get',
-      url: '/api/owner/receiving-point',
+      url: '/api/user',
       data: {receivingPointId}
+    })
+    return res
+  }
+
+  static async delete(id: number): Promise<IReceivingPoint> {
+    const res = await request<IReceivingPoint>({
+      method: 'delete',
+      url: `/api/owner/receiving-point/${id}`,
     })
     return res
   }

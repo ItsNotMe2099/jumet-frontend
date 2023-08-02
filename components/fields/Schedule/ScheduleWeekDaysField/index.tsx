@@ -53,7 +53,6 @@ export default function ScheduleWeekDaysField(props: Props) {
       {days.map((day) => <div key={day.value} className={styles.scheduleItem}>
         <ScheduleIntervalsField namePrefix={`${props.name}.${day.value}`} duration={props.duration}/>
         <CheckBoxField name={`${props.name}.${day.value}.active`}  label={day.title} onChange={(val) => handleToggleActive(day, val)}/>
-
       </div>)}
       </div>
       <FieldError showError={showError}>{meta.error}</FieldError>

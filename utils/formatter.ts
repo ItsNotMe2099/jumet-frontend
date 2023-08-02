@@ -64,29 +64,24 @@ export default class Formatter {
     return num?.toString().replace(/(\d)(?=(\d{3})+(?!\d))/g, '$1 ')
   }
 
-  static formatProductPrice(price: { value?: number, min?: number, max?: number }) {
-    const pr = price?.value || price.min
-    return this.formatPrice(pr)
-  }
 
-  static formatPrice(price?: number) {
+  static formatPrice(price?: number, suffix?: string) {
     if (!price) {
       return
     }
-    return `${this.formatNumber(Math.ceil(price / 100))} ₽`
+    return `${this.formatNumber(Math.ceil(price))} ${suffix ?? '₽'}`
+  }
+  static formatDeliveryPrice(price?: number) {
+    if (!price) {
+      return
+    }
+    return this.formatPrice(price, '₽/т')
   }
 
-  static formatDeliveryPeriod(minPeriod: number, maxPeriod: number) {
-    return (maxPeriod || minPeriod) && (maxPeriod === minPeriod ? `${minPeriod} ${this.pluralize(minPeriod, 'день', 'дня', 'дней')}` : `${minPeriod} - ${maxPeriod} ${this.pluralize(maxPeriod, 'день', 'дня', 'дней')}`) || ''
-  }
+  static formatTimeString(time: string) {
+  const parts = time.split(':')
 
-  static formatBonuses(bonuses: number, withStr = false) {
-    const number = bonuses ? Math.ceil(bonuses / 100) : 0
-    return `${this.formatNumber(number)}${withStr ? ` ${this.pluralize(number, 'балл', 'балла', 'баллов')}` : ''}`
-  }
-
-  static formatAddressSuggestionSubTitle(subTitle: string): string {
-    return subTitle?.split(',').map((e) => e.trim()).reverse().join(', ')
+    return `${parts[0]}:${parts[1]}`
   }
 
 

@@ -43,11 +43,7 @@
 }
 
 .menu {
-    display: flex;
-    flex-direction: column;
-    border-radius: $StandartBorderRadius;
-    background-color: $white;
-    padding: 12px 0px 0px 0px;
+
     width: 416px;
 
     @include mq($PhoneWidth, max) {

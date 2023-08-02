@@ -1,0 +1,123 @@
+@import "../../../../../styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+    padding: 32px 20px 20px 20px;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+}
+
+.top {
+    display: flex;
+    @include list(12px, true);
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  flex: 1;
+  @include list(12px, true);
+}
+.title {
+    @include h2;
+    color: $text;
+}
+
+.rating {
+    width: 57px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $StandartBorderRadius;
+    border: 1px solid $grey300;
+}
+
+.number {
+    color: $dark500;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.phone {
+    display: flex;
+    align-items: center;
+    @include list(4px, true);
+    margin-top: 24px;
+}
+
+.phoneNumber {
+    @include btnText;
+    color: $dark500;
+}
+
+.show {
+    cursor: pointer;
+    @include mainText;
+    color: $grey500;
+}
+
+.properties {
+    display: flex;
+    @include list(24px, true);
+    align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        display: block;
+        @include clearfix;
+    }
+}
+
+.text {
+    color: $dark500;
+
+    @include mq($PhoneWidth, max) {
+        font-size: 15px;
+    }
+}
+
+.inactiveText {
+    color: $grey500;
+}
+
+.property {
+    display: flex;
+    @include list(8px, true);
+    align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        float: left;
+        margin-right: 10px;
+        margin-top: 10px;
+        margin-left: 0;
+    }
+}
+
+.bottom {
+    display: flex;
+    @include list(12px, true);
+    align-items: center;
+    margin-top: 24px;
+}
+
+.btn {
+    padding: 0 20px;
+    width: 40px;
+    height: 40px;
+}
+
+.suggest {
+    @include mq($PhoneWidth, max) {
+        padding: 0 16px;
+        height: 40px;
+        font-size: 15px;
+    }
+}

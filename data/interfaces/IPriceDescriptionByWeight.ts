@@ -6,7 +6,6 @@ export interface IPriceDescriptionByWeight {
   priceDescriptionId: number
   minWeightInTons: number
   maxWeightInTons: number
-  rubbishInPercents: number
   price: number
   ownerId?: number
   createdAt: Date

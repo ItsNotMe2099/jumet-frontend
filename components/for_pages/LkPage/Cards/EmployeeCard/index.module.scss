@@ -9,19 +9,8 @@
   @include list(16px, false);
 }
 
-.firstRow {
-  display: flex;
-  justify-content: space-between;
-
-  @include mq($PhoneWidth, max) {
-    flex-direction: column;
-    @include list(12px, false);
-  }
-}
 
 .top {
-  align-items: center;
-  justify-content: space-between;
 
   @include mq($PhoneWidth, max) {
     flex-direction: column;
@@ -33,6 +22,8 @@
 .name {
   @include h2;
   color: $dark500;
+  flex: 1;
+  padding-right: 8px;
 }
 
 .email {
@@ -41,16 +32,17 @@
   font-weight: normal;
 }
 
-.secondRaw {
+.field {
   margin-top: 16px;
   @include h3;
   color: $dark500;
   font-weight: normal;
 
-  span {
-    @include h3;
-    color: $grey500;
-    font-weight: normal;
+  .label {
+    @include infoLabel;
+  }
+  .label {
+    @include infoValue;
   }
 }
 

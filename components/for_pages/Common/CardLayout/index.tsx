@@ -5,7 +5,7 @@ import classNames from 'classnames'
 interface Props {
   children: React.ReactNode
   additionalEl?: React.ReactNode
-  title: string
+  title?: string
   topClassName?: string
   className?: string
   contentClassName?: string

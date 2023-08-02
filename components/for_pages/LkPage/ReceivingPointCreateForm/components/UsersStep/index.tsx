@@ -39,7 +39,7 @@ export default function UsersStep(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-        <FieldArray name='items'>
+        <FieldArray name='users'>
           {arrayHelpers => (
             <>
               {formik.values.users.map((item, index) => (

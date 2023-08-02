@@ -17,11 +17,11 @@ export default function SelectTimeField(props: Props) {
     for (let hours = 0; hours < 24; ++hours) {
       for (let mins = 0; mins < 60; mins += 30) {
         const t = `${Formatter.pad('00', hours.toString())}:${Formatter.pad('00', mins.toString())}`
-        data.push({label: t, value: t})
+        data.push({label: t, value: `${t}:00`})
       }
     }
     if(props.isEndDate){
-      data[0].value = '23:59'
+      data[0].value = '23:59:59'
     }
     return data
   }, [])

@@ -2,17 +2,19 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import Link from 'next/link'
 import Spinner from 'components/ui/Spinner'
-import { IButton } from 'types/types'
 import { colors } from 'styles/variables'
 import { ReactElement, RefObject } from 'react'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
 import useStopPropagation from '@/components/hooks/useStopPropagation'
-
-interface Props extends IButton {
+import {IButton} from '@/types/types'
+export type ButtonColor = 'blue' | 'dark' | 'white' | 'grey' | 'lightBlue'
+export type ButtonFont = 'normal15' | 'normal16'
+export type ButtonStyleType = 'small' | 'large'
+export interface ButtonProps extends  IButton{
   children: React.ReactNode
-  styleType: 'small' | 'large'
-  font?: 'normal15' | 'normal16'
-  color?: 'blue' | 'dark' | 'white' | 'grey' | 'lightBlue'
+  styleType: ButtonStyleType
+  font?: ButtonFont
+  color?: ButtonColor
   className?: string
   fluid?: boolean
   buttonRef?: RefObject<any>
@@ -22,7 +24,7 @@ interface Props extends IButton {
   icon?: ReactElement
 }
 
-export default function Button(props: Props) {
+export default function Button(props: ButtonProps) {
   const [ref, press, hover] = usePressAndHover()
   useStopPropagation(ref, !props.stopPropagation)
 

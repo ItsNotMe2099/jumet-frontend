@@ -1,13 +1,17 @@
-import {createContext, useContext, useEffect, useState} from 'react'
+import {createContext, useContext, useEffect, useMemo, useState} from 'react'
 import {IScrapMetalCategory} from '@/data/interfaces/IScrapMetalCategory'
 import ScrapMetalCategoryRepository from '@/data/repositories/ScrapMetalCategoryRepository'
 
+type ScrapMetalCategoriesMap = { [key: string]: IScrapMetalCategory }
+
 interface IState {
   scrapMetalCategories: IScrapMetalCategory[]
+  scrapMetalCategoriesMap: ScrapMetalCategoriesMap
 }
 
 const defaultValue: IState = {
-  scrapMetalCategories: []
+  scrapMetalCategories: [],
+  scrapMetalCategoriesMap: {}
 }
 
 const DataContext = createContext<IState>(defaultValue)
@@ -23,11 +27,18 @@ export function DataWrapper(props: Props) {
   useEffect(() => {
     ScrapMetalCategoryRepository.fetch().then(i => setScrapMetalCategories(i))
   }, [])
+  const scrapMetalCategoriesMap = useMemo<any>(() => scrapMetalCategories.reduce((ac: ScrapMetalCategoriesMap, a) => ({
+      ...ac,
+      [`${a.category}`]: a
+    }), {} as ScrapMetalCategoriesMap)
+  , [scrapMetalCategories])
+
+
   const value: IState = {
     ...defaultValue,
-    scrapMetalCategories
+    scrapMetalCategories,
+    scrapMetalCategoriesMap
   }
-
 
   return (
     <DataContext.Provider value={value}>

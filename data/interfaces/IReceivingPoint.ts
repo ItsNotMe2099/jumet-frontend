@@ -12,7 +12,7 @@ import IUser from '@/data/interfaces/IUser'
 
 export interface IReceivingPoint {
   id: number;
-  name?: string;
+  name: string;
   status?: ReceivingPointStatus;
   company: ICompany;
   companyId: number;

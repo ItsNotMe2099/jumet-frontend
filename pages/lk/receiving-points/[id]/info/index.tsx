@@ -1,110 +1,47 @@
 import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
+import {useRouter} from 'next/router'
 import LkLayout from '@/components/for_pages/LkPage/layout'
-import AddressCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/AddressCard'
-import IPointData from '@/data/interfaces/IPointData'
-import Button from '@/components/ui/Button'
-import EditSvg from '@/components/svg/EditSvg'
-import { colors } from '@/styles/variables'
-import CostCardLk from '@/components/for_pages/Common/ReceivingPointComponents/Cards/CostCardLk'
-import DeliveryZonesCardLk from '@/components/for_pages/Common/ReceivingPointComponents/Cards/DeliveryZonesCardLk'
-import EmployeesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/EmployeesCard'
-import PlusSvg from '@/components/svg/PlusSvg'
-import WorkingHoursCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/WorkingHoursCard'
-import PhotosCardLk from '@/components/for_pages/Common/ReceivingPointComponents/Cards/PhotosCardLk'
-import RequisitesCard from '@/components/for_pages/Common/ReceivingPointComponents/Cards/RequisitesCard'
+import AddressCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/AddressLkCard'
+import CostCardLk from '@/components/for_pages/LkPage/ReceivingPoint/Cards/PricesLkCard'
+import DeliveryZonesCardLk from '@/components/for_pages/LkPage/ReceivingPoint/Cards/DeliveryZonesLkCard'
+import EmployeesCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/EmployeesLkCard'
+import WorkingHoursCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/WorkingHoursLkCard'
+import PhotosCardLk from '@/components/for_pages/LkPage/ReceivingPoint/Cards/PhotosLkCard'
+import RequisitesCard from '@/components/for_pages/LkPage/ReceivingPoint/Cards/CompanyLkCard'
+import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+import {ReceivingPointOwnerWrapper} from '@/context/receiving_point_owner_state'
+import LkMenuBuyer from '@/components/for_pages/LkPage/layout/LkMenuBuyer'
 
 interface Props {
-  item: IPointData
 }
 
-export default function ReceivingPointInfoPage({ item }: Props) {
+const ReceivingPointInfoPageWrapper = (props: Props) => {
 
   const router = useRouter()
-
-  const token = Cookies.get('accessToken')
-
-
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
-
+  const receivingPointListContext = useReceivingPointListContext()
   return (
-    <Layout>
-      <LkLayout className={styles.desktop} >
-        <AddressCard item={item} additionalEl={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать данные
-          </Button>} topClassName={styles.top} />
-        <DeliveryZonesCardLk item={item} additionalEl={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <CostCardLk item={item} additionalEl={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <WorkingHoursCard item={item} additionalEl={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <PhotosCardLk item={item} />
-        <RequisitesCard item={item} additionalEl={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <EmployeesCard item={item} additionalEl={
-          <div className={styles.btns}>
-            <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-              Редактировать
-            </Button>
-            <Button className={styles.btnSecond} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
-              Добавить
-            </Button>
-          </div>} topClassName={styles.top} />
-      </LkLayout>
-
-      {/* <LkLayoutMobile point={item}>
-        <AddressCard
-          button={<Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>}
-          cardLayoutClass={styles.mobileCard}
-          item={item}
-          topClassName={styles.top} />
-        <DeliveryZonesCardLk cardLayoutClass={styles.mobileCard} item={item}
-          button={<Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <CostCardLk cardLayoutClass={styles.mobileCard} item={item} button={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <WorkingHoursCard cardLayoutClass={styles.mobileCard} item={item} button={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <PhotosCardLk cardLayoutClass={styles.mobileCard} item={item} />
-        <RequisitesCard cardLayoutClass={styles.mobileCard} item={item} button={
-          <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-            Редактировать
-          </Button>} topClassName={styles.top} />
-        <EmployeesCard cardLayoutClass={styles.mobileCard} item={item} button={
-          <div className={styles.btns}>
-            <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
-              Редактировать
-            </Button>
-            <Button className={styles.btnSecond} color='blue' styleType='large' icon={<PlusSvg color={colors.white} />}>
-              Добавить
-            </Button>
-          </div>} topClassName={styles.top} />
-      </LkLayoutMobile>*/}
-    </Layout>
+    <LkLayout menu={<LkMenuBuyer receivingPoints={receivingPointListContext.items}/>}>
+      <AddressCard/>
+      <DeliveryZonesCardLk/>
+      <CostCardLk/>
+      <WorkingHoursCard/>
+      <PhotosCardLk/>
+      <RequisitesCard/>
+      <EmployeesCard/>
+    </LkLayout>
   )
 }
+export default function ReceivingPointInfoPage(props: Props) {
+  const router = useRouter()
+  const id = parseInt(router.query.id as string, 10)
+  return (<Layout>
+    <ReceivingPointListWrapper>
+      <ReceivingPointOwnerWrapper receivingPointId={id}>
+        <ReceivingPointInfoPageWrapper/>
+      </ReceivingPointOwnerWrapper>
+    </ReceivingPointListWrapper>
+  </Layout>)
+}
+export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

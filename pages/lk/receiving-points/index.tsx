@@ -1,39 +1,33 @@
 import Layout from '@/components/layout/Layout'
 //import styles from './index.module.scss'
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
 import LkLayout from '@/components/for_pages/LkPage/layout'
-import { points } from '@/data/temp/points'
+import LkMenuBuyer from '@/components/for_pages/LkPage/layout/LkMenuBuyer'
+import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+import ReceivingPointCard from '@/components/for_pages/LkPage/Cards/ReceivingPointCard'
 
 interface Props {
 
 }
 
-export default function ReceivingPointsPage(props: Props) {
-
+const ReceivingPointsPageWrapper = (props: Props) => {
   const router = useRouter()
-
-  const token = Cookies.get('accessToken')
-
-
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
-
-  const data = points
-
+  const receivingPointListContext = useReceivingPointListContext()
+  console.log('receivingPointListContext.items', receivingPointListContext.items)
   return (
-    <Layout>
-      <LkLayout>
-        {/*data.data.map((i, index) =>
-          <ReceivingPointCard point={i} key={i.id} href={`${router.asPath}/${i.id}/info`} />
-        )*/}
+      <LkLayout menu={<LkMenuBuyer receivingPoints={receivingPointListContext.items}/>}>
+        {receivingPointListContext.items.map((i, index) =>
+          <ReceivingPointCard item={i} key={i.id} href={`${router.asPath}/${i.id}/info`} />
+        )}
       </LkLayout>
-    </Layout>
   )
 }
 
+export default function ReceivingPointsPage(){
+  return (  <Layout><ReceivingPointListWrapper>
+    <ReceivingPointsPageWrapper/>
+  </ReceivingPointListWrapper></Layout>)
+}
+export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

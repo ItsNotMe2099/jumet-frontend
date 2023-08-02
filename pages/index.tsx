@@ -8,7 +8,6 @@ import { colors } from '@/styles/variables'
 import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import classNames from 'classnames'
-import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
 import MainFilter from '@/components/for_pages/MainPage/MainFilter'
@@ -61,17 +60,14 @@ const IndexWrapper = () => {
                   </>}
               </div>
             </div>
-            <HiddenXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
+                <VisibleXs>
+                  <Banner />
+                </VisibleXs>
+
               </div>
-            </HiddenXs>
-            <VisibleXs>
-              <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
-                <Banner />
-              </div>
-            </VisibleXs>
+
           </div>
         </div>
       </div>

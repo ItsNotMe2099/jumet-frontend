@@ -1,0 +1,17 @@
+@import "styles/index";
+
+.root{
+  display: flex;
+  flex-direction: column;
+  border-radius: $StandartBorderRadius;
+  background-color: $white;
+  padding: 12px 0px 0px 0px;
+  @media screen and (max-width: $xs-max){
+    padding: 0px;
+    background: transparent;
+    border-radius: 0px;
+  }
+}
+.active{
+
+}

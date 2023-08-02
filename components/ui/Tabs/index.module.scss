@@ -1,0 +1,13 @@
+@import "styles/index";
+.root {
+  display: flex;
+  @include list(8px, true);
+  &.fluid{
+    .tab{
+      flex: 1;
+    }
+  }
+}
+.tab{
+  padding: 0px 16px;
+}

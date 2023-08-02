@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {
+  @include list(48px, false);
+}
+.item{
+
+}
+
+.fields {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.field {
+    display: flex;
+    flex-direction: column;
+  @include list(4px, false);
+    .label {
+        color: $grey500;
+        @include secondaryText;
+    }
+
+    .value {
+        color: $dark500;
+        @include btnText;
+    }
+}
+
+.map {
+    margin-top: 24px;
+  height: 328px;
+}

@@ -3,7 +3,6 @@ import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import ChatSvg from '@/components/svg/ChatSvg'
 import { colors } from '@/styles/variables'
-import CardLayout from '@/components/for_pages/Common/CardLayout'
 
 
 interface Props {
@@ -15,15 +14,17 @@ interface Props {
 export default function EmployeeCard(props: Props) {
 
   return (
-    <CardLayout titleClassName={props.titleClassName}
-      className={props.cardLayoutClassName}
-      topClassName={styles.top} title={props.user.firstName} additionalEl={<div className={styles.email}>{props.user.email}</div>}>
-      <div className={styles.secondRaw}>
-        <span>Пункт приёма: </span>г. Сергиев Посад, ул. Зои Космодемьянской, 32
+    <div className={styles.root}>
+      <div className={styles.top}>
+        <div className={styles.name}>{props.user.firstName}</div>
+        <div className={styles.email}>{props.user.email}</div>
+      </div>
+      <div className={styles.field}>
+        <div className={styles.label}>Пункт приёма: </div><div className={styles.value}>г. Сергиев Посад, ул. Зои Космодемьянской, 32</div>
       </div>
       <Button className={styles.btn} color='grey' styleType='large' icon={<ChatSvg color={colors.blue500} />}>
         Чаты сотрудника
       </Button>
-    </CardLayout>
+    </div>
   )
 }

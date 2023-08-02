@@ -30,9 +30,12 @@
 .white {
   background: $white;
 }
+.grey400{
+  background: $grey400;
+}
+.grey300{
+  background: $grey300;
+}
 .dark400{
   background: $dark400;
-  &:hover{
-    background: $blue500;
-  }
 }

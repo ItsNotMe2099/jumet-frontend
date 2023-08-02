@@ -1,0 +1,40 @@
+@import "../../../../styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.top {
+    @include mainText;
+    color: $grey500;
+    display: flex;
+
+    .phone {
+        max-width: 110px;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        @include btnText;
+        color: $dark500;
+        white-space: nowrap;
+        margin-right: 4px;
+    }
+}
+
+.comment {
+    color: $dark500;
+    @include mainText;
+}
+
+.answer {
+    margin-top: 4px;
+    display: flex;
+    flex-direction: column;
+    @include list(4px, false);
+}
+
+.title {
+    @include btnText;
+    color: $black;
+}

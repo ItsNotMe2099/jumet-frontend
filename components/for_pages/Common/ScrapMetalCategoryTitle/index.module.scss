@@ -1,0 +1,10 @@
+@import "styles/index";
+.root{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}
+.title{
+    @include btnText;
+}

@@ -4,6 +4,7 @@ export enum ModalType {
   PasswordChange = 'passwordChange',
   MapSelector = 'mapSelector',
   DealOffer = 'dealOffer',
+  Confirm = 'confirm'
 }
 
 export enum ProfileMenuSettings {

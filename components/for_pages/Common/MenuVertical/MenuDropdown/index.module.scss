@@ -1,0 +1,11 @@
+@import "styles/index";
+
+
+.root {
+  padding: 8px 0px 16px 16px;
+  border-bottom-left-radius: 16px;
+  border-bottom-right-radius: 16px;
+  > * + *{
+    margin-top: 0px;
+  }
+}

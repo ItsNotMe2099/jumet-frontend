@@ -11,6 +11,7 @@ import DropzoneOverlay from 'components/fields/Files/components/DropzoneOverlay'
 import FileUploadPreview from 'components/fields/Files/components/FileUploadPreview'
 import Converter from '@/utils/converter'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
+import FieldError from '@/components/fields/FieldError'
 
 interface Props extends IField<IFile | null> {
   vertical: boolean
@@ -32,6 +33,7 @@ export default function FileField(props: Props) {
   const [progress, setProgress] = useState(-1)
   // @ts-ignore
   const [field, meta, helpers] = useField<IFile | null>(props)
+  const showError = meta.touched && !!meta.error
   const [avatarRef, press, hover] = usePressAndHover()
   const [error, setError] = useState<any>(null)
   const dropzoneAccept: Accept = useMemo(() => {
@@ -126,6 +128,7 @@ export default function FileField(props: Props) {
           text={props.text}
           error={error} />
         {isDragActive && <DropzoneOverlay show={isDragActive} title={'Перетащите сюда'} />}
+        <FieldError showError={showError}>{meta.error}</FieldError>
       </div>
     </div >
   )

@@ -14,14 +14,10 @@
   @include list(4px);
 }
 .infoLabel{
-  color: $grey500;
-  font-size: 14px;
-  font-weight: 400;
+  @include infoLabel;
 }
 .infoValue{
-  color: $dark500;
-  font-size: 14px;
-  font-weight: 400;
+  @include infoValue;
 }
 .form{
   @include list(16px);

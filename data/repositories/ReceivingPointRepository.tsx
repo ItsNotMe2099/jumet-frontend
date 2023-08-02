@@ -12,11 +12,10 @@ export default class ReceivingPointRepository {
     })
     return res
   }
-
-  static async searchById(id: number): Promise<IReceivingPoint> {
+  static async fetchById(id: number): Promise<IReceivingPoint> {
     const res = await request<IReceivingPoint>({
       method: 'get',
-      url: `/api/receiving-point/${id}`,
+      url: `/api/receiving-point/${id}`
     })
     return res
   }

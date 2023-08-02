@@ -8,9 +8,7 @@ import {useAppContext} from 'context/state'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {MapSelectorModalArguments} from '@/types/modal_arguments'
 import FieldError from '@/components/fields/FieldError'
-import {runtimeConfig} from '@/config/runtimeConfig'
-import MarkerSvg from '@/components/svg/MarkerSvg'
-import {colors} from '@/styles/variables'
+import YandexStaticMap from '@/components/ui/YandexStaticMap'
 interface Props  extends IField<ILocation | null>{
   className?: string
   address?: string
@@ -36,10 +34,7 @@ export default function MapFullscreenField(props: Props) {
     <div className={styles.root}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       <div className={styles.body}>
-        {field.value && <div className={styles.map} onClick={handleOpen}>
-          <img className={styles.image} src={`https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=${field.value?.lng},${field.value?.lat}&z=16&size=632,328&l=map&apikey=${runtimeConfig.MAP_KEY}`}/>
-          <div className={styles.placemark}><MarkerSvg color={colors.blue500}/></div>
-        </div>}
+        {field.value && <YandexStaticMap center={field.value} onClick={handleOpen}/>}
         <LinkButton type='button' onClick={handleOpen}>{field.value ? 'Изменить' : 'Указать на карте'}</LinkButton>
       </div>
       <FieldError showError={showError}>{meta.error}</FieldError>

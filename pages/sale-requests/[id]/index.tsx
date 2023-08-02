@@ -5,11 +5,11 @@ import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import AddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/AddressCard'
 import SaleRequestCardForBuyer from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestCardForBuyer'
-import Chat from '@/components/for_pages/Common/ReceivingPointComponents/Chat'
 import { useState } from 'react'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
 import { colors } from '@/styles/variables'
-import TabBar from '@/components/for_pages/receiving-point/Tabbar'
+import Chat from '@/components/for_pages/Common/ReceivingPoint/Chat'
+import TabBar from '@/components/for_pages/ReceivingPoint/Tabbar'
 
 interface Props {
   saleRequest: ISaleRequest

@@ -1,37 +1,35 @@
 import CardLayout from '@/components/for_pages/Common/CardLayout'
 import styles from './index.module.scss'
-import IPointData from '@/data/interfaces/IPointData'
 import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
 import { colors } from '@/styles/variables'
-//import Rating from '@/components/for_pages/Common/Rating'
-//import classNames from 'classnames'
+import Rating from '@/components/for_pages/Common/Rating'
+import classNames from 'classnames'
 import GraphSvg from '@/components/svg/GraphSvg'
-import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 
 
 interface Props {
-  point: IReceivingPoint
+  item: IReceivingPoint
   href?: string
 }
 
-export default function ReceivingPointCard({ point, href }: Props) {
+export default function ReceivingPointCard({ item, href }: Props) {
 
   return (
-    <CardLayout contentClassName={styles.content} href={href} topClassName={styles.top}
-      title={point.address.address as string} additionalEl={
-        <>{/*<div className={styles.additional}>
-        <Rating rating={point.rating} />
+    <CardLayout contentClassName={styles.content} href={href ?? ''} topClassName={styles.top} title={item.name} additionalEl={
+      <div className={styles.additional}>
+        <Rating rating={item.rating} />
         <div className={classNames(styles.deals,
           {
-            [styles.yesDeals]: point.dealsPerMonth && point.dealsPerMonth > 0
-          })}>{point.dealsPerMonth} сделок за месяц</div>
-        </div>*/}</>
-      }>
-      {/*<div className={classNames(styles.deals,
+            [styles.yesDeals]: true
+          })}>0 сделок за месяц</div>
+      </div>
+    }>
+      <div className={classNames(styles.deals,
         {
-          [styles.yesDeals]: point.dealsPerMonth && point.dealsPerMonth > 0
-        })}>{point.dealsPerMonth} сделок за месяц</div>*/}
+          [styles.yesDeals]: true
+        })}>0 сделок за месяц</div>
       <div className={styles.btns}>
         <Button className={styles.btnFirst} color='blue' styleType='large' icon={<GraphSvg color={colors.white} />}>
           Статистика пункта приёма

@@ -6,6 +6,7 @@ import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import Link from 'next/link'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import {Routes} from '@/types/routes'
 
 
 interface Props {
@@ -38,12 +39,12 @@ export default function ReceivingPointSearchCard(props: Props) {
   // format the opening time to display in the UI
 
   return (
-    <Link href={`/receiving-point/${props.item.id}`}>
+    <Link href={Routes.receivingPoint(props.item.id)}>
       <div className={styles.root}>
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.title}>
-              {/*props.item.address*/}
+              {props.item.name}
             </div>
             {props.item.rating && <div className={styles.rating}>
               <StarSvg color={colors.yellow500} />
@@ -55,7 +56,7 @@ export default function ReceivingPointSearchCard(props: Props) {
           </div>
         </div>
         <div className={styles.middle}>
-          {/*props.item.address*/}
+          {props.item.address?.address}
         </div>
         <div className={styles.bottom}>
           <Badge active={props.item.hasDelivery} text='Есть доставка' />

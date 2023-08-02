@@ -1,0 +1,40 @@
+@import "styles/index";
+
+.root{
+  padding: 8px 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  position: relative;
+
+  .arrow{
+    transition: transform .3s ease;
+  }
+  &.opened{
+    .arrow{
+      transition: transform .3s ease;
+      transform: rotate(180deg);
+    }
+  }
+  &.active{
+    .label {
+      font-weight: 500;
+    }
+  }
+}
+.label{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  color: $grey500;
+  white-space: nowrap;
+  position: relative;
+  z-index: 2;
+}
+.arrow{
+  display: flex;
+  position: relative;
+  z-index: 2;
+}

@@ -3,6 +3,7 @@ import { HTMLInputTypeAttribute, MouseEventHandler, ReactElement } from 'react'
 import { FieldConfig } from 'formik'
 import { DayType, SnackbarType, WeekDays } from 'types/enums'
 
+export type Nullable<T> = T | null;
 
 export class RequestError extends Error {
   message: string
@@ -116,4 +117,10 @@ export interface IFormStepProps<T> {
   loading?: boolean
   onSubmit: (data: any) => Promise<void>,
   onBack?: () => void
+  footer?: ReactElement
+}
+
+export interface IReceivingPointInfoEditCardProps {
+  isEdit?: boolean
+  onSetIsEdit?: (val: boolean) => void
 }

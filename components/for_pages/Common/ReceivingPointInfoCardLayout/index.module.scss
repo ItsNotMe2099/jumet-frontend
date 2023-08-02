@@ -1,0 +1,31 @@
+@import "../../../../styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+  padding: 20px;
+  background-color: $white;
+  border-radius: $StandartBorderRadius;
+  @include mq($PhoneWidth, max) {
+    @include list(12px, false);
+  }
+}
+
+.header {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}
+
+.title {
+  @include h2;
+  flex: 1;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true);
+}

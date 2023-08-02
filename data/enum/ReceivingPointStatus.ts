@@ -5,5 +5,6 @@ export enum ReceivingPointStatus {
   Rejected = 'rejected',
   WaitDetails = 'waitDetails',
   Published = 'published',
+  UnPublished = 'unPublished',
   Blocked = 'blocked',
 }

@@ -17,6 +17,7 @@
 .price {
     @include h3;
     color: $text;
+  white-space: nowrap;
 }
 
 .middle {
@@ -52,13 +53,14 @@
 
 .top{
     display: flex;
-    justify-content: space-between;
     align-items: center;
-
+     @include list(8px, true);
+  .title{
+    flex: 1;
+  }
     .right{
         display: flex;
         align-items: center;
-        gap: 8px;
     }
 
     @include mq($PhoneWidth, max) {

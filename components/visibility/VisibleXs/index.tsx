@@ -1,7 +1,7 @@
 import { useAppContext } from 'context/state'
 
 interface Props {
-  children: JSX.Element
+  children: JSX.Element | null
 }
 
 /**

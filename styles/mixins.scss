@@ -254,3 +254,15 @@
 
   transition: transform 0.3s ease;
 }
+
+
+@mixin infoLabel() {
+  color: $grey500;
+  font-size: 14px;
+  font-weight: 400;
+}
+@mixin infoValue() {
+  color: $dark500;
+  font-size: 14px;
+  font-weight: 400;
+}
