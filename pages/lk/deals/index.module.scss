@@ -67,3 +67,8 @@
     @include list(12px, false);
     width: 100%;
 }
+
+.select {
+    flex: 1;
+    max-width: 319px;
+}

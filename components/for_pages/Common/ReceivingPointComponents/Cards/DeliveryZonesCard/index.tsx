@@ -1,12 +1,12 @@
 import Tab from '@/components/ui/Tab'
 import styles from './index.module.scss'
-import IPointData from '@/data/interfaces/IPointData'
 import { useState } from 'react'
 import { YMaps, Map, Placemark } from '@pbe/react-yandex-maps'
 import CardLayout from '../../../CardLayout'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 interface Props {
-  item: IPointData
+  item: IReceivingPoint
   cardLayoutClass?: string
   cardLayoutTitleClass?: string
 }

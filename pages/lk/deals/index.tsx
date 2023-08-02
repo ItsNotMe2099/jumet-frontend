@@ -9,6 +9,8 @@ import DealOfferOwnerRepository from '@/data/repositories/DealOfferOwnerReposito
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
+import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
+import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 
 interface Props {
 
@@ -18,6 +20,7 @@ export default function LkDealsPage(props: Props) {
 
   const [points, setPoints] = useState<IReceivingPoint[]>([])
   const [offers, setOffers] = useState<IDealOffer[]>([])
+  const [fromSeller, setFromSeller] = useState<ISaleRequest[]>([])
   const [point, setPoint] = useState<number | null | undefined>(null)
   const [status, setStatus] = useState<'all' | 'applied' | 'accepted' | 'rejected' | 'fromSellers'>('all')
 
@@ -45,17 +48,32 @@ export default function LkDealsPage(props: Props) {
     })
   }
 
+  const fetchSaleRequestsFromSeller = async () => {
+    await SaleRequestRepository.fetchSaleRequestsFromSeller().then(data => {
+      if (data) {
+        setFromSeller(data.data)
+      }
+    })
+  }
+
+
+
   useEffect(() => {
     fetchReceivingPoints()
     fetchDealOffers()
   }, [])
 
   useEffect(() => {
-    if (point === null) {
-      fetchDealOffers()
+    if (status !== 'fromSellers') {
+      if (point === null) {
+        fetchDealOffers()
+      }
+      else {
+        fetchDealOffersByPoint()
+      }
     }
     else {
-      fetchDealOffersByPoint()
+      fetchSaleRequestsFromSeller()
     }
   }, [status, point])
 
@@ -71,7 +89,7 @@ export default function LkDealsPage(props: Props) {
           <div className={styles.title}>
             Предложения лома
           </div>
-          <Select options={options} value={point} onChange={(value) => setPoint(value)} />
+          <Select className={styles.select} options={options} value={point} onChange={(value) => setPoint(value)} />
         </div>
         <div className={styles.switch}>
           <div className={styles.wrapper}>
@@ -103,11 +121,15 @@ export default function LkDealsPage(props: Props) {
         </div>
         <div className={styles.container}>
           <div className={styles.list}>
-            {offers.filter(i => status !== 'all' ? 
+            {status !== 'fromSellers' ? offers.filter(i => status !== 'all' ?
               i.status === status : i
             ).map((i, index) =>
               <SaleRequestCard dealOffer={i} item={i.saleRequest as ISaleRequest} key={index} />
-            )}
+            ) :
+              fromSeller.map((i, index) =>
+                <MySaleRequestCard item={i} key={index} />
+              )
+            }
           </div>
         </div>
       </div>

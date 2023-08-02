@@ -1,15 +1,15 @@
 import Switch from '@/components/ui/Switch'
 import styles from './index.module.scss'
-import IPointData from '@/data/interfaces/IPointData'
 import { useState } from 'react'
 import QuestionPopover from '@/components/ui/QuestionPopover'
 import CardLayout from '../../../CardLayout'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
 import ChevronRightSvg from '@/components/svg/ChevronRightSvg'
 import { colors } from '@/styles/variables'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 interface Props {
-  item: IPointData
+  item: IReceivingPoint
   cardLayoutClass?: string
   cardLayoutTitleClass?: string
 }

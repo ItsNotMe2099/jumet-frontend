@@ -1,7 +1,7 @@
 import request from 'utils/request'
-import {IReceivingPointSearchRequest} from '@/data/interfaces/IReceivingPointSearchRequest'
-import {IPagination} from '@/types/types'
-import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
+import { IPagination } from '@/types/types'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 export default class ReceivingPointRepository {
   static async search(data: IReceivingPointSearchRequest): Promise<IPagination<IReceivingPoint>> {
@@ -13,4 +13,11 @@ export default class ReceivingPointRepository {
     return res
   }
 
+  static async searchById(id: number): Promise<IReceivingPoint> {
+    const res = await request<IReceivingPoint>({
+      method: 'get',
+      url: `/api/receiving-point/${id}`,
+    })
+    return res
+  }
 }

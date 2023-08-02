@@ -11,7 +11,7 @@ interface Props {
   number?: number
 }
 
-export default function SaleRequestCard({ item, number }: Props) {
+export default function MySaleRequestCard({ item, number }: Props) {
 
   return (
     <div className={styles.root}>

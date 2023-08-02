@@ -1,15 +1,18 @@
-import {createContext, useContext, useEffect, useRef, useState} from 'react'
-import {IPagination} from 'types/types'
-import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import { createContext, useContext, useEffect, useRef, useState } from 'react'
+import { IPagination } from 'types/types'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointRepository from '@/data/repositories/ReceivingPointRepository'
-import {IReceivingPointSearchRequest} from '@/data/interfaces/IReceivingPointSearchRequest'
+import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
 
-export enum ViewType{
+export enum ViewType {
   List = 'list',
   Map = 'map'
 }
 interface IReceivingPointFilter extends IReceivingPointSearchRequest {
-
+  location: {
+    lat: 56.795132,
+    lng: 40.1633231
+  }
 }
 
 interface IState {
@@ -25,8 +28,11 @@ interface IState {
 }
 
 const defaultValue: IState = {
-  filter: {page: 1, limit: 10},
-  data: {data: [], total: 0},
+  filter: { page: 1, limit: 10, location: {
+    lat: 56.795132,
+    lng: 40.1633231
+  } },
+  data: { data: [], total: 0 },
   isLoaded: false,
   isLoading: false,
   page: 1,
@@ -44,10 +50,13 @@ interface Props {
 }
 
 export function ReceivingPointSearchWrapper(props: Props) {
-  const [data, setData] = useState<IPagination<IReceivingPoint>>({data: [], total: 0})
+  const [data, setData] = useState<IPagination<IReceivingPoint>>({ data: [], total: 0 })
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [filter, setFilter] = useState<IReceivingPointFilter>( {page: 1, limit: 10})
+  const [filter, setFilter] = useState<IReceivingPointFilter>({ page: 1, limit: 10, location: {
+    lat: 56.795132,
+    lng: 40.1633231
+  } })
   const [page, setPage] = useState<number>(1)
   const [viewType, setViewType] = useState<ViewType>(ViewType.List)
   const filterRef = useRef<IReceivingPointFilter>(filter)
@@ -58,8 +67,8 @@ export function ReceivingPointSearchWrapper(props: Props) {
     await Promise.all([fetch()])
     setIsLoaded(true)
   }
-  const fetch = async ({page}: { page: number } = {page: 1}) => {
-    const res = await ReceivingPointRepository.search({...filterRef.current, page})
+  const fetch = async ({ page }: { page: number } = { page: 1 }) => {
+    const res = await ReceivingPointRepository.search({ ...filterRef.current, page })
     setData(res)
   }
 
@@ -75,7 +84,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
     viewType,
     setPage: (page) => {
       setPage(page)
-      fetch({page})
+      fetch({ page })
     },
     setViewType: (viewType) => setViewType(viewType),
     setFilter: async (data) => {
@@ -83,7 +92,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
       setFilter(data)
       setIsLoading(true)
       setPage(1)
-      await fetch({page: 1})
+      await fetch({ page: 1 })
       setIsLoading(false)
     }
   }

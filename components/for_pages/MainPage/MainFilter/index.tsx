@@ -40,7 +40,10 @@ export default function MainFilter(props: Props) {
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
-    location: null,
+    location: {
+      lat: 56.795132,
+      lng: 40.1633231
+    },
     radius: null,
     radiusCustom: null,
     scrapMetalCategory: null,

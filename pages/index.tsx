@@ -12,13 +12,13 @@ import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
 import MainFilter from '@/components/for_pages/MainPage/MainFilter'
-import {ReceivingPointSearchWrapper, useReceivingPointSearchContext} from '@/context/receiving_point_search_state'
-import {ListViewType} from '@/types/types'
-import {useAppContext} from '@/context/state'
+import { ReceivingPointSearchWrapper, useReceivingPointSearchContext } from '@/context/receiving_point_search_state'
+import { ListViewType } from '@/types/types'
+import { useAppContext } from '@/context/state'
 import Sticky from 'react-stickynode'
 import Formatter from '@/utils/formatter'
 
-const  IndexWrapper = () => {
+const IndexWrapper = () => {
   const appContext = useAppContext()
 
   const date = new Date()
@@ -39,7 +39,7 @@ const  IndexWrapper = () => {
 
           <div className={classNames(styles.left)}>
             <Sticky enabled={appContext.isDesktop} top={120} bottomBoundary={437}>
-              <MainFilter title={''} viewType={viewType} onSetViewType={setViewType}/>
+              <MainFilter title={''} viewType={viewType} onSetViewType={setViewType} />
             </Sticky>
           </div>
           <div className={styles.right}>
@@ -63,12 +63,12 @@ const  IndexWrapper = () => {
             </div>
             <HiddenXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
               </div>
             </HiddenXs>
             <VisibleXs>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
                 <Banner />
               </div>
             </VisibleXs>
@@ -79,8 +79,8 @@ const  IndexWrapper = () => {
   )
 }
 
-export default function IndexPage(){
+export default function IndexPage() {
   return (<ReceivingPointSearchWrapper>
-    <IndexWrapper/>
+    <IndexWrapper />
   </ReceivingPointSearchWrapper>)
 }

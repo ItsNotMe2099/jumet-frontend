@@ -1,10 +1,10 @@
-import IPointData from '@/data/interfaces/IPointData'
 import styles from './index.module.scss'
 import { Map, Placemark, YMaps } from '@pbe/react-yandex-maps'
 import CardLayout from '../../../CardLayout'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 interface Props {
-  item: IPointData
+  item: IReceivingPoint
   additionalEl?: React.ReactNode
   topClassName?: string
   cardLayoutClass?: string
@@ -22,7 +22,7 @@ export default function AddressCard(props: Props) {
       additionalEl={props.additionalEl}
       topClassName={props.topClassName}>
       <div className={styles.address}>
-        {props.item.address}
+        {props.item.address.address}
       </div>
       <div className={styles.map}>
         <YMaps query={{ apikey: 'YOUR_API_KEY' }}>

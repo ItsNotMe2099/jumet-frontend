@@ -30,4 +30,11 @@ export default class SaleRequestRepository {
     return res
   }
 
+  static async fetchSaleRequestsFromSeller(): Promise<IPagination<ISaleRequest>> {
+    const res = await request<IPagination<ISaleRequest>>({
+      method: 'post',
+      url: '/api/sale-request',
+    })
+    return res
+  }
 }

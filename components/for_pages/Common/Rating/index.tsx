@@ -4,7 +4,7 @@ import { colors } from '@/styles/variables'
 
 
 interface Props {
-  rating: string
+  rating: number
 }
 
 export default function Rating(props: Props) {

@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
 import { SaleRequestStatus } from '@/data/enum/SaleRequestStatus'
-import SaleRequestCard from '@/components/for_pages/my-sale-requests/SaleRequestCard'
+import SaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
 
 interface Props {
 

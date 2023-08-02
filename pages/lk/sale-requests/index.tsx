@@ -5,7 +5,7 @@ import classNames from 'classnames'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
 import { SaleRequestStatus } from '@/data/enum/SaleRequestStatus'
-import SaleRequestCard from '@/components/for_pages/my-sale-requests/SaleRequestCard'
+import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
 
 interface Props {
 
@@ -58,7 +58,7 @@ export default function LkSalesRequestsPage(props: Props) {
         </div>
         <div className={styles.list}>
           {data.map((i, index) =>
-            <SaleRequestCard number={1} item={i} key={i.id} />
+            <MySaleRequestCard number={1} item={i} key={i.id} />
           )}
         </div>
       </div>

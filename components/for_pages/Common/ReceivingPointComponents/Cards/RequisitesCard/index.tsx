@@ -1,14 +1,14 @@
 import Button from '@/components/ui/Button'
 import styles from './index.module.scss'
-import IPointData from '@/data/interfaces/IPointData'
 import FileDownloadSvg from '@/components/svg/FileDownloadSvg'
 import { colors } from '@/styles/variables'
 import CardLayout from '../../../CardLayout'
 import classNames from 'classnames'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 
 interface Props {
-  item: IPointData
+  item: IReceivingPoint
   additionalEl?: React.ReactNode
   topClassName?: string
   cardLayoutClass?: string
@@ -31,7 +31,7 @@ export default function
           ИНН
         </div>
         <div className={styles.value}>
-          {item.inn}
+          {item.company.inn}
         </div>
       </div>
       <div className={styles.item}>
@@ -39,7 +39,7 @@ export default function
           Юр. лицо
         </div>
         <div className={styles.value}>
-          {item.entity}
+          {item.company.name}
         </div>
       </div>
       <div className={styles.item}>
@@ -47,7 +47,7 @@ export default function
           ОГРН
         </div>
         <div className={styles.value}>
-          {item.ogrn}
+          {item.company.ogrn}
         </div>
       </div>
       <div className={styles.item}>
@@ -55,11 +55,11 @@ export default function
           Юридический адрес
         </div>
         <div className={styles.value}>
-          {item.legalAddress}
+          {item.company.legalAddress}
         </div>
       </div>
       <div className={styles.bottom}>
-        <Button href={item.license} className={styles.btn} styleType='large' color='grey'>
+        <Button className={styles.btn} styleType='large' color='grey'>
           <FileDownloadSvg color={colors.blue500} />
         </Button>
         <div className={styles.text}>

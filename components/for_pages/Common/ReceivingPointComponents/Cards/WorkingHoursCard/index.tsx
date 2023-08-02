@@ -1,3 +1,4 @@
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 import CardLayout from '../../../CardLayout'
 import styles from './index.module.scss'
 import IPointData from '@/data/interfaces/IPointData'
@@ -5,7 +6,7 @@ import classNames from 'classnames'
 
 
 interface Props {
-  item: IPointData
+  item: IReceivingPoint
   additionalEl?: React.ReactNode
   topClassName?: string
   cardLayoutClass?: string
@@ -15,6 +16,8 @@ interface Props {
 
 export default function WorkingHoursCard(props: Props) {
 
+  const workTime = props.item.workTimes.find(i => i.receivingPointId === props.item.id)
+
   return (
     <CardLayout title='Режим работы'
       className={classNames(styles.root, props.cardLayoutClass)}
@@ -23,8 +26,8 @@ export default function WorkingHoursCard(props: Props) {
       topClassName={props.topClassName}>
       <div className={styles.schedule}>
         <div className={styles.text}>
-          Пн-Пт: 09:00-22:00</div>
-        <div className={styles.text}>Сб: 09:00-19:00</div>
+          Пн-Пт: {`${workTime?.startAt} - ${workTime?.finishAt}`}</div>
+        <div className={styles.text}>Сб: {`${workTime?.startAt} - ${workTime?.finishAt}`}</div>
         <div className={styles.text}>Вс: выходной</div>
       </div>
       {props.button}
