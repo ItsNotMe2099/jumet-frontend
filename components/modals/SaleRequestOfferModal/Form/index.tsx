@@ -22,7 +22,7 @@ import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
 import PriceField from '@/components/fields/PriceField'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { format } from 'date-fns'
-import Select from '@/components/fields/Select'
+//import Select from '@/components/fields/Select'
 
 
 interface Props {
