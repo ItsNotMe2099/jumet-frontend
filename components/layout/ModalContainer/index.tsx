@@ -24,7 +24,7 @@ export default function ModalContainer(props: Props) {
   }
 
   return (
-    <RemoveScroll enabled={!!appContext.modals}>
+    <RemoveScroll enabled={appContext.modals.length > 0}>
       <div aria-hidden="true">
         <Modal overlayClassName={classNames([styles.overlay, appContext.modal && styles[appContext.modals[appContext.modals.length - 1]]
         ], { [styles.none]: appContext.modals.length && appContext.modals[appContext.modals.length - 1] !== ModalType.MobileMenu })} isOpen={appContext.modals.includes(ModalType.MobileMenu)} {...commonSettings}>
