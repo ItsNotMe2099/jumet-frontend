@@ -36,9 +36,7 @@ body{
   width: 100%;
   max-width: 100%;
   background-color: $grey100;
-  &.modal-open{
-    overflow-y: hidden;
-  }
+
 }
 input, button{
   outline:none;
@@ -61,7 +59,6 @@ form{
 }
 
 // React Modal
-.ReactModal__Body--open{}
 
 .ReactModal__Overlay {
   opacity: 0;

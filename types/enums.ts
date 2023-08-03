@@ -1,4 +1,5 @@
 export enum ModalType {
+  Login = 'login',
   MobileMenu = 'mobileMenu',
   OtpCode = 'otpCode',
   PasswordChange = 'passwordChange',

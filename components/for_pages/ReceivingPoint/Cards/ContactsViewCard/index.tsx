@@ -1,33 +1,37 @@
 import styles from '@/components/for_pages/ReceivingPoint/Cards/ContactsViewCard/index.module.scss'
 import { colors } from '@/styles/variables'
 import PhoneSvg from '@/components/svg/PhoneSvg'
-import { useState } from 'react'
+import {MouseEventHandler, useState} from 'react'
 import DeliverySvg from '@/components/svg/DeliverySvg'
 import LoadingSvg from '@/components/svg/LoadingSvg'
 import TimeSvg from '@/components/svg/TimeSvg'
 import classNames from 'classnames'
 import Button from '@/components/ui/Button'
-import BookmarkSvg from '@/components/svg/BookmarkSvg'
-import ShareSvg from '@/components/svg/ShareSvg'
 import Rating from '@/components/for_pages/Common/Rating'
 import ReceivingPointViewCard from '@/components/for_pages/ReceivingPoint/ReceivingPointViewCard'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 import Formatter from '@/utils/formatter'
-import { useAppContext } from '@/context/state'
-import { ModalType } from '@/types/enums'
+import FavoriteBtn from '@/components/for_pages/Common/FavoriteBtn'
+import {LikeEntityType} from '@/data/enum/LikeEntityType'
+import ShareSvg from '@/components/svg/ShareSvg'
+import {Routes} from '@/types/routes'
+import {useAppContext} from '@/context/state'
+import {ModalType, SnackbarType} from '@/types/enums'
+
 
 interface Props {
   receivingPoint: IReceivingPoint
 }
 
 export default function ContactsViewCard(props: Props) {
+  const appContext = useAppContext()
   const [showPhone, setShowPhone] = useState<boolean>(false)
   const isOpen = true
   const { receivingPoint } = props
-
-  const appContext = useAppContext()
-
-  console.log(props.receivingPoint)
+  const handleShareClick: MouseEventHandler = (e) => {
+    navigator.clipboard.writeText(Routes.receivingPoint(props.receivingPoint.id))
+    appContext.showSnackbar('Ссылка скопирована', SnackbarType.success)
+  }
 
   return (
     <ReceivingPointViewCard title={<div className={styles.header}>
@@ -71,12 +75,11 @@ export default function ContactsViewCard(props: Props) {
         <Button onClick={() => appContext.showModal(ModalType.SaleRequestOffer, props.receivingPoint.id)} className={styles.suggest} styleType='large' color='lightBlue'>
           Предложить сделку
         </Button>
-        <Button className={styles.btn} styleType='large' color='grey'>
-          <BookmarkSvg color={colors.blue500} />
+        <FavoriteBtn entityType={LikeEntityType.receivingPoint} id={props.receivingPoint.id}/>
+        <Button className={styles.btn} styleType='large' color='grey' onClick={handleShareClick}>
+          <ShareSvg color={colors.blue500}/>
         </Button>
-        <Button className={styles.btn} styleType='large' color='grey'>
-          <ShareSvg color={colors.blue500} />
-        </Button>
+
       </div>
     </ReceivingPointViewCard>
   )

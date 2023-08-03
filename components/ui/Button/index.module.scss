@@ -32,6 +32,7 @@
 //font
 .normal15 {
   font-size: 15px;
+  font-weight: 500;
 }
 
 .normal16 {
@@ -87,11 +88,21 @@
   visibility: visible;
 }
 
+.withIcon {
+
+  .text {
+    display: flex;
+    align-items: center;
+    grid-gap: 8px;
+  }
+}
+
 .text {
+  visibility: visible;
   display: flex;
-  gap: 11px;
+  justify-content: center;
   align-items: center;
-  white-space: nowrap;
+  pointer-events: none;
 }
 
 .textHidden {

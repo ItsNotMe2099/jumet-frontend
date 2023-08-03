@@ -1,8 +1,10 @@
 import styles from './index.module.scss'
+import {ReactElement} from 'react'
 
 interface Props{
   label: string
-  value?: string | null | undefined
+  value?: string | null | undefined | ReactElement
+
 }
 
 export default function DescField(props: Props) {

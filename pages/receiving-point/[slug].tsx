@@ -9,49 +9,35 @@ import PricesViewCard from '@/components/for_pages/ReceivingPoint/Cards/PricesVi
 import DeliveryZonesViewCard from '@/components/for_pages/ReceivingPoint/Cards/DeliveryZonesViewCard'
 import WorkingHoursViewCard from '@/components/for_pages/ReceivingPoint/Cards/WorkingHoursViewCard'
 import CompanyViewCard from '@/components/for_pages/ReceivingPoint/Cards/CompanyViewCard'
-import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
-import {colors} from '@/styles/variables'
-import Chat from '@/components/for_pages/Common/ReceivingPoint/Chat'
-import TabBar from '@/components/for_pages/ReceivingPoint/Tabbar'
 import Layout from '@/components/layout/Layout'
 import ReviewsViewCard from '@/components/for_pages/ReceivingPoint/Cards/ReviewsCard'
-import { useAppContext } from '@/context/state'
+import {useAppContext} from '@/context/state'
+import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
 
 interface Props {
   receivingPoint: IReceivingPoint;
 }
 
 export default function ReceivingPoint(props: Props) {
+  const appContext = useAppContext()
   const receivingPoint = props.receivingPoint
   const [showChat, setShowChat] = useState<boolean>(false)
-  const appContext = useAppContext()
+
   return (
     <Layout>
       <div className={styles.root}>
-        {!showChat ? <div className={styles.content}>
-            <ContactsViewCard receivingPoint={receivingPoint}/>
-            <AddressViewCard receivingPoint={receivingPoint}/>
-            <PricesViewCard receivingPoint={receivingPoint}/>
-            <DeliveryZonesViewCard receivingPoint={receivingPoint}/>
-            <ReviewsViewCard receivingPoint={receivingPoint} />
-            <WorkingHoursViewCard receivingPoint={receivingPoint}/>
-            <CompanyViewCard receivingPoint={receivingPoint}/>
-          </div>
-          :
-          <div className={styles.chatLayout}>
-            <div className={styles.header}>
-              <div className={styles.back} onClick={() => setShowChat(false)}>
-                <ChevronLeftSvg color={colors.grey500}/>
-                <div className={styles.text}>Назад</div>
-              </div>
-            </div>
-            <Chat address={receivingPoint.address?.address} className={styles.chatMobile}
-                  messageClass={styles.message}/>
-          </div>
-        }
-        <Chat className={styles.chat} messageClass={styles.message}/>
+        <div className={styles.colLeft}>
+          <ContactsViewCard receivingPoint={receivingPoint}/>
+          <AddressViewCard receivingPoint={receivingPoint}/>
+          <PricesViewCard receivingPoint={receivingPoint}/>
+          <DeliveryZonesViewCard receivingPoint={receivingPoint}/>
+          <ReviewsViewCard receivingPoint={receivingPoint}/>
+          <WorkingHoursViewCard receivingPoint={receivingPoint}/>
+          <CompanyViewCard receivingPoint={receivingPoint}/>
+        </div>
+        <ChatOnPage/>
+
       </div>
-      {!showChat && appContext.modals.length === 0 && <TabBar onClick={() => setShowChat(true)} isSticky/>}
     </Layout>
   )
 

@@ -35,9 +35,6 @@ const MobileMenuModalInner = (props: Props) => {
   ]
 
   const handleCloseMobileMenu = () => {
-    if (typeof window !== undefined) {
-      document.body.classList.remove('modal-open')
-    }
     appContext.hideModal()
   }
 

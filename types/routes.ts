@@ -42,6 +42,9 @@ export class Routes {
   static get lk() {
     return '/lk'
   }
+  static lkChat(id?: number | null) {
+    return `/lk/chat${id ? `?chatId=${id}` : ''}`
+  }
   static get lkProfileSettings() {
     return '/lk/profile-settings'
   }

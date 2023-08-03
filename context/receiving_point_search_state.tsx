@@ -3,6 +3,7 @@ import { IPagination } from 'types/types'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointRepository from '@/data/repositories/ReceivingPointRepository'
 import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
+import {omit} from '@/utils/omit'
 
 export enum ViewType {
   List = 'list',
@@ -64,12 +65,15 @@ export function ReceivingPointSearchWrapper(props: Props) {
 
   const fetch = async ({page}: { page: number } = {page: 1}) => {
     const res = await ReceivingPointRepository.search({
-      ...filterRef.current, ...(!filterRef?.current?.location ? {
+      ...omit(filterRef.current, ['hasDelivery', 'hasLoading']), ...(!filterRef?.current?.location ? {
         location: {
           lat: 56.795132,
           lng: 40.1633231
         }
-      } : {}), page
+      } : {}),
+      ...(filterRef.current.hasDelivery ? {hasDelivery: true} : {}),
+      ...(filterRef.current.hasLoading ? {hasLoading: true} : {}),
+      page
     })
     setData(res)
   }

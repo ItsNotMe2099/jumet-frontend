@@ -221,9 +221,9 @@ export default function InputField<T extends string | number>(props: InputFieldP
             <div className={classNames(styles.obscure)} onClick={() => {
               setObscureShow(!obscureShow)
             }}>
-              (obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500}/>
+              {obscureShow ? <EyeSvg className={styles.icon} color={colors.grey500}/>
               :
-              <EyeCloseSvg color={colors.grey500}/>
+              <EyeCloseSvg color={colors.grey500}/>}
 
             </div>
           )}

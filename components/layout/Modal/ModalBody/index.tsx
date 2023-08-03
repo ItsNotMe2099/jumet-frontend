@@ -15,8 +15,8 @@ export default function ModalBody(props: Props) {
   const context = useAppContext()
   return (
     <div className={styles.wrapper}>
-    <Scrollbars 
-    className={styles.scroll} 
+    <Scrollbars
+    className={styles.scroll}
     autoHeight
     autoHide
     autoHeightMax={'100%'}

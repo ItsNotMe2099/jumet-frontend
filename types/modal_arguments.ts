@@ -21,3 +21,14 @@ export interface ConfirmModalArguments {
   confirm?: string,
   cancel?: string
 }
+
+export interface LoginModalArguments {
+  hint?: string
+}
+export interface DealOfferModalArguments {
+  saleRequestId: number
+}
+
+export interface SaleRequestOfferModalArguments {
+  receivingPointId: number
+}

@@ -40,7 +40,7 @@ export default function SaleRequestPage({ saleRequest }: Props) {
         }
         <Chat className={styles.chat} messageClass={styles.message} />
       </div>
-      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky />}
+      {!showChat && <TabBar onClick={() => setShowChat(true)}  />}
     </Layout>
   )
 }

@@ -12,7 +12,7 @@ interface Props{
 }
 export function ConfirmModal(props: Props) {
   const appContext = useAppContext()
-  const args = appContext.modalArgs[0] as ConfirmModalArguments
+  const args = appContext.modalArguments as ConfirmModalArguments
   const handleCancel = () => {
     if(!args.onCancel){
       appContext.hideModal()

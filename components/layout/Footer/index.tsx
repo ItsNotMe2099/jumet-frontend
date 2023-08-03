@@ -28,7 +28,7 @@ export default function Footer(props: Props) {
   ]
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} id={'footer'}>
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.right}>

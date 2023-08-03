@@ -11,3 +11,26 @@
 .tab{
   padding: 0px 16px;
 }
+
+.root {
+
+  @include mq($SmDesktopWidth, max) {
+    display: block;
+    @include list(0px, true);
+    margin: -4px;
+  }
+
+  .tab {
+    @include mq($SmDesktopWidth, max) {
+      display: inline-flex;
+      margin: 4px;
+    }
+
+  }
+
+  .tab2 {
+    width: 50%;
+  }
+}
+
+

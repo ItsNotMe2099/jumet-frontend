@@ -23,8 +23,7 @@ export default function LkSalesRequestsPage(props: Props) {
         const dataCompleted = data.filter(i => i.status === SaleRequestStatus.Completed)
         if (status === 'active') {
           setData(dataActive)
-        }
-        else {
+        } else {
           setData(dataCompleted)
         }
       }

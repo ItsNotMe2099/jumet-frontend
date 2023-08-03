@@ -43,22 +43,17 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
   ]
 
   const handleOpenMobileMenu = () => {
-    if (typeof window !== undefined) {
-      document.body.classList.add('modal-open')
-    }
 
     appContext.showModal(ModalType.MobileMenu)
   }
 
   const handleCloseMobileMenu = () => {
-    if (typeof window !== undefined) {
-      document.body.classList.remove('modal-open')
-    }
+
     appContext.hideModal()
   }
 
   return (
-    <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})}>
+    <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})} id={'header'}>
       <div className={styles.container}>
         <div className={styles.left}>
           <Link href={'/'} className={styles.logo}>

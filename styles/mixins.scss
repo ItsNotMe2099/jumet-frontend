@@ -89,6 +89,15 @@
   @include mq($DesktopWidth, max) {
 
   }
+  @include mq($lg-medium, min) {
+    //max-width: 1620px !important;
+  }
+}
+
+
+@mixin pageContainer {
+  @include container;
+  padding: 32px 0px 64px 0px;
 }
 
 @mixin filterContainer{

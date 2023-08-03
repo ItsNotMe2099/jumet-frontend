@@ -1,79 +1,84 @@
 @import "styles/index";
 
 .root {
-    display: flex;
-    flex-direction: column;
-    @include list(32px, false);
+  display: flex;
+  flex-direction: column;
+  @include list(32px, false);
 
 }
 
 .title {
-    @include h2;
+  @include h2;
 }
 
 .category {
-    display: flex;
+  display: flex;
   flex-direction: column;
-    @include list(16px);
+  @include list(16px);
 
-    @include mq($SmDesktopWidth, max) {
-        flex-direction: column;
-        align-items: flex-start;
-        @include list(12px, false);
-    }
+  @include mq($SmDesktopWidth, max) {
+    flex-direction: column;
+    align-items: flex-start;
+    @include list(12px, false);
+  }
 
-    .text {
-        @include btnText;
-    }
+  .text {
+    @include btnText;
+  }
 }
 
 .switch {
-    display: flex;
-    @include list(12px, true);
+  display: flex;
+  @include list(12px, true);
 
-    .text {
-        @include mainText;
-    }
+  .text {
+    @include mainText;
+  }
 }
 
 .top {
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    @include list(16px, false);
-  .categoryName{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(16px, false);
+  @include mq($SmDesktopWidth, max) {
+    flex-direction: column;
+    @include list(0px, false);
+    @include list(12px, false);
+  }
+    .categoryName {
     flex: 1;
   }
 }
 
 
 .mix {
-    display: flex;
-    flex-direction: column;
-    @include list(5px, false);
+  display: flex;
+  flex-direction: column;
+  @include list(5px, false);
 }
 
 .self {
-    @include secondaryText;
-    color: $grey500;
+  @include secondaryText;
+  color: $grey500;
 }
 
 .price {
-    @include btnText;
-    color: $dark500;
+  @include btnText;
+  color: $dark500;
 }
 
 .popover {
-    display: flex;
-    @include list(12px, true);
+  display: flex;
+  @include list(12px, true);
 }
 
 .chevron {
-    cursor: pointer;
+  cursor: pointer;
 }
 
 .controls {
-    display: flex;
-    @include list(8px, true);
-    align-items: center;
+  display: flex;
+  @include list(8px, true);
+  align-items: center;
 }

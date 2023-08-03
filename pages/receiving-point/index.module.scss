@@ -1,14 +1,9 @@
 @import "styles/index";
 
 .root {
-    @include container;
+    @include pageContainer;
     position: relative;
-    margin-right: 0;
-    max-width: 1342px !important;
-
-    @include mq($lg-medium, min) {
-        max-width: 1620px !important;
-    }
+    display: flex;
 
     @include mq(820px, max) {
         padding: 0;
@@ -16,41 +11,35 @@
     }
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    @include list(12px, false);
-    margin-top: 32px;
-    margin-bottom: 64px;
-    max-width: 940px;
-    margin-right: 350px;
+.colLeft{
+  flex: 1;
+  padding-right: 32px;
+  @include list(12px);
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    padding-right: 30px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+    padding-right: 0;
+  }
+}
 
-    @include mq(820px, max) {
-        margin-right: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    @include mq($lg-medium, min) {
-        margin-right: 630px;
-    }
+.colRight{
+  flex: 0 0 340px;
+  padding-bottom: 20px;
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    flex: 0 0 350px;
+  }
+  @media (min-width: $md-min) and (max-width: $md-medium) {
+    flex: 0 0 320px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+  }
 }
 
 .chat {
-    position: absolute;
-    height: calc(100% + 32px);
-    right: 0;
-    top: -32px;
-    width: 352px !important;
-    overflow: hidden;
-
-    @include mq($lg-medium, min) {
-        width: 628px !important;
-    }
-
-    @include mq(820px, max) {
-        display: none;
-    }
+  min-height: calc(100vh - 84px);
 }
 
 .chatLayout {}

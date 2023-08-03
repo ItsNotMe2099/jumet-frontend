@@ -8,6 +8,7 @@ import BottomSheetFooter from '@/components/layout/BottomSheet/BottomSheetFooter
 import CloseSvg from '@/components/svg/CloseSvg'
 import DealOfferForm from './Form'
 import { useAppContext } from '@/context/state'
+import { DealOfferModalArguments} from '@/types/modal_arguments'
 
 interface Props {
   isBottomSheet?: boolean
@@ -45,7 +46,7 @@ const DealOfferModalInner = (props: Props) => {
     return (
       <ModalLayout className={styles.modalLayout}  >
         <CloseSvg onClick={props.onRequestClose} className={styles.close} color={colors.grey500} />
-        <DealOfferForm saleRequestId={appContext.modalArgs[0]} />
+        <DealOfferForm saleRequestId={(appContext.modalArguments as DealOfferModalArguments)?.saleRequestId!} />
       </ModalLayout>
     )
   }

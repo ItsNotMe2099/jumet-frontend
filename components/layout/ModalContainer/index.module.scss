@@ -20,7 +20,7 @@
   overflow-x: hidden;
   overscroll-behavior: none;
   padding: 10px;
-  z-index: 12;
+  z-index: $zIndexModal;
 
   &.mobileMenu {
     overflow-y: hidden;
@@ -30,3 +30,4 @@
 .none {
   display: none;
 }
+

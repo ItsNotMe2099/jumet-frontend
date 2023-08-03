@@ -1,0 +1,21 @@
+@import "styles/index";
+.root{
+  padding: 20px 20px 0px 20px;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  min-height: 82px;
+
+}
+.wrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  border-bottom: 1px solid $grey300;
+}
+.title{
+  @include btnText;
+  color: $dark500;
+  flex: 1;
+}

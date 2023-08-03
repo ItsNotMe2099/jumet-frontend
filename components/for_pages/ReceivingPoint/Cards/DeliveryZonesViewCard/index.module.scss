@@ -1,69 +1,17 @@
-@import "../../../../../styles/index";
+@import "styles/index";
 
 .root {
-    display: flex;
-    flex-direction: column;
-    @include list(24px, false);
-    padding: 20px;
-    background-color: $white;
-    border-radius: $StandartBorderRadius;
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
 }
-
-.title {
-    @include h2;
-}
-
-.tabs {
-   // display: flex;
-    margin-top: 16px;
-   // gap: 8px;
-
-    @include mq($SmDesktopWidth, max) {
-        display: block;
-        @include clearfix;
-    }
-
-    .tab {
-        width: 25%;
-        @include mq($SmDesktopWidth, max) {
-            float: left;
-            @include clearfix;
-            margin: 0 8px 8px 0;
-        }
-
-    }
-
-    .tab2 {
-        width: 50%;
-    }
-}
-
-.cost {
-    display: flex;
-    flex-direction: column;
-    @include list(5px, false);
-}
-
-.top {
-    @include secondaryText;
-    color: $grey500;
-    margin-top: 24px;
-}
-
-.number {
-    @include h2;
-}
-
-.map {
-    margin-top: 24px;
-    :global {
-        .ymaps-2-1-79-map {
-            width: 100% !important;
-            height: 328px !important;
-        }
-    }
-}
-
-.internal {
-    width: 100%;
+.price{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+  }
 }

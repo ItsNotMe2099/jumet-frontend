@@ -5,8 +5,8 @@ import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {IOption} from '@/types/types'
 import Tabs from '@/components/ui/Tabs'
 import DescField from '@/components/ui/DescField'
-import Formatter from '@/utils/formatter'
 import {IDeliveryArea} from '@/data/interfaces/IDeliveryArea'
+import Formatter from '@/utils/formatter'
 
 interface Props {
   receivingPoint: IReceivingPoint
@@ -29,11 +29,9 @@ export default function DeliveryZonesViewCard(props: Props) {
 
   return (
     <ReceivingPointViewCard title='Зоны доставки'>
-      <div className={styles.tabs}>
-        <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>
-      </div>
-      <div className={styles.cost}>
-        <DescField label={'Стоимость доставки'} value={Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}/>
+      <div className={styles.root}>
+      <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>
+        <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}</div>}/>
       </div>
     </ReceivingPointViewCard>
   )

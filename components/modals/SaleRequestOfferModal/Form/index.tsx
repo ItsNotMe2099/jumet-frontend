@@ -26,10 +26,10 @@ import { format } from 'date-fns'
 
 
 interface Props {
-  pointId: number
+  receivingPointId: number
 }
 
-interface IData {
+interface IFormData {
   scrapMetalCategory?: ScrapMetalCategory
   weight: number
   photosIds: number[]
@@ -78,7 +78,7 @@ export default function SaleRequestOfferForm(props: Props) {
   }
 
   const initialValues = {
-    receivingPointId: props.pointId,
+    receivingPointId: props.receivingPointId,
     scrapMetalCategory: ScrapMetalCategory.None,
     weight: null,
     photosIds: [],

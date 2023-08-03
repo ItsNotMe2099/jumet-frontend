@@ -1,0 +1,44 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+}
+
+
+.inputIcon{
+  position: absolute;
+  top: calc(50% - 9px);
+  left: 20px;
+  @media (max-width: $xs-max) {
+    left: 10px;
+  }
+}
+
+.filterIcon{
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 20px;
+  @media (max-width: $xs-max) {
+    right: 10px;
+  }
+}
+
+.input{
+  display: block;
+  width: 100%;
+  border: 1px solid $grey400;
+  height: 44px;
+  border-radius: 10px;
+  padding: 12px 12px 12px 45px;
+  font-weight: 600;
+
+  background: transparent;
+  @media (max-width: $xs-max) {
+    border: none;
+
+    border-radius: 0;
+  }
+  &::placeholder{
+
+  }
+}

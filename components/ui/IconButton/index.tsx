@@ -2,12 +2,13 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import { IButton } from 'types/types'
 import { RefObject } from 'react'
+import Spinner from '@/components/ui/Spinner'
 
 interface Props extends IButton{
   children: React.ReactNode
   className?: string
   buttonRef?: RefObject<any>
-  bgColor?: 'transparent' | 'white' | 'grey400' | 'grey300' | 'dark400'
+  bgColor?: 'transparent' | 'white' | 'grey400' | 'grey300' | 'dark400' | 'blue500'
   size?: 'normal' | 'medium' | 'large'
 }
 
@@ -39,7 +40,16 @@ export default function IconButton(props: Props) {
       form={props.form}
       onClick={props.onClick}
     >
-      {props.children}
+      <span className={classNames({
+        [styles.text]: true,
+        [styles.textHidden]: props.spinner,
+      })}>{props.children}</span>
+      <div className={classNames({
+        [styles.spinner]: true,
+        [styles.spinnerVisible]: props.spinner,
+      })}>
+         <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)" />
+      </div>
     </button>
   )
 }

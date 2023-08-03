@@ -1,0 +1,25 @@
+@import "styles/index";
+
+.root{
+  flex: 0 0 340px;
+  padding-bottom: 20px;
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    flex: 0 0 350px;
+  }
+  @media (min-width: $md-min) and (max-width: $md-medium) {
+    flex: 0 0 320px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+  }
+
+}
+.chatMobile{
+  width: 100%;
+  align-items: stretch;
+}
+.chatMobileHeader{
+  padding: 24px 16px;
+  width: 100%;
+  background: $grey100;
+}

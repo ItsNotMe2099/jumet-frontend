@@ -15,7 +15,7 @@
     height: 84px;
 
     @include mq($PhoneWidth, max) {
-        height: 64px;
+        height: $headerMobHeight;
         width: 100%;
     }
 }

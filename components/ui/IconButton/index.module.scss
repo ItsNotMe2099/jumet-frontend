@@ -39,3 +39,35 @@
 .dark400{
   background: $dark400;
 }
+
+.blue500{
+  background: $blue500;
+}
+
+
+.spinner {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerVisible {
+  visibility: visible;
+}
+
+.text {
+  display: flex;
+  @include list(11px, true);
+  align-items: center;
+  white-space: nowrap;
+}
+
+.textHidden {
+  visibility: hidden;
+}

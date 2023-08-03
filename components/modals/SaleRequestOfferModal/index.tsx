@@ -9,6 +9,7 @@ import CloseSvg from '@/components/svg/CloseSvg'
 import SaleRequestOfferForm from './Form'
 import { useAppContext } from '@/context/state'
 import ModalBody from '@/components/layout/Modal/ModalBody'
+import {SaleRequestOfferModalArguments} from '@/types/modal_arguments'
 
 interface Props {
   isBottomSheet?: boolean
@@ -16,11 +17,7 @@ interface Props {
 }
 
 const SaleRequestOfferModalInner = (props: Props) => {
-
   const appContext = useAppContext()
-
-  console.log('ARGGSSSSSS', appContext.modalArgs)
-
   const header = (<div />)
 
   const body = (
@@ -52,7 +49,7 @@ const SaleRequestOfferModalInner = (props: Props) => {
           Предложение сделки
         </div>
         <ModalBody className={styles.body} fixed>
-          <SaleRequestOfferForm pointId={appContext.modalArgs[0]} />
+          <SaleRequestOfferForm receivingPointId={(appContext.modalArguments as SaleRequestOfferModalArguments)?.receivingPointId!} />
         </ModalBody>
       </ModalLayout>
     )
