@@ -22,7 +22,7 @@ export default function MapFullscreenField(props: Props) {
   const appContext = useAppContext()
   const handleOpen = () => {
     const data: MapSelectorModalArguments = {location: field.value, onChange: (value) => {
-     appContext.hideModal()
+     //appContext.hideModal()
       helpers.setValue(value)
     }}
       appContext.showModal(

@@ -1,15 +1,15 @@
-import {createContext, useContext, useEffect, useState} from 'react'
-import {RequestError, SnackbarData} from 'types/types'
-import {CookiesType, ModalType, SnackbarType} from 'types/enums'
+import { createContext, useContext, useEffect, useState } from 'react'
+import { RequestError, SnackbarData } from 'types/types'
+import { CookiesType, ModalType, SnackbarType } from 'types/enums'
 import ReactModal from 'react-modal'
-import {getIsMobile} from 'utils/mobile'
+import { getIsMobile } from 'utils/mobile'
 import IAboutMe from '@/data/interfaces/IAboutMe'
 import AuthRepository from '@/data/repositories/AuthRepository'
 import Cookies from 'js-cookie'
-import {Subject} from 'rxjs'
-import {CookiesLifeTime} from '@/types/constants'
-import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
-import {ICompany} from '@/data/interfaces/ICompany'
+import { Subject } from 'rxjs'
+import { CookiesLifeTime } from '@/types/constants'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
+import { ICompany } from '@/data/interfaces/ICompany'
 
 interface IState {
   isMobile: boolean
@@ -19,7 +19,9 @@ interface IState {
   allLoaded: boolean
   loginState$: Subject<boolean>
   modal: ModalType | null
-  modalArguments: any
+  modals: ModalType[]
+  //modalArguments: any
+  modalArgs: any[]
   bottomSheet: ModalType | null
   snackbar: SnackbarData | null
   aboutMe: IAboutMe | null
@@ -63,7 +65,9 @@ const defaultValue: IState = {
   aboutMeLoaded: false,
   allLoaded: false,
   modal: null,
-  modalArguments: null,
+  modals: [],
+  //modalArguments: null,
+  modalArgs: [],
   bottomSheet: null,
   snackbar: null,
   aboutMe: null,
@@ -99,7 +103,9 @@ interface Props {
 export function AppWrapper(props: Props) {
   //  const router = useRouter()
   const [modal, setModal] = useState<ModalType | null>(null)
-  const [modalArguments, setModalArguments] = useState<any>(null)
+  const [modals, setOpenModals] = useState<ModalType[]>([])
+  //const [modalArguments, setModalArguments] = useState<any>(null)
+  const [modalArgs, setModalArgs] = useState<any[]>([])
   const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
   const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
   const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
@@ -170,8 +176,12 @@ export function AppWrapper(props: Props) {
     }
 
     ReactModal.setAppElement('body')
-    setModalArguments(args)
-    setModal(type)
+    //setModalArguments(args)
+    //setModal(type)
+    setOpenModals([...modals, type])
+    if (args) {
+      setModalArgs([...modalArgs, args]); // Update the arguments for the specified modal type
+    }
     if (bottomSheet) {
       hideBottomSheet()
     }
@@ -182,13 +192,26 @@ export function AppWrapper(props: Props) {
       hideBottomSheet()
       return
     }
-    setModal(null)
-    setModalArguments(null)
+    //setModal(null)
+    if (modals.length === 0) {
+      return; // No modals to hide
+    }
+    const updatedModals = modals.slice(0, -1); // Remove the last modal from the array
+    const lastModal = modals[modals.length - 1]
+    setOpenModals(updatedModals)
+    //setModalArguments(null)
+    // Don't clear the arguments for the hidden modal from modalArgs
+    // Instead, remove only the hidden modal from the modalArgs dictionary
+    const updatedArgs = modalArgs.slice(0, -1); // Remove the last arg from the array
+    setModalArgs(updatedArgs)
   }
 
   const showBottomSheet = (type: ModalType, props?: any) => {
     ReactModal.setAppElement('body')
-    setModalArguments(props)
+    //setModalArguments(props)
+    if (props) {
+      setModalArgs((prevArgs) => ({ ...prevArgs, [type]: props })); // Update the arguments for the specified modal type
+    }
     setBottomSheet(type)
   }
 
@@ -197,7 +220,7 @@ export function AppWrapper(props: Props) {
   }
 
   const showSnackbar = (text: string, type: SnackbarType) => {
-    setSnackbar({text, type})
+    setSnackbar({ text, type })
     setTimeout(() => {
       setSnackbar(null)
     }, 2000)
@@ -211,7 +234,9 @@ export function AppWrapper(props: Props) {
     aboutMeLoaded,
     allLoaded,
     modal,
-    modalArguments,
+    modals,
+    //modalArguments,
+    modalArgs,
     bottomSheet,
     snackbar,
     aboutMe,

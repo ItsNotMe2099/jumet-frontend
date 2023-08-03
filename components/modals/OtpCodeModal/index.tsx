@@ -19,7 +19,7 @@ const OtpCodeModalInner = (props: Props) => {
 
   const header = (<div />)
     const appContext = useAppContext()
-  const args = appContext.modalArguments as OtpCodeModalArguments
+  const args = appContext.modalArgs[0] as OtpCodeModalArguments
   const menuNotAuth = [
     { link: '', label: 'Пункты приёма лома' },
     { link: '', label: 'Купить лом' },

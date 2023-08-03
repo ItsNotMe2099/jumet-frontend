@@ -8,6 +8,7 @@ import BottomSheetFooter from '@/components/layout/BottomSheet/BottomSheetFooter
 import CloseSvg from '@/components/svg/CloseSvg'
 import SaleRequestOfferForm from './Form'
 import { useAppContext } from '@/context/state'
+import ModalBody from '@/components/layout/Modal/ModalBody'
 
 interface Props {
   isBottomSheet?: boolean
@@ -18,7 +19,7 @@ const SaleRequestOfferModalInner = (props: Props) => {
 
   const appContext = useAppContext()
 
-  console.log(appContext.modalArguments)
+  console.log('ARGGSSSSSS', appContext.modalArgs)
 
   const header = (<div />)
 
@@ -50,7 +51,9 @@ const SaleRequestOfferModalInner = (props: Props) => {
         <div className={styles.title}>
           Предложение сделки
         </div>
-        <SaleRequestOfferForm pointId={appContext.modalArguments} />
+        <ModalBody fixed>
+          <SaleRequestOfferForm pointId={appContext.modalArgs[0]} />
+        </ModalBody>
       </ModalLayout>
     )
   }

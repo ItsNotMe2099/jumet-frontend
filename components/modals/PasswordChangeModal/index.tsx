@@ -27,7 +27,7 @@ const PasswordChangeModal = (props: Props) => {
 
   const header = 'Смена пароля'
     const appContext = useAppContext()
-  const args = appContext.modalArguments as OtpCodeModalArguments
+  const args = appContext.modalArgs[0] as OtpCodeModalArguments
   const [error, setError] = useState<string | null>(null)
   const [loading, setLoading] = useState(false)
 

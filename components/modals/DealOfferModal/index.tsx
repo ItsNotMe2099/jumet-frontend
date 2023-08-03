@@ -45,7 +45,7 @@ const DealOfferModalInner = (props: Props) => {
     return (
       <ModalLayout className={styles.modalLayout}  >
         <CloseSvg onClick={props.onRequestClose} className={styles.close} color={colors.grey500} />
-        <DealOfferForm saleRequestId={appContext.modalArguments} />
+        <DealOfferForm saleRequestId={appContext.modalArgs[0]} />
       </ModalLayout>
     )
   }
