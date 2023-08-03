@@ -48,6 +48,12 @@
   overflow: auto;
 }
 
+.body {
+  @include mq($PhoneWidth, max) {
+    padding: 0;
+  }
+}
+
 .bodyWrapper {
   display: flex;
   flex-direction: row;

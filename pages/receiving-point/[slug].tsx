@@ -15,6 +15,7 @@ import Chat from '@/components/for_pages/Common/ReceivingPoint/Chat'
 import TabBar from '@/components/for_pages/ReceivingPoint/Tabbar'
 import Layout from '@/components/layout/Layout'
 import ReviewsViewCard from '@/components/for_pages/ReceivingPoint/Cards/ReviewsCard'
+import { useAppContext } from '@/context/state'
 
 interface Props {
   receivingPoint: IReceivingPoint;
@@ -23,6 +24,7 @@ interface Props {
 export default function ReceivingPoint(props: Props) {
   const receivingPoint = props.receivingPoint
   const [showChat, setShowChat] = useState<boolean>(false)
+  const appContext = useAppContext()
   return (
     <Layout>
       <div className={styles.root}>
@@ -49,7 +51,7 @@ export default function ReceivingPoint(props: Props) {
         }
         <Chat className={styles.chat} messageClass={styles.message}/>
       </div>
-      {!showChat && <TabBar onClick={() => setShowChat(true)} isSticky/>}
+      {!showChat && appContext.modals.length === 0 && <TabBar onClick={() => setShowChat(true)} isSticky/>}
     </Layout>
   )
 

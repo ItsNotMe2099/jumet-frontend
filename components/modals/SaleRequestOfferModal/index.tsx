@@ -51,7 +51,7 @@ const SaleRequestOfferModalInner = (props: Props) => {
         <div className={styles.title}>
           Предложение сделки
         </div>
-        <ModalBody fixed>
+        <ModalBody className={styles.body} fixed>
           <SaleRequestOfferForm pointId={appContext.modalArgs[0]} />
         </ModalBody>
       </ModalLayout>

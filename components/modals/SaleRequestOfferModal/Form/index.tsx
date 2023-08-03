@@ -133,7 +133,7 @@ export default function SaleRequestOfferForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
-      <Select label='Мои заявки на продажу лома' options={options} value={option} onChange={(value) => setOption(value)} />
+      {/*<Select label='Мои заявки на продажу лома' options={options} value={option} onChange={(value) => setOption(value)} />*/}
         <RadioField<string>
           label='Категория лома'
           name='scrapMetalCategory'
