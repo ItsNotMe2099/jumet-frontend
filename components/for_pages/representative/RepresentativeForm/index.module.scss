@@ -1,0 +1,76 @@
+@import "styles/index";
+
+.root {
+  background: $white;
+  border-radius: $StandartBorderRadius;
+
+  @include mq($PhoneWidth, max) {
+    background-color: transparent;
+    padding: 0;
+  }
+}
+
+.title {
+  @include h2;
+}
+
+.heading {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $dark500;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  @include list(12px, false);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  @include mq($PhoneWidth, max) {
+    max-width: 100%;
+  }
+}
+
+.changePassword {
+  align-self: flex-start;
+}
+
+.btn {
+  align-self: flex-start;
+}
+
+.disabled {
+  &:hover {
+    background-color: $lightBlue;
+    box-shadow: none;
+  }
+}
+
+.active {
+  &:hover {
+    box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
+  }
+}
+
+.checkbox {
+  align-items: flex-start !important;
+
+  span:first-child {
+    margin-right: 10px !important;
+  }
+}
+
+.policy {
+  color: $blue500;
+  cursor: pointer;
+}

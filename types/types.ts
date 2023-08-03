@@ -37,7 +37,7 @@ export interface IPaginationRequest {
 }
 
 export interface IField<T> extends FieldConfig<T> {
-  label?: string
+  label?: string | React.ReactNode
   placeholder?: string
   type?: HTMLInputTypeAttribute
   error?: string

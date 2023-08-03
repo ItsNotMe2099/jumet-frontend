@@ -136,7 +136,7 @@ export default function FileListField(props: Props) {
         onDrop={onDrop}
         maxFiles={props.maxFiles}
         maxSize={props.maxSize ?? 100000}
-        title={props.dropzoneTitle ?? props.label}
+        title={props.dropzoneTitle ?? props.label as string}
         accept={dropzoneAccept}
       />
       <div className={styles.files}>

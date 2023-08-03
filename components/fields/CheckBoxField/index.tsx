@@ -7,7 +7,7 @@ import { colors } from '@/styles/variables'
 import CheckBoxSvg from '@/components/svg/CheckBoxSvg'
 
 interface Props extends IField<boolean> {
-  label?: string
+  label?: string | React.ReactNode
   checked?: boolean
   disabled?: boolean
   color?: string
