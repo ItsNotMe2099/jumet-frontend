@@ -77,10 +77,6 @@ export default function RepresentativeForm(props: Props) {
     onSubmit: handleSubmit
   })
 
-  const [active, setActive] = useState<boolean>(false)
-
-
-
   return (
     <div className={styles.root}>
       <FormikProvider value={formik}>
@@ -114,7 +110,7 @@ export default function RepresentativeForm(props: Props) {
           <CheckBoxField color={colors.grey400} name='policy'
             label={<>Отправляя форму, я даю своё согласие с <Link className={styles.policy} href={''}>Политикой обработки персональных<br /> данных</Link></>} />
           <Spacer basis={24} />
-          <Button disabled={loading || !active} type='submit' className={classNames(styles.btn, { [styles.active]: formik.values.policy, [styles.disabled]: !formik.values.policy })} styleType='large' color={formik.values.policy ? 'blue' : 'lightBlue'}>
+          <Button disabled={loading || !formik.values.policy} type='submit' className={classNames(styles.btn, { [styles.active]: formik.values.policy, [styles.disabled]: !formik.values.policy })} styleType='large' color={formik.values.policy ? 'blue' : 'lightBlue'}>
             Создать заявку
           </Button>
         </Form>
