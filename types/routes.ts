@@ -39,6 +39,10 @@ export class Routes {
     return `/sales-requests/${id}`
   }
 
+  static dealEditStep(id: string | number, step: string) {
+    return `/deal-edit/${id}/${step}`
+  }
+
   static get lk() {
     return '/lk'
   }

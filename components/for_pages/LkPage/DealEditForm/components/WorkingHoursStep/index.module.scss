@@ -1,0 +1,98 @@
+@import "../../../../../../styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.working {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.title {
+    @include h2;
+}
+
+.types {
+    height: 32px;
+    display: flex;
+    gap: 20px;
+    border-bottom: 1px solid $grey400;
+    padding-bottom: 8px;
+}
+
+.option {
+    color: $grey500;
+    @include mainText;
+    cursor: pointer;
+
+    .line {
+        visibility: hidden;
+    }
+}
+
+.active {
+    color: $dark500;
+    @include btnText;
+    position: relative;
+
+    .line {
+        visibility: visible;
+    }
+}
+
+.line {
+    position: absolute;
+    bottom: -8px;
+    height: 2px;
+    background-color: $dark500;
+    width: 100%;
+}
+
+.wrapper {
+    display: flex;
+    gap: 24px;
+    flex-direction: column;
+}
+
+.options {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.fields {
+    display: flex;
+    gap: 12px;
+}
+
+.checkbox {
+    position: relative;
+    gap: 12px;
+
+    span:first-child {
+        cursor: pointer;
+    }
+
+    span {
+        @include mainText;
+        margin-left: 0 !important;
+    }
+}
+
+.checkboxWrapper {
+    background-color: $yellow500;
+    width: 16px;
+    height: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 4px;
+}
+
+.select {
+    width: 27%;
+}

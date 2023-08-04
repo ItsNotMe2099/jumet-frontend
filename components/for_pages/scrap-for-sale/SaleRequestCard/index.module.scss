@@ -4,6 +4,10 @@
   background-color: $white;
   padding: 20px;
   border-radius: 12px;
+
+  @include mq($TabletWidth, max) {
+    padding: 16px;
+  }
 }
 
 .container {
@@ -11,7 +15,6 @@
   justify-content: space-between;
 
   @include mq($TabletWidth, max) {
-    padding: 16px;
     flex-direction: column;
     @include list(16px, false);
   }
@@ -26,6 +29,16 @@
 .top {
   display: flex;
   @include list(8px, true);
+
+  .first {
+    display: flex;
+    @include list(8px, true);
+  }
+
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(8px, false);
+  }
 }
 
 .weight {
@@ -93,7 +106,7 @@
 }
 
 .status {
-  padding: 4px 12px;
+  padding: 5px 12px;
   border-radius: 24px;
   display: flex;
   align-items: center;
@@ -127,6 +140,30 @@
   .text {
     color: $dark500;
     @include mainText;
+  }
+
+  @include mq($PhoneWidth, max) {
+    display: none;
+  }
+}
+
+.offerMobile {
+  margin-top: 20px;
+  border-radius: 12px;
+  padding: 8px 12px;
+  background-color: $grey200;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  cursor: pointer;
+
+  .text {
+    color: $dark500;
+    @include mainText;
+  }
+
+  @include mq($PhoneWidth, min) {
+    display: none;
   }
 }
 
@@ -179,4 +216,5 @@
   @include mainText;
   color: $dark500;
   max-width: 516px;
+  word-break: break-word;
 }

@@ -1,0 +1,13 @@
+@import "../../../../../../styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.add {
+    color: $blue500;
+    @include btnText;
+    max-width: 303px;
+}

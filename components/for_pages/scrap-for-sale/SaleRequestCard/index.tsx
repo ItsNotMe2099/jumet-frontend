@@ -35,19 +35,23 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.top}>
-            <div className={styles.weight}>
-              {item.weight > 0 ? `${item.weight} тонн` : 'Вес не указан'}
+            <div className={styles.first}>
+              <div className={styles.weight}>
+                {item.weight > 0 ? `${item.weight} тонн` : 'Вес не указан'}
+              </div>
+              <div className={styles.number}>
+                Заявка №{item.id}
+              </div>
             </div>
-            <div className={styles.number}>
-              Заявка №{item.id}
+            <div>
+              {dealOffer && <div className={classNames(styles.status,
+                {
+                  [styles.applied]: dealOffer.status === DealOfferStatus.Applied,
+                  [styles.accepted]: dealOffer.status === DealOfferStatus.Accepted,
+                  [styles.rejected]: dealOffer.status === DealOfferStatus.Rejected,
+                })}>
+                {dealOffer.status}</div>}
             </div>
-            {dealOffer && <div className={classNames(styles.status,
-              {
-                [styles.applied]: dealOffer.status === DealOfferStatus.Applied,
-                [styles.accepted]: dealOffer.status === DealOfferStatus.Accepted,
-                [styles.rejected]: dealOffer.status === DealOfferStatus.Rejected,
-              })}>
-              {dealOffer.status}</div>}
           </div>
           <div className={styles.middle}>
             {item.address.address}
@@ -74,6 +78,12 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
             :
             <JumetSvg color={colors.white} />
           }
+        </div>
+        <div className={styles.offerMobile} onClick={() => setShow(!show)}>
+          <div className={styles.text}>
+            Ваше предложение
+          </div>
+          {!show ? <ChevronDownSvg color={colors.grey500} /> : <ChevronUpSvg color={colors.grey500} />}
         </div>
       </div>
       {show &&

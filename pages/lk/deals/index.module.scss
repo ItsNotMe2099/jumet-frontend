@@ -10,14 +10,27 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    @include mq($TabletWidth, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
 }
 
 .title {
     @include h1;
+
+    @include mq($TabletWidth, max) {
+        align-self: flex-start;
+    }
 }
 
 .switch {
     margin-top: 32px;
+
+    @include mq($TabletWidth, max) {
+        margin-top: 16px;
+    }
 }
 
 .status {
@@ -71,4 +84,9 @@
 .select {
     flex: 1;
     max-width: 319px;
+
+    @include mq($TabletWidth, max) {
+        max-width: 100%;
+        width: 100%;
+    }
 }
