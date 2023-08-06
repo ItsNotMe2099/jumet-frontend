@@ -35,7 +35,7 @@ const initialSteps: IFormStep<FormStep>[] = [
     key: FormStep.Data
   },
   {
-    name: 'Зоны доставки',
+    name: 'Доставка',
     description: 'Укажите зоны доставки',
     key: FormStep.Zones
   },
@@ -175,7 +175,7 @@ export default function ReceivingPointCreateForm(props: Props) {
     <div className={styles.root}>
     <RegLayout
       title={steps[currentStepIndex].description as string}
-      currentStepIndex={currentStepIndex} indicator onBack={handleBack} filter={false}>
+      currentStepIndex={currentStepIndex} indicator={step?.key !== FormStep.Approve} onBack={handleBack} filter={false}>
       <FormStepSwitch index={currentStepIndex} options={[
         <DataStep key={1} onSubmit={submit} />,
         <DeliveryZoneStep key={2} onSubmit={submit} onBack={handleBack} />,

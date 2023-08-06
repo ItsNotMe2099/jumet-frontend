@@ -2,17 +2,19 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import Link from 'next/link'
 import Spinner from 'components/ui/Spinner'
-import { colors } from 'styles/variables'
-import { ReactElement, RefObject } from 'react'
+import {colors} from 'styles/variables'
+import {ReactElement, RefObject} from 'react'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
 import useStopPropagation from '@/components/hooks/useStopPropagation'
 import {IButton} from '@/types/types'
+
 export type ButtonColor = 'blue' | 'dark' | 'white' | 'grey' | 'lightBlue'
 export type ButtonFont = 'normal15' | 'normal16'
 export type ButtonStyleType = 'small' | 'large'
-export interface ButtonProps extends  IButton{
-  children: React.ReactNode
-  styleType: ButtonStyleType
+
+export interface ButtonProps extends IButton {
+  children?: React.ReactNode | null | string
+  styleType?: ButtonStyleType
   font?: ButtonFont
   color?: ButtonColor
   className?: string
@@ -30,26 +32,28 @@ export default function Button(props: ButtonProps) {
 
   const cn = classNames({
     [styles.root]: true,
-    [styles[props.styleType]]: true,
-    ...(props.font ? { [styles[props.font]]: true } : {}),
+    ...(props.styleType ? {
+      [styles[props.styleType]]: true
+    } : {}),
+    ...(props.font ? {[styles[props.font]]: true} : {}),
     [styles.disabled]: props.disabled,
-    ...(props.color ? { [styles[props.color]]: true } : {}),
+    ...(props.color ? {[styles[props.color]]: true} : {}),
     [styles.fluid]: props.fluid,
     [styles.press]: props.press ?? press,
     [styles.hover]: props.hover ?? hover,
     [styles.withIcon]: !!props.icon
   }, props.className)
-  const darkSpinner = props.styleType.includes('outlined')
+  const darkSpinner = props.styleType?.includes('outlined')
 
 
   if (props.href) {
     return (
       <Link href={props.href}
-        ref={props.buttonRef ?? ref}
-        className={classNames(cn)}
-        target={props.isExternalHref ? '_blank' : ''}
-        rel={props.isExternalHref ? 'noreferrer' : ''}
-        onClick={props.onClick}>
+            ref={props.buttonRef ?? ref}
+            className={classNames(cn)}
+            target={props.isExternalHref ? '_blank' : ''}
+            rel={props.isExternalHref ? 'noreferrer' : ''}
+            onClick={(e) => props.onClick?.(e)}>
         <span className={classNames({
           [styles.text]: true,
           [styles.textHidden]: props.spinner,
@@ -82,8 +86,8 @@ export default function Button(props: ButtonProps) {
         [styles.spinner]: true,
         [styles.spinnerVisible]: props.spinner,
       })}>
-        {!darkSpinner && <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)" />}
-        {darkSpinner && <Spinner size={22} color={colors.black} secondaryColor={colors.grey500} />}
+        {!darkSpinner && <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)"/>}
+        {darkSpinner && <Spinner size={22} color={colors.black} secondaryColor={colors.grey500}/>}
       </div>
     </button>
   )

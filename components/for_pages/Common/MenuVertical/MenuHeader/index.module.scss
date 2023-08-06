@@ -1,7 +1,7 @@
 @import "styles/index";
 
 .root{
-  padding: 8px 0px;
+  padding: 12px 20px;
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -17,19 +17,13 @@
       transform: rotate(180deg);
     }
   }
-  &.active{
-    .label {
-      font-weight: 500;
-    }
-  }
 }
 .label{
-  font-family: 'Roboto';
-  font-style: normal;
-  font-weight: 400;
+
+  font-weight: 500;
   font-size: 16px;
-  color: $grey500;
-  white-space: nowrap;
+  color: $dark500;
+  line-height: 28px;
   position: relative;
   z-index: 2;
 }

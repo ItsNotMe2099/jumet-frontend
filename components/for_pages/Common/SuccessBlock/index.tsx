@@ -6,7 +6,7 @@ import { ReactElement } from 'react'
 
 interface Props {
   title: string
-  text: React.ReactNode
+  text: React.ReactNode | string
   additionalComp?: () => ReactElement
 }
 

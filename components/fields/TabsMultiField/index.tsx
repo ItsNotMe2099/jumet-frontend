@@ -5,6 +5,7 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import FieldError from '@/components/fields/FieldError'
 import Tabs from '@/components/ui/Tabs'
+import {TabStyleType} from '@/components/ui/Tab'
 
 
 interface Props<T> extends IField<T> {
@@ -13,6 +14,7 @@ interface Props<T> extends IField<T> {
   className?: string
   fluid?: boolean
   onChange?: (val: T) => void
+  styleType?: TabStyleType
 }
 
 function TabsMultiField<T>(props: Props<T>){
@@ -31,7 +33,7 @@ function TabsMultiField<T>(props: Props<T>){
   return (
     <div className={classNames(styles.root, props.className)}>
       {props.label && <div className={styles.label}>{props.label}</div>}
-      <Tabs options={props.options} value={field.value} isMulti={true} onClick={handleChange} fluid={props.fluid ?? false}/>
+      <Tabs options={props.options} value={field.value} isMulti={true} styleType={props.styleType} onClick={handleChange} fluid={props.fluid ?? false}/>
       <FieldError showError={meta.touched && !!meta.error}>{meta.error}</FieldError>
     </div>
   )

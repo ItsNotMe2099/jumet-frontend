@@ -17,6 +17,21 @@
   flex-direction: row;
   justify-content: stretch;
   align-items: center;
+  @include list(16px, true);
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @include list(16px, false);
+
+    @include list(8px, false);
+  }
+}
+.rowFields{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
   @include list(16px, true)
 }
 .weightSection{

@@ -3,9 +3,15 @@
 .root {
     display: flex;
     flex-direction: column;
-    gap: 8px;
-}
+  align-items: center;
+   @include list(8px);
 
+  flex:1;
+  text-align: center;
+}
+.text{
+  max-width: 120px;
+}
 .col,
 .check {
     align-self: center;

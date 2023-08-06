@@ -1,12 +1,8 @@
 import styles from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DataStep/index.module.scss'
-import {FieldArray, Form, FormikProvider, useFormik} from 'formik'
+import { Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
-import {FileUploadAcceptType, InputStyleType} from '@/types/enums'
-import Button from '@/components/ui/Button'
-import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
-import {colors} from '@/styles/variables'
+import {FileUploadAcceptType} from '@/types/enums'
 import FileField from '@/components/fields/Files/FileField'
-import PhoneField from '@/components/fields/PhoneField'
 import AddressField from '@/components/fields/AddressField'
 import MapFullscreenField from '@/components/fields/MapFullscreenField'
 import {IAddress} from '@/data/interfaces/IAddress'
@@ -20,6 +16,7 @@ import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ILocation} from '@/data/interfaces/ILocation'
 import IFile from '@/data/interfaces/IFile'
 import Formatter from '@/utils/formatter'
+import PhoneListField from '@/components/fields/PhoneListField'
 
 interface IFormData {
   inn?: string | null
@@ -99,27 +96,7 @@ export default function DataStep(props: Props) {
         <div className={styles.address}>
           <AddressField name={'address'} label={'Адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
           <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
-          <FieldArray name='phones'>
-            {arrayHelpers => (
-              <>
-                <div className={styles.phones}>
-                  {formik.values.phones?.map((i, index) =>
-                    <PhoneField
-                      styleType={InputStyleType.Default}
-                      key={index}
-                      label={index === 0 ? 'Телефон пункта приёма*' : ''}
-                      name={`phones[${index}].phone`}
-                      validate={Validator.phone}
-                    />
-                  )}
-                </div>
-                <Button onClick={() => arrayHelpers.push({ phone: '' })} type='button' className={styles.add} styleType='large' color='grey'>
-                  <CirclePlusSvg color={colors.blue500} />
-                  Добавить еще номер
-                </Button>
-              </>
-            )}
-          </FieldArray>
+          <PhoneListField name={'phones'} label={'Телефоны пункта приема*'}/>
         </div>
         <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
       </Form>

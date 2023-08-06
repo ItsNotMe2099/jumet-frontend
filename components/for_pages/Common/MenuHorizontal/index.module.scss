@@ -1,6 +1,6 @@
 @import "styles/index";
 
-.root {
+.root{
   display: flex;
   flex-direction: column;
   border-radius: $StandartBorderRadius;
@@ -16,6 +16,23 @@
     border-radius: 0;
     @include scroll_hide;
     @include list(20px, true);
+    margin-bottom: 10px;
     width: 100%;
+  }
+}
+.item {
+  padding: 12px 0px 12px 20px;
+  cursor: pointer;
+  @include btnText;
+  display: flex;
+  @include list(12px, true);
+  align-items: center;
+
+  @include mq($PhoneWidth, max) {
+    flex-shrink: 0;
+    padding: 0;
+  }
+  &.active{
+    border-bottom: 2px solid $dark400;
   }
 }

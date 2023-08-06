@@ -61,7 +61,7 @@ export default function UsersStep(props: Props) {
             </>
           )}
         </FieldArray>
-        <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
+        <FormStepFooter hasBack onBack={props.onBack} spinner={props.loading}/>
       </Form>
     </FormikProvider>
   )

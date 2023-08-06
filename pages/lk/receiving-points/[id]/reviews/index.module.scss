@@ -1,13 +1,6 @@
 @import "styles/index";
-
-.root {}
-
-.desktop {
-  @include mq($PhoneWidth, max) {
-    display: none;
-  }
-}
-
-.mobile {
-  background-color: transparent;
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(32px, false);
 }

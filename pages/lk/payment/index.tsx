@@ -1,37 +1,17 @@
-import Layout from '@/components/layout/Layout'
 //import styles from './index.module.scss'
-import { useAppContext } from '@/context/state'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import LkLayout from '@/components/for_pages/LkPage/layout'
+import {LkLayoutTitleData} from '@/context/lk_layout_content'
+import {LkPageLayout} from '@/pages/lk'
 
 interface Props {
 
 }
 
-export default function LkPage(props: Props) {
-
-  const appContext = useAppContext()
-
-  const router = useRouter()
-
-  const token = Cookies.get('accessToken')
-
-
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
-
-  return (
-    <Layout>
-      <LkLayout>
-
-      </LkLayout>
-    </Layout>
+const LkPaymentPage = (props: Props) => {
+  return (<>
+      <LkLayoutTitleData title={'Оплата'}/>
+    </>
   )
 }
+LkPaymentPage.getLayout = LkPageLayout
+export default LkPaymentPage
 

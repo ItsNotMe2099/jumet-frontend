@@ -1,16 +1,15 @@
-import Layout from '@/components/layout/Layout'
 import ChatPage from '@/components/for_pages/LkPage/chat'
 import {getAuthServerSideProps} from '@/utils/auth'
+import {LkPageBaseLayout} from '@/pages/lk'
 
 interface Props {
 }
 
-export default function LkChatPage(props: Props) {
+const LkChatPage = (props: Props) => {
   return (
-    <Layout>
      <ChatPage/>
-    </Layout>
   )
 }
-
+LkChatPage.getLayout = LkPageBaseLayout
+export default LkChatPage
 export const getServerSideProps = getAuthServerSideProps()

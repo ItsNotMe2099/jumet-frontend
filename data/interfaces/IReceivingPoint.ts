@@ -9,6 +9,7 @@ import {IPriceDescription} from '@/data/interfaces/IPriceDescription'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import {IAddress} from '@/data/interfaces/IAddress'
 import IUser from '@/data/interfaces/IUser'
+import {DeliveryPriceType} from '@/data/enum/DeliveryPriceType'
 
 export interface IReceivingPoint {
   id: number;
@@ -22,6 +23,7 @@ export interface IReceivingPoint {
   photos: IFile[];
   photosIds: number[];
   scheduleType?: ScheduleType;
+  deliveryPriceType?: DeliveryPriceType;
   workTimes: IReceivingPointWorkTime[];
   prices: IPriceDescription[];
   scrapMetalCategories: ScrapMetalCategory[];
@@ -33,6 +35,8 @@ export interface IReceivingPoint {
   rating: number
   phones?: string[];
   ownerId?: string;
+  deliveryPriceFixed: number;
+  loadingPrice: number;
   distance: number;
   workNow: boolean;
   price: number;

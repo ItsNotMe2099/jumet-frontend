@@ -16,7 +16,6 @@
 .container {
     display: flex;
     margin-top: 32px;
-    gap: 32px;
     @include list(32px, true);
     align-items: flex-start;
 
@@ -25,8 +24,8 @@
     }
 
     @include mq($PhoneWidth, max) {
-        gap: 12px;
-        @include list(0px, true);
+      @include list(0px, true);
+      @include list(12px, false);
     }
 }
 
@@ -35,17 +34,25 @@
     display: flex;
     flex-direction: column;
     @include list(12px, false);
+  @media (max-width: $xs-max) {
+    flex: auto;
 
-    @include mq($MdDesktopWidth, max) {
-        margin-left: 0;
-        width: 100%;
-    }
+  }
 }
 
+
 .menu {
+  flex: 0 0 416px;
 
-    width: 416px;
-
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    flex: 0 0 350px;
+  }
+  @media (min-width: $md-min) and (max-width: $md-medium) {
+    flex: 0 0 320px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+  }
     @include mq($PhoneWidth, max) {
         margin-bottom: 10px;
         width: 100%;

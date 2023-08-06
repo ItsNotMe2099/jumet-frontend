@@ -1,33 +1,21 @@
-import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import { useEffect } from 'react'
 import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import LkLayout from '@/components/for_pages/LkPage/layout'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+import {LkReceivingPageLayout} from '@/pages/lk'
 
 interface Props {
 
 }
 
-export default function ReceivingPointStatisticPage(props: Props) {
-
+const ReceivingPointStatisticPage = (props: Props) => {
   const router = useRouter()
 
-  const token = Cookies.get('accessToken')
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
-
   return (
-    <Layout>
-      <LkLayout className={styles.desktop} >
-
-      </LkLayout>
-
-    </Layout>
+    <div>
+    В разработке
+    </div>
   )
 }
-
+ReceivingPointStatisticPage.getLayout = LkReceivingPageLayout
+export default  ReceivingPointStatisticPage
+export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

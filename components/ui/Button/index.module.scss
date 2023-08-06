@@ -4,6 +4,7 @@
   padding: 0 24px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 16px;
   display: inline-flex;
   position: relative;
   justify-content: center;
@@ -27,6 +28,10 @@
 
 .large {
   height: 48px;
+  @include mq($PhoneWidth, max) {
+    height: 40px;
+  }
+  @include btnText;
 }
 
 //font
@@ -70,6 +75,7 @@
 
 .grey {
   background: $grey300;
+  color: $blue500;
 }
 
 .spinner {

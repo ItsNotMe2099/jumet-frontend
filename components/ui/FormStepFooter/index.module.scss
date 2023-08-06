@@ -19,6 +19,16 @@
 .wrapper{
   flex: 0 1 $stepFormWidth;
   display: flex;
+  flex-direction: row;
   align-items: center;
+  justify-content: space-between;
+  @include mq($PhoneWidth, max) {
+
+    justify-content: flex-start;
+    @include list(12px, true);
+    > button{
+      flex: 1;
+    }
+  }
 
 }

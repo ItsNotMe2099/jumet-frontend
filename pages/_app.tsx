@@ -3,7 +3,7 @@ import 'styles/globals.scss'
 import 'react-dadata/dist/react-dadata.css'
 import type {AppProps as NextAppProps} from 'next/app'
 import App, {AppContext} from 'next/app'
-import {useEffect} from 'react'
+import {ReactElement, ReactNode, useEffect} from 'react'
 import {AppWrapper} from 'context/state'
 import {getSelectorsByUserAgent} from 'react-device-detect'
 import ModalContainer from 'components/layout/ModalContainer'
@@ -14,14 +14,20 @@ import {getToken} from '@/utils/auth'
 import 'swiper/css/bundle'
 import {DataWrapper} from '@/context/data_state'
 import {FavoriteWrapper} from '@/context/favorite_state'
+import {NextPage} from 'next'
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
 
 export interface AppProps extends NextAppProps {
   pageProps: {
     isMobile: boolean
   }
 }
-
-function MyApp({Component, pageProps}: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+function MyApp({Component, pageProps}: AppPropsWithLayout) {
 
   useEffect(() => {
       if (pageProps.isMobile) {
@@ -30,7 +36,7 @@ function MyApp({Component, pageProps}: AppProps) {
       }
     },
     [])
-
+  const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
       <AuthWrapper>
@@ -47,7 +53,7 @@ function MyApp({Component, pageProps}: AppProps) {
                 content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
               />
             </Head>
-            <Component {...pageProps} />
+            {getLayout(<Component {...pageProps as any} />)}
             <ModalContainer/>
             <Snackbar/>
           </FavoriteWrapper>

@@ -14,12 +14,15 @@ interface Props {
   hasChildren?: boolean
   isActive?: boolean
   onClick?: () => void
+  className?: string
 }
 
 export default function MenuHeader(props: Props) {
   const handleClick: MouseEventHandler = (e) => {
+    if(!props.href){
     e.preventDefault()
     e.stopPropagation()
+    }
     props.onClick?.()
 
   }
@@ -32,7 +35,7 @@ export default function MenuHeader(props: Props) {
     </div>}
   </>)
 
-  const classes = classNames(styles.root, {[styles.opened]: props.isOpen, [styles.active]: props.isActive})
+  const classes = classNames(styles.root, {[styles.opened]: props.isOpen, [styles.active]: props.isActive}, props.className)
 
   return (<Link href={props.href ?? ''} className={classes} onClick={handleClick}>
     {content}

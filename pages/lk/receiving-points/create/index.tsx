@@ -2,8 +2,6 @@ import ReceivingPointCreateForm from '@/components/for_pages/LkPage/ReceivingPoi
 import Layout from '@/components/layout/Layout'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
-//import styles from './index.module.scss'
-
 
 export default function ReceivingPointCreatePage() {
 

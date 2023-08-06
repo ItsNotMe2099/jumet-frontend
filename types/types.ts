@@ -67,8 +67,8 @@ export interface IButton {
   form?: string
   spinner?: boolean
   disabled?: boolean
-  onClick?: MouseEventHandler
-  href?: string | UrlObject
+  onClick?: MouseEventHandler | null
+  href?: string | UrlObject | null
   isExternalHref?: boolean // add target blank and no referrer
 }
 

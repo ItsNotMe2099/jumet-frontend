@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from 'components/for_pages/Common/MenuVertical/MenuItem/index.module.scss'
 import * as React from 'react'
 import Link from 'next/link'
 
@@ -10,6 +10,7 @@ interface Props {
   title: string
   link?: string,
   onClick: () => void,
+  className?: string
 }
 
 export const MenuItem = (props: Props) => {
@@ -17,9 +18,9 @@ export const MenuItem = (props: Props) => {
   return (
     <Link
       href={props.link ?? '#'}
-      className={classNames(styles.root, {[styles.active]: isActive})} onClick={props.onClick}>
-      <div className={styles.title}>
-        {props.title}
+      className={classNames(styles.root, {[styles.active]: isActive}, props.className)} onClick={props.onClick}>
+      <div className={classNames(styles.title)}>
+       {props.title}
       </div>
     </Link>
   )

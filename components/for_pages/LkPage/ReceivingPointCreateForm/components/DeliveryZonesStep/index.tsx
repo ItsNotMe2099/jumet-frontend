@@ -12,6 +12,6 @@ interface Props extends IFormStepProps<IReceivingPoint>{
 export default function DeliveryZoneStep(props: Props) {
   return (
     <ReceivingPointDeliveryForm onSubmit={props.onSubmit}
-      footer={<FormStepFooter  onBack={props.onBack} spinner={props.loading}/>}/>
+      footer={<FormStepFooter hasBack  onBack={props.onBack} spinner={props.loading}/>}/>
   )
 }

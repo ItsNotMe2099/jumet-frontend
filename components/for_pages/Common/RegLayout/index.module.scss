@@ -1,39 +1,60 @@
 @import "styles/index";
 
 .root {
-    margin-top: 38px;
-    margin-bottom: 64px;
-    width: 93%;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.wrapper {
-    background-color: $white;
-    border-radius: $StandartBorderRadius;
+  @include container;
+  background-color: $white;
+  border-radius: $StandartBorderRadius;
+  @include mq($PhoneWidth, max) {
+    border-radius: 0px;
+    padding-bottom: 48px;
+  }
 }
 
 .container {
-    background-color: $white;
-    @include container;
-    padding-top: 32px;
-    padding-bottom: 20px;
-    width: 50%;
-    display: flex;
-    gap: 24px;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding-top: 32px;
+  padding-bottom: 20px;
+  @include list(24px);
+}
+.wrapper{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+}
+.wrapperIndicator{
+  @include mq($PhoneWidth, max) {
+    display: block;
+    overflow-x: scroll;
+    background-color: transparent;
+    padding: 0;
+    border-radius: 0;
+    @include scroll_hide;
+    @include list(20px, true);
+    margin-bottom: 10px;
+  }
+}
+
+.content, .indicator {
+
+  flex-basis: $stepFormWidth;
+
+}
+.indicator{
+  @include mq($PhoneWidth, max) {
+
+    width: 528px;
+  }
+}
+.content{
+
+  display: flex;
+  flex-direction: column;
+  @include list(24px);
 }
 
 .title {
     @include h1;
     color: $dark500;
-}
-
-.switch>div {
-    height: $StandartHeight - 10px;
-}
-
-.switch {
-    padding: 5px !important;
-    margin-bottom: 0 !important;
 }

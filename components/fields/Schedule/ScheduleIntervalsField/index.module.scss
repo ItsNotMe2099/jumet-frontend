@@ -1,13 +1,16 @@
 @import "styles/index";
 
 .root {
-  width: 356px;
+  flex-basis: 356px;
   display: flex;
   flex-direction: row;
   justify-content: stretch;
   grid-gap: 5px;
   align-items: center;
   @include list(12px, true);
+  @include mq($PhoneWidth, max) {
+    flex-basis: auto;
+  }
   > div{
     flex: 1;
   }

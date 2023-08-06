@@ -9,6 +9,7 @@
   border-radius: $StandartBorderRadius;
   @include mq($PhoneWidth, max) {
     @include list(12px, false);
+    padding: 20px 15px;
   }
 }
 

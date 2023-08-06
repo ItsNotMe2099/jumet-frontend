@@ -10,6 +10,6 @@ interface Props extends IFormStepProps<IReceivingPoint>{
 export default function PricesStep(props: Props) {
   return (
     <ReceivingPointPricesForm onSubmit={props.onSubmit}
-      footer={<FormStepFooter  onBack={props.onBack} spinner={props.loading}/>}/>
+      footer={<FormStepFooter hasBack onBack={props.onBack} spinner={props.loading}/>}/>
   )
 }

@@ -1,7 +1,10 @@
-@import "../../../../styles/index";
+@import "styles/index";
 
 .root {
-    @include container;
     margin-top: 38px;
     margin-bottom: 64px;
+  @include mq($PhoneWidth, max) {
+    margin-top: 0px;
+    margin-bottom: 0px;
+  }
 }

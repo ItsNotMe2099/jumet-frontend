@@ -17,7 +17,7 @@ export default function ApproveStep(props: Props) {
           Ваши регистрационные данные на модерации. Проверка занимает до 1 рабочего<br /> дня. Пока она идёт – ваша компания не будет отображаться в каталоге.  Однако вы<br /> можете посмотреть, как будет выглядеть страница вашего пункта приема.
         </>}
         additionalComp={() =>
-          <Button className={styles.btn} styleType='large' color='blue'>
+          <Button  styleType='large' color='blue'>
             Открыть страницу пункта приема
           </Button>
         }

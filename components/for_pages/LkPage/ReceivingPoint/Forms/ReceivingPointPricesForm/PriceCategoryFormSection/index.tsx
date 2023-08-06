@@ -8,6 +8,7 @@ import Validator from '@/utils/validator'
 import PercentField from '@/components/fields/PercentField'
 import PriceField from '@/components/fields/PriceField'
 import WeightField from '@/components/fields/WeightField'
+import DeleteButton from '@/components/ui/Buttons/DeleteButton'
 
 
 interface Props {
@@ -44,10 +45,13 @@ export default function PriceCategoryFormSection(props: Props) {
               {props.values['pricesByWeight']?.map((item: any, index: number) => (<div className={styles.weightField}>
                   <div key={index} className={styles.row}>
                     <div className={styles.label}>Диапазон веса в тонах</div>
+                    <div className={styles.rowFields}>
                     <WeightField name={`${prefix}pricesByWeight[${index}].minWeightInTons`} placeholder={'От'} suffix={'т'} validate={Validator.required}/>
                     <WeightField name={`${prefix}pricesByWeight[${index}].maxWeightInTons`} placeholder={'До'} suffix={'т'} validate={Validator.required}/>
+                    </div>
                   </div>
                   <PriceField name={`${prefix}pricesByWeight[${index}].price`} suffix={'₽/т'} placeholder='Цена лома' validate={Validator.required}/>
+                  {index > 0 && <DeleteButton onClick={() => arrayHelpers.remove(index)}/>}
                 </div>
               ))}
             <Button onClick={() => arrayHelpers.push({minWeightInTons: null, maxWeightInTons: null, price: null})}

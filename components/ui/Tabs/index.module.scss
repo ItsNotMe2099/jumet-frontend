@@ -1,36 +1,41 @@
 @import "styles/index";
 .root {
-  display: flex;
-  @include list(8px, true);
+
   &.fluid{
     .tab{
       flex: 1;
     }
   }
-}
-.tab{
-  padding: 0px 16px;
-}
 
-.root {
-
-  @include mq($SmDesktopWidth, max) {
-    display: block;
-    @include list(0px, true);
-    margin: -4px;
-  }
-
-  .tab {
+  &.default{
+    display: flex;
+    @include list(8px, true);
     @include mq($SmDesktopWidth, max) {
-      display: inline-flex;
-      margin: 4px;
+      display: block;
+      @include list(0px, true);
+      margin: -4px;
     }
-
+    .tab{
+      padding: 0px 16px;
+      @include mq($SmDesktopWidth, max) {
+        display: inline-flex;
+        margin: 4px;
+      }
+    }
   }
-
-  .tab2 {
-    width: 50%;
+  &.filter{
+    display: flex;
+    background-color: $grey200;
+    border-radius: $StandartBorderRadius;
+    padding: 4px;
+  }
+  &.outlined{
+    display: flex;
+    flex-direction: row;
+    height: 32px;
+    @include list(20px, true);
+    border-bottom: 1px solid $grey400;
+    padding-bottom: 8px;
   }
 }
-
 

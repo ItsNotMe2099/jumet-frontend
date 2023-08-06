@@ -2,6 +2,7 @@ import styles from './index.module.scss'
 
 import Indicator from '../Indicator'
 import { useRouter } from 'next/router'
+import classNames from 'classnames'
 
 interface Props {
   title: string
@@ -17,7 +18,7 @@ export default function RegLayout(props: Props) {
 
   const texts = [
     { text: 'Данные о компании' },
-    { text: 'Зоны доставки' },
+    { text: 'Доставка' },
     { text: 'Цены на лом' },
     { text: 'Сотрудники' },
     { text: 'Режим работы и фото' }
@@ -27,17 +28,19 @@ export default function RegLayout(props: Props) {
 
   return (
     <div className={styles.root}>
-      <div className={styles.wrapper}>
-        {props.indicator || props.filter ?
-          <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack} />
-          : null
+      <div className={styles.container}>
+        {props.indicator || props.filter &&   <div className={classNames(styles.wrapper, styles.wrapperIndicator)}>
+          <div className={styles.indicator}>
+            <Indicator step={props.currentStepIndex} options={texts} onBack={props.onBack} /></div></div>
         }
-        <div className={styles.container}>
+        <div className={styles.wrapper}>
+        <div className={styles.content}>
           <div className={styles.title}>
             {props.title}
           </div>
 
           {props.children}
+        </div>
         </div>
       </div>
     </div>

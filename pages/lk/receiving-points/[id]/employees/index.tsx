@@ -1,34 +1,20 @@
-import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import { useEffect, useState } from 'react'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import LkLayout from '@/components/for_pages/LkPage/layout'
-import { Gender } from '@/data/enum/Gender'
-import { UserRole } from '@/data/enum/UserRole'
+import {useEffect, useState} from 'react'
+import {useRouter} from 'next/router'
 import BuyerRepository from '@/data/repositories/BuyerRepository'
 import IUser from '@/data/interfaces/IUser'
-import { useAppContext } from '@/context/state'
-
+import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+import {useAppContext} from '@/context/state'
+import { LkReceivingPageLayout} from '@/pages/lk'
+import styles from './index.module.scss'
 interface Props {
 
 }
 
-export default function ReceivingPointEmployeesPage(props: Props) {
-
-  const router = useRouter()
-
+const ReceivingPointEmployeesPage = (props: Props) => {
   const appContext = useAppContext()
-
-  const token = Cookies.get('accessToken')
-
-
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
+  const router = useRouter()
 
   const [employees, setEmployees] = useState<IUser[]>([])
 
@@ -40,59 +26,21 @@ export default function ReceivingPointEmployeesPage(props: Props) {
     })
   }
 
-  const tempEmps = [
-    {
-      id: '1',
-      role: UserRole.Buyer,
-      phone: '',
-      login: '',
-      name: 'Валерий Федоров',
-      companyName: '«МеталлВторЧермет»',
-      isRegistered: true,
-      email: 'v.fedor@gmail.com',
-      birthday: new Date(),
-      gender: Gender.male,
-      password: '',
-      readedNotifications: []
-    },
-    {
-      id: '1',
-      role: UserRole.Buyer,
-      phone: '',
-      login: '',
-      name: 'Валерий Федоров',
-      companyName: '«МеталлВторЧермет»',
-      isRegistered: true,
-      email: 'v.fedor@gmail.com',
-      birthday: new Date(),
-      gender: Gender.male,
-      password: '',
-      readedNotifications: []
-    },
-  ]
 
   useEffect(() => {
-    fetchEmployees()
-  }
+      fetchEmployees()
+    }
     , [])
 
   return (
-    <Layout>
-      <LkLayout className={styles.desktop} >
-        {/*appContext.aboutMe?.role !== UserRole.Buyer &&
-                  tempEmps.map((i, index) =>
-          <EmployeeCard user={i} key={index} />
-        )
-        */}
-      </LkLayout>
-
-      {/*<LkLayoutMobile className={styles.mobile} >
-        {/*appContext.aboutMe?.role !== UserRole.Buyer &&
-               tempEmps.map((i, index) =>
-          <EmployeeCard user={i} key={index} />
-        )
-
-      </LkLayoutMobile>*/}
-    </Layout>
+    <div className={styles.root}>
+        {employees.map((i, index) =>
+          <EmployeeCard user={i} key={index}/>
+        )}
+    </div>
   )
 }
+
+ReceivingPointEmployeesPage.getLayout = LkReceivingPageLayout
+export default ReceivingPointEmployeesPage
+export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

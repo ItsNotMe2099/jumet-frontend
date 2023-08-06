@@ -1,6 +1,8 @@
 @import "styles/index";
 
 .root {
+
+  &.default{
     height: 48px;
     display: flex;
     align-items: center;
@@ -10,22 +12,72 @@
     justify-content: center;
 
     @include mq($PhoneWidth, max) {
-       height: 40px;
-       width: inherit !important;
-       padding: 0 9px;
+      height: 40px;
+      width: inherit !important;
+      padding: 0 9px;
     }
-}
-
-.text{
-    @include mainText;
-    white-space: nowrap;
-}
-
-.active{
-    background-color: $yellow500;
-    border: 1px solid $yellow500;
-
     .text{
-        font-weight: 500;
+      @include mainText;
+      white-space: nowrap;
     }
+
+    &.active{
+      background-color: $yellow500;
+      border: 1px solid $yellow500;
+
+      .text{
+        font-weight: 500;
+      }
+    }
+  }
+  &.filter {
+    display: flex;
+    align-items: center;
+    border-radius: $StandartBorderRadius;
+    @include list(8px, true);
+    justify-content: center;
+    height: $StandartHeight;
+    flex: 1;
+    cursor: pointer;
+    .text{
+      @include btnText;
+      @include mq($PhoneWidth, max) {
+        text-align: center;
+      }
+    }
+    &.active {
+      background-color: $white;
+      .text {
+        color: $blue500;
+      }
+    }
+  }
+
+  &.outlined{
+      color: $grey500;
+      @include mainText;
+      cursor: pointer;
+      height: 32px;
+    &:after{
+      content: ' ';
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: -8px;
+      height: 2px;
+      background-color: $dark500;
+      visibility: hidden;
+    }
+
+    &.active {
+      color: $dark500;
+      @include btnText;
+      position: relative;
+      &:after{
+        visibility: visible;
+      }
+    }
+
+  }
 }
+

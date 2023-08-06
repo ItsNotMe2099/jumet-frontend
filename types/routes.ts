@@ -75,10 +75,10 @@ export class Routes {
     return '/lk/receiving-points'
   }
 
-  static lkReceivingPoint(id: string | number) {
+  private static lkReceivingPoint(id: string | number) {
     return `/lk/receiving-points/${id}`
   }
-  static  lkReceivingPointEdtInfo(id: string | number) {
+  static  lkReceivingPointInfo(id: string | number) {
     return `${this.lkReceivingPoint(id)}/info`
   }
   static  lkReceivingPointEmployees(id: string | number) {

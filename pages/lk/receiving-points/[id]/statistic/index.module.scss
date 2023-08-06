@@ -1,13 +1,3 @@
 @import "styles/index";
 
 .root {}
-
-.desktop {
-  @include mq($PhoneWidth, max) {
-    display: none;
-  }
-}
-
-.mobile {
-  background-color: transparent;
-}

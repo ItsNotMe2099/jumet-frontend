@@ -1,37 +1,35 @@
-import Layout from '@/components/layout/Layout'
-import styles from './index.module.scss'
-import { useEffect } from 'react'
-import { useRouter } from 'next/router'
-import Cookies from 'js-cookie'
-import LkLayout from '@/components/for_pages/LkPage/layout'
+import {useRouter} from 'next/router'
+import {ReviewListWrapper, useReviewListContext} from '@/context/reviews_list_state'
+import styles from '@/components/for_pages/LkPage/ReceivingPoint/Cards/ReviewsCard/index.module.scss'
+import ReviewCard from '@/components/for_pages/Common/ReviewCard'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+import {LkReceivingPageLayout} from '@/pages/lk'
 
-interface Props{
+interface Props {
 
 }
-export default function ReceivingPointReviewsPage(props: Props) {
 
-  const router = useRouter()
-
-  const token = Cookies.get('accessToken')
-
-
-
-  useEffect(() => {
-    if (!token) {
-      router.push('/')
-    }
-  }, [])
+const ReceivingPointReviewsPageInner = (props: Props) => {
+  const reviewListContext = useReviewListContext()
 
   return (
-    <Layout>
-      <LkLayout className={styles.desktop} >
-        {/*<ReviewsCard item={props.item} />*/}
-      </LkLayout>
-
-      {/*<LkLayoutMobile className={styles.mobile} point={props.item}>
-        <ReviewsCard item={props.item} />
-      </LkLayoutMobile>*/}
-    </Layout>
+    <div className={styles.root}>
+      {reviewListContext.data.data.map((i, index) =>
+        <ReviewCard item={i} key={index}/>
+      )}
+    </div>
   )
 }
+const ReceivingPointReviewsPage = (props: Props) => {
+  const router = useRouter()
+  const id = parseInt(router.query.id as string, 10)
 
+  return (
+      <ReviewListWrapper receivingPointId={id}>
+        <ReceivingPointReviewsPageInner/>
+      </ReviewListWrapper>)
+}
+ReceivingPointReviewsPage.getLayout = LkReceivingPageLayout
+export default  ReceivingPointReviewsPage
+export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)
