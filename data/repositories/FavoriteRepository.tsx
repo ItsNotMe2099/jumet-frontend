@@ -42,9 +42,9 @@ export default class FavoriteRepository {
     })
   }
 
-  static async fetchByType<T>(type: LikeEntityType): Promise<IPagination<T>> {
+  static async fetchByType<T>(type: LikeEntityType, page: number = 1, limit: number = 10 ): Promise<IPagination<T>> {
     return request({
-      url: `/api/like?type=${type}`,
+      url: `/api/like?type=${type}&page=${page}&limit=${limit}`,
       method: 'get',
       disableCache: true,
     })

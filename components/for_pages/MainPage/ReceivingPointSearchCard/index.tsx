@@ -5,8 +5,8 @@ import { colors } from '@/styles/variables'
 import { formatInTimeZone } from 'date-fns-tz'
 import ru from 'date-fns/locale/ru'
 import Link from 'next/link'
-import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {Routes} from '@/types/routes'
+import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 
 
 interface Props {

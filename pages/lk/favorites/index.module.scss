@@ -5,3 +5,53 @@
   margin-top: 32px;
   margin-bottom: 64px;
 }
+
+.title {
+  color: $dark500;
+  @include h1;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  @include list(12px, false);
+  margin-top: 32px;
+
+  @include mq($PhoneWidth, max) {
+    margin-top: 16px;
+  }
+}
+
+.filter {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  gap: 8px;
+  border-radius: 12px;
+  background-color: $white;
+  align-items: center;
+  cursor: pointer;
+
+  .text {
+    font-weight: 500;
+    font-size: 15px;
+    line-height: 22px;
+    color: $dark500;
+  }
+
+  @include mq($PhoneWidth, max) {
+    width: 100%;
+    justify-content: center;
+  }
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    align-items: flex-start;
+    @include list(16px, false);
+  }
+}

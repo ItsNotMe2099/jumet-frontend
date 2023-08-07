@@ -1,0 +1,110 @@
+@import "styles/index";
+
+.root {
+    background: $white;
+    border-radius: 12px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+    @include mq($PhoneWidth, max) {
+        padding: 16px;
+    }
+}
+
+.title {
+    @include h2;
+    color: $text;
+}
+
+.price {
+    @include h3;
+    color: $text;
+    white-space: nowrap;
+}
+
+.middle {
+    @include mainText;
+    color: $text;
+}
+
+.bottom {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include mq($TabletWidth, max) {
+        flex-direction: column;
+        @include list(12px, false);
+        align-items: initial;
+    }
+}
+
+.first {
+    display: flex;
+    @include list(12px, true);
+
+    @include mq($PhoneWidth, max) {
+        @include list(8px, true);
+    }
+}
+
+.last {
+    @include mq($TabletWidth, max) {
+        flex-direction: column;
+        @include list(12px, false);
+        align-items: initial;
+        margin-left: 0 !important;
+    }
+}
+
+.badges {
+    display: flex;
+    @include list(12px, true);
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        div{
+            margin-right: 0;
+        }
+    }
+}
+
+.rating {
+    width: 57px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: $StandartBorderRadius;
+    border: 1px solid $grey300;
+}
+
+.number {
+    color: $dark500;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 20px;
+}
+
+.top {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    @include list(8px, true);
+
+    .title {
+        flex: 1;
+    }
+
+    .right {
+        display: flex;
+        align-items: center;
+    }
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        align-items: baseline;
+    }
+}
