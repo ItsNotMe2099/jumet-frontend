@@ -1,15 +1,10 @@
 import styles from './index.module.scss'
-import { colors } from 'styles/variables'
 import ModalLayout from 'components/layout/Modal/ModalLayout'
-import BottomSheetLayout from '@/components/layout/BottomSheet/BottomSheetLayout'
-import BottomSheetHeader from '@/components/layout/BottomSheet/BottomSheetHeader'
-import BottomSheetBody from '@/components/layout/BottomSheet/BottomSheetBody'
-import BottomSheetFooter from '@/components/layout/BottomSheet/BottomSheetFooter'
-import CloseSvg from '@/components/svg/CloseSvg'
 import SaleRequestOfferForm from './Form'
 import { useAppContext } from '@/context/state'
 import ModalBody from '@/components/layout/Modal/ModalBody'
 import {SaleRequestOfferModalArguments} from '@/types/modal_arguments'
+import ModalHeader from '@/components/layout/Modal/ModalHeader'
 
 interface Props {
   isBottomSheet?: boolean
@@ -32,28 +27,15 @@ const SaleRequestOfferModalInner = (props: Props) => {
     <></>
   )
 
-  if (props.isBottomSheet) {
     return (
-      <BottomSheetLayout closeIconColor={colors.white}>
-        <BottomSheetHeader>{header}</BottomSheetHeader>
-        <BottomSheetBody className={styles.bottomSheetBody}>{body}</BottomSheetBody>
-        <BottomSheetFooter className={styles.footer}> {footer}</BottomSheetFooter>
-      </BottomSheetLayout>
-    )
-  }
-  else {
-    return (
-      <ModalLayout className={styles.modalLayout}  >
-        <CloseSvg onClick={props.onRequestClose} className={styles.close} color={colors.grey500} />
-        <div className={styles.title}>
-          Предложение сделки
-        </div>
-        <ModalBody className={styles.body} fixed>
+      <ModalLayout fixed size={'large'} >
+        <ModalHeader title={'Предложение сделки'}/>
+
+        <ModalBody fixed>
           <SaleRequestOfferForm receivingPointId={(appContext.modalArguments as SaleRequestOfferModalArguments)?.receivingPointId!} />
         </ModalBody>
       </ModalLayout>
     )
-  }
 }
 
 export default function SaleRequestOfferModal(props: Props) {

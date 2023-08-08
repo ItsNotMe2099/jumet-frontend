@@ -10,7 +10,7 @@ export default function AddressViewCard(props: Props) {
   const {receivingPoint} = props
   return (
     <ReceivingPointViewCard title='Адрес пункта приема'>
-      <AddressView receivingPoint={receivingPoint}/>
+      <AddressView address={receivingPoint.address?.address} location={receivingPoint.location}/>
     </ReceivingPointViewCard>
   )
 }

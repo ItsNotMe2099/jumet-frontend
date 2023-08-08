@@ -6,7 +6,9 @@ export enum ModalType {
   MapSelector = 'mapSelector',
   DealOffer = 'dealOffer',
   Confirm = 'confirm',
-  SaleRequestOffer = 'saleRequestOffer'
+  SaleRequestOffer = 'saleRequestOffer',
+  Success = 'success',
+  SaleRequestForm = 'saleRequestForm'
 }
 
 export enum ProfileMenuSettings {

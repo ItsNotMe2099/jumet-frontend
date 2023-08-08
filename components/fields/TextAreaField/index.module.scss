@@ -1,0 +1,24 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @include list(8px);
+  width: 100%;
+}
+
+.label{
+  @include label;
+}
+.input{
+  display: block;
+  width: 100%;
+  transition: background-color 0.2s, min-height 0.2s;
+  resize: none;
+    @include input;
+  height: auto;
+  padding-top: 16px;
+  padding-bottom: 16px;
+    @include inputWrapper;
+}

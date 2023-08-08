@@ -24,24 +24,6 @@
   }
 }
 
-.colRight{
-  flex: 0 0 340px;
-  padding-bottom: 20px;
-  @media (min-width: $md-min) and (max-width: $md-max) {
-    flex: 0 0 350px;
-  }
-  @media (min-width: $md-min) and (max-width: $md-medium) {
-    flex: 0 0 320px;
-  }
-  @media (max-width: $xs-max) {
-    flex: auto;
-  }
-}
-
-.chat {
-  min-height: calc(100vh - 84px);
-}
-
 .chatLayout {}
 
 .header {

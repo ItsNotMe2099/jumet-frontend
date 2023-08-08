@@ -5,7 +5,15 @@
   flex: 1;
   background-color: $white;
   border-radius: $StandartBorderRadius !important;
-
+  &.small{
+    width: 416px;
+  }
+  &.normal{
+    width: 524px;
+  }
+  &.large{
+    width: 644px;
+  }
   &.fixed{
     max-height: 96vh;
     @media screen and (max-width: 900px){

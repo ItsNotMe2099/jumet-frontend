@@ -5,23 +5,14 @@ import DropdownMenu from '@/components/ui/DropdownMenu'
 import {useState} from 'react'
 import styles from './index.module.scss'
 import {useField} from 'formik'
-export enum UnitWeight{
-  Kg = 'kg',
-  Ton = 'ton'
+import WeightUtils, {UnitWeight} from '@/utils/WeightUtils'
 
-}
-const getUnitByValue = (value: number | null) => {
-  if(!value){
-    return UnitWeight.Ton
-  }
-  return value >= 1000 && value % 1000 === 0 ? UnitWeight.Ton : UnitWeight.Kg
-}
 export interface Props extends InputFieldProps<number>{
 
 }
 export default function WeightWithUnitField(props: Props) {
   const [field, meta, helpers] = useField(props as any)
-  const [unit, setUnit] = useState<UnitWeight>(getUnitByValue(field.value))
+  const [unit, setUnit] = useState<UnitWeight>(WeightUtils.getUnitByValue(field.value))
   const options: IOption<UnitWeight>[] = [
     { value: UnitWeight.Kg, label: 'кг' },
     { value: UnitWeight.Ton, label: 'тонн' }

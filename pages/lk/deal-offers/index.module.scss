@@ -65,13 +65,7 @@
 }
 
 .container {
-    display: flex;
-    @include list(32px, true);
     margin-top: 24px;
-
-    @include mq(1064px, max) {
-        flex-direction: column-reverse;
-    }
 }
 
 .list {

@@ -4,13 +4,15 @@ import JumetSvg from '@/components/svg/JumetSvg'
 import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
-import classNames from 'classnames'
 import { DealOfferStatus } from '@/data/enum/DealOfferStatus'
 import { useState } from 'react'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import ChevronUpSvg from '@/components/svg/ChevronUpSvg'
-import { format, isToday } from 'date-fns'
-import { ru } from 'date-fns/locale'
+import WeightUtils from '@/utils/WeightUtils'
+import Formatter from '@/utils/formatter'
+import Link from 'next/link'
+import {Routes} from '@/types/routes'
+import StatusBadge from '@/components/ui/StatusBadge'
 
 interface Props {
   item: ISaleRequest
@@ -19,16 +21,9 @@ interface Props {
 
 export default function SaleRequestCard({ item, dealOffer }: Props) {
 
-  const [show, setShow] = useState<boolean>(false)
+  const [showOffer, setShowOffer] = useState<boolean>(false)
 
-  let formatDate: string | null = null
-
-  if (dealOffer && dealOffer.createdAt) {
-    const createdAtDate = new Date(dealOffer.createdAt)
-    formatDate = isToday(createdAtDate)
-      ? format(createdAtDate, 'HH:mm', { locale: ru })
-      : format(createdAtDate, 'dd MMMM', { locale: ru })
-  }
+  const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? item.createdAt)
 
   return (
     <div className={styles.root}>
@@ -36,21 +31,19 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
         <div className={styles.left}>
           <div className={styles.top}>
             <div className={styles.first}>
-              <div className={styles.weight}>
-                {item.weight > 0 ? `${item.weight} тонн` : 'Вес не указан'}
-              </div>
-              <div className={styles.number}>
+              <Link  href={Routes.saleRequest(item.id)} className={styles.weight}>
+                {item.weight > 0 ? WeightUtils.formatWeight(item.weight) : 'Вес не указан'}
+              </Link>
+              <Link href={Routes.saleRequest(item.id)} className={styles.number}>
                 Заявка №{item.id}
-              </div>
+              </Link>
             </div>
             <div>
-              {dealOffer && <div className={classNames(styles.status,
-                {
-                  [styles.applied]: dealOffer.status === DealOfferStatus.Applied,
-                  [styles.accepted]: dealOffer.status === DealOfferStatus.Accepted,
-                  [styles.rejected]: dealOffer.status === DealOfferStatus.Rejected,
-                })}>
-                {dealOffer.status}</div>}
+              {dealOffer && <StatusBadge<DealOfferStatus> data={{
+                [DealOfferStatus.Applied]: {color: 'blue', label: 'На рассмотрении'},
+                [DealOfferStatus.Accepted]: {color: 'blue', label: 'Принято (Открыта сделка)'},
+                [DealOfferStatus.Rejected]: {color: 'blue', label: 'Отклонено'},
+              }} value={dealOffer.status!}/>}
             </div>
           </div>
           <div className={styles.middle}>
@@ -62,15 +55,15 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
             </div>
             {item.price ?
               <div className={styles.item}>
-                От {item.price} ₽
+                От {Formatter.formatPrice(item.price)}
               </div> : null}
           </div>
-          <div className={styles.offer} onClick={() => setShow(!show)}>
+          {dealOffer &&  <div className={styles.offer} onClick={() => setShowOffer(!showOffer)}>
             <div className={styles.text}>
               Ваше предложение
             </div>
-            {!show ? <ChevronDownSvg color={colors.grey500} /> : <ChevronUpSvg color={colors.grey500} />}
-          </div>
+            {!showOffer ? <ChevronDownSvg color={colors.grey500} /> : <ChevronUpSvg color={colors.grey500} />}
+          </div>}
         </div>
         <div className={styles.right}>
           {item.photos && item.photos[0].source ?
@@ -79,32 +72,32 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
             <JumetSvg color={colors.white} />
           }
         </div>
-        <div className={styles.offerMobile} onClick={() => setShow(!show)}>
+        {dealOffer && <div className={styles.offerMobile} onClick={() => setShowOffer(!showOffer)}>
           <div className={styles.text}>
             Ваше предложение
           </div>
-          {!show ? <ChevronDownSvg color={colors.grey500} /> : <ChevronUpSvg color={colors.grey500} />}
-        </div>
+          {!showOffer ? <ChevronDownSvg color={colors.grey500} /> : <ChevronUpSvg color={colors.grey500} />}
+        </div>}
       </div>
-      {show &&
+      {showOffer &&
         <div className={styles.letter}>
           <div className={styles.header}>
             <div className={styles.title}>
               Предложение покупателю
             </div>
             <div className={styles.date}>
-              {formatDate && (isToday(new Date(dealOffer?.createdAt as Date)) ? 'Сегодня ' : '') + formatDate}
+              {createdAt}
             </div>
           </div>
           <div className={styles.info}>
             <div className={styles.badge}>
-              {dealOffer?.price ? `${dealOffer?.price} ₽/т` : 'Цена не указана'}
+              {dealOffer?.price ? `${Formatter.formatPrice(dealOffer.price)}` : 'Цена не указана'}
             </div>
             <div className={styles.badge}>
-              Доставка - {dealOffer?.deliveryPrice ? `${dealOffer?.deliveryPrice} ₽` : 'бесплатно'}
+              Доставка - {dealOffer?.deliveryPrice ? `${Formatter.formatPrice(dealOffer?.deliveryPrice)}` : 'бесплатно'}
             </div>
             <div className={styles.badge}>
-              Погрузка - {dealOffer?.loadingPrice ? `${dealOffer?.loadingPrice} ₽` : 'бесплатно'}
+              Погрузка - {dealOffer?.loadingPrice ? `${Formatter.formatPrice(dealOffer?.loadingPrice)}` : 'бесплатно'}
             </div>
           </div>
           <div className={styles.cover}>

@@ -35,8 +35,8 @@ export class Routes {
   static get saleRequests() {
     return '/sale-requests'
   }
-  static saleRequest(id: string) {
-    return `/sales-requests/${id}`
+  static saleRequest(id: string | number) {
+    return `/sale-requests/${id}`
   }
 
   static dealEditStep(id: string | number, step: string) {
@@ -109,6 +109,10 @@ export class Routes {
 
   static get lkDeals() {
     return '/lk/deals'
+  }
+
+  static get lkDealOffers() {
+    return '/lk/deal-offers'
   }
 
 }

@@ -1,42 +1,36 @@
 import Layout from '@/components/layout/Layout'
 import styles from 'pages/lk/sale-requests/index.module.scss'
-import { useState, useEffect } from 'react'
-import classNames from 'classnames'
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
-import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
-import { SaleRequestStatus } from '@/data/enum/SaleRequestStatus'
+import {useState} from 'react'
 import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
+import {SaleRequestListOwnerWrapper, useSaleRequestListOwnerContext} from '@/context/sale_request_list_owner_state'
+import {useRouter} from 'next/router'
+import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
+import Tabs from '@/components/ui/Tabs'
+import {IOption} from '@/types/types'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
+
+enum TabType {
+  Active = 'active',
+  Completed = 'completed'
+}
 
 interface Props {
 
 }
 
-export default function LkSalesRequestsPage(props: Props) {
-
-  const [status, setStatus] = useState<'active' | 'completed'>('active')
-  const [data, setData] = useState<ISaleRequest[]>([])
-
-  const fetchSaleRequests = async () => {
-    await SaleRequestOwnerRepository.fetch().then(data => {
-      if (data) {
-        const dataActive = data.filter(i => i.status !== SaleRequestStatus.Completed)
-        const dataCompleted = data.filter(i => i.status === SaleRequestStatus.Completed)
-        if (status === 'active') {
-          setData(dataActive)
-        } else {
-          setData(dataCompleted)
-        }
-      }
-    })
+const LkSalesRequestsPageInner = (props: Props) => {
+  const saleRequestListOwnerContext = useSaleRequestListOwnerContext()
+  const router = useRouter()
+  const [tab, setTab] = useState<TabType>(router.query?.active as TabType ?? TabType.Active)
+  const handleChangeTab = (tab) => {
+    setTab(tab)
+    saleRequestListOwnerContext.setFilter({...(tab === TabType.Active ? {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]} : {statuses: [SaleRequestStatus.Completed]})})
   }
-
-  useEffect(() => {
-    fetchSaleRequests()
-  }, [])
-
-  useEffect(() => {
-    fetchSaleRequests()
-  }, [status])
+  const tabs: IOption<TabType>[] = [
+    {label: 'Активные', value: TabType.Active},
+    {label: ' Завершенные', value: TabType.Completed},
+  ]
 
   return (
     <Layout>
@@ -44,23 +38,19 @@ export default function LkSalesRequestsPage(props: Props) {
         <div className={styles.title}>
           Мои заявки на продажу
         </div>
-        <div className={styles.switch}>
-          <div onClick={() => setStatus('active')} className={classNames(styles.status, { [styles.active]: status === 'active' })}>
-            Активные
-            {status === 'active' && <div className={styles.line} />}
-          </div>
-          <div onClick={() => setStatus('completed')}
-            className={classNames(styles.status, { [styles.active]: status === 'completed' })}>
-            Завершенные
-            {status === 'completed' && <div className={styles.line} />}
-          </div>
-        </div>
+        <Tabs<TabType> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
         <div className={styles.list}>
-          {data.map((i, index) =>
-            <MySaleRequestCard number={1} item={i} key={i.id} />
+          {saleRequestListOwnerContext.data.data.map((i, index) =>
+            <MySaleRequestCard number={1} item={i} key={i.id}/>
           )}
         </div>
       </div>
     </Layout>
   )
 }
+export default function LkSalesRequestsPage(props: Props) {
+  return <SaleRequestListOwnerWrapper>
+    <LkSalesRequestsPageInner/>
+  </SaleRequestListOwnerWrapper>
+}
+export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

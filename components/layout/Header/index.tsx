@@ -31,6 +31,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
   const menuNotAuth = [
     { link: Routes.receivingPoints, label: 'Пункты приёма лома' },
     { link: Routes.saleRequests, label: 'Лом на продажу' },
+
   ]
 
   const menuAuth = appContext.aboutMe?.role === UserRole.Seller ? [
@@ -39,6 +40,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
     { link: Routes.lkDeals, label: 'Сделки' },
   ] : [
     { link: Routes.saleRequests, label: 'Лом на продажу' },
+    { link: Routes.lkDealOffers, label: 'Предложения лома' },
     { link: Routes.lkDeals, label: 'Сделки' },
   ]
 

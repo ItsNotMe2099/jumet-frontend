@@ -3,13 +3,9 @@ import styles from './index.module.scss'
 import { GetServerSideProps } from 'next'
 import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
-import AddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/AddressCard'
 import SaleRequestCardForBuyer from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestCardForBuyer'
-import { useState } from 'react'
-import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
-import { colors } from '@/styles/variables'
-import Chat from '@/components/for_pages/Common/ReceivingPoint/Chat'
-import TabBar from '@/components/for_pages/ReceivingPoint/Tabbar'
+import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
+import SaleRequestAddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestAddressCard'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -17,51 +13,36 @@ interface Props {
 
 
 export default function SaleRequestPage({ saleRequest }: Props) {
-
-  const [showChat, setShowChat] = useState<boolean>(false)
-
+  console.log('saleRequest', saleRequest)
   return (
     <Layout>
       <div className={styles.root}>
-        {!showChat ? <div className={styles.content}>
+        <div className={styles.colLeft}>
           <SaleRequestCardForBuyer item={saleRequest} />
-          <AddressCard cardLayoutTitleClass={styles.layoutTitle} item={saleRequest} />
+          <SaleRequestAddressCard item={saleRequest}/>
         </div>
-          :
-          <div className={styles.chatLayout}>
-            <div className={styles.header}>
-              <div className={styles.back} onClick={() => setShowChat(false)}>
-                <ChevronLeftSvg color={colors.grey500} />
-                <div className={styles.text}>Назад</div>
-              </div>
-            </div>
-            <Chat className={styles.chatMobile} messageClass={styles.message} />
-          </div>
-        }
-        <Chat className={styles.chat} messageClass={styles.message} />
+
+        <ChatOnPage/>
       </div>
-      {!showChat && <TabBar onClick={() => setShowChat(true)}  />}
     </Layout>
   )
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-
   const id = context.query?.id
+  try {
 
-  // Fetch data only if 'id' is present and is a number
-  if (id && typeof id === 'string') {
-    const res = await SaleRequestRepository.searchById(+id)
-
+    const saleRequest = await SaleRequestRepository.fetchById(+id)
     return {
       props: {
-        saleRequest: res.data[0] // Assuming res contains the fetched data
+        saleRequest
       }
     }
-  }
-
-  // If 'id' is not present or is not a number, return an empty object
-  return {
-    props: {}
+  }catch (e) {
+    console.error(e)
+    return {
+      notFound: true,
+      props: {}
+    }
   }
 }

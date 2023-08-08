@@ -7,7 +7,7 @@ import { ScrapMetalCategory } from '../enum/ScrapMetalCategory'
 
 export interface ISaleRequest {
   id: number
-  status?: SaleRequestStatus
+  status: SaleRequestStatus
   location: ILocation
   photos: IFile[]
   photosIds: number[]

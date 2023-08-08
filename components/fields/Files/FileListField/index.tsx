@@ -135,7 +135,7 @@ export default function FileListField(props: Props) {
         isImage={props.isImage}
         onDrop={onDrop}
         maxFiles={props.maxFiles}
-        maxSize={props.maxSize ?? 100000}
+        maxSize={props.maxSize ?? 1024*1024*5}
         title={props.dropzoneTitle ?? props.label as string}
         accept={dropzoneAccept}
       />

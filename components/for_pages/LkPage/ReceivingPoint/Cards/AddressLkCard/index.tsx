@@ -29,7 +29,7 @@ export default function AddressLkCard(props: Props) {
       form={<ReceivingPointAddressForm footer={<FormFooter hasBack onBack={() => setIsEdit(false)} spinner={loading}/>}
                                        receivingPoint={receivingPointContext.receivingPoint} onSubmit={handleSubmit}/>}
     >
-      {receivingPointContext.receivingPoint && <AddressView receivingPoint={receivingPointContext.receivingPoint}/>}
+      {receivingPointContext.receivingPoint && <AddressView address={receivingPointContext.receivingPoint?.address?.address} location={receivingPointContext.receivingPoint?.location}/>}
     </ReceivingPointInfoEditCard>
   )
 }

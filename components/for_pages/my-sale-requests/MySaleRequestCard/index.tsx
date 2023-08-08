@@ -5,26 +5,30 @@ import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
 import { colors } from '@/styles/variables'
 import JumetSvg from '@/components/svg/JumetSvg'
-
+import Formatter from '@/utils/formatter'
+import {Routes} from '@/types/routes'
+import Link from 'next/link'
+import {SaleRequestOwnerWrapper, useSaleRequestOwnerContext} from '@/context/sale_request_owner_state'
+import WeightUtils from '@/utils/WeightUtils'
 interface Props {
   item: ISaleRequest
   number?: number
 }
 
-export default function MySaleRequestCard({ item, number }: Props) {
-
+const MySaleRequestCardInner = ({ item, number }: Props) => {
+  const saleRequestOwnerContext = useSaleRequestOwnerContext()
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <div className={styles.title}>
-          Заявка №15
-        </div>
+        <Link href={Routes.saleRequest(item.id)} className={styles.title}>
+          Заявка №{item.id}
+        </Link>
         <div className={styles.middle}>
           <div className={styles.info}>
             <div className={styles.first}>
               <div className={styles.item}>
                 <div className={styles.top}>
-                  {item.weight} тонн
+                  {item.weight ?  `${WeightUtils.formatWeight(item.weight)}` : 'Не указан'}
                 </div>
                 <div className={styles.bottom}>
                   Примерный вес
@@ -32,7 +36,7 @@ export default function MySaleRequestCard({ item, number }: Props) {
               </div>
               <div className={styles.item}>
                 <div className={styles.top}>
-                  {item.price ? item.price : <>Не указана</>}
+                  {item.price ? Formatter.formatPrice(item.price) : <>Не указана</>}
                 </div>
                 <div className={styles.bottom}>
                   Цена
@@ -40,7 +44,7 @@ export default function MySaleRequestCard({ item, number }: Props) {
               </div>
               <div className={styles.item}>
                 <div className={styles.top}>
-                  {item.scrapMetalCategory}
+                  {item.scrapMetalCategory ? item.scrapMetalCategory : 'не указан'}
                 </div>
                 <div className={styles.bottom}>
                   Категория лома
@@ -75,10 +79,10 @@ export default function MySaleRequestCard({ item, number }: Props) {
             </div>
           </div>
           <div className={styles.controls}>
-            <Button className={styles.btnFirst} color='blue' styleType='large'>
+            <Button href={Routes.lkSaleRequest(item.id)} className={styles.btnFirst} color='blue' styleType='large'>
               Открыть предложения {item.contacts.length ? item.contacts.length : null} {number && <div className={styles.plus}>+{number}</div>}
             </Button>
-            <Button className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
+            <Button onClick={saleRequestOwnerContext.edit} className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
               Редактировать заявку
             </Button>
           </div>
@@ -89,4 +93,9 @@ export default function MySaleRequestCard({ item, number }: Props) {
       </div>
     </div>
   )
+}
+export default function MySaleRequestCard(props: Props) {
+  return <SaleRequestOwnerWrapper saleRequestId={props.item.id} saleRequest={props.item}>
+    <MySaleRequestCardInner item={props.item}/>
+  </SaleRequestOwnerWrapper>
 }

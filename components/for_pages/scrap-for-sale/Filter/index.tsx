@@ -35,7 +35,7 @@ interface Props {
   loaded?: boolean
 }
 
-export default function Filter(props: Props) {
+export default function SaleRequestsFilter(props: Props) {
   const searchContext = useSaleRequestSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
@@ -119,7 +119,7 @@ export default function Filter(props: Props) {
                   prefix={<SearchSvg color={colors.grey400} />}
                   name={'id'} />
               </FilterComponent>
-              <FilterComponent title='Радиус поиска пунктов приёма'>
+              <FilterComponent title='Радиус поиска лома'>
                 <TabsField<number> options={radiusTabs} name={'radius'} />
                 <InputField
                   placeholder='Свой радиус поиска'
@@ -157,8 +157,8 @@ export default function Filter(props: Props) {
               </FilterComponent>
               <FilterComponent title='Доставка и погрузка'>
                 <div className={styles.switches}>
-                  <SwitchField name={'requiresDelivery'} label={'Есть доставка'} />
-                  <SwitchField name={'requiresLoading'} label={'Есть погрузка'} />
+                  <SwitchField name={'requiresDelivery'} label={'Доставка продавцом'} />
+                  <SwitchField name={'requiresLoading'} label={'Погрузка продавцом'} />
                 </div>
               </FilterComponent>
             </div>

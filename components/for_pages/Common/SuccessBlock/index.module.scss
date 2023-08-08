@@ -1,12 +1,12 @@
 @import "styles/index";
 
 .root {
-    padding: 32px 0;
+    padding: 0;
     background-color: $white;
     border-radius: $StandartBorderRadius;
     display: flex;
     flex-direction: column;
-    gap: 24px;
+    @include list(24px);
     align-items: center;
     justify-content: center;
 }

@@ -1,91 +1,128 @@
+import styles from './index.module.scss'
+import {
+  DealOfferListOwnerWrapper,
+  IDealOfferFilter,
+  useDealOfferListOwnerContext
+} from '@/context/deal_offers_list_owner_state'
+import SaleRequestDetailsCard from '@/components/for_pages/LkPage/SaleRequest/SaleRequestDetailsCard'
+import Tabs from '@/components/ui/Tabs'
+import {useEffect, useState} from 'react'
+import {IOption} from '@/types/types'
+import SaleRequestDealOfferCard from '@/components/for_pages/LkPage/SaleRequest/SaleRequestDealOfferCard'
+import {SaleRequestOwnerWrapper, useSaleRequestOwnerContext} from '@/context/sale_request_owner_state'
+import {useRouter} from 'next/router'
+import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
+import {Routes} from '@/types/routes'
+import queryString from 'query-string'
+import ContentLoader from '@/components/ui/ContentLoader'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import ClientOnly from '@/components/visibility/ClientOnly'
+import {useAppContext} from '@/context/state'
 import Layout from '@/components/layout/Layout'
-import styles from 'pages/lk/sale-requests/[id]/index.module.scss'
-import { GetServerSideProps } from 'next'
-import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
-import { format } from 'date-fns'
-import { useState } from 'react'
-import classNames from 'classnames'
-import { points } from '@/data/temp/points'
-import SuggestionCard from '@/components/for_pages/suggestions-for-sale-request/SuggestionCard'
-import SideCard from '@/components/for_pages/suggestions-for-sale-request/SideCard'
 
-interface Props {
-  saleRequest: ISaleRequest
+enum TabKey {
+  All = 'all',
+  New = 'new',
+  Familiar = 'familiar',
+  Rejected = 'rejected'
 }
 
-export default function LkSaleRequestPage({ saleRequest }: Props) {
+interface Props {
 
-  const [status, setStatus] = useState<'all' | 'new' | 'familiar' | 'declined'>('all')
-
-
+}
 
 
-  const fetchSuggestions = async () => {
+const SaleRequestPageInner = ({saleRequest}: Props) => {
+  const router = useRouter()
+  const appContext = useAppContext()
+  const saleRequestId = parseInt(router.query.id as string, 10)
+  const saleRequestOwnerContext = useSaleRequestOwnerContext()
+  const dealOfferListOwnerContext = useDealOfferListOwnerContext()
+  const [tab, setTab] = useState<TabKey>(router.query.type as TabKey ?? TabKey.All)
+  console.log('SaleRequestPageInner11', saleRequestOwnerContext.saleRequest, saleRequestOwnerContext.loading)
+
+  const tabs: IOption<TabKey>[] = [
+    {label: 'Все предложения', value: TabKey.All},
+    {label: 'Новые', value: TabKey.New},
+    {label: 'Знакомые', value: TabKey.Familiar},
+    {label: 'Отклоненные', value: TabKey.Rejected}
+  ]
+
+  useEffect(() => {
+    reFetch(tab)
+  }, [tab, saleRequestId])
+  const convertTabKeyToFilter = (tab: TabKey): IDealOfferFilter => {
+    switch (tab) {
+      case TabKey.All:
+        return {}
+      case TabKey.New:
+        return {new: true}
+      case TabKey.Rejected:
+        return {statuses: [DealOfferStatus.Rejected]}
+      case TabKey.Familiar:
+        return {}
+      default:
+        return {}
+
+    }
+  }
+  const reFetch = (tab: TabKey) => {
+
+    dealOfferListOwnerContext.setFilter(convertTabKeyToFilter(tab))
+    dealOfferListOwnerContext.reFetch()
 
   }
+  const setRoute = (tab: TabKey) => {
+    router.replace('/lk/sale-requests/[id]', `${Routes.lkSaleRequest(saleRequestId)}?${queryString.stringify({type: tab !== TabKey.All ? tab : null}, {skipNull: true})}`, {shallow: true})
 
+  }
+  const handleChangeTab = (tab: TabKey) => {
+    setTab(tab)
+    setRoute(tab)
+  }
+  const handleScrollNext = () => {
+    dealOfferListOwnerContext.fetchMore()
+  }
+  if (!saleRequestOwnerContext.saleRequest && saleRequestOwnerContext.loading) {
+    return <ContentLoader style={'fullscreen'} isOpen={true}/>
+  }
   return (
-    <Layout>
-      <div className={styles.root}>
-        <div className={styles.title}>
-          Заявка №245 от {format(new Date(saleRequest.createdAt), 'dd.MM.yyyy')}
+    <div className={styles.root}>
+      <Tabs<TabKey> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
+      <div className={styles.container}>
+        <div className={styles.colLeft}>
+          <InfiniteScroll
+            dataLength={dealOfferListOwnerContext.data.data.length}
+            next={handleScrollNext}
+            style={{overflow: 'inherit'}}
+            loader={dealOfferListOwnerContext.data.total > 0 ?
+              <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}
+            hasMore={dealOfferListOwnerContext.data.total > dealOfferListOwnerContext.data.data.length}
+            scrollThreshold={0.6}>
+            <div className={styles.list}>
+              {dealOfferListOwnerContext.data.data.map((i) =>
+                <SaleRequestDealOfferCard key={i.id} dealOffer={i}/>)}
+            </div>
+          </InfiniteScroll>
         </div>
-        <div className={styles.switch}>
-          <div className={styles.wrapper}>
-            <div onClick={() => setStatus('all')} className={classNames(styles.status, { [styles.active]: status === 'all' })}>
-              Все предложения
-              {status === 'all' && <div className={styles.line} />}
-            </div>
-            <div onClick={() => setStatus('new')}
-              className={classNames(styles.status, { [styles.active]: status === 'new' })}>
-              Новые
-              {status === 'new' && <div className={styles.line} />}
-            </div>
-            <div onClick={() => setStatus('familiar')}
-              className={classNames(styles.status, { [styles.active]: status === 'familiar' })}>
-              Знакомые
-              {status === 'familiar' && <div className={styles.line} />}
-            </div>
-            <div onClick={() => setStatus('declined')}
-              className={classNames(styles.status, { [styles.active]: status === 'declined' })}>
-              Отклоненные
-              {status === 'declined' && <div className={styles.line} />}
-            </div>
-          </div>
-        </div>
-        <div className={styles.container}>
-          <div className={styles.list}>
-            {points.data.map((i, index) =>
-              <SuggestionCard key={index} point={i} suggestion={'Вывоз металлолома, вывоз металла, вывоз лома. ПРИНИМАЕМ ДОРОГО ВЫВОЗИМ БЫСТРО ПО ВСЕМ РАЙОНАМ Москвы и обл. Опломбированные весы. Расчет сразу после взвешивания.'} />
-            )}
-          </div>
-          <div className={styles.side}>
-            <SideCard item={saleRequest} />
-          </div>
+        <div className={styles.colRight}>
+          <SaleRequestDetailsCard/>
         </div>
       </div>
-    </Layout>
+    </div>
   )
 }
 
-export const getServerSideProps: GetServerSideProps = async (context) => {
-
-  const id = context.query?.id
-
-  // Fetch data only if 'id' is present and is a number
-  if (id && typeof id === 'string') {
-    const res = await SaleRequestRepository.searchById(+id)
-
-    return {
-      props: {
-        saleRequest: res.data[0] // Assuming res contains the fetched data
-      }
-    }
-  }
-
-  // If 'id' is not present or is not a number, return an empty object
-  return {
-    props: {}
-  }
+export default function SaleRequestPage(props: Props) {
+  const router = useRouter()
+  const id = parseInt(router.query.id as string, 10)
+  return (<ClientOnly>
+    <Layout>
+      <SaleRequestOwnerWrapper saleRequestId={id}>
+        <DealOfferListOwnerWrapper saleRequestId={id}>
+          <SaleRequestPageInner/>
+        </DealOfferListOwnerWrapper>
+      </SaleRequestOwnerWrapper>
+    </Layout>
+  </ClientOnly>)
 }

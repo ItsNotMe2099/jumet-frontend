@@ -30,12 +30,31 @@
     padding: 4px;
   }
   &.outlined{
+    position: relative;
     display: flex;
     flex-direction: row;
-    height: 32px;
+
     @include list(20px, true);
-    border-bottom: 1px solid $grey400;
-    padding-bottom: 8px;
+    &:after{
+      content: ' ';
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      height: 1px;
+      background-color: $grey400;
+    }
+    @include mq($PhoneWidth, max) {
+      flex-direction: row;
+      overflow-x: scroll;
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      @include scroll_hide;
+      @include list(20px, true);
+      margin-bottom: 10px;
+      width: 100%;
+    }
   }
 }
 

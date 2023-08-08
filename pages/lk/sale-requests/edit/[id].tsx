@@ -6,6 +6,8 @@ import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
 import { SaleRequestStatus } from '@/data/enum/SaleRequestStatus'
 import SaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
 
 interface Props {
 
@@ -65,3 +67,4 @@ export default function LkSaleRequestEditPage(props: Props) {
     </Layout>
   )
 }
+export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

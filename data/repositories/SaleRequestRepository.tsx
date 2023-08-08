@@ -2,7 +2,7 @@ import request from 'utils/request'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { IPagination } from '@/types/types'
 import { ISaleRequestSearchRequest } from '@/data/interfaces/ISaleRequestSearchRequest'
-import { ILocation } from '../interfaces/ILocation'
+import {ISaleRequestFromSellerListRequest} from '@/data/interfaces/ISaleRequestFromSellerListRequest'
 
 export default class SaleRequestRepository {
 
@@ -15,7 +15,7 @@ export default class SaleRequestRepository {
     return res
   }
 
-  static async searchById(id: number): Promise<IPagination<ISaleRequest>> {
+  static async fetchById(id: number): Promise<ISaleRequest | null> {
     const res = await request<IPagination<ISaleRequest>>({
       method: 'post',
       url: '/api/sale-request/search',
@@ -27,13 +27,15 @@ export default class SaleRequestRepository {
         id: id
       },
     })
-    return res
+    console.log('res?.data111', res?.data)
+    return res?.data?.length > 0 ? res.data[0] : null
   }
 
-  static async fetchSaleRequestsFromSeller(): Promise<IPagination<ISaleRequest>> {
+  static async fetchSaleRequestsFromSeller(data: ISaleRequestFromSellerListRequest): Promise<IPagination<ISaleRequest>> {
     const res = await request<IPagination<ISaleRequest>>({
       method: 'post',
       url: '/api/sale-request',
+      data
     })
     return res
   }

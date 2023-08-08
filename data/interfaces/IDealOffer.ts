@@ -9,7 +9,7 @@ export interface IDealOffer {
   receivingPointId: number | null
   saleRequest?: ISaleRequest
   saleRequestId?: number
-  status?: DealOfferStatus
+  status: DealOfferStatus
   coverLetter?: string
   price: number | null
   deliveryPrice: number | null
@@ -17,5 +17,5 @@ export interface IDealOffer {
   rubbishInPercents: number | null
   manager?: IUser
   ownerId?: string
-  createdAt?: Date
+  createdAt?: string
 }

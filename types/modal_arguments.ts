@@ -1,6 +1,7 @@
 import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
 import {ILocation} from '@/data/interfaces/ILocation'
+import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 
 export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'
@@ -17,9 +18,11 @@ export interface MapSelectorModalArguments {
 export interface ConfirmModalArguments {
   onConfirm: () => void
   onCancel?: () => void
+  title?: string
   text?: string
   confirm?: string,
   cancel?: string
+  confirmColor?: 'red' | 'blue'
 }
 
 export interface LoginModalArguments {
@@ -31,4 +34,15 @@ export interface DealOfferModalArguments {
 
 export interface SaleRequestOfferModalArguments {
   receivingPointId: number
+}
+export interface SaleRequestFormModalArguments {
+  saleRequest: ISaleRequest
+}
+
+export interface SuccessModalArguments {
+  title: string
+  message: string
+  buttonName?: string
+  buttonHref?: string
+  buttonOnClick?: () => void
 }

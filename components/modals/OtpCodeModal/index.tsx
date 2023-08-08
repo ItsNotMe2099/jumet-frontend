@@ -48,7 +48,7 @@ const OtpCodeModalInner = (props: Props) => {
   }
   else {
     return (
-      <ModalLayout className={styles.modalLayout}  >
+      <ModalLayout size={'small'} className={styles.modalLayout}  >
         <CloseSvg onClick={props.onRequestClose} className={styles.close} color={colors.grey500} />
         <div className={styles.title}>Введите код</div>
         <div className={styles.container}>

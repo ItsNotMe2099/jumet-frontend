@@ -1,4 +1,4 @@
-@import "styles/index";
+@import "../../../../../styles/index";
 
 .root {
     display: flex;
@@ -11,9 +11,9 @@
     flex-direction: column;
     @include list(12px, false);
 
-    .item {
+    .field {
         display: flex;
-        flex-direction: column-reverse;
+        flex-direction: column;
         @include list(4px, false);
     }
 
@@ -22,14 +22,19 @@
     }
 }
 
-.top {
+.fieldValue {
     color: $dark500;
     @include btnText;
 }
 
-.bottom {
+.fieldLabel {
     color: $grey500;
     @include secondaryText;
+}
+.photos{
+ img{
+   display: inline-flex;
+ }
 }
 
 .btn {

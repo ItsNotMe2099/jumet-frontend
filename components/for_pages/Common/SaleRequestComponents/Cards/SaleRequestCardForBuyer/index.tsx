@@ -3,67 +3,67 @@ import CardLayout from '../../../CardLayout'
 import styles from './index.module.scss'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import Button from '@/components/ui/Button'
-import ShareSvg from '@/components/svg/ShareSvg'
-import { colors } from '@/styles/variables'
 import { useAppContext } from '@/context/state'
 import { ModalType } from '@/types/enums'
+import Formatter from '@/utils/formatter'
+import {IOption} from '@/types/types'
+import ShareLinkButton from '@/components/ui/Buttons/ShareLinkButton'
+import {Routes} from '@/types/routes'
+import {UserRole} from '@/data/enum/UserRole'
+import {useRouter} from 'next/router'
+import {DealOfferModalArguments} from '@/types/modal_arguments'
+import {ReactElement} from 'react'
 
-
+interface FieldProps{
+  item: IOption<number | string | ReactElement>
+}
+function Field(props: FieldProps) {
+  return (<div className={styles.item}>
+    <div className={styles.top}>
+      {props.item.label}
+    </div>
+    <div className={styles.bottom}>
+      {props.item.value}
+    </div>
+  </div>)
+}
 interface Props {
   item: ISaleRequest
 }
 
 export default function SaleRequestCardForBuyer({ item }: Props) {
-
   const appContext = useAppContext()
-
-  const first = [
-    { text1: 'Примерный вес', text2: item.weight },
-    { text1: 'Цена', text2: item.price ? item.price : 'Не указана' },
-    { text1: 'Категория лома', text2: item.scrapMetalCategory },
+  const router = useRouter()
+  const options: IOption<string>[] = [
+    {label: 'Примерный вес' , value: `${item.weight} ${Formatter.pluralize(item.weight, 'тонны', 'тонн', 'тонн')}`},
+    {label: 'Цена' , value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
+    {label: 'Категория лома' , value: item.scrapMetalCategory ?? '-'},
+    {label: 'Доставка' , value: item.requiresDelivery ? 'Нужна доставка' : '-' },
+    {label: 'Погрузка' , value: item.requiresDelivery ? 'Нужна погрузка' : '-'},
+    {label: 'Дата создания' , value: format(new Date(item.createdAt), 'dd.MM.yyyy г.')}
   ]
-
-  const second = [
-    { text1: 'Доставка', text2: 'Нужна доставка' },
-    { text1: 'Погрузка', text2: 'Нужна погрузка' },
-    { text1: 'Дата создания', text2: item.createdAt },
-  ]
-
+  const handleCreateOffer = () => {
+    if(!appContext.isLogged){
+      router.push(Routes.login(Routes.saleRequest(item.id)))
+    }else{
+      appContext.showModal(ModalType.DealOffer, {saleRequestId: item.id} as DealOfferModalArguments)
+    }
+  }
   return (
     <CardLayout titleClassName={styles.title} title={'Заявка на продажу лома №256'} className={styles.card}>
       <div className={styles.info}>
         <div className={styles.top}>
-          {first.map((i, index) =>
-            <div className={styles.item} key={index}>
-              <div className={styles.top}>
-                {i.text1}
-              </div>
-              <div className={styles.bottom}>
-                {i.text2} {index === 0 && 'тонн'}
-              </div>
-            </div>
-          )}
+          {[...options].slice(0, 3).map((i, index) => <Field key={index} item={i}/>)}
         </div>
         <div className={styles.bottom}>
-          {second.map((i, index) =>
-            <div className={styles.item} key={index}>
-              <div className={styles.top}>
-                {i.text1}
-              </div>
-              <div className={styles.bottom}>
-                {index === 2 ? format(new Date(i.text2), 'dd.MM.yyyy г.') : i.text2}
-              </div>
-            </div>
-          )}
+          {[...options].slice(-3).map((i, index) => <Field key={index} item={i}/>)}
         </div>
       </div>
       <div className={styles.controls}>
-        <Button onClick={() => appContext.showModal(ModalType.DealOffer, item.id)} className={styles.suggest} styleType='large' color='blue'>
+        {!appContext.isLogged || appContext?.aboutMe?.role === UserRole.Buyer && <Button onClick={handleCreateOffer} className={styles.suggest} styleType='large' color='blue'>
           Предложить сделку
-        </Button>
-        <Button className={styles.btn} styleType='large' color='grey'>
-          <ShareSvg color={colors.blue500} />
-        </Button>
+        </Button>}
+      <ShareLinkButton shareLink={Routes.saleRequest(item.id)}/>
       </div>
     </CardLayout>
   )

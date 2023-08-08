@@ -1,86 +1,26 @@
 @import "styles/index";
 
 .root {
-    @include container;
-    position: relative;
-    margin-right: 0;
-    max-width: 1342px !important;
+  @include pageContainer;
+  position: relative;
+  display: flex;
 
-    @include mq($lg-medium, min) {
-        max-width: 1620px !important;
-    }
-
-    @include mq(820px, max) {
-        padding: 0;
-        background-color: $white;
-    }
+  @include mq(820px, max) {
+    padding: 0;
+    background-color: $white;
+  }
 }
 
-.content {
-    display: flex;
-    flex-direction: column;
-    @include list(12px, false);
-    margin-top: 32px;
-    margin-bottom: 64px;
-    max-width: 940px;
-    margin-right: 350px;
-
-    @include mq(820px, max) {
-        margin-right: 0;
-        margin-top: 0;
-        margin-bottom: 0;
-    }
-
-    @include mq($lg-medium, min) {
-        margin-right: 630px;
-    }
+.colLeft{
+  flex: 1;
+  padding-right: 32px;
+  @include list(12px);
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    padding-right: 30px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+    padding-right: 0;
+  }
 }
 
-.chat {
-    position: absolute;
-    height: calc(100% + 32px);
-    right: 0;
-    top: -32px;
-    width: 352px !important;
-    overflow: hidden;
-
-    @include mq($lg-medium, min) {
-        width: 628px !important;
-    }
-
-    @include mq(820px, max) {
-        display: none;
-    }
-}
-
-.message {
-    max-width: 312px;
-
-    margin-top: 12px;
-
-    @include mq($lg-medium, min) {
-        max-width: 376px;
-    }
-}
-
-.chatLayout {}
-
-.header {
-    padding: 24px 15px;
-}
-
-.back {
-    cursor: pointer;
-    display: flex;
-    @include list(8px, true);
-    align-items: center;
-
-    .text {
-        color: $grey500;
-        align-self: center;
-    }
-}
-
-.chatMobile {
-    margin-bottom: 48px;
-}

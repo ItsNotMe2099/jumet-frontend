@@ -41,6 +41,25 @@ export default class Formatter {
     return formatRelative(typeof date === 'string' ? new Date(date) : date, new Date(), {locale})
   }
 
+  static formatDateRelative(date: string | Date) {
+    const formatRelativeLocale: { [key: string]: string } = {
+      'yesterday': 'Вчера HH:mm',
+      'today': 'Сегодня HH:mm',
+      'tomorrow': 'Завтра до HH:mm',
+      'other': 'dd.MM.yyyy HH:mm'
+    }
+
+    const locale = {
+      ...ru,
+      formatRelative: (token: string) =>
+        formatRelativeLocale[token] || formatRelativeLocale['other'],
+    }
+    if (!date) {
+      return ''
+    }
+    return formatRelative(typeof date === 'string' ? new Date(date) : date, new Date(), {locale})
+  }
+
   static formatPhone(phone: string) {
     try {
       const number = phoneUtil.parseAndKeepRawInput(this.cleanPhone(`${phone}`), 'RU')
@@ -71,9 +90,9 @@ export default class Formatter {
     }
     return `${this.formatNumber(Math.ceil(price))} ${suffix ?? '₽'}`
   }
-  static formatDeliveryPrice(price?: number) {
+  static formatDeliveryPrice(price?: number): string {
     if (!price) {
-      return
+      return ''
     }
     return this.formatPrice(price, '₽/т')
   }

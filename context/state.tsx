@@ -10,6 +10,8 @@ import {Subject} from 'rxjs'
 import {CookiesLifeTime} from '@/types/constants'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ICompany} from '@/data/interfaces/ICompany'
+import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
+import {IDealOffer} from '@/data/interfaces/IDealOffer'
 
 interface IState {
   isMobile: boolean
@@ -36,10 +38,10 @@ interface IState {
 
   receivingPointUpdateState$: Subject<IReceivingPoint>
   receivingPointDeleteState$: Subject<IReceivingPoint>
-  saleRequestUpdateState$: Subject<IReceivingPoint>
-  saleRequestDeleteState$: Subject<IReceivingPoint>
-  dealOfferUpdateState$: Subject<IReceivingPoint>
-  dealOfferDeleteState$: Subject<IReceivingPoint>
+  saleRequestUpdateState$: Subject<ISaleRequest>
+  saleRequestDeleteState$: Subject<ISaleRequest>
+  dealOfferUpdateState$: Subject<IDealOffer>
+  dealOfferDeleteState$: Subject<IDealOffer>
   companyUpdateState$: Subject<ICompany>
   companyDeleteState$: Subject<ICompany>
 }
@@ -47,10 +49,10 @@ interface IState {
 const loginState$ = new Subject<boolean>()
 const receivingPointUpdateState$ = new Subject<IReceivingPoint>()
 const receivingPointDeleteState$ = new Subject<IReceivingPoint>()
-const saleRequestUpdateState$ = new Subject<IReceivingPoint>()
-const saleRequestDeleteState$ = new Subject<IReceivingPoint>()
-const dealOfferUpdateState$ = new Subject<IReceivingPoint>()
-const dealOfferDeleteState$ = new Subject<IReceivingPoint>()
+const saleRequestUpdateState$ = new Subject<ISaleRequest>()
+const saleRequestDeleteState$ = new Subject<ISaleRequest>()
+const dealOfferUpdateState$ = new Subject<IDealOffer>()
+const dealOfferDeleteState$ = new Subject<IDealOffer>()
 const companyUpdateState$ = new Subject<ICompany>()
 const companyDeleteState$ = new Subject<ICompany>()
 

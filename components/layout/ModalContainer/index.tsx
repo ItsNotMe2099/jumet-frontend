@@ -9,6 +9,8 @@ import DealOfferModal from '@/components/modals/DealOfferModal'
 import {ConfirmModal} from '@/components/modals/ConfirmModal'
 import Modal, {IModalProps} from '@/components/ui/Modal'
 import SaleRequestOfferModal from '@/components/modals/SaleRequestOfferModal'
+import {SuccessModal} from '@/components/modals/SuccessModal'
+import SaleRequestFormModal from '@/components/modals/SaleRequestFormModal'
 
 interface Props { }
 
@@ -39,8 +41,14 @@ export default function ModalContainer(props: Props) {
         <Modal isOpen={appContext.modal === ModalType.SaleRequestOffer} {...commonSettings}>
           {appContext.modal === ModalType.SaleRequestOffer && <SaleRequestOfferModal onRequestClose={commonSettings.onRequestClose!} />}
         </Modal>
+        <Modal isOpen={appContext.modal === ModalType.SaleRequestForm} {...commonSettings}>
+          {appContext.modal === ModalType.SaleRequestForm && <SaleRequestFormModal isBottomSheet={false} />}
+        </Modal>
         <Modal isOpen={appContext.modal === ModalType.Confirm} {...commonSettings}>
           {appContext.modal === ModalType.Confirm && <ConfirmModal isBottomSheet={false} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.Success} {...commonSettings}>
+          {appContext.modal === ModalType.Success && <SuccessModal isBottomSheet={false} />}
         </Modal>
       </div>
     </RemoveScroll>

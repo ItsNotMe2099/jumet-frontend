@@ -1,27 +1,29 @@
 import RadioField from '@/components/fields/RadioField'
 import styles from './index.module.scss'
-import { Form, FormikProvider, useFormik } from 'formik'
-import { FileUploadAcceptType, InputStyleType, SnackbarType } from '@/types/enums'
+import {Form, FormikProvider, useFormik} from 'formik'
+import {FileUploadAcceptType, InputStyleType, SnackbarType} from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
-import { useState, useEffect } from 'react'
+import {useEffect, useState} from 'react'
 import PhoneField from '@/components/fields/PhoneField'
 import Button from '@/components/ui/Button'
-import { useAppContext } from '@/context/state'
+import {useAppContext} from '@/context/state'
 import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepository'
-import { ILocation } from '@/data/interfaces/ILocation'
-import { ScrapMetalCategory } from '@/data/enum/ScrapMetalCategory'
+import {ILocation} from '@/data/interfaces/ILocation'
+import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import Validator from '@/utils/validator'
 import RadiusField from '@/components/fields/RadiusField'
-import { useDataContext } from '@/context/data_state'
-import { IOption } from '@/types/types'
+import {useDataContext} from '@/context/data_state'
+import {IOption} from '@/types/types'
 import AddressField from '@/components/fields/AddressField'
 import MapFullscreenField from '@/components/fields/MapFullscreenField'
-import { IAddress } from '@/data/interfaces/IAddress'
+import {IAddress} from '@/data/interfaces/IAddress'
 import FileListField from '@/components/fields/Files/FileListField'
 import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
 import PriceField from '@/components/fields/PriceField'
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
-import { format } from 'date-fns'
+import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
+import {format} from 'date-fns'
+import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
+
 //import Select from '@/components/fields/Select'
 
 
@@ -113,9 +115,9 @@ export default function SaleRequestOfferForm(props: Props) {
   }
 
   const fetchMySaleRequests = async () => {
-    await SaleRequestOwnerRepository.fetchActive().then(data => {
+    await SaleRequestOwnerRepository.fetch({statuses: [SaleRequestStatus.Published], limit: 100}).then(data => {
       if (data) {
-        setData(data)
+        setData(data.data)
       }
     })
   }

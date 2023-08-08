@@ -14,20 +14,20 @@ export default class DealOfferOwnerRepository {
     return res
   }
 
-  static async fetch(): Promise<IDealOffer[]> {
-    const res = await request<IDealOffer[]>({
+  static async fetch(data: IDealOfferOwnerListRequest): Promise<IPagination<IDealOffer>> {
+    const res = await request<IPagination<IDealOffer>>({
       method: 'get',
       url: '/api/owner/deal-offer',
+      data
     })
     return res
   }
 
-  static async fetchByPoint(id: number): Promise<IDealOffer[]> {
-    const res = await request<IDealOffer[]>({
+  static async fetchById(id: number): Promise<IDealOffer> {
+    const res = await request<IDealOffer>({
       method: 'get',
-      url: `/api/owner/deal-offer?receivingPointId=${id}`,
+      url: `/api/owner/deal-offer/${id}`
     })
     return res
   }
-
 }

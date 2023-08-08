@@ -1,6 +1,8 @@
 import request from 'utils/request'
-import {DeepPartial} from '@/types/types'
+import {DeepPartial, IPagination} from '@/types/types'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
+import {ISaleRequestOwnerListRequest} from '@/data/interfaces/ISaleRequestOwnerListRequest'
+import {omit} from '@/utils/omit'
 
 export default class SaleRequestOwnerRepository {
 
@@ -13,20 +15,43 @@ export default class SaleRequestOwnerRepository {
     return res
   }
 
-  static async fetch(): Promise<ISaleRequest[]> {
-    const res = await request<ISaleRequest[]>({
+
+  static async update(id: number, data: DeepPartial<ISaleRequest>): Promise<ISaleRequest> {
+    const res = await request<ISaleRequest>({
+      method: 'patch',
+      url: `/api/owner/sale-request/${id}`,
+      data,
+    })
+    return res
+  }
+
+  static async fetch(data: ISaleRequestOwnerListRequest): Promise<IPagination<ISaleRequest>> {
+    const res = await request<IPagination<ISaleRequest>>({
       method: 'get',
       url: '/api/owner/sale-request',
+      data: {
+        ...omit(data, ['statuses']),
+        ...((data.statuses?.length ?? 0) > 0 ? {statuses: data.statuses?.join(',')} : {}),
+      }
     })
     return res
   }
 
-  static async fetchActive(): Promise<ISaleRequest[]> {
-    const res = await request<ISaleRequest[]>({
+  static async fetchById(id: number, token?: string): Promise<ISaleRequest> {
+    const res = await request<ISaleRequest>({
       method: 'get',
-      url: '/api/owner/sale-request?statuses=draft,published',
+      url: `/api/owner/sale-request/${id}`,
+      token
     })
     return res
   }
 
+
+  static async delete(id: number): Promise<ISaleRequest> {
+    const res = await request<ISaleRequest>({
+      method: 'delete',
+      url: `/api/owner/sale-request/${id}`,
+    })
+    return res
+  }
 }

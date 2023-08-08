@@ -1,20 +1,9 @@
 @import "styles/index";
 
-.form {
+.root {
     display: flex;
     flex-direction: column;
     @include list(24px, false);
-}
-
-.text {
-    color: $dark500;
-    @include mainText;
-    text-align: center;
-
-    span {
-        @include btnText;
-        text-decoration: underline;
-    }
 }
 
 .section {
@@ -28,43 +17,11 @@
     }
 }
 
-.switch {
+.switches {
     display: flex;
     @include list(12px, true);
     align-items: center;
 
-    .label {
-        @include mainText;
-        color: $dark500;
-    }
 }
 
-.group {
-    display: flex;
-    @include list(12px, true);
 
-    .second {
-        width: 25%;
-    }
-}
-
-.tabs {
-    display: flex;
-    @include list(8px, true);
-
-    .tab {
-        width: 75px;
-        height: 48px;
-    }
-}
-
-.btn {
-    width: 28%;
-}
-
-.drop {
-    a{
-        border: 0;
-        @include list(8px, true);
-    }
-}
