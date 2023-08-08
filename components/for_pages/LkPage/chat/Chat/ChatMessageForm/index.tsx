@@ -72,7 +72,7 @@ export default function ChatMessageForm() {
             onKeyDown={handleKeyDown}
             className={cx(styles.textarea)}
           />
-            <IconButton bgColor={'blue500'} disabled={!formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
+            <IconButton type={'submit'} bgColor={'blue500'} disabled={!formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
               <SendSvg color={colors.white}/>
             </IconButton>
          </div>

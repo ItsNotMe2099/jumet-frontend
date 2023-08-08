@@ -7,12 +7,11 @@ import ru from 'date-fns/locale/ru'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
 import Button from '@/components/ui/Button'
 import TrashSvg from '@/components/svg/TrashSvg'
-import FavoriteRepository from '@/data/repositories/FavoriteRepository'
-import { LikeEntityType } from '@/data/enum/LikeEntityType'
 
 
 interface Props {
   item: IReceivingPoint
+  onDelete: () => void
 }
 
 export default function ReceivingPointCard(props: Props) {
@@ -41,7 +40,7 @@ export default function ReceivingPointCard(props: Props) {
   // format the opening time to display in the UI
 
   const handleDelete = async () => {
-    await FavoriteRepository.delete(props.item.id, LikeEntityType.receivingPoint)
+    props.onDelete()
   }
 
   return (

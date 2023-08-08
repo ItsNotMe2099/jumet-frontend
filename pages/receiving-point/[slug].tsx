@@ -35,7 +35,7 @@ export default function ReceivingPoint(props: Props) {
           <WorkingHoursViewCard receivingPoint={receivingPoint}/>
           <CompanyViewCard receivingPoint={receivingPoint}/>
         </div>
-        <ChatOnPage/>
+        <ChatOnPage receivingPointId={receivingPoint?.id}/>
 
       </div>
     </Layout>

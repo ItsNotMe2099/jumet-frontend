@@ -37,6 +37,7 @@ const ChatContext = createContext<IState>(defaultValue)
 
 interface Props {
   children: React.ReactNode
+  receivingPointId?: number
 }
 
 export function ChatWrapper(props: Props) {

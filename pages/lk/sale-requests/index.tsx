@@ -41,7 +41,7 @@ const LkSalesRequestsPageInner = (props: Props) => {
         <Tabs<TabKey> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
         <div className={styles.list}>
           {saleRequestListOwnerContext.data.data.map((i, index) =>
-            <MySaleRequestCard number={1} item={i} key={i.id}/>
+            <MySaleRequestCard mode={'seller'} number={1} item={i} key={i.id}/>
           )}
         </div>
       </div>

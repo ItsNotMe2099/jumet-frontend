@@ -78,7 +78,7 @@ const LkDealOffersPageInner = (props: Props) => {
     }
   }
   const setRoute = (tab: TabKey, receivingPointId: number | null) => {
-    router.replace(Routes.lkDealOffers, `${Routes.lkDealOffers}${queryString.stringify({type: tab !== TabKey.All ? tab : null, receivingPointId}, {skipNull: true})}`, {shallow: true})
+    router.replace(Routes.lkDealOffers, `${Routes.lkDealOffers}?${queryString.stringify({type: tab !== TabKey.All ? tab : null, receivingPointId}, {skipNull: true})}`, {shallow: true})
 
   }
   const handleChangeTab = (tab: TabKey) => {
@@ -146,7 +146,7 @@ const LkDealOffersPageInner = (props: Props) => {
             scrollThreshold={0.6}>
             <div className={styles.list}>
               {saleRequestFromSellerListContext.data.data.map(i =>
-                <MySaleRequestCard item={i} key={i.id}/>)}
+                <MySaleRequestCard mode={'buyer'} item={i} key={i.id}/>)}
             </div>
           </InfiniteScroll>}
         </div>

@@ -9,12 +9,13 @@ import ShowChatMobileToggle from '@/components/for_pages/ReceivingPoint/Tabbar'
 import PageModal from '@/components/for_pages/Common/PageModal'
 import { RemoveScroll } from 'react-remove-scroll'
 import BackButton from '@/components/ui/BackButton'
+import {ChatSocketWrapper} from '@/context/chat_socket_state'
 
 interface Props {
-
+  receivingPointId?: number
 }
 
-export default function ChatOnPage(props: Props) {
+const ChatOnPageInner = (props: Props) => {
   const appContext = useAppContext()
   let ref = useRef<HTMLDivElement | null>(null)
   let position = usePosition(ref, {callOnResize: true})
@@ -52,7 +53,8 @@ export default function ChatOnPage(props: Props) {
                 }
                 ref={wrapperRef}
               >
-                <Chat  title={'Чат с пунктом приема'}/>
+
+                <Chat receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
               </div>
             </div>
 
@@ -63,7 +65,7 @@ export default function ChatOnPage(props: Props) {
             <div className={styles.chatMobileHeader}>
               <BackButton onClick={() => setShowMobile(false)}>Назад</BackButton>
             </div>
-            <Chat className={styles.chatMobile} title={'Чат с пунктом приема'}/>
+            <Chat receivingPointId={props.receivingPointId} className={styles.chatMobile} title={'Чат с пунктом приема'}/>
           </PageModal>
         </RemoveScroll>
         }
@@ -71,4 +73,10 @@ export default function ChatOnPage(props: Props) {
       {appContext.isMobile && !showMobile && <ShowChatMobileToggle onClick={() => setShowMobile(true)} />}
     </>
   )
+}
+
+export default function ChatOnPage(props: Props) {
+  return <ChatSocketWrapper>
+    <ChatOnPageInner {...props}/>
+  </ChatSocketWrapper>
 }

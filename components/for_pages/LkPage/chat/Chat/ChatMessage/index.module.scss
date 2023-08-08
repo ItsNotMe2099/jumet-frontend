@@ -1,9 +1,10 @@
 @import "styles/index";
-$radius: 10px;
+$radius: 12px;
 .root {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 12px;
+
   &.sideOther {
     align-items: flex-start;
     .message{
@@ -13,9 +14,9 @@ $radius: 10px;
   }
 
   &.sideMy {
-    background: $white;
     align-items: flex-end;
     .message{
+      background: $grey200;
       border-color: $grey200;
       border-top-right-radius: 0px;
     }

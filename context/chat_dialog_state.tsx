@@ -45,6 +45,7 @@ interface Props {
   chat?: IChat
   chatId?: number | null
   children: React.ReactNode
+  receivingPointId?: number
 }
 
 export function ChatDialogWrapper(props: Props) {
@@ -78,21 +79,39 @@ export function ChatDialogWrapper(props: Props) {
     chatIdRef.current = props.chatId ?? null
   }, [props.chatId])
   const init = async () => {
+    console.log('InitP', props.chatId, props.receivingPointId)
+    let _chat: IChat | null = null
     if(!props.chatId){
-      setChat(null)
-      setLoading(false)
-      setMessages([])
-      setTotalMessages(0)
+      if(appContext.aboutMe && props.receivingPointId && (chat?.receivingPointId !== props.receivingPointId)){
+        const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({receivingPointId: props.receivingPointId!, sellerId: appContext.aboutMe!.id!})
+        console.log('GetChat11', _chat)
+        setChat(_chat)
+        if(_chat?.messages) {
+          processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
+        }else{
+          await loadMessages()
+        }
+      }else {
+        setChat(null)
+        setLoading(false)
+        setMessages([])
+        setTotalMessages(0)
+      }
+
       return
     }
     if (!chat || chat.id !== props.chatId) {
-      const _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
+       _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
       setChat(_chat)
     }
     setLoading(true)
     setMessages([])
     setTotalMessages(100000000)
-    await loadMessages()
+    if(_chat?.messages) {
+      processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
+    }else{
+      await loadMessages()
+    }
   }
   const markRead = (messageId: number) => {
     markReadList.push(messageId)
@@ -106,17 +125,20 @@ export function ChatDialogWrapper(props: Props) {
     }
     debouncedMarkRead()
   }
-  const loadMessages = async (lastCreatedAt?: string) => {
-    const data = await ChatMessageRepository.fetchAll(props.chatId!, lastCreatedAt, limit)
-    if (data.total === 0) {
+  const processLoadedMessages =  (data: IChatMessage[], total: number | null) => {
+    if (total === 0) {
       setTotalMessages(messages.length)
     }
-    const readIds: number[] = (data?.data ?? []).filter(i => i.id && i.userStates?.some(i => !i.read)).map(i => i.id!)
+    const readIds: number[] = (data ?? []).filter(i => i.id && i.userStates?.some(i => !i.read)).map(i => i.id!)
     if (readIds.length > 0) {
       chatContext.decreaseUnreadCount(props.chatId!, readIds.length)
       markReadMulti(readIds)
     }
-    setMessages(i => [...i, ...data.data])
+    setMessages(i => [...i, ...data])
+  }
+  const loadMessages = async (lastCreatedAt?: string) => {
+    const data = await ChatMessageRepository.fetchAll(props.chatId!, lastCreatedAt, limit)
+    processLoadedMessages(data.data, data.total)
   }
   const fetchMore = async () => {
     if(!props.chatId){
@@ -127,11 +149,32 @@ export function ChatDialogWrapper(props: Props) {
   }
 
   const sendMessage = async (data: IChatMessageFormData) => {
-    if(!props.chatId){
+    if(!appContext.aboutMe){
       return
     }
     const sid = uuidv4()
-    ChatMessageRepository.create({...data, chatId: chat!.id, sid})
+    console.log('SendMessage')
+    if(props.receivingPointId && !chat?.id){
+      setTotalMessages(i => i + 1)
+      setMessages((i) => [{
+        ...data as IChatMessage,
+        sid,
+        id: 0,
+        userId: appContext.aboutMe?.id,
+        createdAt: (new Date()).toISOString(),
+      }, ...i])
+      const chat = await ChatRepository.createChat({receivingPointId: props.receivingPointId, sellerId: appContext.aboutMe.id})
+      setChat(chat)
+
+      ChatMessageRepository.create({...data, chatId: chat!.id, sid})
+    }else{
+      ChatMessageRepository.create({...data, chatId: chat!.id, sid})
+    }
+    if(!chat?.id){
+      return
+    }
+
+
     setTotalMessages(i => i + 1)
     setMessages((i) => [{
       ...data as IChatMessage,
@@ -182,6 +225,7 @@ export function ChatDialogWrapper(props: Props) {
   }, 1000)
   useEffect(() => {
     if (chat) {
+      console.log('ChatJoin')
       chatSocket.join(chat.id)
     }
     return () => {
@@ -196,6 +240,11 @@ export function ChatDialogWrapper(props: Props) {
     init()
     chatContext.setCurrentChatId(props.chatId ?? null)
   }, [props.chatId])
+  useEffect(() => {
+    if(appContext.aboutMeLoaded && appContext.aboutMe){
+      init()
+    }
+ }, [props.receivingPointId, appContext.aboutMeLoaded])
   useEffect(() => {
     if (!chat) {
       return

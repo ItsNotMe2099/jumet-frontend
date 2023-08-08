@@ -88,6 +88,11 @@
         margin-top: 0 !important;
     }
 }
+.controlsSeparator{
+  width: 1px;
+  height: 24px;
+  background: $grey400;
+}
 
 .btn {
     color: $blue500;

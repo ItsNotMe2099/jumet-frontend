@@ -1,6 +1,7 @@
 export enum SaleRequestStatus {
     Draft = 'draft',
     Published = 'published',
-    Completed = 'completed'
+    Completed = 'completed',
+    Rejected = 'rejected',
+    Accepted = 'accepted',
   }
-  

@@ -10,12 +10,15 @@ import {Routes} from '@/types/routes'
 import Link from 'next/link'
 import {SaleRequestOwnerWrapper, useSaleRequestOwnerContext} from '@/context/sale_request_owner_state'
 import WeightUtils from '@/utils/WeightUtils'
+import ChatSvg from '@/components/svg/ChatSvg'
 interface Props {
   item: ISaleRequest
   number?: number
+  mode: 'seller' | 'buyer'
 }
 
-const MySaleRequestCardInner = ({ item, number }: Props) => {
+const MySaleRequestCardInner = (props: Props) => {
+  const { item, number } = props
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   return (
     <div className={styles.root}>
@@ -78,14 +81,26 @@ const MySaleRequestCardInner = ({ item, number }: Props) => {
               </div>
             </div>
           </div>
-          <div className={styles.controls}>
+          {props.mode === 'seller' && <div className={styles.controls}>
             <Button href={Routes.lkSaleRequest(item.id)} className={styles.btnFirst} color='blue' styleType='large'>
               Открыть предложения {item.contacts.length ? item.contacts.length : null} {number && <div className={styles.plus}>+{number}</div>}
             </Button>
             <Button onClick={saleRequestOwnerContext.edit} className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
               Редактировать заявку
             </Button>
-          </div>
+          </div>}
+          {props.mode === 'buyer' && <div className={styles.controls}>
+            <Button spinner={saleRequestOwnerContext.acceptLoading} disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading}  color='blue' styleType='large' onClick={() => saleRequestOwnerContext.accept()}>
+              Принять предложение
+            </Button>
+            <Button spinner={saleRequestOwnerContext.rejectLoading} disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading} className={styles.btn} color='grey' styleType='large' onClick={() => saleRequestOwnerContext.reject()}>
+              Отклонить
+            </Button>
+            <div className={styles.controlsSeparator}></div>
+            <Button className={styles.btn} color='grey' styleType='large' icon={<ChatSvg color={colors.blue500} />}>
+              Чат с продавцом
+            </Button>
+          </div>}
         </div>
       </div>
       <div className={styles.right}>
@@ -96,6 +111,6 @@ const MySaleRequestCardInner = ({ item, number }: Props) => {
 }
 export default function MySaleRequestCard(props: Props) {
   return <SaleRequestOwnerWrapper saleRequestId={props.item.id} saleRequest={props.item}>
-    <MySaleRequestCardInner item={props.item}/>
+    <MySaleRequestCardInner item={props.item} mode={props.mode}/>
   </SaleRequestOwnerWrapper>
 }

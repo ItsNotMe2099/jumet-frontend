@@ -75,8 +75,8 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
         <HiddenXs>
           <div className={styles.right}>
             {appContext.isLogged && <div className={styles.userButtons}>
-              <IconButton bgColor={'dark400'}><ChatSvg color={colors.white}/></IconButton>
-              <IconButton bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
+              <IconButton href={Routes.lkChat()} bgColor={'dark400'}><ChatSvg color={colors.white}/></IconButton>
+              <IconButton href={Routes.lkFavorites} bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
               <ProfileMenu/>
             </div>}
             {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer && <Button href={Routes.saleRequests} className={styles.btn} styleType='large' color='blue'>

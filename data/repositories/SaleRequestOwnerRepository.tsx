@@ -32,6 +32,7 @@ export default class SaleRequestOwnerRepository {
       data: {
         ...omit(data, ['statuses']),
         ...((data.statuses?.length ?? 0) > 0 ? {statuses: data.statuses?.join(',')} : {}),
+        sort: 'createdAt,DESC'
       }
     })
     return res
