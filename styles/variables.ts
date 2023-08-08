@@ -41,6 +41,7 @@ export const colors = {
   grey100: '#F2F4F9',
   yellow300: '#FCF1DA',
   yellow500: '#F3CE7B',
+  $red300: '#FDD0CD',
   red500: '#DA342A',
   text: '#1D2030'
 }

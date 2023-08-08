@@ -1,0 +1,28 @@
+@import "styles/index";
+
+.root {
+    padding: 8px 20px;
+    background-color: $yellow300;
+    border-radius: 12px;
+    display: flex;
+    @include list(12px, true);
+}
+
+.text {
+    display: flex;
+    flex-direction: column;
+}
+
+.top {
+    color: $dark500;
+    @include h3;
+}
+
+.bottom {
+    color: $dark500;
+    @include mainText;
+}
+
+.negative {
+    background-color: $red300;
+}

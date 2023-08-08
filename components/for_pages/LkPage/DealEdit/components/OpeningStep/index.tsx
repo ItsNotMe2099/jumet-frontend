@@ -14,7 +14,6 @@ import CompanyField from '@/components/fields/CompanyField'
 import {ICompany} from '@/data/interfaces/ICompany'
 import CompanyDetailsFormSection from '@/components/for_pages/Common/CompanyDetailsFormSection'
 import {useState} from 'react'
-import FormStepFooter from '@/components/ui/FormStepFooter'
 import {DeepPartial, IFormStepProps} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ILocation} from '@/data/interfaces/ILocation'
@@ -121,7 +120,6 @@ export default function DataStep(props: Props) {
             )}
           </FieldArray>
         </div>
-        <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>
       </Form>
     </FormikProvider>
   )

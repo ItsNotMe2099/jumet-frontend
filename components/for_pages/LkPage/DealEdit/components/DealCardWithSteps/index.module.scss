@@ -1,0 +1,18 @@
+@import "styles/index";
+
+.title {
+    @include h1;
+}
+
+.indicator {
+    margin: 0 !important;
+    margin-top: 24px !important;
+}
+
+.info {
+    margin-top: 12px;
+}
+
+.line {
+    
+}
