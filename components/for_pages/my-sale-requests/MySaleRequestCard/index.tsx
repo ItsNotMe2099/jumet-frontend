@@ -11,6 +11,8 @@ import Link from 'next/link'
 import {SaleRequestOwnerWrapper, useSaleRequestOwnerContext} from '@/context/sale_request_owner_state'
 import WeightUtils from '@/utils/WeightUtils'
 import ChatSvg from '@/components/svg/ChatSvg'
+import StatusBadge from '@/components/ui/StatusBadge'
+import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 interface Props {
   item: ISaleRequest
   number?: number
@@ -18,14 +20,27 @@ interface Props {
 }
 
 const MySaleRequestCardInner = (props: Props) => {
-  const { item, number } = props
+  const {  number } = props
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
+  const item = saleRequestOwnerContext.saleRequest!
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        <Link href={Routes.saleRequest(item.id)} className={styles.title}>
+        {props.mode === 'seller' && <Link href={Routes.saleRequest(item.id)} className={styles.title}>
           Заявка №{item.id}
+        </Link>}
+        {props.mode === 'buyer' && <div className={styles.leftTop}><Link href={Routes.saleRequest(item.id)} className={styles.title}>
+          {WeightUtils.formatWeight(item.weight)}
         </Link>
+          <StatusBadge<SaleRequestStatus> data={{
+            [SaleRequestStatus.Published]: {label: 'Новое предложение', color: 'blue'},
+            [SaleRequestStatus.Draft]: {label: 'Новое предложение', color: 'blue'},
+            [SaleRequestStatus.Completed]: {label: 'Выполнено', color: 'green'},
+            [SaleRequestStatus.Rejected]: {label: 'Отклонено', color: 'red'},
+            [SaleRequestStatus.Accepted]: {label: 'Принято', color: 'green'},
+          }} value={item.status!}/>
+          <div className={styles.date}>{Formatter.formatDateRelative(item.createdAt)}</div>
+        </div>}
         <div className={styles.middle}>
           <div className={styles.info}>
             <div className={styles.first}>
@@ -90,13 +105,14 @@ const MySaleRequestCardInner = (props: Props) => {
             </Button>
           </div>}
           {props.mode === 'buyer' && <div className={styles.controls}>
-            <Button spinner={saleRequestOwnerContext.acceptLoading} disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading}  color='blue' styleType='large' onClick={() => saleRequestOwnerContext.accept()}>
+            {([SaleRequestStatus.Published, SaleRequestStatus.Draft] as SaleRequestStatus[]).includes(item.status) && <><Button spinner={saleRequestOwnerContext.acceptLoading} disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading}  color='blue' styleType='large' onClick={() => saleRequestOwnerContext.accept()}>
               Принять предложение
             </Button>
             <Button spinner={saleRequestOwnerContext.rejectLoading} disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading} className={styles.btn} color='grey' styleType='large' onClick={() => saleRequestOwnerContext.reject()}>
               Отклонить
             </Button>
-            <div className={styles.controlsSeparator}></div>
+              <div className={styles.controlsSeparator}></div>
+            </>}
             <Button className={styles.btn} color='grey' styleType='large' icon={<ChatSvg color={colors.blue500} />}>
               Чат с продавцом
             </Button>

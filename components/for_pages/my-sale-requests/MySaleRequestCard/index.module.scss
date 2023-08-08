@@ -15,11 +15,22 @@
 }
 
 .left {
-    display: flex;
-    flex-direction: column;
-    @include list(16px, false);
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
 }
 
+.leftTop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}
+.date{
+  color: $grey500;
+  font-size: 14px;
+  font-weight: 400;
+}
 .right {
     background-color: $grey300;
     display: flex;
@@ -76,6 +87,7 @@
 
 .controls {
     display: flex;
+  align-items: center;
     @include list(12px, true);
 
     @include mq(1024px, max) {
@@ -135,7 +147,3 @@
     }
 }
 
-.btn,
-.btnFirst {
-    height: 40px;
-}

@@ -201,7 +201,7 @@ export function SaleRequestOwnerWrapper(props: Props) {
           try {
             appContext.hideModal()
             setAcceptLoading(true)
-            const res = await SaleRequestOwnerRepository.update(props.saleRequestId, {status: SaleRequestStatus.Accepted} as any)
+            const res = await SaleRequestOwnerRepository.updateByBuyer(props.saleRequestId, {status: SaleRequestStatus.Accepted} as any)
             handleUpdate(res)
             setSaleRequest(i => ({...i, status: SaleRequestStatus.Accepted} as any))
             setAcceptLoading(false)
@@ -229,7 +229,7 @@ export function SaleRequestOwnerWrapper(props: Props) {
           try {
             appContext.hideModal()
             setRejectLoading(true)
-            const res = await SaleRequestOwnerRepository.update(props.saleRequestId, {status: SaleRequestStatus.Rejected} as any)
+            const res = await SaleRequestOwnerRepository.updateByBuyer(props.saleRequestId, {status: SaleRequestStatus.Rejected} as any)
             setSaleRequest(i => ({...i, status: SaleRequestStatus.Rejected} as any))
             setRejectLoading(false)
             handleUpdate(res)

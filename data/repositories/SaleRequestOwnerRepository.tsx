@@ -25,6 +25,16 @@ export default class SaleRequestOwnerRepository {
     return res
   }
 
+
+  static async updateByBuyer(id: number, data: DeepPartial<ISaleRequest>): Promise<ISaleRequest> {
+    const res = await request<ISaleRequest>({
+      method: 'put',
+      url: `/api/sale-request/${id}`,
+      data,
+    })
+    return res
+  }
+
   static async fetch(data: ISaleRequestOwnerListRequest): Promise<IPagination<ISaleRequest>> {
     const res = await request<IPagination<ISaleRequest>>({
       method: 'get',
