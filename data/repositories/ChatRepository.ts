@@ -22,6 +22,25 @@ export default class ChatRepository {
       method: 'get'
     })
   }
+
+  static async fetchChatBySellerIdAndReceivingPointId(data: {receivingPointId: number, sellerId: string}): Promise<IChat | null> {
+    return request({
+        url: '/api/chat/check',
+        method: 'post',
+        data,
+      }
+    )
+  }
+
+  static async createChat(data: {receivingPointId: number, sellerId: string}): Promise<IChat | null> {
+    return request({
+        url: '/api/chat',
+        method: 'post',
+        data,
+      }
+    )
+  }
+
   static async fetchBookingChat(bookingId: number | string): Promise<IChat | null> {
     return request({
       url: `/api/chat/booking-dialog/${bookingId}`,

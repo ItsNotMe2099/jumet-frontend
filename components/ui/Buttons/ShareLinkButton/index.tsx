@@ -17,7 +17,7 @@ export default function ShareLinkButton(props: Props) {
     appContext.showSnackbar('Ссылка скопирована', SnackbarType.success)
   }
   return (
-    <IconButton size='large' bgColor='grey300' onClick={handleShareClick}>
+    <IconButton size='medium' bgColor='grey300' onClick={handleShareClick}>
       <ShareSvg color={colors.blue500}/>
     </IconButton>
   )

@@ -6,6 +6,7 @@ import {useAppContext} from '@/context/state'
 import {ModalType, SnackbarType} from '@/types/enums'
 import {ConfirmModalArguments, SaleRequestFormModalArguments} from '@/types/modal_arguments'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
+import Formatter from '@/utils/formatter'
 
 interface IState {
   saleRequestId: number,
@@ -20,6 +21,10 @@ interface IState {
   unPublish: () => Promise<Nullable<ISaleRequest>>
   edit: () => void,
   editRequest: (data: DeepPartial<ISaleRequest>) => Promise<Nullable<ISaleRequest>>,
+  accept: () => Promise<Nullable<ISaleRequest>>,
+  reject: () => Promise<Nullable<ISaleRequest>>,
+  acceptLoading: boolean,
+  rejectLoading: boolean,
 }
 
 const defaultValue: IState = {
@@ -34,7 +39,11 @@ const defaultValue: IState = {
   publish: async () => null,
   unPublish: async () => null,
   edit: () => null,
-  editRequest: async (data) => null
+  editRequest: async (data) => null,
+  accept: async () => null,
+  reject: async () => null,
+  acceptLoading: false,
+  rejectLoading: false,
 }
 
 const SaleRequestOwnerContext = createContext<IState>(defaultValue)
@@ -52,6 +61,9 @@ export function SaleRequestOwnerWrapper(props: Props) {
   const [publishLoading, setPublishLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(!props.saleRequest && !!props.saleRequestId)
   const [editLoading, setEditLoading] = useState<boolean>(false)
+  const [acceptLoading, setAcceptLoading] = useState<boolean>(false)
+  const [rejectLoading, setRejectLoading] = useState<boolean>(false)
+
   useEffect(() => {
     setSaleRequest(props.saleRequest as Nullable<ISaleRequest>)
   }, [props.saleRequest])
@@ -177,7 +189,63 @@ export function SaleRequestOwnerWrapper(props: Props) {
         }
       } as ConfirmModalArguments)
     })
+  }
 
+  const accept = async (): Promise<Nullable<ISaleRequest>> => {
+    return new Promise<Nullable<ISaleRequest>>((resolve, reject) => {
+
+      appContext.showModal(ModalType.Confirm, {
+        title: 'Принять предложение',
+        text: `Вы уверены что хотите принять предложение № ${saleRequest?.id} от ${Formatter.formatDateRelative(saleRequest!.createdAt!)}?`,
+        onConfirm: async () => {
+          try {
+            appContext.hideModal()
+            setAcceptLoading(true)
+            const res = await SaleRequestOwnerRepository.update(props.saleRequestId, {status: SaleRequestStatus.Accepted} as any)
+            handleUpdate(res)
+            setSaleRequest(i => ({...i, status: SaleRequestStatus.Accepted} as any))
+            setAcceptLoading(false)
+            resolve(res)
+            return res
+          } catch (err) {
+            if (err instanceof RequestError) {
+              appContext.showSnackbar(err.message, SnackbarType.error)
+            }
+            resolve(null)
+            setAcceptLoading(false)
+          }
+        }
+      } as ConfirmModalArguments)
+    })
+  }
+
+  const reject = async (): Promise<Nullable<ISaleRequest>> => {
+    return new Promise<Nullable<ISaleRequest>>((resolve, reject) => {
+      appContext.showModal(ModalType.Confirm, {
+        title: 'Отклонить предложение',
+        text: `Вы уверены что хотите отклонить предложение по заявке № ${saleRequest?.id} от ${Formatter.formatDateRelative(saleRequest!.createdAt!)} ?`,
+        confirmColor: 'red',
+        onConfirm: async () => {
+          try {
+            appContext.hideModal()
+            setRejectLoading(true)
+            const res = await SaleRequestOwnerRepository.update(props.saleRequestId, {status: SaleRequestStatus.Rejected} as any)
+            setSaleRequest(i => ({...i, status: SaleRequestStatus.Rejected} as any))
+            setRejectLoading(false)
+            handleUpdate(res)
+            resolve(res)
+
+            return res
+          } catch (err) {
+            if (err instanceof RequestError) {
+              appContext.showSnackbar(err.message, SnackbarType.error)
+            }
+            resolve(null)
+            setRejectLoading(false)
+          }
+        }
+      } as ConfirmModalArguments)
+    })
   }
   const value: IState = {
     ...defaultValue,
@@ -195,6 +263,10 @@ export function SaleRequestOwnerWrapper(props: Props) {
     delete: deleteRequest,
     publish,
     unPublish,
+    accept,
+    reject,
+    acceptLoading,
+    rejectLoading,
   }
   return (
     <SaleRequestOwnerContext.Provider value={value}>

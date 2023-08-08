@@ -174,6 +174,7 @@ export function DealOfferWrapper(props: Props) {
     dealOffer,
     dealOfferId: props.dealOfferId,
     acceptLoading,
+    rejectLoading,
     editLoading,
     loading,
     deleteLoading,

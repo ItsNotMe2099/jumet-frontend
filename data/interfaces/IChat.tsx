@@ -1,6 +1,7 @@
 import IUser from '@/data/interfaces/IUser'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import IChatMessage from '@/data/interfaces/IChatMessage'
+import {IPagination} from '@/types/types'
 
 export default interface IChat {
   id: number
@@ -18,4 +19,5 @@ export default interface IChat {
   firstReplyAt: string
   createdAt: string
   totalUnread: number
+  messages?: IPagination<IChatMessage>
 }

@@ -3,6 +3,7 @@ import {  IPagination } from 'types/types'
 import {LikeEntityType} from '@/data/enum/LikeEntityType'
 import {IFavoriteRecord} from '@/data/interfaces/IFavoriteRecord'
 import {FavoriteStoreType} from '@/data/interfaces/FavoriteStoreType'
+import {IFavoriteListRequest} from '@/data/interfaces/IFavoriteListRequest'
 
 export default class FavoriteRepository {
   static async create(id: number, type: LikeEntityType): Promise<void> {
@@ -42,11 +43,15 @@ export default class FavoriteRepository {
     })
   }
 
-  static async fetchByType<T>(type: LikeEntityType, page: number = 1, limit: number = 10 ): Promise<IPagination<T>> {
+  static async fetchByType<T>(type: LikeEntityType, data: IFavoriteListRequest): Promise<IPagination<T>> {
     return request({
-      url: `/api/like?type=${type}&page=${page}&limit=${limit}`,
+      url: '/api/like',
       method: 'get',
       disableCache: true,
+      data: {
+        type,
+        ...data
+      }
     })
   }
 }

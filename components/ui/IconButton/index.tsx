@@ -24,7 +24,7 @@ export default function IconButton(props: Props) {
         href={typeof props.href == 'object' ? props.href.href! : props.href}
         target={props.isExternalHref ? '_blank' : ''}
         rel={props.isExternalHref ? 'noreferrer' : ''}
-        className={classNames([styles.root, props.className],  props.bgColor && styles[props.bgColor])}
+        className={classNames([styles.root, props.className],  props.bgColor && styles[props.bgColor], styles[props.size ?? 'normal'])}
         onClick={(e) => props.onClick?.(e)}
       >
         {props.children}

@@ -14,6 +14,7 @@ interface Props {
   className?: string
   chatId?: number | null
   title?: string | ReactElement | null
+  receivingPointId?: number
 }
 
 const ChatInner = (props: Props) => {
@@ -51,7 +52,8 @@ const ChatInner = (props: Props) => {
 
 
 export default function Chat(props: Props) {
-  return <ChatDialogWrapper chatId={props.chatId}>
+  console.log('props.receivingPointId', props.receivingPointId)
+  return <ChatDialogWrapper chatId={props.chatId} receivingPointId={props.receivingPointId}>
     <ChatInner {...props}/>
   </ChatDialogWrapper>
 }

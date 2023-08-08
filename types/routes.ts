@@ -115,4 +115,8 @@ export class Routes {
     return '/lk/deal-offers'
   }
 
+  static get lkFavorites() {
+    return '/lk/favorites'
+  }
+
 }

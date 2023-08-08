@@ -1,7 +1,7 @@
 import RadioField from '@/components/fields/RadioField'
 import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
-import {FileUploadAcceptType, InputStyleType, SnackbarType} from '@/types/enums'
+import {FileUploadAcceptType, InputStyleType, ModalType, SnackbarType} from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
 import {useEffect, useState} from 'react'
 import PhoneField from '@/components/fields/PhoneField'
@@ -23,6 +23,7 @@ import PriceField from '@/components/fields/PriceField'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {format} from 'date-fns'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
+import {SuccessModalArguments} from '@/types/modal_arguments'
 
 //import Select from '@/components/fields/Select'
 
@@ -67,6 +68,7 @@ export default function SaleRequestOfferForm(props: Props) {
     setLoading(true)
     try {
       await SaleRequestOwnerRepository.create(data)
+      appContext.showModal(ModalType.Success, {title: 'Ваше предложение отправлено', message: 'Пункт приема рассмотрит его'} as SuccessModalArguments)
     }
     catch (error: any) {
       let errorMessage = error.toString()
@@ -115,7 +117,7 @@ export default function SaleRequestOfferForm(props: Props) {
   }
 
   const fetchMySaleRequests = async () => {
-    await SaleRequestOwnerRepository.fetch({statuses: [SaleRequestStatus.Published], limit: 100}).then(data => {
+    await SaleRequestOwnerRepository.fetch({statuses: [SaleRequestStatus.Published], page: 1, limit: 100}).then(data => {
       if (data) {
         setData(data.data)
       }
