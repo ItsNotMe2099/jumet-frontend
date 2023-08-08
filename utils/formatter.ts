@@ -84,9 +84,9 @@ export default class Formatter {
   }
 
 
-  static formatPrice(price?: number, suffix?: string) {
+  static formatPrice(price?: number, suffix?: string): string {
     if (!price) {
-      return
+      return ''
     }
     return `${this.formatNumber(Math.ceil(price))} ${suffix ?? '₽'}`
   }

@@ -32,7 +32,7 @@ interface Props {
 }
 
 
-const SaleRequestPageInner = ({saleRequest}: Props) => {
+const SaleRequestPageInner = (props: Props) => {
   const router = useRouter()
   const appContext = useAppContext()
   const saleRequestId = parseInt(router.query.id as string, 10)

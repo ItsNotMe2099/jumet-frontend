@@ -29,7 +29,7 @@ export default function SaleRequestPage({ saleRequest }: Props) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
-  const id = context.query?.id
+  const id = parseInt(context.query.id as string, 10)
   try {
 
     const saleRequest = await SaleRequestRepository.fetchById(+id)

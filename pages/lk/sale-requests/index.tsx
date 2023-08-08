@@ -10,7 +10,7 @@ import {IOption} from '@/types/types'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
 
-enum TabType {
+enum TabKey {
   Active = 'active',
   Completed = 'completed'
 }
@@ -22,14 +22,14 @@ interface Props {
 const LkSalesRequestsPageInner = (props: Props) => {
   const saleRequestListOwnerContext = useSaleRequestListOwnerContext()
   const router = useRouter()
-  const [tab, setTab] = useState<TabType>(router.query?.active as TabType ?? TabType.Active)
-  const handleChangeTab = (tab) => {
+  const [tab, setTab] = useState<TabKey>(router.query?.active as TabKey ?? TabKey.Active)
+  const handleChangeTab = (tab: TabKey) => {
     setTab(tab)
-    saleRequestListOwnerContext.setFilter({...(tab === TabType.Active ? {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]} : {statuses: [SaleRequestStatus.Completed]})})
+    saleRequestListOwnerContext.setFilter({...(tab === TabKey.Active ? {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]} : {statuses: [SaleRequestStatus.Completed]})})
   }
-  const tabs: IOption<TabType>[] = [
-    {label: 'Активные', value: TabType.Active},
-    {label: ' Завершенные', value: TabType.Completed},
+  const tabs: IOption<TabKey>[] = [
+    {label: 'Активные', value: TabKey.Active},
+    {label: ' Завершенные', value: TabKey.Completed},
   ]
 
   return (
@@ -38,7 +38,7 @@ const LkSalesRequestsPageInner = (props: Props) => {
         <div className={styles.title}>
           Мои заявки на продажу
         </div>
-        <Tabs<TabType> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
+        <Tabs<TabKey> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
         <div className={styles.list}>
           {saleRequestListOwnerContext.data.data.map((i, index) =>
             <MySaleRequestCard number={1} item={i} key={i.id}/>
