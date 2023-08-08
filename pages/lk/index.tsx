@@ -27,3 +27,6 @@ const LkPageLayoutInner = (page: ReactElement) => {
 
 export const LkPageLayout = nestLayout(LkPageBaseLayout, LkPageLayoutInner)
 export const LkReceivingPageLayout = nestLayout(LkPageLayout, LkReceivingPageLayoutInner)
+export default function LkPage(){
+  return null
+}
