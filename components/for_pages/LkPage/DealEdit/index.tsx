@@ -3,6 +3,7 @@ import React, { useMemo, useState } from 'react'
 import FormStepSwitch from '@/components/ui/FormStepSwitch'
 import styles from './index.module.scss'
 import DealCardWithSteps from './components/DealCardWithSteps'
+import OpeningStepForm from './components/OpeningStep/Form'
 
 
 enum FormStep {
@@ -42,7 +43,7 @@ export default function DealEdit(props: Props) {
     <div className={styles.root}>
       <DealCardWithSteps title={'Сделка № 245'} currentStepIndex={currentStepIndex} />
       <FormStepSwitch index={currentStepIndex} options={[
-
+        <OpeningStepForm key={1} onSubmit={() => null}/>,
       ]} />
     </div>
   )

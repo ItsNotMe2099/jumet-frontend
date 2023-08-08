@@ -1,0 +1,48 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    padding: 20px 20px 32px 20px;
+    flex-direction: column;
+    align-items: flex-start;
+    @include list(24px, false);
+    border-radius: 12px;
+    background-color: $white;
+}
+
+.container {
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.title {
+    @include h2;
+}
+
+.passport {
+
+    .text {
+        @include btnText;
+        color: $dark500;
+    }
+}
+
+.btn {
+    width: 186px;
+}
+
+.switch {
+    display: flex;
+    @include list(12px, true);
+    margin: 24px 0;
+
+    .text {
+        @include mainText;
+    }
+}
+
+.add{
+    width: 271px;
+}
