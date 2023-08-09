@@ -7,6 +7,7 @@ import OpeningStepForm from './components/OpeningStep/Form'
 import { useAppContext } from '@/context/state'
 import { UserRole } from '@/data/enum/UserRole'
 import SuggestionFromBuyerCard from './components/SuggestionFromBuyerCard'
+import WeighningResultCard from './components/DeliveryStep/WeighingtResultCard'
 
 
 enum FormStep {
@@ -46,9 +47,11 @@ export default function DealEdit(props: Props) {
 
   return (
     <div className={styles.root}>
-      <DealCardWithSteps title={'Сделка № 245'} currentStepIndex={currentStepIndex} />
-      <FormStepSwitch index={currentStepIndex} options={[
+      <DealCardWithSteps title={'Сделка № 245'} currentStepIndex={2} />
+      <FormStepSwitch index={2} options={[
         <OpeningStepForm key={1} onSubmit={() => null} />,
+        <></>,
+        <WeighningResultCard key={2} id={props.id as number}/>
       ]} />
       {appContext.aboutMe?.role === UserRole.Seller && <SuggestionFromBuyerCard />}
     </div>

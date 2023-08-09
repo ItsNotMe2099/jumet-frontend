@@ -38,7 +38,7 @@ export function ConfirmModal(props: Props) {
 
   return (
     <ModalLayout size={'small'}  >
-      <ModalHeader/>
+      <ModalHeader className={styles.header}/>
       <ModalBody className={styles.modalBody}>{body}</ModalBody>
       <ModalFooter>{footer}</ModalFooter>
     </ModalLayout>

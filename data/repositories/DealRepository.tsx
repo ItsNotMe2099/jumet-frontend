@@ -10,4 +10,11 @@ export default class DealRepository {
     return res
   }
 
+  static async terminateBySeller(id: number): Promise<any> {
+    const res = await request<any>({
+      method: 'post',
+      url: `/api/deal/${id}/terminateBySeller`,
+    })
+    return res
+  }
 }
