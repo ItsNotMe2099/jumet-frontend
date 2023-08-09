@@ -3,6 +3,9 @@ import { useRouter } from 'next/router'
 //import { getAuthServerSideProps } from '@/utils/auth'
 //import { UserRole } from '@/data/enum/UserRole'
 import DealEdit from '@/components/for_pages/LkPage/DealEdit'
+import styles from './index.module.scss'
+import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
+
 
 
 export default function DealEditStepPage() {
@@ -12,7 +15,12 @@ export default function DealEditStepPage() {
 
   return (
     <Layout>
-      <DealEdit stepKey={step} id={id}/>
+      <div className={styles.root}>
+        <div className={styles.colLeft}>
+          <DealEdit stepKey={step} id={id} />
+        </div>
+        <ChatOnPage receivingPointId={1} />
+      </div>
     </Layout>
   )
 }
