@@ -43,6 +43,22 @@
     }
 }
 
-.add{
+.add {
     width: 271px;
+}
+
+.cards {
+    display: flex;
+    flex-direction: column;
+    @include list(8px, false);
+    .label {
+        @include btnText;
+        color: $dark500;
+    }
+
+    .icons{
+        display: flex;
+        @include list(8px, true);
+        align-items: center;
+    }
 }

@@ -4,6 +4,9 @@ import FormStepSwitch from '@/components/ui/FormStepSwitch'
 import styles from './index.module.scss'
 import DealCardWithSteps from './components/DealCardWithSteps'
 import OpeningStepForm from './components/OpeningStep/Form'
+import { useAppContext } from '@/context/state'
+import { UserRole } from '@/data/enum/UserRole'
+import SuggestionFromBuyerCard from './components/SuggestionFromBuyerCard'
 
 
 enum FormStep {
@@ -39,12 +42,15 @@ export default function DealEdit(props: Props) {
 
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
 
+  const appContext = useAppContext()
+
   return (
     <div className={styles.root}>
       <DealCardWithSteps title={'Сделка № 245'} currentStepIndex={currentStepIndex} />
       <FormStepSwitch index={currentStepIndex} options={[
-        <OpeningStepForm key={1} onSubmit={() => null}/>,
+        <OpeningStepForm key={1} onSubmit={() => null} />,
       ]} />
+      {appContext.aboutMe?.role === UserRole.Seller && <SuggestionFromBuyerCard />}
     </div>
   )
 }

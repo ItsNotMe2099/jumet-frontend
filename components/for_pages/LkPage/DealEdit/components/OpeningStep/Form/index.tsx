@@ -10,6 +10,10 @@ import Switch from '@/components/ui/Switch'
 import SelectField from '@/components/fields/SelectField'
 import PlusSvg from '@/components/svg/PlusSvg'
 import { colors } from '@/styles/variables'
+import MastercardSvg from '@/components/svg/MastercardSvg'
+import MaestroSvg from '@/components/svg/MaestroSvg'
+import VisaSvg from '@/components/svg/VisaSvg'
+import MirSvg from '@/components/svg/MirSvg'
 
 interface Props {
   onSubmit: () => void
@@ -33,7 +37,7 @@ export default function OpeningStepForm(props: Props) {
       house: ''
     },
     paymentType: '',
-
+    card: ''
   }
 
   const formik = useFormik({
@@ -43,7 +47,7 @@ export default function OpeningStepForm(props: Props) {
 
   const radioOptions = [
     { label: 'Наличные', value: 'cash' },
-    { label: 'Перевод на карту', value: 'card' },
+    { label: 'Перевод на карту', value: 'transfer' },
     { label: 'Безнал', value: 'card' }
   ]
 
@@ -84,6 +88,21 @@ export default function OpeningStepForm(props: Props) {
           </div>
           {isDeliveryRequired ? <AddressField name='address.address' label='Адрес расположения лома*' /> : null}
           <RadioField options={radioOptions} name='paymentType' label='Предпочитаемый способ оплаты за лом' />
+          {(formik.values.paymentType === 'card' ||
+            formik.values.paymentType === 'transfer') &&
+            <div className={styles.cards}>
+              <div className={styles.label}>
+                Укажите номер карты для приёма оплаты
+              </div>
+              <div className={styles.icons}>
+                <MastercardSvg />
+                <MaestroSvg />
+                <VisaSvg />
+                <MirSvg />
+              </div>
+              <InputField name='card' format='number' />
+            </div>
+          }
           <Button type='submit' className={styles.btn} color='blue' styleType='large' >Оформить сделку</Button>
         </div>
       </Form>

@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout'
 import { useRouter } from 'next/router'
-import { getAuthServerSideProps } from '@/utils/auth'
-import { UserRole } from '@/data/enum/UserRole'
+//import { getAuthServerSideProps } from '@/utils/auth'
+//import { UserRole } from '@/data/enum/UserRole'
 import DealEdit from '@/components/for_pages/LkPage/DealEdit'
 
 
@@ -17,4 +17,4 @@ export default function DealEditStepPage() {
   )
 }
 
-export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)
+//export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

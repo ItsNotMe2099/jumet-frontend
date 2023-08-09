@@ -11,6 +11,7 @@ interface Props {
   contentClassName?: string
   titleClassName?: string
   href?: string
+  toggleEl?: React.ReactNode
 }
 
 export default function CardLayout(props: Props) {
@@ -20,11 +21,11 @@ export default function CardLayout(props: Props) {
       <div className={classNames(styles.top, props.topClassName)}>
         {props.href ?
           <Link className={classNames(styles.title, props.titleClassName)} href={props.href}>
-            {props.title}
+            {props.title}{props.toggleEl}
           </Link>
           :
           <div className={classNames(styles.title, props.titleClassName)}>
-            {props.title}
+            {props.title}{props.toggleEl}
           </div>}
         {props.additionalEl && <div className={classNames(styles.additional, props.contentClassName)}>{props.additionalEl}</div>}
       </div>
