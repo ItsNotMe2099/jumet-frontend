@@ -11,7 +11,7 @@ export class Routes {
   static get passwordForgot() {
     return '/auth/password-forgot'
   }
-  static passwordReset(data: {login: string, code?: string}) {
+  static passwordReset(data: { login: string, code?: string }) {
     return `/auth/password-reset?login=${data.login}${data.code ? `&code=${data.code}` : ''}`
   }
 
@@ -64,7 +64,7 @@ export class Routes {
   static lkSaleRequestEdit(id: number | string) {
     return `/lk/sale-requests/edit/${id}`
   }
-  static get lkSaleRequestCreate () {
+  static get lkSaleRequestCreate() {
     return '/lk/sale-requests/create'
   }
 
@@ -78,18 +78,19 @@ export class Routes {
   private static lkReceivingPoint(id: string | number) {
     return `/lk/receiving-points/${id}`
   }
-  static  lkReceivingPointInfo(id: string | number) {
+  static lkReceivingPointInfo(id: string | number) {
     return `${this.lkReceivingPoint(id)}/info`
   }
-  static  lkReceivingPointEmployees(id: string | number) {
+  static lkReceivingPointEmployees(id: string | number) {
     return `${this.lkReceivingPoint(id)}/employees`
   }
-  static  lkReceivingPointReviews(id: string | number) {
+  static lkReceivingPointReviews(id: string | number) {
     return `${this.lkReceivingPoint(id)}/reviews`
   }
-  static  lkReceivingPointStat(id: string | number) {
+  static lkReceivingPointStat(id: string | number) {
     return `${this.lkReceivingPoint(id)}/stat`
   }
+
 
   static get lkReceivingPointCreate() {
     return '/lk/receiving-points/create'
@@ -119,4 +120,19 @@ export class Routes {
     return '/lk/favorites'
   }
 
+  static get lkCrm() {
+    return '/lk/crm'
+  }
+
+  static get lkCrmDeals() {
+    return '/lk/crm/deals'
+  }
+
+  static get lkCrmReceivingPoints() {
+    return '/lk/crm/receiving-points'
+  }
+
+  static get lkCrmClients() {
+    return '/lk/crm/clients'
+  }
 }

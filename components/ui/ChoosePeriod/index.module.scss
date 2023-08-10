@@ -1,0 +1,16 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    padding: 12px 16px;
+    border: 1px solid $grey400;
+    border-radius: 12px;
+    @include list(8px, true);
+    align-items: center;
+    cursor: pointer;
+}
+
+.text{
+    @include mainText;
+    color: $dark500;
+}
