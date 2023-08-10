@@ -14,6 +14,7 @@ import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {IDealOffer} from '@/data/interfaces/IDealOffer'
 import IUser from '@/data/interfaces/IUser'
 import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
+import {IDeal} from '@/data/interfaces/IDeal'
 
 interface IState {
   isMobile: boolean
@@ -44,6 +45,7 @@ interface IState {
   saleRequestDeleteState$: Subject<ISaleRequest>
   dealOfferUpdateState$: Subject<IDealOffer>
   dealOfferDeleteState$: Subject<IDealOffer>
+  dealUpdateState$: Subject<IDeal>
   companyUpdateState$: Subject<ICompany>
   companyDeleteState$: Subject<ICompany>
   userCreateState$: Subject<IUser>
@@ -61,6 +63,7 @@ const saleRequestUpdateState$ = new Subject<ISaleRequest>()
 const saleRequestDeleteState$ = new Subject<ISaleRequest>()
 const dealOfferUpdateState$ = new Subject<IDealOffer>()
 const dealOfferDeleteState$ = new Subject<IDealOffer>()
+const dealUpdateState$ = new Subject<IDeal>()
 const companyUpdateState$ = new Subject<ICompany>()
 const companyDeleteState$ = new Subject<ICompany>()
 const userCreateState$ = new Subject<IUser>()
@@ -90,6 +93,7 @@ const defaultValue: IState = {
   saleRequestDeleteState$,
   dealOfferUpdateState$,
   dealOfferDeleteState$,
+  dealUpdateState$,
   companyUpdateState$,
   companyDeleteState$,
   userCreateState$,

@@ -5,6 +5,7 @@ import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
 import IUser from '@/data/interfaces/IUser'
 import IFile from '@/data/interfaces/IFile'
+import {IDeal} from '@/data/interfaces/IDeal'
 
 export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'
@@ -58,4 +59,11 @@ export interface GalleryModalArguments {
   images: IFile[]
   title: string
   selectedId: number
+}
+
+
+export interface DealTerminateFormModalArguments {
+  title?: string
+  text?: string
+  deal: IDeal
 }

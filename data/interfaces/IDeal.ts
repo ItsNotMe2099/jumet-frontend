@@ -8,8 +8,8 @@ import {TerminateReasonType} from '@/data/enum/TerminateReasonType'
 import IFile from '@/data/interfaces/IFile'
 
 export interface IDeal {
-  id?: number
-  receivingPoint?: IReceivingPoint
+  id: number
+  receivingPoint: IReceivingPoint
   receivingPointId: number | null
   seller: IUser
   sellerId: string

@@ -3,7 +3,12 @@ import {AxiosRequestConfig} from 'axios'
 import {IPagination} from '@/types/types'
 import {IDealListRequest} from '@/data/interfaces/IDeaListRequest'
 import {IDeal} from '@/data/interfaces/IDeal'
-import {IDealPayStepRequest, IDealSetUpStepRequest, IDealWeighingStepRequest} from '@/data/interfaces/IDealStepRequest'
+import {
+  IDealPayStepRequest,
+  IDealSetUpStepRequest,
+  IDealTermByBuyerStepRequest,
+  IDealWeighingStepRequest
+} from '@/data/interfaces/IDealStepRequest'
 
 export default class DealRepository {
 
@@ -52,10 +57,11 @@ export default class DealRepository {
     })
     return res
   }
-  static async terminateByBuyer(id: number): Promise<IDeal> {
+  static async terminateByBuyer(id: number, data: IDealTermByBuyerStepRequest): Promise<IDeal> {
     const res = await request<IDeal>({
       method: 'post',
       url: `/api/deal/${id}/terminateByBuyer`,
+      data
     })
     return res
   }

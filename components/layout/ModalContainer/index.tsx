@@ -13,6 +13,7 @@ import {SuccessModal} from '@/components/modals/SuccessModal'
 import SaleRequestFormModal from '@/components/modals/SaleRequestFormModal'
 import UserFormModal from '@/components/modals/UserFormModal'
 import GalleryModal from '@/components/modals/GalleryModal'
+import {DealTerminateFormModal} from '@/components/modals/DealTerminateFormModal'
 
 interface Props { }
 
@@ -57,6 +58,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.Gallery} {...commonSettings}>
           {appContext.modal === ModalType.Gallery && <GalleryModal />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.DealTerminateForm} {...commonSettings}>
+          {appContext.modal === ModalType.DealTerminateForm && <DealTerminateFormModal />}
         </Modal>
       </div>
     </RemoveScroll>

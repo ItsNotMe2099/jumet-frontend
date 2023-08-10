@@ -10,7 +10,8 @@ export enum ModalType {
   Success = 'success',
   SaleRequestForm = 'saleRequestForm',
   UserForm = 'userForm',
-  Gallery = 'gallery'
+  Gallery = 'gallery',
+  DealTerminateForm = 'dealTerminateForm'
 }
 
 export enum ProfileMenuSettings {
