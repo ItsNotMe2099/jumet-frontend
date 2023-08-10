@@ -9,6 +9,7 @@ import Button from '@/components/ui/Button'
 import { useAppContext } from '@/context/state'
 import { ModalType } from '@/types/enums'
 import DealRepository from '@/data/repositories/DealRepository'
+import FileDownload from '@/components/ui/FileDownload'
 //import Formatter from '@/utils/formatter'
 
 
@@ -79,6 +80,7 @@ export default function WeighningResultCard(props: Props) {
               23 000 ₽
             </div>
           </div>
+          <FileDownload href='' label='Приёмо-сдаточный акт' />
           <div className={styles.image}>
             <Image src={'/img/photo1.png'} alt='' fill />
           </div>
