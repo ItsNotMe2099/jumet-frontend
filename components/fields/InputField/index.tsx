@@ -13,6 +13,8 @@ import EyeSvg from '@/components/svg/EyeSvg'
 import {colors} from '@/styles/variables'
 import EyeCloseSvg from '@/components/svg/EyeCloseSvg'
 import Formatter from '@/utils/formatter'
+import SearchSvg from '@/components/svg/SearchSvg'
+import ClearSvg from '@/components/svg/ClearSvg'
 
 export type InputValueType<T> = T | null | undefined
 type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv' | 'number' | 'price' | 'weight'
@@ -25,14 +27,14 @@ export interface InputFieldProps<T> extends IField<InputValueType<T>> {
   label?: string
   errorClassName?: string
   suffix?: 'clear' | 'arrow' | string | ReactElement
-  staticSuffix?: 'clear' | 'arrow' | string | ReactElement
-  prefix?: string | ReactElement
+  prefix?: 'search' | string | ReactElement
   prefixClassName?: string
   suffixClassName?: string
   onChange?: (val: InputValueType<T> ) => void
   noAutoComplete?: boolean
   max?: number,
   min?: number
+  resettable?: boolean
   formatValue?: (val: InputValueType<T>) => InputValueType<T>
   parseValue?: (val: InputValueType<T>) => InputValueType<T>
 }
@@ -162,10 +164,21 @@ export default function InputField<T extends string | number>(props: InputFieldP
     return props.suffix
   }
   const renderPrefix = () => {
-    if (typeof props.prefix === 'string') {
+    if(props.prefix === 'search'){
+      return <div className={cx(styles.prefix)}><SearchSvg color={colors.grey400} /></div>
+    } else if (typeof props.prefix === 'string') {
       return <div className={cx(styles.prefix)}>{props.prefix}</div>
     }
     return props.prefix
+  }
+  const handleClear = () => {
+    const formatted = props.format ? formatValue(formatValueByType(props.format!, '' as any  as InputValueType<T>) as InputValueType<T>) : formatValue('' as InputValueType<T>)
+    helpers.setValue(formatted)
+    props.onChange?.(formatted)
+    setTimeout(() => {
+      maskRef.current?.updateValue()
+    }, 50)
+    helpers.setValue(formatted)
   }
   return (
     <div className={classNames(styles.root, props.className, {
@@ -185,8 +198,8 @@ export default function InputField<T extends string | number>(props: InputFieldP
           [styles.inputFocused]: focused,
         })}>
 
-          {props.staticSuffix && (
-            props.staticSuffix
+          {props.prefix && (
+            renderPrefix()
           )}
           <input
             name={field.name}
@@ -199,6 +212,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
               [styles.inputError]: showError,
               [styles.inputFocused]: focused,
               [styles.withPrefix]: !!props.prefix,
+              [styles.withClear]: props.resettable && !!field.value,
             })}
             {...!props.format ? {onChange: (e) => {
               const formatted = formatValue(e.currentTarget.value as InputValueType<T>)
@@ -227,9 +241,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
 
             </div>
           )}
-          {props.prefix && (
-            renderPrefix()
-          )}
+          {props.resettable && !!field.value && <div className={classNames(styles.clear, {[styles.withSuffix]: !!props.suffix})} onClick={handleClear}><ClearSvg className={styles.clearIcon} color={colors.grey500}/></div>}
           {props.suffix && (
             renderSuffix()
           )}

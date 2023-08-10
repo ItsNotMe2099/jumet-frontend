@@ -2,6 +2,7 @@ import request from 'utils/request'
 import { DeepPartial, IPagination } from '@/types/types'
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
 import { IDealOfferOwnerListRequest } from '@/data/interfaces/IDealOfferOwnerListRequest'
+import {AxiosRequestConfig} from 'axios/index'
 
 export default class DealOfferOwnerRepository {
 
@@ -14,11 +15,12 @@ export default class DealOfferOwnerRepository {
     return res
   }
 
-  static async fetch(data: IDealOfferOwnerListRequest): Promise<IPagination<IDealOffer>> {
+  static async fetch(data: IDealOfferOwnerListRequest, config?: AxiosRequestConfig): Promise<IPagination<IDealOffer>> {
     const res = await request<IPagination<IDealOffer>>({
       method: 'get',
       url: '/api/owner/deal-offer',
-      data
+      data: {...data, sort: 'id,DESC'},
+      config
     })
     return res
   }

@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import FilterSvg from '@/components/svg/FilterSvg'
@@ -14,17 +14,21 @@ import { IOption, ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
-import TabsField from '@/components/fields/TabsField'
 import InputField from '@/components/fields/InputField'
 import { useAppContext } from '@/context/state'
 import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
 import { ISaleRequestSearchRequest } from '@/data/interfaces/ISaleRequestSearchRequest'
 import { useSaleRequestSearchContext } from '@/context/sale_request_search_state'
-import SearchSvg from '@/components/svg/SearchSvg'
+import RadiusField from '@/components/fields/RadiusField'
+import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
+import PriceField from '@/components/fields/PriceField'
+import {debounce} from 'debounce'
 
+export interface SaleRequestsFilterRef {
+  clear(): void
+}
 interface IFormData extends ISaleRequestSearchRequest {
-  radiusCustom?: number | null
   id: number | null
 }
 
@@ -34,8 +38,8 @@ interface Props {
   onSetViewType: (viewType: ListViewType) => void
   loaded?: boolean
 }
+const SaleRequestsFilter = forwardRef<SaleRequestsFilterRef, Props>((props, ref) => {
 
-export default function SaleRequestsFilter(props: Props) {
   const searchContext = useSaleRequestSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
@@ -49,7 +53,6 @@ export default function SaleRequestsFilter(props: Props) {
       lng: 40.1633231
     },
     radius: null,
-    radiusCustom: null,
     scrapMetalCategory: null,
     weightMin: null,
     weightMax: null,
@@ -65,15 +68,27 @@ export default function SaleRequestsFilter(props: Props) {
     initialValues,
     onSubmit: handleSubmit,
   })
+  useImperativeHandle(
+    ref,
+    () => ({
+      clear() {
+        formik.resetForm()
+      }
+    }),
+  )
   const handleToggleMobileFilter = () => {
     setIsOpenMobileFilter(!isOpenMobileFilter)
   }
+
+  const debouncedSetFilter = debounce((data: IFormData) => {
+    searchContext.setFilter(formik.values)
+  }, 400)
   useEffect(() => {
     if (!initValuesRef.current) {
       initValuesRef.current = true
       return
     }
-    searchContext.setFilter(formik.values)
+    debouncedSetFilter(formik.values)
   }, [formik.values])
   const viewTypeFilter = (<SwitchFilter<ViewType>
     active={searchContext.viewType}
@@ -115,17 +130,13 @@ export default function SaleRequestsFilter(props: Props) {
 
               <FilterComponent title='Поиск по номеру заявки' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
                 <InputField
-                  type={'number'}
-                  prefix={<SearchSvg color={colors.grey400} />}
+                  resettable
+                  format={'number'}
+                  prefix={'search'}
                   name={'id'} />
               </FilterComponent>
               <FilterComponent title='Радиус поиска лома'>
-                <TabsField<number> options={radiusTabs} name={'radius'} />
-                <InputField
-                  placeholder='Свой радиус поиска'
-                  label='км'
-                  type={'number'}
-                  name={'radiusCustom'} />
+               <RadiusField name={'radius'}/>
               </FilterComponent>
               <FilterComponent title='Категория лома'>
                 <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
@@ -133,25 +144,27 @@ export default function SaleRequestsFilter(props: Props) {
               </FilterComponent>
               <FilterComponent title='Вес лома'>
                 <div className={styles.weight}>
-                  <InputField
-                    type={'number'}
+                  <WeightWithUnitField
+                    resettable={true}
                     placeholder='От'
                     name={'weightMin'} />
-                  <InputField
-                    type={'number'}
+                  <WeightWithUnitField
+                    resettable={true}
                     placeholder='До'
                     name={'weightMax'} />
                 </div>
               </FilterComponent>
               <FilterComponent title='Цена лома'>
                 <div className={styles.weight}>
-                  <InputField
-                    type={'number'}
+                  <PriceField
+                    resettable
                     placeholder='От'
+                    suffix={'₽/т'}
                     name={'priceMin'} />
-                  <InputField
-                    type={'number'}
+                  <PriceField
+                    resettable
                     placeholder='До'
+                    suffix={'₽/т'}
                     name={'priceMax'} />
                 </div>
               </FilterComponent>
@@ -167,4 +180,5 @@ export default function SaleRequestsFilter(props: Props) {
       </Form>
     </FormikProvider>
   )
-}
+})
+export default SaleRequestsFilter

@@ -8,15 +8,27 @@ import {IAddress} from '@/data/interfaces/IAddress'
 import {IField} from '@/types/types'
 import classNames from 'classnames'
 import FieldError from '@/components/fields/FieldError'
+import ClearSvg from '@/components/svg/ClearSvg'
+import {colors} from '@/styles/variables'
+import {useEffect, useRef} from 'react'
 interface Props extends IField<IAddress | string | null>{
   query?: any
   isString?: boolean
   onChange?: (val: IAddress | string | null) => void
+  resettable?: boolean
 }
 export default function AddressField(props: Props) {
   const [field, meta, helpers] = useField(props as any)
   const showError = !!meta.error && meta.touched
-
+  const suggestionsRef = useRef<AddressSuggestions | null>(null)
+  const initRef = useRef<boolean>(false)
+  useEffect(() => {
+    if(!initRef.current){
+      initRef.current = true
+      return
+    }
+    suggestionsRef.current?.setInputValue(field.value?.address ?? '')
+  }, [field.value])
   const handleChange = (val?: DaDataSuggestion<DaDataAddress>) => {
     if(!val){
       helpers.setValue(null)
@@ -44,7 +56,11 @@ export default function AddressField(props: Props) {
     helpers.setValue(newAddress)
     props.onChange?.(newAddress)
   }
-  console.log('AddressValue', field.value?.address ?? field.value)
+  const handleClear = () => {
+    helpers.setValue(null)
+    props.onChange?.(null)
+    suggestionsRef.current?.setInputValue('')
+  }
     return (
     <div className={cx(styles.root, {[styles.hasError]: !!meta.error && meta.touched})}>
       {props.label &&
@@ -52,13 +68,19 @@ export default function AddressField(props: Props) {
           {props.label}
         </div>
       }
-      <AddressSuggestions defaultQuery={field.value?.address ?? field.value} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
+      <div className={styles.inputWrapper}>
+      <AddressSuggestions ref={suggestionsRef} defaultQuery={field.value?.address ?? field.value} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
         placeholder: props.placeholder ?? '',
         className: classNames({
           [styles.input]: true,
           [styles.inputError]: showError,
+          [styles.withReset]: props.resettable
         })
       }}  onChange={handleChange} token={runtimeConfig.DADATA_KEY} />
+        {props.resettable && !!field.value && <div className={classNames(styles.clear)} onClick={handleClear}><ClearSvg className={styles.clearIcon} color={colors.grey500}/></div>}
+
+      </div>
+
       <FieldError showError={showError}>{meta.error}</FieldError>
     </div>
   )

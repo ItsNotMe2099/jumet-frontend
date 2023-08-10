@@ -2,14 +2,15 @@ import styles from 'components/fields/Files/components/FileUploadDropzone/index.
 import classNames from 'classnames'
 import {ReactElement, useState} from 'react'
 import DropzoneOverlay from 'components/fields/Files/components/DropzoneOverlay'
-import CameraSvg from 'components/svg/CameraSvg'
 import {colors} from 'styles/variables'
 import {DropEvent, DropzoneOptions, FileRejection, useDropzone} from 'react-dropzone'
+import AttachSvg from '@/components/svg/AttachSvg'
+import AddImageSvg from '@/components/svg/AddImageSvg'
 
 
 interface Props  extends  DropzoneOptions{
   isImage?: boolean
-  title?: string
+  title?: string | ReactElement
   description?: string
   showDropzone?: boolean
   icon?: ReactElement
@@ -32,9 +33,9 @@ export default function FileUploadDropzone(props: Props) {
       return props.icon
     }
     if(props.isImage){
-      return <CameraSvg className={styles.icon} color={colors.grey500}/>
+      return <AddImageSvg className={styles.icon} color={colors.grey500}/>
     }else{
-      return <></>
+      return <AttachSvg className={styles.icon} color={colors.grey500}/>
     }
 
   }
@@ -44,7 +45,7 @@ export default function FileUploadDropzone(props: Props) {
       {getIcon()}
       <div className={styles.info}>
         <div className={styles.title}> {props.title ?? 'Загрузить фото'}</div>
-        <div className={styles.description}>{props.description}</div>
+        {props.description && <div className={styles.description}>{props.description}</div>}
       </div>
       {error && <div className={styles.error}>{error}</div>}
       {isDragActive && <DropzoneOverlay show={isDragActive} title={'Загрузить фото'}/>}

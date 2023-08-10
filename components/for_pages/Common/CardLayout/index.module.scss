@@ -3,13 +3,7 @@
 .root {
     display: flex;
     flex-direction: column;
-    padding: 20px;
-    background-color: $white;
-    border-radius: $StandartBorderRadius;
-
-    @include mq($PhoneWidth, max) {
-        padding: 20px 15px;
-    }
+    @include card;
 }
 
 .top {

@@ -5,6 +5,7 @@ import {ReactElement} from 'react'
 import FileUploadIconPreview from 'components/fields/Files/components/FileUploadIconPreview'
 import {colors} from 'styles/variables'
 import CloseSvg from '@/components/svg/CloseSvg'
+import {Line} from 'rc-progress'
 
 interface Props {
   isImage?: boolean
@@ -19,22 +20,18 @@ interface Props {
   onDelete?: () => void
   icon?: ReactElement
   stubIcon?: ReactElement
+  className?: string
 
 }
 
 export default function FileListItem(props: Props) {
-  const getText = (): string | null => {
-    if (props.progress > -1) {
-      return props.labelLoading ?? `Файл загружается ${props.progress}%`
-    }
-   return null
-  }
+
   const getButton = (): ReactElement | null => {
     if (props.progress > -1) {
-      return <div className={styles.button} onClick={props.onCancel}><CloseSvg color={colors.dark500}/></div>
+      return <div className={styles.button} onClick={props.onCancel}><CloseSvg color={colors.grey500}/></div>
     }
     if (props.value) {
-      return <div className={styles.button} onClick={props.onDelete}><CloseSvg color={colors.dark500}/></div>
+      return <div className={styles.button} onClick={props.onDelete}><CloseSvg color={colors.grey500}/></div>
     }
     return null
   }
@@ -43,24 +40,31 @@ export default function FileListItem(props: Props) {
     <div
       className={classNames({
         [styles.root]: true,
-        [styles.vertical]: props.vertical,
 
-      })}
+      }, props.className)}
     >
+
       <FileUploadIconPreview
         progress={props.progress}
         isImage={props.isImage}
         previewPath={props.previewPath}
         previewName={props.previewName}
         value={props.value}/>
-      <div className={styles.info}>
-          <div className={styles.text}>{getText()}
+      <div className={styles.center}>
+        <div className={styles.left}>
+          <div className={styles.info}>
+            <div className={styles.name}>Название файла</div>
             {props.error && <div className={styles.error}>{props.error}</div>}
           </div>
-        {getButton()}
+          {getButton()}
+        </div>
 
+
+        <Line className={styles.progress} percent={props.progress} trailWidth={1} strokeWidth={1} strokeColor={colors.blue500}
+              trailColor={colors.grey300}/>
 
       </div>
+
     </div>
   )
 }

@@ -19,17 +19,21 @@ export default function PhotosLkCard(props: Props) {
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
     setLoading(true)
+    console.log('handleSubmit11')
     await receivingPointContext.editRequest(data)
     setIsEdit(false)
     setLoading(false)
   }
+  if(!receivingPointContext.receivingPoint){
+    return null
+  }
   return (
     <ReceivingPointInfoEditCard title='Фотографии пункта приема'
-                                isEdit={!receivingPointContext.receivingPoint?.photos?.length || isEdit}
+                                isEdit={true}
                                 onSetIsEdit={setIsEdit}
-                                form={<ReceivingPointPhotosForm footer={isEdit ? <FormFooter hasBack onBack={() => setIsEdit(false)} spinner={loading} />  :  <Button type='submit' className={styles.btn} color='blue' styleType='large'>
+                                form={<ReceivingPointPhotosForm  footer={(receivingPointContext.receivingPoint?.photos?.length ?? 0)> 0 ? <FormFooter onBack={() => setIsEdit(false)} spinner={loading} />  :  <div><Button type='submit' className={styles.btn} color='blue' styleType='large'>
                                   Добавить
-                                  </Button>}  receivingPoint={receivingPointContext.receivingPoint} onSubmit={handleSubmit}/>}>
+                                </Button></div>}  receivingPoint={receivingPointContext.receivingPoint} onSubmit={handleSubmit}/>}>
 
     </ReceivingPointInfoEditCard>
   )

@@ -2,6 +2,9 @@ import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
+import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
+import IUser from '@/data/interfaces/IUser'
+import IFile from '@/data/interfaces/IFile'
 
 export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'
@@ -45,4 +48,14 @@ export interface SuccessModalArguments {
   buttonName?: string
   buttonHref?: string
   buttonOnClick?: () => void
+}
+
+export interface UserFormModalArguments {
+  user: IUser
+  receivingPointUser: IReceivingPointUser
+}
+export interface GalleryModalArguments {
+  images: IFile[]
+  title: string
+  selectedId: number
 }

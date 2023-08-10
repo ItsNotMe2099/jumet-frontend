@@ -1,14 +1,7 @@
-@import "../../../../../../styles/index";
+@import "styles/index";
 
-.form {
+.root {
     display: flex;
     flex-direction: column;
     @include list(24px);
-}
-.btn {
-  width: 122px;
-
-  @include mq($PhoneWidth, max) {
-    width: 100%;
-  }
 }

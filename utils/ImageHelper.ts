@@ -17,13 +17,13 @@ export default class ImageHelper {
     switch (preset) {
       case Preset.xsResize:
       case Preset.xsCrop:
-        return 250
+        return 200
       case Preset.smResize:
       case Preset.smCrop:
-        return 500
+        return 600
       case Preset.mdResize:
       case Preset.mdCrop:
-        return 800
+        return 900
       case Preset.lgResize:
       case Preset.lgCrop:
         return 1200

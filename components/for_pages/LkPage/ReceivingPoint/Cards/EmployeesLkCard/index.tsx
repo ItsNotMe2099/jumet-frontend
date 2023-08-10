@@ -2,48 +2,58 @@ import styles from 'components/for_pages/LkPage/ReceivingPoint/Cards/EmployeesLk
 import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
 import {useReceivingPointOwnerContext} from '@/context/receiving_point_owner_state'
 import {useEffect, useState} from 'react'
-import IUser from '@/data/interfaces/IUser'
-import ReceivingPointOwnerRepository from '@/data/repositories/ReceivingPointOwnerRepository'
 import ContentLoader from '@/components/ui/ContentLoader'
 import ReceivingPointInfoEditCard from '@/components/for_pages/LkPage/ReceivingPoint/ReceivingPointInfoEditCard'
+import FormFooter from '@/components/ui/FormFooter'
+import ReceivingPointUsersForm from '@/components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointUsersForm'
+import {UserListOwnerWrapper, useUserListOwnerContext} from '@/context/user_list_owner_state'
 import {DeepPartial} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import CreateButton from '@/components/ui/Buttons/CreateButton'
 
 interface Props{
 
 }
 
-export default function EmployeesLkCard(props: Props) {
+const EmployeesLkCardInner = (props: Props) => {
   const receivingPointContext = useReceivingPointOwnerContext()
-  const [users, setUsers] = useState<IUser[]>([])
-  const [loading, setLoading] = useState<boolean>( true)
-  const [editLoading, setEditLoading] = useState<boolean>(false)
+  const userListOwnerContext = useUserListOwnerContext()
+  const [loading, setLoading] = useState<boolean>( false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const fetch = async () => {
-    const res = await ReceivingPointOwnerRepository.fetchUsers(receivingPointContext.receivingPointId)
-    setUsers(res)
-  }
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
-    setEditLoading(true)
+    setLoading(true)
+    console.log('handleSubmit22', data)
     await receivingPointContext.editRequest(data)
+    await userListOwnerContext.reFetch()
     setIsEdit(false)
-    setEditLoading(false)
+    setLoading(false)
   }
+
   useEffect(() => {
-    fetch().then(() => setLoading(false))
-  }, [receivingPointContext.receivingPointId])
+    userListOwnerContext.reFetch()
+  }, [])
 
   return (
     <ReceivingPointInfoEditCard title='Сотрудники'
                                 isEdit={isEdit}
-                                onSetIsEdit={setIsEdit}>
+                                onSetIsEdit={setIsEdit}
+                                editButton={<CreateButton onClick={() => setIsEdit(true)}>Добавить</CreateButton>}
+                                form={<ReceivingPointUsersForm footer={<FormFooter hasBack onBack={() => setIsEdit(false)} spinner={loading} />} receivingPoint={receivingPointContext.receivingPoint}  onSubmit={handleSubmit}/>}>
       <div className={styles.root}>
-        {loading && <ContentLoader style={'block'}/>}
-        {!loading && users.map((i, index) =>
-          <EmployeeCard user={i} key={index} titleClassName={styles.title} cardLayoutClassName={styles.layout} />
+        {userListOwnerContext.isLoading && <ContentLoader style={'block'}/>}
+        {userListOwnerContext.data.data.map((i, index) =>
+          <EmployeeCard user={i} key={index} receivingPoint={receivingPointContext.receivingPoint} />
         )}
       </div>
 
     </ReceivingPointInfoEditCard>
   )
+}
+
+
+export default function EmployeesLkCard(props: Props) {
+  const receivingPointContext = useReceivingPointOwnerContext()
+  return (<UserListOwnerWrapper receivingPointId={receivingPointContext.receivingPointId}>
+    <EmployeesLkCardInner/>
+  </UserListOwnerWrapper>)
 }

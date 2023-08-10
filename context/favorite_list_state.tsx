@@ -5,9 +5,10 @@ import {useAppContext} from '@/context/state'
 import FavoriteRepository from '@/data/repositories/FavoriteRepository'
 import {LikeEntityType} from '@/data/enum/LikeEntityType'
 import {IFavoriteListRequest} from '@/data/interfaces/IFavoriteListRequest'
+import {SortOrder} from '@/types/enums'
+import {CanceledError} from 'axios'
 
-interface IFavoriteListFilter extends IFavoriteListRequest{
-  sortOrder?: 'DESC' | 'ASC'
+interface IFavoriteListFilter extends IFavoriteListRequest {
 }
 
 interface IState {
@@ -16,6 +17,8 @@ interface IState {
   isLoading: boolean
   page: number
   setPage: (page: number) => void
+  sortOrder: SortOrder,
+  setSortOrder: (sort: SortOrder) => void,
   filter: IFavoriteListFilter
   setFilter: (data: IFavoriteListFilter) => void
   reFetch: () => void
@@ -29,6 +32,8 @@ const defaultValue: IState = {
   isLoading: false,
   page: 1,
   setPage: (page: number) => null,
+  sortOrder: SortOrder.Desc,
+  setSortOrder: (sort: SortOrder) => null,
   filter: {page: 1, limit: 10},
   setFilter: (data: IFavoriteListFilter) => null,
   reFetch: () => null,
@@ -50,25 +55,51 @@ export function FavoriteListWrapper(props: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
   const [filter, setFilter] = useState<IFavoriteListFilter>({page: 1, limit: 10})
+  const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
   const filterRef = useRef<IFavoriteListFilter>(filter)
-  const limit = props.limit ?? 20
+  const sortOrderRef = useRef<SortOrder>(sortOrder)
+  const abortControllerRef = useRef<AbortController | null>(null)
+  const limit = props.limit ?? 12
+  useEffect(() => {
+    filterRef.current = filter
+  }, [filter])
+
+  useEffect(() => {
+    sortOrderRef.current = sortOrder
+  }, [sortOrder])
   const init = async () => {
     await Promise.all([fetch()])
     setIsLoaded(true)
   }
   const fetch = async ({page}: { page: number } = {page: 1}) => {
-    const res = await FavoriteRepository.fetchByType<IReceivingPoint>(LikeEntityType.receivingPoint,{
-      ...filterRef.current,
-      limit: filterRef.current.limit ?? limit,
-      page
-    })
-    setData(res)
+    setIsLoading(true)
+    if (abortControllerRef.current) {
+      abortControllerRef.current?.abort()
+    }
+    abortControllerRef.current = new AbortController()
+    try {
+      const res = await FavoriteRepository.fetchByType<IReceivingPoint>(LikeEntityType.receivingPoint, {
+        ...filterRef.current,
+        limit: filterRef.current.limit ?? limit,
+        ...(sortOrderRef.current ? {sortOrder: sortOrderRef.current} : {}), page
+      }, {signal: abortControllerRef.current?.signal})
+      setData(page > 1 ? (i) => ({total: res.total, data: [...i.data, ...res.data]}) : res)
+
+    } catch (err) {
+      if (err instanceof CanceledError) {
+        return
+      }
+    }
+    setIsLoaded(true)
+    setIsLoading(false)
   }
-  useEffect(() => {
-    init()
-  }, [])
 
-
+  const reFetch = () => {
+    setPage(1)
+    setData({data: [], total: 0})
+    setIsLoaded(false)
+    fetch({page: 1})
+  }
   const value: IState = {
     ...defaultValue,
     isLoaded,
@@ -79,27 +110,25 @@ export function FavoriteListWrapper(props: Props) {
       setPage(page)
       fetch({page})
     },
+    sortOrder,
+    setSortOrder: async (sortOrder) => {
+      sortOrderRef.current = sortOrder
+      setSortOrder(sortOrder)
+      reFetch()
+    },
     filter,
     setFilter: async (data) => {
       filterRef.current = data
       setFilter(data)
-      setIsLoading(true)
-      setPage(1)
-      await fetch({ page: 1 })
-      setIsLoading(false)
+      reFetch()
     },
-    reFetch: () => {
-      setPage(1)
-      setData({data: [], total: 0})
-      setIsLoaded(false)
-      fetch({page: 1})
-    },
+    reFetch,
     fetchMore: () => {
-      setPage(i => i+1)
+      setPage(i => i + 1)
       fetch({page: page + 1})
     },
     deleteFromFavorite: async (id: number) => {
-      if(data.data?.find(i => i.id === id)) {
+      if (data.data?.find(i => i.id === id)) {
         setData(i => ({...i, data: i.data.filter(i => i.id !== id), total: i.total - 1}))
 
         await FavoriteRepository.delete(id, LikeEntityType.receivingPoint)

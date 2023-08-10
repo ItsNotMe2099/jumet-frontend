@@ -8,7 +8,9 @@ export enum ModalType {
   Confirm = 'confirm',
   SaleRequestOffer = 'saleRequestOffer',
   Success = 'success',
-  SaleRequestForm = 'saleRequestForm'
+  SaleRequestForm = 'saleRequestForm',
+  UserForm = 'userForm',
+  Gallery = 'gallery'
 }
 
 export enum ProfileMenuSettings {
@@ -63,19 +65,19 @@ export enum DayType {
 }
 
 export enum Preset {
-  /** 250px */
+  /** 200px */
   xsResize,
-  /** 250px */
+  /** 200px */
   xsCrop,
 
-  /** 500px */
+  /** 600px */
   smResize,
-  /** 500px */
+  /** 600px */
   smCrop,
 
-  /** 800px */
+  /** 900px */
   mdResize,
-  /** 800px */
+  /** 900px */
   mdCrop,
 
   /** 1200px */
@@ -92,4 +94,9 @@ export enum Preset {
 export enum LoginType {
   Seller = 'seller',
   Buyer = 'buyer'
+}
+
+export enum SortOrder {
+  Asc = 'ASC',
+  Desc = 'DESC',
 }

@@ -3,6 +3,7 @@ import {DeepPartial, IPagination} from '@/types/types'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {ISaleRequestOwnerListRequest} from '@/data/interfaces/ISaleRequestOwnerListRequest'
 import {omit} from '@/utils/omit'
+import {AxiosRequestConfig} from 'axios/index'
 
 export default class SaleRequestOwnerRepository {
 
@@ -35,7 +36,7 @@ export default class SaleRequestOwnerRepository {
     return res
   }
 
-  static async fetch(data: ISaleRequestOwnerListRequest): Promise<IPagination<ISaleRequest>> {
+  static async fetch(data: ISaleRequestOwnerListRequest, config?: AxiosRequestConfig): Promise<IPagination<ISaleRequest>> {
     const res = await request<IPagination<ISaleRequest>>({
       method: 'get',
       url: '/api/owner/sale-request',
@@ -43,7 +44,8 @@ export default class SaleRequestOwnerRepository {
         ...omit(data, ['statuses']),
         ...((data.statuses?.length ?? 0) > 0 ? {statuses: data.statuses?.join(',')} : {}),
         sort: 'createdAt,DESC'
-      }
+      },
+      config
     })
     return res
   }

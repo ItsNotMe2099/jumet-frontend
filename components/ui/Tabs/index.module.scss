@@ -33,7 +33,7 @@
     position: relative;
     display: flex;
     flex-direction: row;
-
+    align-items: center;
     @include list(20px, true);
     &:after{
       content: ' ';
@@ -55,6 +55,14 @@
       margin-bottom: 10px;
       width: 100%;
     }
+    .separator{
+      transform: translateY(-2px);
+    }
   }
 }
 
+.separator{
+  height: 12px;
+  width: 1px;
+  background: $grey400;
+}

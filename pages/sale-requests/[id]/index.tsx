@@ -6,6 +6,8 @@ import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import SaleRequestCardForBuyer from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestCardForBuyer'
 import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
 import SaleRequestAddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestAddressCard'
+import {CookiesType} from '@/types/enums'
+import SaleRequestPhotosCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestPhotosCard'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -20,6 +22,7 @@ export default function SaleRequestPage({ saleRequest }: Props) {
         <div className={styles.colLeft}>
           <SaleRequestCardForBuyer item={saleRequest} />
           <SaleRequestAddressCard item={saleRequest}/>
+          <SaleRequestPhotosCard item={saleRequest}/>
         </div>
 
         <ChatOnPage/>
@@ -30,9 +33,10 @@ export default function SaleRequestPage({ saleRequest }: Props) {
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const id = parseInt(context.query.id as string, 10)
+  const token = context.req.cookies[CookiesType.accessToken]
   try {
 
-    const saleRequest = await SaleRequestRepository.fetchById(+id)
+    const saleRequest = await SaleRequestRepository.fetchById(+id, token)
     return {
       props: {
         saleRequest

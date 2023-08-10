@@ -1,5 +1,4 @@
 import styles from './index.module.scss'
-import Image from 'next/image'
 import JumetSvg from '@/components/svg/JumetSvg'
 import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
@@ -13,6 +12,9 @@ import Formatter from '@/utils/formatter'
 import Link from 'next/link'
 import {Routes} from '@/types/routes'
 import StatusBadge from '@/components/ui/StatusBadge'
+import ImageHelper from '@/utils/ImageHelper'
+import Image from 'next/image'
+import {Preset} from '@/types/enums'
 
 interface Props {
   item: ISaleRequest
@@ -66,8 +68,8 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
           </div>}
         </div>
         <div className={styles.right}>
-          {item.photos && item.photos[0].source ?
-            <Image src={item.photos[0].source} alt='' fill />
+          {(item.photos?.length ?? 0) > 0 ?
+            <Image src={ImageHelper.urlFromFile(item.photos[0], Preset.smCrop)} alt='' fill unoptimized />
             :
             <JumetSvg color={colors.white} />
           }

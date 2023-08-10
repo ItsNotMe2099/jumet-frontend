@@ -13,6 +13,7 @@
 
 .colLeft{
   flex: 1;
+  min-width: 0;
   padding-right: 32px;
   @include list(12px);
   @media (min-width: $md-min) and (max-width: $md-max) {

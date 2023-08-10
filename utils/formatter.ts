@@ -46,7 +46,7 @@ export default class Formatter {
       'yesterday': 'Вчера HH:mm',
       'today': 'Сегодня HH:mm',
       'tomorrow': 'Завтра до HH:mm',
-      'other': 'dd.MM.yyyy HH:mm'
+      'other': 'dd MMMM yyyy HH:mm'
     }
 
     const locale = {

@@ -13,6 +13,8 @@ import Layout from '@/components/layout/Layout'
 import ReviewsViewCard from '@/components/for_pages/ReceivingPoint/Cards/ReviewsCard'
 import {useAppContext} from '@/context/state'
 import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
+import PhotosViewCard from '@/components/for_pages/ReceivingPoint/Cards/PhotosViewCard'
+import {UserRole} from '@/data/enum/UserRole'
 
 interface Props {
   receivingPoint: IReceivingPoint;
@@ -33,9 +35,10 @@ export default function ReceivingPoint(props: Props) {
           <DeliveryZonesViewCard receivingPoint={receivingPoint}/>
           <ReviewsViewCard receivingPoint={receivingPoint}/>
           <WorkingHoursViewCard receivingPoint={receivingPoint}/>
+          <PhotosViewCard receivingPoint={receivingPoint}/>
           <CompanyViewCard receivingPoint={receivingPoint}/>
         </div>
-        <ChatOnPage receivingPointId={receivingPoint?.id}/>
+        {appContext.aboutMe?.role !== UserRole.Buyer && <ChatOnPage receivingPointId={receivingPoint?.id}/>}
 
       </div>
     </Layout>

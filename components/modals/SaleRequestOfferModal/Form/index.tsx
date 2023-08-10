@@ -182,7 +182,7 @@ export default function SaleRequestOfferForm(props: Props) {
           <RadiusField name={'radius'} validate={Validator.required} />
         </div>
         <PhoneField styleType={InputStyleType.Default} name='phone' label='Ваш телефон' />
-        <Button type='submit' className={styles.btn} styleType='large' color='blue'>
+        <Button spinner={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
           Предложить сделку
         </Button>
       </Form>

@@ -1,5 +1,5 @@
-import styles from 'components/fields/Files/FileField/index.module.scss'
-import { useMemo, useRef, useState } from 'react'
+import styles from './index.module.scss'
+import {ReactElement, useMemo, useRef, useState} from 'react'
 import IFile from 'data/interfaces/IFile'
 import FileRepository from 'data/repositories/FileRepository'
 import { FileUploadAcceptType, SnackbarType } from 'types/enums'
@@ -7,11 +7,11 @@ import { useField } from 'formik'
 import { useAppContext } from 'context/state'
 import { IField, RequestError } from 'types/types'
 import { Accept, DropEvent, FileRejection, useDropzone } from 'react-dropzone'
-import DropzoneOverlay from 'components/fields/Files/components/DropzoneOverlay'
-import FileUploadPreview from 'components/fields/Files/components/FileUploadPreview'
 import Converter from '@/utils/converter'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
 import FieldError from '@/components/fields/FieldError'
+import FileUploadDropzone from '@/components/fields/Files/components/FileUploadDropzone'
+import FileListItem from '@/components/fields/Files/FileListField/FileListItem'
 
 interface Props extends IField<IFile | null> {
   vertical: boolean
@@ -20,7 +20,7 @@ interface Props extends IField<IFile | null> {
   labelExist?: string
   labelNew?: string
   accept?: FileUploadAcceptType[]
-  text?: React.ReactNode
+  text?: ReactElement | string
   label?: string
   maxSize?: number
 }
@@ -111,13 +111,20 @@ export default function FileField(props: Props) {
   return (
     <div className={styles.container}>
       {props.label ? <div className={styles.label}>{props.label}</div> : null}
-      <div className={styles.root} {...getRootProps()} data-field={props.name}>
-        <input {...getInputProps()} />
-        <FileUploadPreview
+      <div className={styles.root}  data-field={props.name}>
+        <FileUploadDropzone
+          isImage={props.isImage}
+          onDrop={onDrop}
+          maxFiles={1}
+          maxSize={props.maxSize ?? 1024*1024*5}
+          title={props.text ?? props.label as string}
+          accept={dropzoneAccept}
+        />
+
+        {field.value && <FileListItem
+          className={styles.fileListItem}
           isImage={props.isImage ?? false}
-          labelLoading={props.labelLoading}
-          labelExist={props.labelExist}
-          labelNew={props.labelNew}
+          labelLoading={props.labelLoading ?? ''}
           value={field.value}
           previewName={previewName}
           previewPath={previewPath}
@@ -125,9 +132,7 @@ export default function FileField(props: Props) {
           vertical={props.vertical}
           onCancel={handleCancel}
           onDelete={handleDelete}
-          text={props.text}
-          error={error} />
-        {isDragActive && <DropzoneOverlay show={isDragActive} title={'Перетащите сюда'} />}
+          error={error}/>}
         <FieldError showError={showError}>{meta.error}</FieldError>
       </div>
     </div >

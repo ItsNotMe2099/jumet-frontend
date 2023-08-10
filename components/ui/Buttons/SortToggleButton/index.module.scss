@@ -1,0 +1,26 @@
+@import "styles/index";
+
+.root {
+  height: 40px;
+  padding: 0 16px;
+  display: flex;
+  @include list(8px, true);
+  border-radius: 12px;
+  background-color: $white;
+  align-items: center;
+  cursor: pointer;
+  justify-content: center;
+
+  &.fluid{
+    width: 100%;
+  }
+  @include mq($PhoneWidth, max) {
+  }
+}
+.text {
+  font-weight: 500;
+  font-size: 15px;
+  line-height: 22px;
+  color: $dark500;
+  white-space: nowrap;
+}

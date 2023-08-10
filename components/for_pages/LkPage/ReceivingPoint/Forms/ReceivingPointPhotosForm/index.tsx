@@ -1,4 +1,4 @@
-import styles from 'components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointPhotosForm/index.module.scss'
+import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
 import {FileUploadAcceptType} from '@/types/enums'
 import Validator from '@/utils/validator'
@@ -38,9 +38,10 @@ export default function ReceivingPointPhotosForm(props: Props) {
       <Form className={styles.root}>
          <FileListField
           name='photos'
+          isImage
           accept={[FileUploadAcceptType.Image]}
           validate={Validator.required}
-          //text={<>Перетащите сюда или <span>выберите фото</span> пункта<br /> приёма</>}
+          dropzoneTitle={<>Перетащите сюда или <span>выберите фото</span> пункта<br /> приёма</>}
         />
         {props.footer}
       </Form>

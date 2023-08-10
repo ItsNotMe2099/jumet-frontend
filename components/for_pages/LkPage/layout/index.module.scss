@@ -19,7 +19,7 @@
     @include list(32px, true);
     align-items: flex-start;
 
-    @include mq($MdDesktopWidth, max) {
+    @include mq($SmDesktopWidth, max) {
         flex-direction: column;
     }
 
@@ -45,10 +45,10 @@
   flex: 0 0 416px;
 
   @media (min-width: $md-min) and (max-width: $md-max) {
-    flex: 0 0 350px;
+    flex: 0 0 380px;
   }
   @media (min-width: $md-min) and (max-width: $md-medium) {
-    flex: 0 0 320px;
+    flex: 0 0 360px;
   }
   @media (max-width: $xs-max) {
     flex: auto;

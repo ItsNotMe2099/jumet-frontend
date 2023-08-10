@@ -103,29 +103,6 @@
     color: $grey500;
 }
 
-.filter {
-    height: 40px;
-    padding: 0 16px;
-    display: flex;
-    gap: 8px;
-    border-radius: 12px;
-    background-color: $white;
-    align-items: center;
-    cursor: pointer;
-
-    .text {
-        font-weight: 500;
-        font-size: 15px;
-        line-height: 22px;
-        color: $dark500;
-    }
-
-    @include mq($PhoneWidth, max) {
-        width: 100%;
-        justify-content: center;
-    }
-}
-
 .list {
     display: flex;
     flex-direction: column;

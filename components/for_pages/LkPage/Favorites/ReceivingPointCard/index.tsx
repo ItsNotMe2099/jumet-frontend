@@ -55,9 +55,9 @@ export default function ReceivingPointCard(props: Props) {
             <div className={styles.number}>{props.item.rating}</div>
           </div>}
         </div>
-        <div className={styles.price}>
+        {props.item.price && <div className={styles.price}>
           До {props.item.price} ₽/тонна
-        </div>
+        </div>}
       </div>
       <div className={styles.middle}>
         {props.item.address?.address}

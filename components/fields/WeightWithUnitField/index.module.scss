@@ -5,6 +5,11 @@
   @include list(8px);
 
 }
+.dropDownValueWrapper{
+  padding-right: 6px;
+}
 .dropDownValue{
-  padding-left: 10px;
+  transform: translateY(-2px);
+  padding-left: 0px;
+  line-height: $StandartHeight;
 }

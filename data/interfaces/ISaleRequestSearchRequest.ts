@@ -1,6 +1,7 @@
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {IPaginationRequest} from '@/data/interfaces/IPaginationRequest'
+import {SortOrder} from '@/types/enums'
 
 export interface ISaleRequestSearchRequest extends IPaginationRequest {
   location?: ILocation | null
@@ -12,4 +13,5 @@ export interface ISaleRequestSearchRequest extends IPaginationRequest {
   priceMax?: number | null
   requiresDelivery?: boolean
   requiresLoading?: boolean
+  sortOrder?: SortOrder
 }

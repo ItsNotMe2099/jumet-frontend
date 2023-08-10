@@ -1,0 +1,7 @@
+@import "styles/index";
+
+.card {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+}

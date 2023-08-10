@@ -3,7 +3,6 @@ import React, { useEffect, useMemo, useState } from 'react'
 import { useRouter } from 'next/router'
 import FormStepSwitch from '@/components/ui/FormStepSwitch'
 import DataStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DataStep'
-import RegLayout from 'components/for_pages/Common/RegLayout'
 import DeliveryZoneStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DeliveryZonesStep'
 import UsersStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/UsersStep'
 import PricesStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/PricesStep'
@@ -17,6 +16,8 @@ import ContentLoader from '@/components/ui/ContentLoader'
 import {Routes} from '@/types/routes'
 import {ReceivingPointStatus} from '@/data/enum/ReceivingPointStatus'
 import ApproveStep from '@/components/for_pages/LkPage/ReceivingPointCreateForm/components/ApproveStep'
+import ReceivingPointStepLayout
+  from '@/components/for_pages/LkPage/ReceivingPointCreateForm/components/ReceivingPointStepLayout'
 
 
 enum FormStep {
@@ -173,9 +174,10 @@ export default function ReceivingPointCreateForm(props: Props) {
 
   return (
     <div className={styles.root}>
-    <RegLayout
+    <ReceivingPointStepLayout<FormStep>
       title={steps[currentStepIndex].description as string}
-      currentStepIndex={currentStepIndex} indicator={step?.key !== FormStep.Approve} onBack={handleBack} filter={false}>
+      steps={steps}
+      currentStepIndex={currentStepIndex} indicator={true} onBack={handleBack} filter={false}>
       <FormStepSwitch index={currentStepIndex} options={[
         <DataStep key={1} onSubmit={submit} />,
         <DeliveryZoneStep key={2} onSubmit={submit} onBack={handleBack} />,
@@ -184,7 +186,7 @@ export default function ReceivingPointCreateForm(props: Props) {
         <WorkingHoursStep key={5} onSubmit={submit} onBack={handleBack} />,
         <ApproveStep key={6}  />
       ]} />
-    </RegLayout>
+    </ReceivingPointStepLayout>
     </div>
   )
 }

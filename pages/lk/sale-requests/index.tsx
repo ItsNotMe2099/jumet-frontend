@@ -1,6 +1,6 @@
 import Layout from '@/components/layout/Layout'
 import styles from 'pages/lk/sale-requests/index.module.scss'
-import {useState} from 'react'
+import {useMemo, useState} from 'react'
 import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
 import {SaleRequestListOwnerWrapper, useSaleRequestListOwnerContext} from '@/context/sale_request_list_owner_state'
 import {useRouter} from 'next/router'
@@ -9,6 +9,11 @@ import Tabs from '@/components/ui/Tabs'
 import {IOption} from '@/types/types'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
+import ContentLoader from '@/components/ui/ContentLoader'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import EmptyStub from '@/components/ui/EmptyStub'
+import Button from '@/components/ui/Button'
+import {Routes} from '@/types/routes'
 
 enum TabKey {
   Active = 'active',
@@ -32,6 +37,22 @@ const LkSalesRequestsPageInner = (props: Props) => {
     {label: ' Завершенные', value: TabKey.Completed},
   ]
 
+
+  const stubData = useMemo<{title: string, text: string}>(() => {
+    switch (tab){
+      case TabKey.Active:
+        return {
+          title: 'Пока нет предложений',
+          text: 'Здесь будут появляется предложения, которые вы сделали продавцам',
+        }
+      case TabKey.Completed:
+        return {
+          title: 'Пока нет принятых предложений',
+          text: 'Здесь будут появляется принятые продавцами предложения, которые вы сделали продавцам',
+        }
+    }
+  }, [tab])
+
   return (
     <Layout>
       <div className={styles.root}>
@@ -39,11 +60,25 @@ const LkSalesRequestsPageInner = (props: Props) => {
           Мои заявки на продажу
         </div>
         <Tabs<TabKey> options={tabs} value={tab} styleType={'outlined'} onClick={handleChangeTab}/>
-        <div className={styles.list}>
-          {saleRequestListOwnerContext.data.data.map((i, index) =>
-            <MySaleRequestCard mode={'seller'} number={1} item={i} key={i.id}/>
-          )}
-        </div>
+        {!saleRequestListOwnerContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
+        {saleRequestListOwnerContext.isLoaded && saleRequestListOwnerContext.data.total === 0 &&
+          <EmptyStub title={stubData.title} text={stubData.text} actions={ <Button href={Routes.lkSaleRequestCreate} styleType='large' color='blue'>
+            Продать лом
+          </Button>}/>}
+        <InfiniteScroll
+          dataLength={saleRequestListOwnerContext.data.data.length}
+          next={saleRequestListOwnerContext.fetchMore}
+          style={{overflow: 'inherit'}}
+          loader={saleRequestListOwnerContext.data.total > 0 ?
+            <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}
+          hasMore={saleRequestListOwnerContext.data.total > saleRequestListOwnerContext.data.data.length}
+          scrollThreshold={0.6}>
+          <div className={styles.list}>
+            {saleRequestListOwnerContext.data.data.map((i, index) =>
+              <MySaleRequestCard mode={'seller'} number={1} item={i} key={i.id}/>
+            )}
+          </div>
+        </InfiniteScroll>
       </div>
     </Layout>
   )

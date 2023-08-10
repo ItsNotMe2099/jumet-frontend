@@ -51,9 +51,9 @@ export default function ReceivingPointSearchCard(props: Props) {
               <div className={styles.number}>{props.item.rating}</div>
             </div>}
           </div>
-          <div className={styles.price}>
+          {props.item.price && <div className={styles.price}>
             До {props.item.price} ₽/тонна
-          </div>
+          </div>}
         </div>
         <div className={styles.middle}>
           {props.item.address?.address}
@@ -62,7 +62,7 @@ export default function ReceivingPointSearchCard(props: Props) {
           <Badge active={props.item.hasDelivery} text='Есть доставка' />
           <Badge active={props.item.hasLoading} text='Есть погрузка' />
           <Badge
-            active={currentHour >= opens && currentHour < closes }
+            active={props.item.workNow ? true : currentHour >= opens && currentHour < closes }
             text={openingStatus} />
         </div>
       </div>

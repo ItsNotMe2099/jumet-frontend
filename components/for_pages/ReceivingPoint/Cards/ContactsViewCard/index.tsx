@@ -43,7 +43,7 @@ export default function ContactsViewCard(props: Props) {
   return (
     <ReceivingPointViewCard title={<div className={styles.header}>
       <div className={styles.title}>{receivingPoint.name ?? ''}</div>
-      <Rating rating={receivingPoint.rating} /></div>}>
+      {receivingPoint.rating > 0 && <Rating rating={receivingPoint.rating} />}</div>}>
       <div className={styles.middle}>
         <div className={styles.phone}>
           <PhoneSvg color={colors.dark500} />

@@ -1,0 +1,20 @@
+@import "styles/index";
+
+.root {
+  width: 100%;
+  max-width: 100%;
+}
+.swiper{
+}
+.slide {
+  width: auto;
+}
+.image{
+  max-height: 48px;
+  cursor: pointer;
+  &.active, &:hover{
+    outline: 2px solid $yellow500;
+    outline-offset: -2px;
+    border-radius: 4px;
+  }
+}

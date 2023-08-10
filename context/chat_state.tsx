@@ -85,7 +85,6 @@ export function ChatWrapper(props: Props) {
   }
   const loadMessages = async (page: number, search?: string) => {
     if (abortControllerRef.current) {
-      console.log('abortControllerRef.current', abortControllerRef.current)
       abortControllerRef.current?.abort()
     }
     abortControllerRef.current = new AbortController()

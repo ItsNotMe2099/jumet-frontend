@@ -11,6 +11,8 @@ import Modal, {IModalProps} from '@/components/ui/Modal'
 import SaleRequestOfferModal from '@/components/modals/SaleRequestOfferModal'
 import {SuccessModal} from '@/components/modals/SuccessModal'
 import SaleRequestFormModal from '@/components/modals/SaleRequestFormModal'
+import UserFormModal from '@/components/modals/UserFormModal'
+import GalleryModal from '@/components/modals/GalleryModal'
 
 interface Props { }
 
@@ -49,6 +51,12 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.Success} {...commonSettings}>
           {appContext.modal === ModalType.Success && <SuccessModal isBottomSheet={false} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.UserForm} {...commonSettings}>
+          {appContext.modal === ModalType.UserForm && <UserFormModal isBottomSheet={false} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.Gallery} {...commonSettings}>
+          {appContext.modal === ModalType.Gallery && <GalleryModal isBottomSheet={false} />}
         </Modal>
       </div>
     </RemoveScroll>

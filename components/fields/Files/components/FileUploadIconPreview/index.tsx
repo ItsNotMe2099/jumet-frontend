@@ -75,11 +75,10 @@ export default function FileUploadIconPreview(props: Props) {
           )}
 
 
-            <div className={styles.resultCameraIcon}>{props.icon ?? getIcon()}</div>
+          {/*<div className={styles.resultCameraIcon}>{props.icon ?? getIcon()}</div>*/}
 
           {(!props.previewPath && !props.value) && getIconStub()}
         </div>
-        {props.progress > -1 && (<div className={classNames(styles.progressLine, {[styles.rounded]: props.progress > 85})} style={{width: `${props.progress}%`}}/>)}
       </div>
   )
 }

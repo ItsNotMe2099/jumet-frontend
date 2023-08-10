@@ -1,5 +1,6 @@
 import {UserRole} from '@/data/enum/UserRole'
 import {Gender} from '@/data/enum/Gender'
+import {EmployeeRole} from '@/data/enum/EmployeeRole'
 
 export default interface IUser {
   id: string;
@@ -15,7 +16,7 @@ export default interface IUser {
   birthday?: Date;
   gender: Gender;
   password: string;
-
+  employeeRole?: EmployeeRole;
   readedNotifications: Notification[];
 //  companies?: Company[];
 }

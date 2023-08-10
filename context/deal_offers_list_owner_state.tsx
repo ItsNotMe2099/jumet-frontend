@@ -5,6 +5,7 @@ import DealOfferOwnerRepository from '@/data/repositories/DealOfferOwnerReposito
 import {IDealOfferOwnerListRequest} from '@/data/interfaces/IDealOfferOwnerListRequest'
 import {useAppContext} from '@/context/state'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
+import {CanceledError} from 'axios'
 
 export interface IDealOfferFilter extends IDealOfferOwnerListRequest {
 }
@@ -38,7 +39,6 @@ const DealOfferListOwnerContext = createContext<IState>(defaultValue)
 interface Props {
   children: React.ReactNode
   limit?: number
-  saleRequestId?: number
 }
 
 export function DealOfferListOwnerWrapper(props: Props) {
@@ -49,6 +49,8 @@ export function DealOfferListOwnerWrapper(props: Props) {
   const [page, setPage] = useState<number>(1)
   const [filter, setFilter] = useState<IDealOfferFilter>({page: 1, limit: 10})
   const filterRef = useRef<IDealOfferFilter>(filter)
+  const abortControllerRef = useRef<AbortController | null>(null)
+
   const limit = props.limit ?? 20
   const init = async () => {
     await Promise.all([fetch()])
@@ -56,13 +58,13 @@ export function DealOfferListOwnerWrapper(props: Props) {
   }
   useEffect(() => {
     const subscription = appContext.dealOfferUpdateState$.subscribe((dealOffer) => {
-      setData(i => ({ ...i, data: i.data.map(i => i.id == dealOffer.id ? ({ ...i, ...dealOffer }) : i) }))
+      setData(i => ({...i, data: i.data.map(i => i.id == dealOffer.id ? ({...i, ...dealOffer}) : i)}))
 
-      if(dealOffer.status === DealOfferStatus.Accepted && (filter.statuses?.length ?? 0) === 0 && data.data.find(i => i.id === dealOffer.id)){
-      //  setData(i => ({ ...i, data: i.data.filter(i => i.id !== dealOffer.id ), total: i.total - 1}))
+      if (dealOffer.status === DealOfferStatus.Accepted && (filter.statuses?.length ?? 0) === 0 && data.data.find(i => i.id === dealOffer.id)) {
+        //  setData(i => ({ ...i, data: i.data.filter(i => i.id !== dealOffer.id ), total: i.total - 1}))
       }
-      if(dealOffer.status === DealOfferStatus.Rejected && (filter.statuses?.length ?? 0) === 0 && data.data.find(i => i.id === dealOffer.id)){
-       // setData(i => ({ ...i, data: i.data.filter(i => i.id !== dealOffer.id ), total: i.total - 1}))
+      if (dealOffer.status === DealOfferStatus.Rejected && (filter.statuses?.length ?? 0) === 0 && data.data.find(i => i.id === dealOffer.id)) {
+        // setData(i => ({ ...i, data: i.data.filter(i => i.id !== dealOffer.id ), total: i.total - 1}))
       }
     })
     return () => {
@@ -70,18 +72,35 @@ export function DealOfferListOwnerWrapper(props: Props) {
     }
   }, [data])
   const fetch = async ({page}: { page: number } = {page: 1}) => {
-    const res = await DealOfferOwnerRepository.fetch({
-      ...filterRef.current,
-      ...(props.saleRequestId ? {saleRequestId: props.saleRequestId} : {}),
-      limit: filterRef.current.limit ?? limit,
-      page
-    })
-    setData(res)
+    setIsLoading(true)
+    if (abortControllerRef.current) {
+      abortControllerRef.current?.abort()
+    }
+    abortControllerRef.current = new AbortController()
+    try {
+      const res = await DealOfferOwnerRepository.fetch({
+        ...filterRef.current,
+        ...(props.saleRequestId ? {saleRequestId: props.saleRequestId} : {}),
+        limit: filterRef.current.limit ?? limit,
+        page
+      }, {signal: abortControllerRef.current?.signal})
+      setData(page > 1 ? (i) => ({total: res.total, data: [...i.data, ...res.data]}) : res)
+
+    } catch (err) {
+      if (err instanceof CanceledError) {
+        return
+      }
+    }
+    setIsLoaded(true)
+    setIsLoading(false)
   }
-  useEffect(() => {
 
-  }, [])
-
+  const reFetch = () => {
+    setPage(1)
+    setData({data: [], total: 0})
+    setIsLoaded(false)
+    fetch({page: 1})
+  }
   const value: IState = {
     ...defaultValue,
     isLoaded,
@@ -96,19 +115,11 @@ export function DealOfferListOwnerWrapper(props: Props) {
     setFilter: async (data) => {
       filterRef.current = data
       setFilter(data)
-      setIsLoading(true)
-      setPage(1)
-      await fetch({ page: 1 })
-      setIsLoading(false)
+      reFetch()
     },
-    reFetch: () => {
-      setPage(1)
-      setData({data: [], total: 0})
-      setIsLoaded(false)
-      fetch({page: 1})
-    },
+    reFetch,
     fetchMore: () => {
-      setPage(i => i+1)
+      setPage(i => i + 1)
       fetch({page: page + 1})
     }
   }

@@ -4,6 +4,7 @@ import {LikeEntityType} from '@/data/enum/LikeEntityType'
 import {IFavoriteRecord} from '@/data/interfaces/IFavoriteRecord'
 import {FavoriteStoreType} from '@/data/interfaces/FavoriteStoreType'
 import {IFavoriteListRequest} from '@/data/interfaces/IFavoriteListRequest'
+import {AxiosRequestConfig} from 'axios/index'
 
 export default class FavoriteRepository {
   static async create(id: number, type: LikeEntityType): Promise<void> {
@@ -43,7 +44,7 @@ export default class FavoriteRepository {
     })
   }
 
-  static async fetchByType<T>(type: LikeEntityType, data: IFavoriteListRequest): Promise<IPagination<T>> {
+  static async fetchByType<T>(type: LikeEntityType, data: IFavoriteListRequest, config?: AxiosRequestConfig): Promise<IPagination<T>> {
     return request({
       url: '/api/like',
       method: 'get',
@@ -51,7 +52,8 @@ export default class FavoriteRepository {
       data: {
         type,
         ...data
-      }
+      },
+      config
     })
   }
 }

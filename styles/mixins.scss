@@ -209,7 +209,10 @@
     padding-right: 8px;
   }
   &.withPrefix{
-    padding-left: 49px;
+    padding-left: 8px;
+  }
+  &.withClear{
+    padding-right: 0px;
   }
   &.inputError{
     color: $red500;
@@ -274,4 +277,21 @@
   color: $dark500;
   font-size: 14px;
   font-weight: 400;
+}
+@mixin card(){
+  padding: 20px;
+  background-color: $white;
+  border-radius: $StandartBorderRadius;
+
+  @include mq($PhoneWidth, max) {
+    padding: 20px 15px;
+  }
+}
+
+
+@mixin maxLines($count) {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: $count;
+  -webkit-box-orient: vertical;
 }

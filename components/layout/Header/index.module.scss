@@ -1,124 +1,130 @@
 @import "styles/index";
 
 .root {
-    background-color: $dark500;
+  background-color: $dark500;
 
-    position: relative;
-    z-index: 12;
+  position: relative;
+  z-index: 12;
 }
 
 .container {
-    @include container;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    height: 84px;
+  @include container;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 84px;
 
-    @include mq($PhoneWidth, max) {
-        height: $headerMobHeight;
-        width: 100%;
-    }
+  @include mq($PhoneWidth, max) {
+    height: $headerMobHeight;
+    width: 100%;
+  }
 }
 
 .logo {
-    font-family: 'Jost';
-    font-weight: 700;
-    font-size: 32px;
-    line-height: 50px;
-    color: $white;
-    text-transform: uppercase;
+  font-family: 'Jost';
+  font-weight: 700;
+  font-size: 32px;
+  line-height: 50px;
+  color: $white;
+  text-transform: uppercase;
 }
 
 .info {
-    height: 48px;
-    background-color: $dark400;
+  height: 48px;
+  background-color: $dark400;
+  display: flex;
+  align-items: center;
+  font-weight: 400;
+  font-size: 12px;
+  line-height: 16px;
+  color: $white;
+  padding: 0 12px;
+  border-radius: 12px;
+
+  @include mq($SmDesktopWidth, max) {
+    display: none;
+  }
+
+  @include mq($TabletWidth, max) {
     display: flex;
-    align-items: center;
-    font-weight: 400;
-    font-size: 12px;
-    line-height: 16px;
-    color: $white;
-    padding: 0 12px;
-    border-radius: 12px;
+  }
 
-    @include mq($SmDesktopWidth, max) {
-        display: none;
-    }
-
-    @include mq($TabletWidth, max) {
-        display: flex;
-    }
-
-    @include mq($PhoneWidth, max) {
-        background-color: transparent;
-        font-size: 10px;
-        padding: 0;
-        display: none;
-    }
+  @include mq($PhoneWidth, max) {
+    background-color: transparent;
+    font-size: 10px;
+    padding: 0;
+    display: none;
+  }
 }
 
 .left {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .middle {
-    display: flex;
-    gap: 32px;
+  display: flex;
+  gap: 32px;
 
-    @include mq($PhoneWidth, max) {
-        display: none;
-    }
+  @include mq($PhoneWidth, max) {
+    display: none;
+  }
 }
 
 .link {
-    @include btnText;
-    color: $white;
+  @include btnText;
+  color: $white;
+  transition: color 0.2s;
+
+  &.active {
+    color: $yellow500;
+  }
 }
 
 .right {
-    display: flex;
-    gap: 12px;
+  display: flex;
+  gap: 12px;
 }
 
 .btn {
-    span {
-        gap: 12px;
-        display: flex;
-        align-items: center;
-        color: $white;
-    }
+  span {
+    gap: 12px;
+    display: flex;
+    align-items: center;
+    color: $white;
+  }
 }
 
 .mobile {
-    display: none;
-    justify-content: space-between;
-    align-items: center;
+  display: none;
+  justify-content: space-between;
+  align-items: center;
 
-    @include mq($PhoneWidth, max) {
-        display: flex;
-    }
+  @include mq($PhoneWidth, max) {
+    display: flex;
+  }
 
-    .menu {
-        cursor: pointer;
-    }
+  .menu {
+    cursor: pointer;
+  }
 }
 
 .dropdownMobile {
-    background-color: $dark500;
-    position: fixed;
-    bottom: 0px;
-    left: 0px;
-    right: 0px;
-    top: 72px;
-    z-index: 4;
-    padding: 0 23px;
-    display: flex;
-    flex-direction: column;
+  background-color: $dark500;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  right: 0px;
+  top: 72px;
+  z-index: 4;
+  padding: 0 23px;
+  display: flex;
+  flex-direction: column;
 }
-.userButtons{
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    @include list(15px, true)
+
+.userButtons {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(15px, true)
 }

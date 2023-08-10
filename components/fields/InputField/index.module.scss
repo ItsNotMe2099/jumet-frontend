@@ -37,12 +37,32 @@
   gap: 8px;
 }
 .suffix{
+  cursor: pointer;
   padding-right: 12px;
+  padding-left: 4px;
+  height: $StandartHeight;
+  display: flex;
+  align-items: center;
 }
 .prefix{
-  padding-left: 16px;
-}
+  display: flex;
+  padding-left: 12px;
 
+}
+.clear{
+  cursor: pointer;
+  padding-right: 16px;
+  padding-left: 4px;
+  height: $StandartHeight;
+  display: flex;
+  align-items: center;
+  &.withSuffix{
+    padding-right: 8px;
+  }
+  .clearIcon{
+
+  }
+}
 .obscure{
   position: absolute;
   top: 50%;

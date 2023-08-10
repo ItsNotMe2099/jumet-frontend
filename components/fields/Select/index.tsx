@@ -35,6 +35,7 @@ export default function Select<T>(props: Props<T>) {
         value={selected}
         isMulti={false}
         isClearable={true}
+        menuPosition={'fixed'}
         className={classNames({
           [styles.input]: true,
           [styles.default]: true,

@@ -2,8 +2,7 @@ import Button from '@/components/ui/Button'
 import CardLayout from 'components/for_pages/Common/CardLayout'
 import styles from 'components/for_pages/LkPage/SaleRequest/SaleRequestDetailsCard/index.module.scss'
 import EditSvg from '@/components/svg/EditSvg'
-import { colors } from '@/styles/variables'
-import Image from 'next/image'
+import {colors} from '@/styles/variables'
 import {ReactElement, useState} from 'react'
 import ChevronUpSvg from '@/components/svg/ChevronUpSvg'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
@@ -12,6 +11,10 @@ import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import {IOption} from '@/types/types'
 import WeightUtils from '@/utils/WeightUtils'
 import Formatter from '@/utils/formatter'
+import ImageFile from '@/components/ui/ImageFile'
+import {ModalType, Preset} from '@/types/enums'
+import {useAppContext} from '@/context/state'
+import {GalleryModalArguments} from '@/types/modal_arguments'
 
 interface FieldProps{
   item: IOption<string | null | ReactElement>
@@ -31,6 +34,7 @@ interface Props {
 }
 
 export default function SaleRequestDetailsCard(props: Props) {
+  const appContext = useAppContext()
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const saleRequest = saleRequestOwnerContext.saleRequest!
   const [opened, setOpened] = useState<boolean>(false)
@@ -42,9 +46,17 @@ export default function SaleRequestDetailsCard(props: Props) {
     ...(saleRequest.requiresDelivery ? [{label: 'Доставка' , value: 'Нужна доставка' }] : []),
     ...(saleRequest.requiresLoading ? [{label: 'Погрузка' , value: 'Нужна погрузка' }] : []),
     {label: 'Дата создания' , value: Formatter.formatDateRelative(saleRequest.createdAt)},
-  ...((saleRequest.photos?.length ?? 0) > 0 ? [{label: 'Фото лома', value: <div className={styles.photos}> {saleRequest.photos.map((i, index) =>
-        <Image key={i.id} src={i.source} alt='' fill />
-      )}</div>}] : [])
+  ...((saleRequest.photos?.length ?? 0) > 0 ? [{label: 'Фото лома', value: <div className={styles.photos}>
+      {saleRequest.photos.map((i, index) =>
+        <ImageFile onClick={() => {
+          appContext.showModal(ModalType.Gallery, {
+            title: `Фото заявки № ${saleRequest.id}`,
+            images: saleRequest.photos,
+            selectedId: i.id,
+          } as GalleryModalArguments)
+        }} className={styles.image} preset={Preset.xsResize} key={i.id} file={i} />
+      )}
+  </div>}] : [])
   ]
   const fieldsView = fields.map((i, index) => <Field key={index} item={i}/>)
   return (

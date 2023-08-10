@@ -39,6 +39,7 @@ interface Props<T> {
   options: IOption<T>[]
   onTriggerClick?: () => void
   className?: string
+  valueWrapperClassName?: string
   onSelect: (value: T) => void
   value?: T
   fluid?: boolean
@@ -108,7 +109,7 @@ export default function DropdownMenu<T>(props: Props<T>) {
   }
   return (
     <div ref={handleRootRef} className={classNames(styles.root, props.className, {[styles.fluid]: props.fluid})}>
-      <div onClick={handleClick} className={classNames(styles.valueWrapper)}>
+      <div onClick={handleClick} className={classNames(styles.valueWrapper, props.valueWrapperClassName)}>
         {renderValue(currentOption, isActive as boolean)}
         <div className={classNames(styles.chevron, {[styles.reversed]: isActive})}><ChevronDownSvg color={colors.grey500}/></div>
       </div>

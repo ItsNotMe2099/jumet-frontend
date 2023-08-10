@@ -1,7 +1,7 @@
 import Select from '@/components/fields/Select'
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import {useEffect, useState} from 'react'
+import {useEffect, useMemo, useState} from 'react'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import queryString from 'query-string'
@@ -21,6 +21,8 @@ import {useRouter} from 'next/router'
 import {Routes} from '@/types/routes'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
+import EmptyStub from '@/components/ui/EmptyStub'
+import Button from '@/components/ui/Button'
 
 enum TabKey {
   All = 'all',
@@ -44,6 +46,7 @@ const LkDealOffersPageInner = (props: Props) => {
 
 
   useEffect(() => {
+    console.log('Refetch1')
     reFetch(tab, receivingPointId)
   }, [tab, receivingPointId])
 
@@ -67,13 +70,10 @@ const LkDealOffersPageInner = (props: Props) => {
   const reFetch = (tab: TabKey, receivingPointId: number | null) => {
     switch (tab) {
       case TabKey.FromSellers:
-        dealOfferListOwnerContext.setFilter({...(receivingPointId ? {receivingPointId} : {})})
-
-        saleRequestFromSellerListContext.reFetch()
+        saleRequestFromSellerListContext.setFilter({...(receivingPointId ? {receivingPointId} : {})})
         break
       default:
         dealOfferListOwnerContext.setFilter({...(receivingPointId ? {receivingPointId} : {}), statuses: convertTabKeyToStatusesFilter(tab)})
-        dealOfferListOwnerContext.reFetch()
         break
     }
   }
@@ -84,16 +84,6 @@ const LkDealOffersPageInner = (props: Props) => {
   const handleChangeTab = (tab: TabKey) => {
     setTab(tab)
     setRoute(tab, receivingPointId)
-  }
-  const handleScrollNext = () => {
-    switch (tab) {
-      case TabKey.FromSellers:
-        saleRequestFromSellerListContext.fetchMore()
-        break
-      default:
-        dealOfferListOwnerContext.fetchMore()
-        break
-    }
   }
   const handleChangeReceivingPoint = (receivingPointId: number | null) => {
     setReceivingPointId(receivingPointId)
@@ -111,6 +101,35 @@ const LkDealOffersPageInner = (props: Props) => {
     {label: 'Прямые предложения от продавцов', value: TabKey.FromSellers},
   ]
 
+  const stubData = useMemo<{title: string, text: string}>(() => {
+    switch (tab){
+      case TabKey.All:
+        return {
+          title: 'Пока нет предложений',
+          text: 'Здесь будут появляется предложения, которые вы сделали продавцам',
+        }
+      case TabKey.Accepted:
+        return {
+          title: 'Пока нет принятых предложений',
+          text: 'Здесь будут появляется принятые продавцами предложения, которые вы сделали продавцам',
+        }
+      case TabKey.Rejected:
+        return {
+          title: 'Пока нет отклоненных предложений',
+          text: 'Здесь будут появляется отклоненные продавцами предложения, которые вы сделали продавцам',
+        }
+      case TabKey.Applied:
+        return {
+          title: 'Пока нет предложений на рассмотрении',
+          text: 'Здесь будут появляется предложения на рассмотренни продавцами, которые вы сделали продавцам',
+        }
+      case TabKey.FromSellers:
+        return {
+          title: 'Пока нет предложений от продавцов',
+          text: 'Здесь будут появляется предложения вашим пунктам приемам, которые сделали продавцы',
+        }
+    }
+  }, [tab])
   return (
     <Layout>
       <div className={styles.root}>
@@ -121,11 +140,22 @@ const LkDealOffersPageInner = (props: Props) => {
           <Select<number | null> className={styles.select} options={receivingPointOptions} value={receivingPointId}
                                  onChange={(i) => handleChangeReceivingPoint(i ?? null)}/>
         </div>
-        <Tabs<TabKey> styleType={'outlined'} options={tabs} value={tab} onClick={handleChangeTab}/>
+        <Tabs<TabKey> styleType={'outlined'} separatorStartValue={TabKey.FromSellers} options={tabs} value={tab} onClick={handleChangeTab}/>
         <div className={styles.container}>
+          {tab !== TabKey.FromSellers && !dealOfferListOwnerContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
+          {tab === TabKey.FromSellers && !saleRequestFromSellerListContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
+          {tab !== TabKey.FromSellers && dealOfferListOwnerContext.isLoaded && dealOfferListOwnerContext.data.total === 0 &&
+            <EmptyStub title={stubData.title} text={stubData.text} actions={ <Button href={Routes.saleRequests} styleType='large' color='blue'>
+              Купить лом
+            </Button>}/>}
+          {tab === TabKey.FromSellers && saleRequestFromSellerListContext.isLoaded && saleRequestFromSellerListContext.data.total === 0 &&
+            <EmptyStub title={stubData.title} text={stubData.text} actions={ <Button href={Routes.saleRequests} styleType='large' color='blue'>
+              Купить лом
+            </Button>}/>}
+
           {tab !== TabKey.FromSellers && <InfiniteScroll
             dataLength={dealOfferListOwnerContext.data.data.length}
-            next={handleScrollNext}
+            next={dealOfferListOwnerContext.fetchMore}
             style={{overflow: 'inherit'}}
             loader={dealOfferListOwnerContext.data.total > 0 ?
               <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}
@@ -138,7 +168,7 @@ const LkDealOffersPageInner = (props: Props) => {
           </InfiniteScroll>}
           {tab === TabKey.FromSellers && <InfiniteScroll
             dataLength={saleRequestFromSellerListContext.data.data.length}
-            next={handleScrollNext}
+            next={saleRequestFromSellerListContext.fetchMore}
             style={{overflow: 'inherit'}}
             loader={saleRequestFromSellerListContext.data.total > 0 ?
               <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}

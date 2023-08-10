@@ -43,7 +43,7 @@ export default function SelectField<T>(props: Props<T>) {
         options={props.options}
         value={field.value}
         hasError={showError}
-        placeholder={props.placeholder ?? props.label as string}
+        placeholder={props.placeholder ?? props.label as string ?? ''}
         onChange={(value) => {
           helpers.setValue(value)
         }}

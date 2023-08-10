@@ -28,18 +28,21 @@ export default function RadiusField<T>(props: Props<T>) {
     { label: '5 км', value: 5 },
     { label: '10 км', value: 10 },
     { label: '20 км', value: 20 },
-    { label: '50км', value: 50 },
+    { label: '50 км', value: 50 },
   ]
 
-  const initialValues: IFormData = {
-    radius: options.find(i => i.value === field.value)?.value ?? null,
-    radiusCustom: !options.find(i => i.value === field.value) ? field.value : null,
-  }
 
-
-  const handleChangeTab = (radius: number) => {
+  const handleChangeTab = (radius: number | null) => {
     setLastInput('tabs')
-    helpers.setValue(radius)
+
+    if(field.value === radius){
+      setTimeout(() => {
+        helpers.setValue(null)
+      }, 100)
+
+    }else {
+      helpers.setValue(radius)
+    }
   }
 
   const handleChangeCustom = (radius: number | null) => {
@@ -53,6 +56,7 @@ export default function RadiusField<T>(props: Props<T>) {
       <TabsField<number> label={props.label}  options={options} name={props.name} onChange={handleChangeTab}/>
       <InputField
         suffix={'км'}
+        resettable={true}
         placeholder='Свой радиус поиска'
         format={'number'}
         parseValue={(value) => lastInput === 'custom' ? value : !options.find((i) => i.value === field.value) ? value : ''}

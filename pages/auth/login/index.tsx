@@ -5,7 +5,7 @@ import CenterLayout from '@/components/for_pages/Common/CenterLayout'
 import Heading from '@/components/ui/Heading'
 import SwitchFilter from '@/components/ui/SwitchFilter'
 import LoginForm from '@/components/for_pages/login/Form'
-//import styles from './index.module.scss'
+import styles from './index.module.scss'
 
 
 export default function SignIn() {
@@ -23,7 +23,9 @@ export default function SignIn() {
           {label: 'Ломазаготовитель', value: LoginType.Buyer},
         ]}
       />
+      <div className={styles.form}>
       <LoginForm mode={type}/>
+      </div>
     </CenterLayout>
     </Layout>
   )

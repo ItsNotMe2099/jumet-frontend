@@ -1,56 +1,38 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import { useEffect, useState } from 'react'
-import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
-import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
-import { colors } from '@/styles/variables'
-import { formatInTimeZone } from 'date-fns-tz'
-import ru from 'date-fns/locale/ru'
+import {useRef, useState} from 'react'
 import classNames from 'classnames'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import { ListViewType } from '@/types/types'
 import { useAppContext } from '@/context/state'
 import Sticky from 'react-stickynode'
-import Filter from '@/components/for_pages/scrap-for-sale/Filter'
-import { SaleRequestSearchWrapper } from '@/context/sale_request_search_state'
+import {SaleRequestSearchWrapper, useSaleRequestSearchContext} from '@/context/sale_request_search_state'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
-import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
+import SortToggleButton from '@/components/ui/Buttons/SortToggleButton'
+import ContentLoader from '@/components/ui/ContentLoader'
+import InfiniteScroll from 'react-infinite-scroll-component'
+import SaleRequestsFilter, {SaleRequestsFilterRef} from '@/components/for_pages/scrap-for-sale/Filter'
+import {SortOrder} from '@/types/enums'
+import EmptyStub from '@/components/ui/EmptyStub'
+import Button from '@/components/ui/Button'
 
 interface Props {
 
 }
 
 const SaleRequestsPageWrapper = (props: Props) => {
-
   const appContext = useAppContext()
-
-  const date = new Date()
-  const timeZone = 'Europe/Moscow'
-  const hour = formatInTimeZone(date, timeZone, 'H', { locale: ru })
-
-  const [filterPrice, setFilterPrice] = useState<string>('low')
+  const searchContext = useSaleRequestSearchContext()
   const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
-  const [data, setData] = useState<ISaleRequest[]>([])
+  const filterRef = useRef<SaleRequestsFilterRef | null>(null)
 
-  const fetchSaleRequests = async () => {
-    await SaleRequestRepository.search({
-      location: {
-        lat: 56.795132,
-        lng: 40.1633231
-      }
-    }).then(data => {
-      if (data) {
-        setData(data.data)
-      }
-    })
+  const sortToggle = ( <SortToggleButton fluid={appContext.isMobile} value={searchContext.sortOrder} onSelect={searchContext.setSortOrder} labels={{
+    [SortOrder.Desc]: 'Вначале с большей ценой', [SortOrder.Asc] : 'Вначале с меньшей ценой'
+  }}/>)
+  const handleClearFilter = () => {
+    filterRef.current?.clear()
   }
-
-  useEffect(() => {
-    fetchSaleRequests()
-  }, [])
-
   return (
     <Layout>
       <div className={styles.root}>
@@ -60,54 +42,39 @@ const SaleRequestsPageWrapper = (props: Props) => {
             Лом на продажу
           </div>
           <HiddenXs>
-            <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
-              {filterPrice === 'low' ?
-                <>
-                  <div className={styles.text}>Вначале с большей ценой</div>
-                  <SortTopToBottomSvg color={colors.dark500} />
-                </>
-                :
-                <>
-                  <div className={styles.text}>Вначале с меньшей ценой</div>
-                  <SortBottomToTopSvg color={colors.dark500} />
-                </>}
-            </div>
-          </HiddenXs>
+            {sortToggle}
+            </HiddenXs>
         </div>
         <div className={styles.container}>
 
           <div className={classNames(styles.left)}>
             <Sticky enabled={appContext.isDesktop} top={120} bottomBoundary={437}>
-              <Filter title={''} viewType={viewType} onSetViewType={setViewType} />
+              <SaleRequestsFilter ref={filterRef} title={''} viewType={viewType} onSetViewType={setViewType} />
             </Sticky>
           </div>
           <div className={styles.right}>
             <VisibleXs>
               <div className={styles.top}>
-                <div className={styles.filter} onClick={() => setFilterPrice(filterPrice === 'high' ? 'low' : 'high')}>
-                  {filterPrice === 'low' ?
-                    <>
-                      <div className={styles.text}>Вначале с большей ценой</div>
-                      <SortTopToBottomSvg color={colors.dark500} />
-                    </>
-                    :
-                    <>
-                      <div className={styles.text}>Вначале с меньшей ценой</div>
-                      <SortBottomToTopSvg color={colors.dark500} />
-                    </>}
-                </div>
+                {sortToggle}
               </div>
             </VisibleXs>
-            <HiddenXs>
+            {!searchContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
+            {searchContext.isLoaded && searchContext.data.total === 0 &&
+              <EmptyStub title={'Ничего не найдено'} text={'Мы не смогли найти заявки на продажу удолетворяющие условиям поиска. Попробуйте изменить условия'} actions={ <Button onClick={handleClearFilter} styleType='large' color='blue'>
+                Очистить фильтр
+              </Button>}/>}
+            <InfiniteScroll
+              dataLength={searchContext.data.data.length}
+              next={searchContext.fetchMore}
+              style={{overflow: 'inherit'}}
+              loader={searchContext.data.total > 0 ?
+                <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}
+              hasMore={searchContext.data.total > searchContext.data.data.length}
+              scrollThreshold={0.6}>
               <div className={styles.list}>
-                {data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
               </div>
-            </HiddenXs>
-            <VisibleXs>
-              <div className={styles.list}>
-                {data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
-              </div>
-            </VisibleXs>
+            </InfiniteScroll>
           </div>
         </div>
       </div>

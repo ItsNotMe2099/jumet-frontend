@@ -12,6 +12,8 @@ import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ICompany} from '@/data/interfaces/ICompany'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {IDealOffer} from '@/data/interfaces/IDealOffer'
+import IUser from '@/data/interfaces/IUser'
+import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
 
 interface IState {
   isMobile: boolean
@@ -44,6 +46,12 @@ interface IState {
   dealOfferDeleteState$: Subject<IDealOffer>
   companyUpdateState$: Subject<ICompany>
   companyDeleteState$: Subject<ICompany>
+  userCreateState$: Subject<IUser>
+  userUpdateState$: Subject<IUser>
+  userDeleteState$: Subject<IUser>
+  receivingPointCreateState$: Subject<IReceivingPointUser>
+  receivingPointUserUpdateState$: Subject<IReceivingPointUser>
+  receivingPointUserDeleteState$: Subject<IReceivingPointUser>
 }
 
 const loginState$ = new Subject<boolean>()
@@ -55,6 +63,12 @@ const dealOfferUpdateState$ = new Subject<IDealOffer>()
 const dealOfferDeleteState$ = new Subject<IDealOffer>()
 const companyUpdateState$ = new Subject<ICompany>()
 const companyDeleteState$ = new Subject<ICompany>()
+const userCreateState$ = new Subject<IUser>()
+const userUpdateState$ = new Subject<IUser>()
+const userDeleteState$ = new Subject<IUser>()
+const receivingPointCreateState$ = new Subject<IReceivingPointUser>()
+const receivingPointUserUpdateState$ = new Subject<IReceivingPointUser>()
+const receivingPointUserDeleteState$ = new Subject<IReceivingPointUser>()
 
 const ModalsBottomSheet: ModalType[] = []
 
@@ -78,6 +92,12 @@ const defaultValue: IState = {
   dealOfferDeleteState$,
   companyUpdateState$,
   companyDeleteState$,
+  userCreateState$,
+  userUpdateState$,
+  userDeleteState$,
+  receivingPointCreateState$,
+  receivingPointUserUpdateState$,
+  receivingPointUserDeleteState$,
   showModal: (type) => null,
   showBottomSheet: (type) => null,
   hideModal: () => null,

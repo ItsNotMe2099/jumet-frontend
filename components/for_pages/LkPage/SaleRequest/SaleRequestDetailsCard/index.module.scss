@@ -32,8 +32,12 @@
     @include secondaryText;
 }
 .photos{
- img{
-   display: inline-flex;
+  @include clearfix;
+  margin: -6px -6px 0px -6px;
+ .image{
+   float: left;
+   margin: 6px;
+   max-height: 48px;
  }
 }
 

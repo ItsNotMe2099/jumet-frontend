@@ -56,10 +56,13 @@ export function CompanyOwnerWrapper(props: Props) {
     setCompany(res)
     return res
   }
+
   useEffect(() => {
-    setLoading(true)
-    fetch().then((i) => setLoading(false))
-  }, [props.companyId])
+    if (!props.company && props.companyId) {
+      setLoading(true)
+      fetch().then((i) => setLoading(false))
+    }
+  }, [props.companyId, props.company])
   const handleUpdate = (entity: ICompany) => {
     appContext.companyUpdateState$.next(entity)
   }

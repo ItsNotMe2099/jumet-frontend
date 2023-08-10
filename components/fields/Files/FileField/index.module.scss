@@ -1,16 +1,10 @@
-@import "../../../../styles/index";
+@import "styles/index";
 
 $width: 105px;
 $height: 77px;
 
 .root {
-  display: flex;
-  flex-direction: column;
-  gap: 8px;
-  border-radius: $StandartBorderRadius;
-  border: 1px solid $grey400;
-  cursor: pointer;
-  padding-bottom: 24px;
+
   position: relative;
 }
 
@@ -116,4 +110,7 @@ $height: 77px;
   display: flex;
   flex-direction: column;
   gap: 12px;
+}
+.fileListItem{
+  margin-top: 16px;
 }

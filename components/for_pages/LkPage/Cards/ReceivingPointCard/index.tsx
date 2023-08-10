@@ -20,14 +20,14 @@ export default function ReceivingPointCard({item, href}: Props) {
   return (
     <CardLayout contentClassName={styles.content} href={href ?? ''} topClassName={styles.top} title={item.name}
                 additionalEl={
-                  <div className={styles.additional}>
+                  item.rating > 0 ? <div className={styles.additional}>
                     <Rating rating={item.rating}/>
                     <div className={classNames(styles.deals,
                       {
                         [styles.yesDeals]: true
                       })}>0 сделок за месяц
                     </div>
-                  </div>
+                  </div> : null
                 }>
       <div className={classNames(styles.deals,
         {

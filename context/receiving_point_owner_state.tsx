@@ -63,9 +63,11 @@ export function ReceivingPointOwnerWrapper(props: Props) {
     return res
   }
   useEffect(() => {
-    setLoading(true)
-    fetch().then((i) => setLoading(false))
-  }, [props.receivingPointId])
+    if (!props.receivingPoint && props.receivingPointId) {
+      setLoading(true)
+      fetch().then((i) => setLoading(false))
+    }
+  }, [props.receivingPointId, props.receivingPoint])
   const handleUpdate = (entity: IReceivingPoint) => {
     appContext.receivingPointUpdateState$.next(entity)
   }

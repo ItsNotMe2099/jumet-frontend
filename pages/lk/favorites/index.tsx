@@ -1,38 +1,27 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
-import { useEffect, useState } from 'react'
 import ReceivingPointCard from '@/components/for_pages/LkPage/Favorites/ReceivingPointCard'
-import SortTopToBottomSvg from '@/components/svg/SortTopToBottomSvg'
-import SortBottomToTopSvg from '@/components/svg/SortBottomToTopSvg'
-import { colors } from '@/styles/variables'
 import {FavoriteListWrapper, useFavoriteListContext} from '@/context/favorite_list_state'
 import ContentLoader from '@/components/ui/ContentLoader'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import SortToggleButton from '@/components/ui/Buttons/SortToggleButton'
+import {useAppContext} from '@/context/state'
+import {SortOrder} from '@/types/enums'
+import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 
 interface Props {
 
 }
 
 const FavoritesPageInner = (props: Props) => {
+  const appContext = useAppContext()
   const favoriteListContext = useFavoriteListContext()
-  const [data, setData] = useState<any[]>([])
 
-
-  useEffect(() => {
+  useEffectOnce(() => {
     favoriteListContext.reFetch()
-  }, [])
+  })
 
-  const handleScrollNext = () => {
-    favoriteListContext.fetchMore()
-  }
-  const [newFirst, setNewFirst] = useState<boolean>(true)
-
-  const toggleSorting = () => {
-    // Reverse the 'data' array when the user clicks on the filter
-    setData([...data].reverse())
-    setNewFirst(!newFirst)
-  }
   const handleDelete = (receivingPoint: IReceivingPoint) => {
     favoriteListContext.deleteFromFavorite(receivingPoint.id)
   }
@@ -44,22 +33,16 @@ const FavoritesPageInner = (props: Props) => {
           <div className={styles.title}>
             Избранное
           </div>
-          <div className={styles.filter} onClick={toggleSorting}>
-            {newFirst ?
-              <>
-                <div className={styles.text}>Вначале старые</div>
-                <SortTopToBottomSvg color={colors.dark500} />
-              </>
-              :
-              <>
-                <div className={styles.text}>Вначале новые</div>
-                <SortBottomToTopSvg color={colors.dark500} />
-              </>}
-          </div>
+          <SortToggleButton fluid={appContext.isMobile} value={favoriteListContext.sortOrder} onSelect={favoriteListContext.setSortOrder} labels={{
+            [SortOrder.Desc]: 'Вначале новые', [SortOrder.Asc] : 'Вначале старыe'
+          }}/>
+
         </div>
+        {!favoriteListContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
+
         <InfiniteScroll
           dataLength={favoriteListContext.data.data.length}
-          next={handleScrollNext}
+          next={favoriteListContext.fetchMore}
           style={{overflow: 'inherit'}}
           loader={favoriteListContext.data.total > 0 ?
             <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}

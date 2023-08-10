@@ -3,6 +3,8 @@ import {IPagination} from 'types/types'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 import {ISaleRequestFromSellerListRequest} from '@/data/interfaces/ISaleRequestFromSellerListRequest'
+import {CanceledError} from 'axios'
+
 interface SaleRequestFromSellerFilter extends ISaleRequestFromSellerListRequest {
 }
 
@@ -44,23 +46,44 @@ export function SaleRequestListFromSellerWrapper(props: Props) {
   const [page, setPage] = useState<number>(1)
   const [filter, setFilter] = useState<SaleRequestFromSellerFilter>({page: 1, limit: 10})
   const filterRef = useRef<SaleRequestFromSellerFilter>(filter)
+  const abortControllerRef = useRef<AbortController | null>(null)
+
   const limit = props.limit ?? 20
   const init = async () => {
     await Promise.all([fetch()])
     setIsLoaded(true)
   }
   const fetch = async ({page}: { page: number } = {page: 1}) => {
-    const res = await SaleRequestRepository.fetchSaleRequestsFromSeller({
-      ...filterRef.current,
-      limit: filterRef.current.limit ?? limit,
-      page
-    })
-    setData(res)
+    setIsLoading(true)
+    if (abortControllerRef.current) {
+      abortControllerRef.current?.abort()
+    }
+    abortControllerRef.current = new AbortController()
+    try {
+      const res = await SaleRequestRepository.fetchSaleRequestsFromSeller({
+        ...filterRef.current,
+        limit: filterRef.current.limit ?? limit,
+        page
+      }, {signal: abortControllerRef.current?.signal})
+      setData(page > 1 ? (i) => ({total: res.total, data: [...i.data, ...res.data]}) : res)
+
+    } catch (err) {
+      if (err instanceof CanceledError) {
+        return
+      }
+    }
+    setIsLoaded(true)
+    setIsLoading(false)
   }
   useEffect(() => {
 
   }, [])
-
+  const reFetch = () => {
+    setPage(1)
+    setData({data: [], total: 0})
+    setIsLoaded(false)
+    fetch({page: 1})
+  }
   const value: IState = {
     ...defaultValue,
     isLoaded,
@@ -75,19 +98,11 @@ export function SaleRequestListFromSellerWrapper(props: Props) {
     setFilter: async (data) => {
       filterRef.current = data
       setFilter(data)
-      setIsLoading(true)
-      setPage(1)
-      await fetch({ page: 1 })
-      setIsLoading(false)
+      reFetch()
     },
-    reFetch: () => {
-      setPage(1)
-      setData({data: [], total: 0})
-      setIsLoaded(false)
-      fetch({page: 1})
-    },
+    reFetch,
     fetchMore: () => {
-      setPage(i => i+1)
+      setPage(i => i + 1)
       fetch({page: page + 1})
     }
   }

@@ -1,9 +1,9 @@
-import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
+import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import styles from './index.module.scss'
-import { format } from 'date-fns'
+import {format} from 'date-fns'
 import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
-import { colors } from '@/styles/variables'
+import {colors} from '@/styles/variables'
 import JumetSvg from '@/components/svg/JumetSvg'
 import Formatter from '@/utils/formatter'
 import {Routes} from '@/types/routes'
@@ -13,6 +13,10 @@ import WeightUtils from '@/utils/WeightUtils'
 import ChatSvg from '@/components/svg/ChatSvg'
 import StatusBadge from '@/components/ui/StatusBadge'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
+import Image from 'next/image'
+import ImageHelper from '@/utils/ImageHelper'
+import {Preset} from '@/types/enums'
+
 interface Props {
   item: ISaleRequest
   number?: number
@@ -120,7 +124,11 @@ const MySaleRequestCardInner = (props: Props) => {
         </div>
       </div>
       <div className={styles.right}>
-        <JumetSvg color={colors.white} />
+        {(item.photos?.length ?? 0) > 0 ?
+          <Image src={ImageHelper.urlFromFile(item.photos[0], Preset.mdCrop)} alt='' fill unoptimized />
+          :
+          <JumetSvg color={colors.white} />
+        }
       </div>
     </div>
   )

@@ -7,21 +7,32 @@ $height: 77px;
   position: relative;
   display: flex;
   align-items: center;
-  &.vertical{
-    flex-direction: column;
-  }
+  flex-direction: row;
+  @include list(12px, true);
 }
-.info{
+.center{
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  flex: 1;
+  @include list(4px);
+}
+.left{
   flex: 1;
   display: flex;
   flex-direction: row;
-  .text{
-
-    padding-left: 14px;
-    font-weight: 500;
-    flex: 1;
-    padding-right: 10px;
-  }
+  align-items: center;
+  @include list(12px, true);
+}
+.info{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  @include list(8px, true);
+}
+.name{
+  font-weight: 400;
+  font-size: 14px;
 }
 .button{
   display: flex;
@@ -33,12 +44,14 @@ $height: 77px;
   &:hover{
     svg{
       path{
-        fill: $blue500;
+        fill: $red500;
       }
     }
   }
 }
-
+.progress{
+  margin-bottom: -16px;
+}
 .error{
   font-size: 11px;
   margin-top: 4px;

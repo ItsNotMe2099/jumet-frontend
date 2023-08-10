@@ -67,9 +67,11 @@ export function DealOfferWrapper(props: Props) {
     return res
   }
   useEffect(() => {
-    setLoading(true)
-    fetch().then((i) => setLoading(false))
-  }, [props.dealOfferId])
+    if (!props.dealOffer && props.dealOfferId) {
+      setLoading(true)
+      fetch().then((i) => setLoading(false))
+    }
+  }, [props.dealOfferId, props.dealOffer])
   const handleUpdate = (entity: IDealOffer) => {
     appContext.dealOfferUpdateState$.next(entity)
   }

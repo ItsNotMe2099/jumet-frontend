@@ -1,0 +1,30 @@
+@import "styles/index";
+
+.root{}
+
+.hint{
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background: $white;
+  border-radius: 5px;
+  padding: 5px 10px;
+  pointer-events: none;
+  @media (max-width: $xs-max) {
+    display: none;
+  }
+  &.prev{
+    left: 25px;
+    text-align: left;
+  }
+  &.next{
+    right: 25px;
+    text-align: right;
+  }
+}
+
+.icon{
+  &.prev{
+    transform: rotate(180deg);
+  }
+}

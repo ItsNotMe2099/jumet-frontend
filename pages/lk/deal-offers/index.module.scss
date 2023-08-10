@@ -15,6 +15,10 @@
         flex-direction: column;
         @include list(12px, false);
     }
+  margin-bottom: 32px;
+  @include mq($PhoneWidth, max) {
+    margin-bottom: 16px;
+  }
 }
 
 .title {
@@ -23,6 +27,7 @@
     @include mq($TabletWidth, max) {
         align-self: flex-start;
     }
+  
 }
 
 .switch {

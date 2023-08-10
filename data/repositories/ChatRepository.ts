@@ -4,7 +4,7 @@ import {IPagination} from 'types/types'
 import {AxiosRequestConfig} from 'axios'
 
 export default class ChatRepository {
-  static async fetchAll(page: number = 1, limit: number = 30, search?: string,  config?: AxiosRequestConfig): Promise<IPagination<IChat>> {
+  static async fetchAll(page: number = 1, limit: number = 30, search?: string, config?: AxiosRequestConfig): Promise<IPagination<IChat>> {
     return request({
       url: '/api/chat',
       method: 'get',

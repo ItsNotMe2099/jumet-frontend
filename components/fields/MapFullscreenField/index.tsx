@@ -12,7 +12,7 @@ import YandexStaticMap from '@/components/ui/YandexStaticMap'
 interface Props  extends IField<ILocation | null>{
   className?: string
   address?: string
-  isMobile?: boolean
+  noMap?: boolean
 }
 
 export default function MapFullscreenField(props: Props) {
@@ -34,7 +34,7 @@ export default function MapFullscreenField(props: Props) {
     <div className={styles.root}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       <div className={styles.body}>
-        {field.value && <YandexStaticMap center={field.value} onClick={handleOpen}/>}
+        {field.value && !props.noMap && <YandexStaticMap center={field.value} onClick={handleOpen}/>}
         <LinkButton type='button' onClick={handleOpen}>{field.value ? 'Изменить' : 'Указать на карте'}</LinkButton>
       </div>
       <FieldError showError={showError}>{meta.error}</FieldError>

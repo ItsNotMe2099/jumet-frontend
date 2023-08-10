@@ -69,6 +69,7 @@ export const LkLayoutActionsData = (props: {   actions: ReactElement[]}) => {
   const lkLayoutContext = useLkLayoutContext()
   useEffect(() => {
     lkLayoutContext.setActions(props.actions)
+    return () =>  lkLayoutContext.setActions([])
   }, [props.actions])
 
   return null

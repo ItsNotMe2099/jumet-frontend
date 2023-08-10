@@ -1,4 +1,4 @@
-import { useEffect, useRef, useState } from 'react'
+import {forwardRef, useEffect, useImperativeHandle, useRef, useState} from 'react'
 import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import FilterSvg from '@/components/svg/FilterSvg'
@@ -10,20 +10,29 @@ import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
 import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
-import { IOption, ListViewType } from '@/types/types'
+import { ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
 import TabsField from '@/components/fields/TabsField'
 import { IReceivingPointSearchRequest } from '@/data/interfaces/IReceivingPointSearchRequest'
-import InputField from '@/components/fields/InputField'
 import { useAppContext } from '@/context/state'
 import { RemoveScroll } from 'react-remove-scroll'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
 import AddressField from '@/components/fields/AddressField'
+import {debounce} from 'debounce'
+import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
+import RadiusField from '@/components/fields/RadiusField'
+import {IAddress} from '@/data/interfaces/IAddress'
+import LocationSuggestionField from '@/components/fields/LocationSuggestionField'
+import {ILocation} from '@/data/interfaces/ILocation'
 
+export interface ReceivingPointFilterRef {
+  clear(): void
+}
 interface IFormData extends IReceivingPointSearchRequest {
   radiusCustom?: number | null
+  address?: string | null
 }
 
 interface Props {
@@ -31,8 +40,7 @@ interface Props {
   viewType: ListViewType
   onSetViewType: (viewType: ListViewType) => void
 }
-
-export default function MainFilter(props: Props) {
+const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, ref) => {
   const searchContext = useReceivingPointSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
@@ -40,10 +48,8 @@ export default function MainFilter(props: Props) {
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
-    location: {
-      lat: 56.795132,
-      lng: 40.1633231
-    },
+    location: null,
+    address: null,
     radius: null,
     radiusCustom: null,
     scrapMetalCategory: null,
@@ -58,16 +64,28 @@ export default function MainFilter(props: Props) {
     initialValues,
     onSubmit: handleSubmit
   })
+  useImperativeHandle(
+    ref,
+    () => ({
+      clear() {
+       formik.resetForm()
+      }
+    }),
+  )
   const handleToggleMobileFilter = () => {
     setIsOpenMobileFilter(!isOpenMobileFilter)
   }
+  const debouncedSetFilter = debounce((data: IFormData) => {
+    searchContext.setFilter(formik.values)
+  }, 400)
   useEffect(() => {
     if (!initValuesRef.current) {
       initValuesRef.current = true
       return
     }
-    searchContext.setFilter(formik.values)
+    debouncedSetFilter(formik.values)
   }, [formik.values])
+
   const viewTypeFilter = (<SwitchFilter<ViewType>
     active={searchContext.viewType}
     onClick={searchContext.setViewType}
@@ -85,13 +103,16 @@ export default function MainFilter(props: Props) {
       },
     ]}
   />)
-  const radiusTabs: IOption<number>[] = [
-    { label: '5 км', value: 5 },
-    { label: '10 км', value: 10 },
-    { label: '20 км', value: 20 },
-    { label: '50км', value: 50 },
-  ]
-
+  const handleChangeAddress = (address: IAddress | string | null) => {
+    if( typeof address !== 'string' && address?.location) {
+      formik.setFieldValue('location', address.location)
+    }
+  }
+  const handleChangeLocation = (location: ILocation | null) => {
+    if(location) {
+      formik.setFieldValue('address', null)
+    }
+  }
   return (
 
     <FormikProvider value={formik}>
@@ -108,23 +129,23 @@ export default function MainFilter(props: Props) {
 
               <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
                 <AddressField
+                  onChange={handleChangeAddress}
+                  resettable={true}
                   name={'address'}
                   placeholder='Город, улица, дом'
                 />
+                {(!!formik.values?.address || !!formik.values?.location) ?  <LocationSuggestionField label={'Координаты'} name={'location'} resettable onChange={handleChangeLocation}/> : null}
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>
-                <TabsField<number> options={radiusTabs} name={'radius'} />
-                <InputField
-                  placeholder='Свой радиус поиска'
-                  label='км'
-                  name={'radiusCustom'} />
+                <RadiusField name={'radius'}/>
               </FilterComponent>
               <FilterComponent title='Категория лома'>
                 <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
                   name={'scrapMetalCategory'} />
               </FilterComponent>
               <FilterComponent title='Вес лома'>
-                <InputField
+                <WeightWithUnitField
+                  resettable={true}
                   placeholder='Вес'
                   name={'weight'} />
               </FilterComponent>
@@ -135,7 +156,7 @@ export default function MainFilter(props: Props) {
                 </div>
               </FilterComponent>
               <FilterComponent title='Режим работы'>
-                <TabsField<string> options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
+                <TabsField<string> resettable={true} options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
                   name={'openType'} />
               </FilterComponent>
 
@@ -145,4 +166,5 @@ export default function MainFilter(props: Props) {
       </Form>
     </FormikProvider>
   )
-}
+})
+export default ReceivingPointFilter

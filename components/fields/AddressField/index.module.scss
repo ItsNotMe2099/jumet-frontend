@@ -12,7 +12,33 @@
 .input{
   @include input;
   @include inputWrapper;
+  &.withReset{
+    padding-right: 40px;
+  }
 }
+.inputWrapper{
+  position: relative;
+}
+
+
+.clear{
+  position: absolute;
+  top: 0px;
+  bottom: 0px;
+  right: 0px;
+  cursor: pointer;
+  padding-right: 16px;
+  padding-left: 12px;
+  display: flex;
+  align-items: center;
+  &.withSuffix{
+    padding-right: 8px;
+  }
+  .clearIcon{
+
+  }
+}
+
 .highlight{
   color: $blue500;
 }

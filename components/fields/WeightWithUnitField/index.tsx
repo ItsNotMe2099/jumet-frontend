@@ -31,7 +31,7 @@ export default function WeightWithUnitField(props: Props) {
 
 
   }
-  const dropDown = (<DropdownMenu<UnitWeight> options={options} value={unit} onSelect={handleChangeUnits}
+  const dropDown = (<DropdownMenu<UnitWeight> valueWrapperClassName={styles.dropDownValueWrapper} options={options} value={unit} onSelect={handleChangeUnits}
                                               renderValue={(option, isActive) => <div className={styles.dropDownValue}>{option?.label}</div>}
                                     />)
 
@@ -59,6 +59,6 @@ export default function WeightWithUnitField(props: Props) {
     }
   }
     return (
-  <WeightField name='weight' label='Вес лома' formatValue={formatValue} parseValue={parseValue} suffix={dropDown} />)
+  <WeightField resettable={props.resettable ?? false} name={props.name} label={props.label ?? ''} formatValue={formatValue} parseValue={parseValue} suffix={dropDown} />)
 }
 

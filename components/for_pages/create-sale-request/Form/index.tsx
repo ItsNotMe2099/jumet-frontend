@@ -48,14 +48,14 @@ export default function CreateSalesRequestForm(props: Props) {
   const {loading, saleRequest} = props
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
 
-  const handleSubmit = async (data: any) => {
+  const handleSubmit = async (data: IFormData) => {
 
+    let newData = data
     if (data.scrapMetalCategory === ScrapMetalCategory.None) {
-      // Using object destructuring to create a copy of data without the scrapMetalCategory property
-      const {scrapMetalCategory, ...dataWithoutScrapMetalCategory} = data
-      data = dataWithoutScrapMetalCategory
     }
-    props.submit(data)
+    props.submit({...data,
+      photosIds: data.photos.map(i => i.id),
+      ...(data.scrapMetalCategory === ScrapMetalCategory.None ? {scrapMetalCategory: null} : {})} as DeepPartial<ISaleRequest>)
   }
 
   const initialValues: IFormData = {

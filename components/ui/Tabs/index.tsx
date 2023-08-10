@@ -13,18 +13,19 @@ interface Props<T> {
   onClick?: (value: T) => void
   value: T | T[]
   isMulti?: boolean
+  separatorStartValue?: T
 }
 
 function Tabs<T>(props: Props<T>){
   return (
     <div className={classNames(styles.root, {[styles.fluid]: props.fluid, [styles[props.styleType ?? 'default']]: true})}>
-      {props.options.map( i => <Tab
+      {props.options.map( i => <>{props.separatorStartValue && props.separatorStartValue === i.value && <div className={styles.separator}/>}<Tab
         styleType={props.styleType ?? 'default'}
         className={styles.tab}
         active={props.isMulti ? (props.value as T[])?.includes(i.value!) : i.value === props.value}
         text={`${i.label}`}
         key={`${i.value}`}
-        onClick={() => props.onClick?.(i.value!)}/>
+        onClick={() => props.onClick?.(i.value!)}/></>
       )}
       </div>
   )
