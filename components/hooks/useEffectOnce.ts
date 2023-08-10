@@ -1,6 +1,6 @@
-import {useEffect, useState} from 'react'
+import {EffectCallback, useEffect, useState} from 'react'
 
-export const useEffectOnce = ( effect )=> {
+export const useEffectOnce = ( effect: EffectCallback )=> {
   const [needToCall, setNeedToCall] = useState(false)
 
   useEffect(()=> {

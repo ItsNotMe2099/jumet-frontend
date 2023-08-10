@@ -8,6 +8,7 @@ import DealOfferRepository from '@/data/repositories/DealOfferRepository'
 import {IDealOfferListRequest} from '@/data/interfaces/IDealOfferListRequest'
 
 export interface IDealOfferFilter extends IDealOfferListRequest {
+
 }
 
 interface IState {

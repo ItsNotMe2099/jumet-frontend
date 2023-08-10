@@ -80,8 +80,7 @@ export function DealOfferListOwnerWrapper(props: Props) {
     try {
       const res = await DealOfferOwnerRepository.fetch({
         ...filterRef.current,
-        ...(props.saleRequestId ? {saleRequestId: props.saleRequestId} : {}),
-        limit: filterRef.current.limit ?? limit,
+       limit: filterRef.current.limit ?? limit,
         page
       }, {signal: abortControllerRef.current?.signal})
       setData(page > 1 ? (i) => ({total: res.total, data: [...i.data, ...res.data]}) : res)

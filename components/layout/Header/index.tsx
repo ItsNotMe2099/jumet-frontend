@@ -24,7 +24,7 @@ interface Props {
   restProps?: any
 }
 
-const MenuItem = (props: { link: string, label: string }) => {
+const MenuItem = (props: {  link: string, label: string }) => {
   const isActive = useIsActiveLink(props.link ?? '')
   return (<Link className={classNames(styles.link, {[styles.active]: isActive})} href={props.link}>
     {props.label}
@@ -75,7 +75,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
         </div>
         <div className={styles.middle}>
           {(appContext.isLogged ? menuAuth : menuNotAuth).map((i, index) =>
-            <MenuItem key={index} className={styles.link} link={i.link} label={i.label}/>
+            <MenuItem key={index} link={i.link} label={i.label}/>
           )}
         </div>
         <HiddenXs>

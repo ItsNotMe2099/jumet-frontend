@@ -86,7 +86,6 @@ export default function SliderOverlay(props: Props) {
           {props.images.map(item => (<SwiperSlide key={item.id} className={styles.slide} >
               <div className={'swiper-zoom-container'}>
                 <ImageFile
-                  pr
                   className={styles.image}
                   file={item}
                   preset={preset}

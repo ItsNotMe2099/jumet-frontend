@@ -1,5 +1,5 @@
 import styles from 'components/fields/Files/FileListField/index.module.scss'
-import {useEffect, useMemo, useRef, useState} from 'react'
+import {ReactElement, useEffect, useMemo, useRef, useState} from 'react'
 import IFile from 'data/interfaces/IFile'
 import FileRepository from 'data/repositories/FileRepository'
 import {FileUploadAcceptType, SnackbarType} from 'types/enums'
@@ -32,7 +32,7 @@ interface Props extends IField<IFile[] | null> {
   maxFiles?: number
   maxSize?: number
   labelLoading?: string
-  dropzoneTitle?: string
+  dropzoneTitle?: string | ReactElement
 }
 
 export default function FileListField(props: Props) {

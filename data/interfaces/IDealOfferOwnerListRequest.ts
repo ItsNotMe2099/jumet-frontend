@@ -5,5 +5,4 @@ export interface IDealOfferOwnerListRequest extends IPaginationRequest {
   receivingPointId?: number
   saleRequestId?: number
   statuses?: DealOfferStatus[]
-  new?: boolean
 }

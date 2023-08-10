@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import {
   IDealOfferFilter
-} from '@/context/deal_offers_list_owner_state'
+} from '@/context/deal_offers_list_state'
 import SaleRequestDetailsCard from '@/components/for_pages/LkPage/SaleRequest/SaleRequestDetailsCard'
 import Tabs from '@/components/ui/Tabs'
 import {useEffect, useMemo, useState} from 'react'
@@ -57,7 +57,7 @@ const SaleRequestPageInner = (props: Props) => {
       case TabKey.All:
         return {}
       case TabKey.New:
-        return {new: true}
+        return {new: 'true'}
       case TabKey.Rejected:
         return {statuses: [DealOfferStatus.Rejected]}
       case TabKey.Familiar:

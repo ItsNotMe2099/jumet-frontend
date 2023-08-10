@@ -134,7 +134,7 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
                   name={'address'}
                   placeholder='Город, улица, дом'
                 />
-                {(!!formik.values?.address || !!formik.values?.location) ?  <LocationSuggestionField label={'Координаты'} name={'location'} resettable onChange={handleChangeLocation}/> : null}
+                {(!!formik.values?.address || !!formik.values?.location) ?  <LocationSuggestionField label={'Координаты'} name={'location'} resettable onChange={handleChangeLocation}/> : <></>}
               </FilterComponent>
               <FilterComponent title='Радиус поиска пунктов приёма'>
                 <RadiusField name={'radius'}/>

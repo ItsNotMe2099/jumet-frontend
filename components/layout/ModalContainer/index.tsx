@@ -56,7 +56,7 @@ export default function ModalContainer(props: Props) {
           {appContext.modal === ModalType.UserForm && <UserFormModal isBottomSheet={false} />}
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.Gallery} {...commonSettings}>
-          {appContext.modal === ModalType.Gallery && <GalleryModal isBottomSheet={false} />}
+          {appContext.modal === ModalType.Gallery && <GalleryModal />}
         </Modal>
       </div>
     </RemoveScroll>
