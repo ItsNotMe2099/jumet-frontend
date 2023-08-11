@@ -1,3 +1,17 @@
 @import "styles/index";
 
-.root {}
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.donut {
+    margin-top: 12px;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

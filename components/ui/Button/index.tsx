@@ -24,6 +24,7 @@ export interface ButtonProps extends IButton {
   hover?: boolean
   stopPropagation?: boolean
   icon?: ReactElement
+  reverse?: boolean
 }
 
 export default function Button(props: ButtonProps) {
@@ -81,6 +82,7 @@ export default function Button(props: ButtonProps) {
       <span className={classNames({
         [styles.text]: true,
         [styles.textHidden]: props.spinner,
+        [styles.reverse]: props.reverse
       })}>{props.icon}{props.children}</span>
       <div className={classNames({
         [styles.spinner]: true,

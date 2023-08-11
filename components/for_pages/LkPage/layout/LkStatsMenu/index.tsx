@@ -32,11 +32,6 @@ export default function LkStatsMenu(props: Props) {
     { name: 'Клиенты', link: Routes.lkCrmClients },
   ]
 
-  const handleExit = () => {
-    setTimeout(() => appContext.logout(), 100)
-    router.push('/')
-  }
-
   const mobileItems = useMemo<IMenuItem<MenuItemType>[]>(() => {
     const initialPath = (router.asPath ?? '').replace('/', '') ?? ''
 
