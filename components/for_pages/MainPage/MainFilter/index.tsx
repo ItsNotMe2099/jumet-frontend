@@ -26,6 +26,7 @@ import RadiusField from '@/components/fields/RadiusField'
 import {IAddress} from '@/data/interfaces/IAddress'
 import LocationSuggestionField from '@/components/fields/LocationSuggestionField'
 import {ILocation} from '@/data/interfaces/ILocation'
+import {WorkTimeType} from '@/data/interfaces/WorkTimeType'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -55,7 +56,8 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     scrapMetalCategory: null,
     weight: null,
     hasDelivery: false,
-    hasLoading: false
+    hasLoading: false,
+    workTimeType: null
   }
   const handleSubmit = () => {
 
@@ -156,8 +158,8 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
                 </div>
               </FilterComponent>
               <FilterComponent title='Режим работы'>
-                <TabsField<string> resettable={true} options={[{ label: 'Открыто сейчас', value: 'now' }, { label: 'Круглосуточно', value: '24' }]}
-                  name={'openType'} />
+                <TabsField<WorkTimeType> resettable={true} options={[{ label: 'Открыто сейчас', value: WorkTimeType.Now }, { label: 'Круглосуточно', value: WorkTimeType.DayAndNight }]}
+                  name={'workTimeType'} />
               </FilterComponent>
 
             </div>

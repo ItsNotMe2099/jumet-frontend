@@ -3,6 +3,7 @@ import {IPagination} from 'types/types'
 import IReview from '@/data/interfaces/IReview'
 import ReviewRepository from '@/data/repositories/ReviewRepository'
 import {CanceledError} from 'axios'
+import {useAppContext} from '@/context/state'
 
 interface IState {
   data: IPagination<IReview>
@@ -10,6 +11,8 @@ interface IState {
   isLoading: boolean
   page: number
   setPage: (page: number) => void
+  reFetch: () => void
+  fetchMore: () => void
 }
 
 const defaultValue: IState = {
@@ -18,6 +21,8 @@ const defaultValue: IState = {
   isLoading: false,
   page: 1,
   setPage: (page: number) => null,
+  reFetch: () => null,
+  fetchMore: () => null,
 }
 
 const ReviewListContext = createContext<IState>(defaultValue)
@@ -29,6 +34,7 @@ interface Props {
 }
 
 export function ReviewListWrapper(props: Props) {
+  const appContext = useAppContext()
   const [data, setData] = useState<IPagination<IReview>>({data: [], total: 0})
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -51,6 +57,8 @@ export function ReviewListWrapper(props: Props) {
         page,
         limit
       }, {signal: abortControllerRef.current?.signal})
+      setData(page > 1 ? (i) => ({total: res.total, data: [...i.data, ...res.data]}) : res)
+
     } catch (err) {
       if (err instanceof CanceledError) {
         return
@@ -63,6 +71,17 @@ export function ReviewListWrapper(props: Props) {
   useEffect(() => {
     init()
   }, [props.receivingPointId])
+  useEffect(() => {
+
+    const subscriptionUpdate = appContext.reviewUpdateState$.subscribe((review) => {
+      if(data.data.find(i => i.id === review.id)){
+        setData((i) => ({...i, data: i.data.map((i) => i.id === review.id ? {...i, ...review} : i)}))
+      }
+    })
+    return () => {
+      subscriptionUpdate.unsubscribe()
+    }
+  }, [data])
   const reFetch = () => {
     setPage(1)
     setData({data: [], total: 0})
@@ -78,6 +97,11 @@ export function ReviewListWrapper(props: Props) {
     setPage: (page) => {
       setPage(page)
       fetch({page})
+    },
+    reFetch,
+    fetchMore: () => {
+      setPage(i => i + 1)
+      fetch({page: page + 1})
     },
   }
 

@@ -1,0 +1,21 @@
+@import "styles/index";
+.root{
+ @include card;
+  display: flex;
+  flex-direction: column;
+ @include list(24px)
+}
+
+.title {
+  @include h2;
+}
+.wrapper{
+  display: flex;
+  flex-direction: row;
+}
+.content{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+  flex-basis: 484px;
+}

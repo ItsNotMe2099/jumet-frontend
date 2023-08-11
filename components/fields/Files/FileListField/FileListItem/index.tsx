@@ -12,7 +12,6 @@ interface Props {
   value?: IFile
   previewName?: string
   previewPath?: string
-  vertical?: boolean
   progress: number
   error?: string
   labelLoading?: string

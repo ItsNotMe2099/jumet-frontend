@@ -17,5 +17,5 @@ export interface IDealOffer {
   rubbishInPercents: number | null
   manager?: IUser
   ownerId?: string
-  createdAt?: string
+  createdAt: string
 }

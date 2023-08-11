@@ -1,7 +1,7 @@
 import {IPassportData} from '@/data/interfaces/IPassportData'
 
 export interface IRepresentative{
-  id?: string;
+  id: string;
   firstName: string | null,
   lastName: string | null,
   patronymic: string | null,

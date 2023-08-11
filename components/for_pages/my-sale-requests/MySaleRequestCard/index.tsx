@@ -16,7 +16,21 @@ import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import Image from 'next/image'
 import ImageHelper from '@/utils/ImageHelper'
 import {Preset} from '@/types/enums'
-
+import {IOption} from '@/types/types'
+import {ReactElement} from 'react'
+interface FieldProps{
+  item: IOption<number | string | ReactElement>
+}
+function Field(props: FieldProps) {
+  return (<div className={styles.item}>
+    <div className={styles.top}>
+      {props.item.label}
+    </div>
+    <div className={styles.bottom}>
+      {props.item.value}
+    </div>
+  </div>)
+}
 interface Props {
   item: ISaleRequest
   number?: number
@@ -27,6 +41,14 @@ const MySaleRequestCardInner = (props: Props) => {
   const {  number } = props
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const item = saleRequestOwnerContext.saleRequest!
+  const options: IOption<string>[] = [
+    {label: 'Примерный вес' , value: `${item.weight} ${Formatter.pluralize(item.weight, 'тонны', 'тонн', 'тонн')}`},
+    {label: 'Цена' , value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
+    {label: 'Категория лома' , value: item.scrapMetalCategory ?? '-'},
+    {label: 'Доставка' , value: item.requiresDelivery ? 'Нужна доставка' : '-' },
+    {label: 'Погрузка' , value: item.requiresDelivery ? 'Нужна погрузка' : '-'},
+    {label: 'Дата создания' , value: format(new Date(item.createdAt), 'dd.MM.yyyy г.')}
+  ]
   return (
     <div className={styles.root}>
       <div className={styles.left}>
@@ -48,56 +70,10 @@ const MySaleRequestCardInner = (props: Props) => {
         <div className={styles.middle}>
           <div className={styles.info}>
             <div className={styles.first}>
-              <div className={styles.item}>
-                <div className={styles.top}>
-                  {item.weight ?  `${WeightUtils.formatWeight(item.weight)}` : 'Не указан'}
-                </div>
-                <div className={styles.bottom}>
-                  Примерный вес
-                </div>
-              </div>
-              <div className={styles.item}>
-                <div className={styles.top}>
-                  {item.price ? Formatter.formatPrice(item.price) : <>Не указана</>}
-                </div>
-                <div className={styles.bottom}>
-                  Цена
-                </div>
-              </div>
-              <div className={styles.item}>
-                <div className={styles.top}>
-                  {item.scrapMetalCategory ? item.scrapMetalCategory : 'не указан'}
-                </div>
-                <div className={styles.bottom}>
-                  Категория лома
-                </div>
-              </div>
+              {[...options].slice(0, 3).map((i, index) => <Field key={index} item={i}/>)}
             </div>
             <div className={styles.second}>
-              {item.requiresDelivery && <div className={styles.item}>
-                <div className={styles.top}>
-                  Нужна доставка
-                </div>
-                <div className={styles.bottom}>
-                  Доставка
-                </div>
-              </div>}
-              {item.requiresLoading && <div className={styles.item}>
-                <div className={styles.top}>
-                  Нужна погрузка
-                </div>
-                <div className={styles.bottom}>
-                  Погрузка
-                </div>
-              </div>}
-              <div className={styles.item}>
-                <div className={styles.top}>
-                  {format(new Date(item.createdAt), 'dd.MM.yyyy')}
-                </div>
-                <div className={styles.bottom}>
-                  Дата создания
-                </div>
-              </div>
+              {[...options].slice(-3).map((i, index) => <Field key={index} item={i}/>)}
             </div>
           </div>
           {props.mode === 'seller' && <div className={styles.controls}>

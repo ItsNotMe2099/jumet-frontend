@@ -16,14 +16,14 @@ interface Props<T> extends IField<T> {
 
 export default function RadioField<T>(props: Props<T>) {
   const { options, label, disabled } = props
-  const [field, meta, helpers] = useField(props.name)
+  const [field, meta, helpers] = useField(props as any)
   const { value } = field
   const showError = meta.touched && !!meta.error
-
   const handleCheckboxChanged = (value: T | undefined) => {
     if (disabled) {
       return
     }
+    helpers.setTouched(true)
     helpers.setValue(value)
   }
 

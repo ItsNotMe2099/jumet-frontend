@@ -21,8 +21,8 @@ const SaleRequestDealOfferCardInner = (props: Props) => {
   const formatDate = dealOfferContext.dealOffer?.createdAt ? Formatter.formatDateRelative(dealOfferContext.dealOffer?.createdAt!) : null
 
   const badges = [
-  ...(dealOffer.price  ? [{ text: dealOffer.price ? Formatter.formatDeliveryPrice(dealOffer.price) : '-' }] : []),
-    { text: `Доставка – ${dealOffer.deliveryPrice ? Formatter.formatPrice(dealOffer.deliveryPrice) : 'бесплатно'}` },
+  ...(dealOffer.price  ? [{ text: dealOffer.price ? Formatter.formatPrice(dealOffer.price, '₽/т') : '-' }] : []),
+    { text: `Доставка – ${dealOffer.deliveryPrice ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : 'бесплатно'}` },
     { text: `Погрузка – ${dealOffer.loadingPrice ? Formatter.formatPrice(dealOffer.loadingPrice) : 'бесплатно'}` }
   ]
 

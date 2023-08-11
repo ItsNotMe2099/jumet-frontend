@@ -1,0 +1,65 @@
+@import "styles/index";
+
+.root {
+   @include card;
+    display: flex;
+  flex-direction: column;
+
+  @include list(16px);
+}
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}
+
+.title {
+    @include h2;
+    color: $text;
+}
+
+.center {
+    display: flex;
+  flex-direction: row;
+
+  @include mq(1150px, max) {
+    @include list(16px, true);
+  }
+
+  @include mq(1024px, max) {
+    flex-direction: column;
+    @include list(16px, false);
+  }
+}
+.column{
+  flex: 1;
+  display: flex;
+  flex-direction: row;
+
+  @include list(12px, true);
+  .field{
+    flex: 1;
+  }
+}
+.field {
+  display: flex;
+  flex-direction: column;
+  @include list(4px, false);
+
+  .label {
+
+    @include secondaryText;
+    color: $grey500;
+  }
+
+  .value {
+    @include btnText;
+    color: $dark500;
+  }
+}
+
+
+
+

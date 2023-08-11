@@ -1,5 +1,5 @@
-import styles from 'components/for_pages/LkPage/ReceivingPoint/Cards/ReviewsCard/index.module.scss'
-import ReviewCard from 'components/for_pages/Common/ReviewCard'
+import styles from './index.module.scss'
+import ReviewCard from 'components/for_pages/Common/Cards/ReviewCard'
 import {ReviewListWrapper, useReviewListContext} from '@/context/reviews_list_state'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointViewCard from '@/components/for_pages/ReceivingPoint/ReceivingPointViewCard'

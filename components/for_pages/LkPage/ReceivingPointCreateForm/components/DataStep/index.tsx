@@ -88,7 +88,6 @@ export default function DataStep(props: Props) {
           accept={[FileUploadAcceptType.Image, FileUploadAcceptType.Document]}
           label='Лицензия ломозаготовителя*'
           validate={Validator.required}
-          vertical
           isImage={true}
           text={<div className={styles.text}>Перетащите сюда или <span>выберите фото</span> лицензии<br />
             ломозаготовителя на своем устройстве</div>}

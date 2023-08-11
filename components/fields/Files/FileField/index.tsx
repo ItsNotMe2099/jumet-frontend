@@ -14,7 +14,6 @@ import FileUploadDropzone from '@/components/fields/Files/components/FileUploadD
 import FileListItem from '@/components/fields/Files/FileListField/FileListItem'
 
 interface Props extends IField<IFile | null> {
-  vertical: boolean
   isImage?: boolean
   labelLoading?: string
   labelExist?: string
@@ -129,7 +128,6 @@ export default function FileField(props: Props) {
           previewName={previewName}
           previewPath={previewPath}
           progress={progress}
-          vertical={props.vertical}
           onCancel={handleCancel}
           onDelete={handleDelete}
           error={error}/>}

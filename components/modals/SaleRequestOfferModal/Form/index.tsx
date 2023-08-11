@@ -149,7 +149,6 @@ export default function SaleRequestOfferForm(props: Props) {
           name='photos'
           label='Фотографии лома'
           accept={[FileUploadAcceptType.Image]}
-          vertical
           isImage
         />
         <div className={styles.section}>

@@ -34,6 +34,7 @@ export default function ProfileSellerForm(props: Props) {
     setLoading(true)
     try {
       const res = await CurrentUserRepository.update(omit(data, ['phone']))
+      appContext.updateAboutMe(res)
       appContext.showSnackbar('Изменения сохранены', SnackbarType.success)
 
     } catch (err) {
@@ -80,8 +81,7 @@ export default function ProfileSellerForm(props: Props) {
           validate={Validator.required} />
         <InputField
           name='patronymic'
-          label='Ваше отчество'
-          validate={Validator.required} />
+          label='Ваше отчество' />
         <LinkButton className={styles.changePassword} onClick={()=> appContext.showModal(ModalType.PasswordChange)}>Изменить пароль</LinkButton>
         <Button disabled={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
           Сохранить

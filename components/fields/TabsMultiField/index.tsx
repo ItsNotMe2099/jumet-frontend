@@ -19,7 +19,7 @@ interface Props<T> extends IField<T> {
 
 function TabsMultiField<T>(props: Props<T>){
 
-  const [field, meta, helpers] = useField(props.name)
+  const [field, meta, helpers] = useField(props as any)
 
   const handleChange = (value: T) => {
     props.onChange?.(value)

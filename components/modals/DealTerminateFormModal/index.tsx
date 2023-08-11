@@ -33,8 +33,10 @@ const DealTerminateFormModalInner = (props: Props) => {
     switch (appContext.aboutMe?.role){
       case UserRole.Buyer:
         await dealContext.terminateByBuyerRequest(data as IDealTermByBuyerStepRequest)
+        break
       case UserRole.Seller:
         await dealContext.terminateBySellerRequest(data)
+        break
     }
     appContext.hideModal()
   }
@@ -52,11 +54,11 @@ const DealTerminateFormModalInner = (props: Props) => {
         {args.text && <div className={styles.text}>{args.text ?? ''}</div>}
         <SelectField<TerminateReasonType>
           options={[
-            {value: TerminateReasonType.NotDelivered, label: DealUtils.getTerminateReasonType(TerminateReasonType.NotDelivered)},
-            {value: TerminateReasonType.PriceChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.PriceChanged)},
-            {value: TerminateReasonType.RubbishChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.RubbishChanged)},
-            {value: TerminateReasonType.PhotoDifference, label: DealUtils.getTerminateReasonType(TerminateReasonType.PhotoDifference)},
-            {value: TerminateReasonType.LocationChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.LocationChanged)},
+            {value: TerminateReasonType.NotDelivered, label: DealUtils.getTerminateReasonType(TerminateReasonType.NotDelivered).name},
+            {value: TerminateReasonType.PriceChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.PriceChanged).name},
+            {value: TerminateReasonType.RubbishChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.RubbishChanged).name},
+            {value: TerminateReasonType.PhotoDifference, label: DealUtils.getTerminateReasonType(TerminateReasonType.PhotoDifference).name},
+            {value: TerminateReasonType.LocationChanged, label: DealUtils.getTerminateReasonType(TerminateReasonType.LocationChanged).name},
            ]}
           label={'Выберите причину расторжения'}
           name={'terminateReasonType'}
@@ -67,7 +69,7 @@ const DealTerminateFormModalInner = (props: Props) => {
             Закрыть окно
           </Button>
           <Button  type={'submit'} className={classNames(styles.confirmButton, {[styles.red]: true})}  styleType={'large'} color='grey' fluid>
-            Да рас
+            Да расторгнуть
           </Button>
         </div>
       </Form>
@@ -93,6 +95,6 @@ export function DealTerminateFormModal(props: Props) {
 
 
   return <DealWrapper dealId={args.deal.id} deal={args.deal}>
-
+      <DealTerminateFormModalInner/>
   </DealWrapper>
 }

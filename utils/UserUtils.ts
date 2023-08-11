@@ -1,8 +1,9 @@
 import IUser from '@/data/interfaces/IUser'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
+import {IRepresentative} from '@/data/interfaces/IRepresentative'
 
 export default class UserUtils {
-  static getName(user: IUser | null): string {
+  static getName(user: IUser | null | IRepresentative): string {
     if (!user) {
       return ''
     }

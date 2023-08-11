@@ -1,0 +1,22 @@
+@import "styles/index";
+.root{
+  display: flex;
+  flex-direction: column;
+  @include list(12px)
+}
+.title {
+    @include h1;
+}
+
+.indicator {
+    margin: 0 !important;
+    margin-top: 24px !important;
+}
+
+.info {
+    margin-top: 12px;
+}
+
+.line {
+
+}

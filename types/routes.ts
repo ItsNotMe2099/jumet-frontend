@@ -39,12 +39,14 @@ export class Routes {
     return `/sale-requests/${id}`
   }
 
-  static dealEditStep(id: string | number, step: string) {
-    return `/deal-edit/${id}/${step}`
-  }
-
   static get lk() {
     return '/lk'
+  }
+  static get lkDeals() {
+    return '/lk/deals'
+  }
+  static lkDeal(id: string | number) {
+    return `/lk/deals/${id}`
   }
   static lkChat(id?: number | null) {
     return `/lk/chat${id ? `?chatId=${id}` : ''}`
@@ -106,10 +108,6 @@ export class Routes {
 
   static get lkPayment() {
     return '/lk/payment'
-  }
-
-  static get lkDeals() {
-    return '/lk/deals'
   }
 
   static get lkDealOffers() {

@@ -6,9 +6,14 @@ import {IAddress} from '@/data/interfaces/IAddress'
 import {DealPaymentType} from '@/data/enum/DealPaymentType'
 import {TerminateReasonType} from '@/data/enum/TerminateReasonType'
 import IFile from '@/data/interfaces/IFile'
+import {DealStatus} from '@/data/enum/DealStatus'
+import IReview from '@/data/interfaces/IReview'
+import {Nullable} from '@/types/types'
+import {ILocation} from '@/data/interfaces/ILocation'
 
 export interface IDeal {
   id: number
+  status: DealStatus
   receivingPoint: IReceivingPoint
   receivingPointId: number | null
   seller: IUser
@@ -24,7 +29,11 @@ export interface IDeal {
   owner?: IUser
   ownerId?: string
   requiresDelivery: boolean
+  requiresLoading: boolean
+  deliveryPrice: number
+  loadingPrice: number
   address: IAddress
+  location: ILocation
   deliveryDate: string
   deliveryTimeFrom: string
   deliveryTimeTo: string
@@ -39,11 +48,12 @@ export interface IDeal {
   paymentReceipt: IFile;
   paymentReceiptId: number;
   terminateReasonType?: TerminateReasonType;
-  setUpAt?: string;
-  weighingAt?: string;
-  terminatedBySellerAt?: string;
-  terminatedByBuyerAt?: string;
-  weighingAcceptedAt?: string;
-  paidAt?: string;
+  setUpAt: Nullable<string>;
+  weighingAt: Nullable<string>;
+  terminatedBySellerAt?: Nullable<string>;
+  terminatedByBuyerAt?: Nullable<string>;
+  weighingAcceptedAt?: Nullable<string>;
+  review?: IReview
+  paidAt: Nullable<string>;
   createdAt?: string
 }

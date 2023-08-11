@@ -99,8 +99,7 @@ export default function RepresentativeForm(props: Props) {
           <Spacer basis={12} />
           <InputField
             name='patronymic'
-            placeholder='Отчество'
-            validate={Validator.required} />
+            placeholder='Отчество'/>
           <Spacer basis={16} />
           <div className={styles.heading}>Паспортные данные (необходимы для оформления приёмо-сдаточного акта)*</div>
           <Spacer basis={8} />

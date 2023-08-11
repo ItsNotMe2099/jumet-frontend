@@ -29,7 +29,7 @@
   margin-bottom: 12px;
   @include btnText;
   &.hasError{
-    color: red;
+    color: $red500;
   }
 
 }

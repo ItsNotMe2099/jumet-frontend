@@ -68,14 +68,15 @@ export default class DealRepository {
   static async weighingAccept(id: number): Promise<IDeal> {
     const res = await request<IDeal>({
       method: 'post',
-      url: `/api/deal/${id}/weighing`,
+      url: `/api/deal/${id}/weighingAccept`,
     })
     return res
   }
   static async pay(id: number, data: IDealPayStepRequest): Promise<IDeal> {
     const res = await request<IDeal>({
       method: 'post',
-      url: `/api/deal/${id}/weighing`,
+      url: `/api/deal/${id}/pay`,
+      data,
     })
     return res
   }

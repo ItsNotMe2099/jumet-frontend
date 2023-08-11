@@ -55,13 +55,11 @@ const LkDealOffersPageInner = (props: Props) => {
       case TabKey.All:
         return []
       case TabKey.Applied:
-
         return [DealOfferStatus.Applied]
+      case TabKey.Accepted:
+        return [DealOfferStatus.Accepted]
       case TabKey.Rejected:
         return [DealOfferStatus.Rejected]
-      case TabKey.Accepted:
-
-        return [DealOfferStatus.Accepted]
       default:
         return []
 
@@ -95,8 +93,8 @@ const LkDealOffersPageInner = (props: Props) => {
   ]
   const tabs: IOption<TabKey>[] = [
     {label: 'Все предложения', value: TabKey.All},
-    {label: 'На рассмотрении', value: TabKey.Accepted},
-    {label: 'Принятые', value: TabKey.Applied},
+    {label: 'На рассмотрении', value: TabKey.Applied},
+    {label: 'Принятые', value: TabKey.Accepted},
     {label: 'Отклоненные', value: TabKey.Rejected},
     {label: 'Прямые предложения от продавцов', value: TabKey.FromSellers},
   ]
@@ -108,6 +106,11 @@ const LkDealOffersPageInner = (props: Props) => {
           title: 'Пока нет предложений',
           text: 'Здесь будут появляется предложения, которые вы сделали продавцам',
         }
+      case TabKey.Applied:
+        return {
+          title: 'Пока нет предложений на рассмотрении',
+          text: 'Здесь будут появляется предложения на рассмотренни продавцами, которые вы сделали продавцам',
+        }
       case TabKey.Accepted:
         return {
           title: 'Пока нет принятых предложений',
@@ -117,11 +120,6 @@ const LkDealOffersPageInner = (props: Props) => {
         return {
           title: 'Пока нет отклоненных предложений',
           text: 'Здесь будут появляется отклоненные продавцами предложения, которые вы сделали продавцам',
-        }
-      case TabKey.Applied:
-        return {
-          title: 'Пока нет предложений на рассмотрении',
-          text: 'Здесь будут появляется предложения на рассмотренни продавцами, которые вы сделали продавцам',
         }
       case TabKey.FromSellers:
         return {

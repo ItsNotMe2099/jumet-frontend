@@ -39,7 +39,6 @@ export default function PassportFormSection(props: Props) {
         name='passport.scan'
         accept={[FileUploadAcceptType.Image]}
         validate={Validator.required}
-        vertical
         text={<div>Перетащите сюда или <span>выберите фото</span><br />
           страницы паспорта с фотографией</div>}
       />

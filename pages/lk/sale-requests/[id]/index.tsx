@@ -89,7 +89,7 @@ const SaleRequestPageInner = (props: Props) => {
       case TabKey.All:
         return {
           title: 'Пока нет предложений',
-          text: 'Здесь будут появляется все предложения, которые вам сделалают покупатели',
+          text: 'Здесь будут появляется все предложения, которые вам сделают покупатели',
         }
       case TabKey.New:
         return {

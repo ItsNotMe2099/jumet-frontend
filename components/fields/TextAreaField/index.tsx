@@ -40,7 +40,6 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
   const [hoverRef, press, hover] = usePressAndHover()
   const [focused, setFocused] = useState(false)
   const showError = meta.touched && !!meta.error
-
   const textAreaRef = useRef<HTMLTextAreaElement | null>(null)
   const combinedRefs = useCombinedRefs(textAreaRef, ref)
   const [showEmojiPicker, setShowEmojiPicker] = useState(false)
@@ -57,6 +56,7 @@ const TextAreaField = forwardRef<HTMLTextAreaElement, Props>((props, ref) => {
         minRows={props.minRows ?? 4}
         onFocus={() => {
           setFocused(true)
+          helpers.setTouched(true)
         }}
 
         onBlur={() => {

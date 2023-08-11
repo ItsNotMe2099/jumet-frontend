@@ -88,7 +88,7 @@ export function ChatDialogWrapper(props: Props) {
         setChat(_chat)
         if(_chat?.messages) {
           processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
-        }else{
+        }else if(_chat){
           await loadMessages()
         }
       }else {

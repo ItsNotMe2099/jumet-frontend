@@ -4,6 +4,13 @@ import {IRepresentative} from '@/data/interfaces/IRepresentative'
 
 export default class RepresentativeRepository {
 
+  static async fetch(): Promise<IRepresentative[]> {
+    const res = await request<IRepresentative[]>({
+      method: 'get',
+      url: '/api/representative'
+    })
+    return res
+  }
   static async create(data: DeepPartial<IRepresentative>): Promise<IRepresentative> {
     const res = await request<IRepresentative>({
       method: 'post',

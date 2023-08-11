@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {
+    padding: 8px 20px;
+    border-radius: 12px;
+    display: flex;
+    @include list(12px, true);
+
+  &.attention{
+    background-color: $yellow300;
+  }
+  &.success{
+    background-color: $green300;
+  }
+  &.danger {
+    background-color: $red300;
+  }
+}
+
+.wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.title {
+    color: $dark500;
+    @include h3;
+}
+
+.text {
+    color: $dark500;
+    @include mainText;
+}
+

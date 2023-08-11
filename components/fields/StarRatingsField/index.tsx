@@ -15,6 +15,9 @@ export default function StarRatingsField(props: Props) {
   const showError = meta.touched && !!meta.error
 
   const onStarClick = (nextValue: number) => {
+    if(props.disabled){
+      return
+    }
     helpers.setValue(nextValue)
   }
 
@@ -38,8 +41,3 @@ export default function StarRatingsField(props: Props) {
     </div >
   )
 }
-
-StarRatingsField.defaultProps = {
-
-}
-

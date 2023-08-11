@@ -1,11 +1,11 @@
 import request from 'utils/request'
-import {ISendCodeResponse} from '@/data/interfaces/ISendCodeResponse'
 import {ICurrentUserUpdateRequest} from '@/data/interfaces/ICurrentUserUpdateRequest'
+import IUser from '@/data/interfaces/IUser'
 
 export default class CurrentUserRepository {
 
-  static async update(data: ICurrentUserUpdateRequest): Promise<ISendCodeResponse> {
-    const res = await request<ISendCodeResponse>({
+  static async update(data: ICurrentUserUpdateRequest): Promise<IUser> {
+    const res = await request<IUser>({
       method: 'put',
       url: '/api/current-user',
       data,

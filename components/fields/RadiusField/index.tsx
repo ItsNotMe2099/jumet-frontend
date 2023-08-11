@@ -21,7 +21,7 @@ interface Props<T> extends IField<T> {
 
 export default function RadiusField<T>(props: Props<T>) {
 
-  const [field, meta, helpers] = useField(props.name)
+  const [field, meta, helpers] = useField(props as any)
   const showError = meta.touched && !!meta.error
   const[ lastInput, setLastInput ] = useState<'tabs' | 'custom'>('tabs')
    const options: IOption<number>[] = [

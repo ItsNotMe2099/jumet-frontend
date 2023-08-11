@@ -93,13 +93,13 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
           </div>
           <div className={styles.info}>
             <div className={styles.badge}>
-              {dealOffer?.price ? `${Formatter.formatPrice(dealOffer.price)}` : 'Цена не указана'}
+              {dealOffer?.price ? `${Formatter.formatPrice(dealOffer.price, '₽/т')}` : 'Цена не указана'}
             </div>
             <div className={styles.badge}>
-              Доставка - {dealOffer?.deliveryPrice ? `${Formatter.formatPrice(dealOffer?.deliveryPrice)}` : 'бесплатно'}
+              Доставка - {dealOffer?.deliveryPrice ? `${Formatter.formatPrice(dealOffer?.deliveryPrice, '₽/т')}` : 'бесплатно'}
             </div>
             <div className={styles.badge}>
-              Погрузка - {dealOffer?.loadingPrice ? `${Formatter.formatPrice(dealOffer?.loadingPrice)}` : 'бесплатно'}
+              Погрузка - {dealOffer?.loadingPrice ? `${Formatter.formatPrice(dealOffer?.loadingPrice, '₽/т')}` : 'бесплатно'}
             </div>
           </div>
           <div className={styles.cover}>

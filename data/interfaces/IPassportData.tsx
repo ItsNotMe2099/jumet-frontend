@@ -1,12 +1,13 @@
 import IFile from '@/data/interfaces/IFile'
+import {Nullable} from '@/types/types'
 
 export interface IPassportData{
-  id?: number;
-  address?: string | null;
-  series?: string | null;
-  number?: string | null;
-  date?: string | null;
-  issuedBy?: string | null;
-  scan?: IFile | null;
-  scanId?: number | null;
+  id?: Nullable<number>;
+  address?: Nullable<string>;
+  series?: Nullable<string>;
+  number?: Nullable<string>;
+  date?: Nullable<string>;
+  issuedBy?: Nullable<string>;
+  scan?: Nullable<IFile | null>;
+  scanId?: Nullable<number | null>;
 }

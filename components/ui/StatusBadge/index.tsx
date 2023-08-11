@@ -1,9 +1,9 @@
 import styles from './index.module.scss'
 import classNames from 'classnames'
-
+export  type StatusBadgeColor = 'blue' | 'red' | 'green' | 'yellow'
 interface IData{
   label: string,
-  color: 'blue' | 'red' | 'green'
+  color: StatusBadgeColor
 }
 interface Props<T extends string> {
   data: {[key in T]: IData}

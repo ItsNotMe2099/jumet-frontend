@@ -148,7 +148,6 @@ export default function FileListField(props: Props) {
           previewName={file.previewName}
           previewPath={file.previewPath}
           progress={file.progress}
-          vertical={props.vertical}
           onCancel={() => handleCancel(file)}
           onDelete={() => handleDelete(file)}
           error={file.error}/>)}

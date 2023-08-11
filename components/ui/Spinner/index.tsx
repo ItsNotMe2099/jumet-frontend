@@ -14,7 +14,7 @@ export default function Spinner(props: Props) {
   return (
     <div className={classNames({
       [styles.root]: true,
-      [styles.center]: props.center,
+      [styles.center]: typeof props.center === 'undefined' ? true : props.center,
     })}>
       <SpinnerCircular
         size={props.size}

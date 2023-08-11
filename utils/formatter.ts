@@ -98,6 +98,9 @@ export default class Formatter {
   }
 
   static formatTimeString(time: string) {
+    if(!time){
+      return ''
+    }
   const parts = time.split(':')
 
     return `${parts[0]}:${parts[1]}`

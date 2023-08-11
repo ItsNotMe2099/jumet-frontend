@@ -1,0 +1,12 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+}
+
+.buttons {
+  display: flex;
+  @include list(12px, true);
+}
