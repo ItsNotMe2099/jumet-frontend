@@ -1,27 +1,24 @@
-import { useAppContext } from '@/context/state'
+import {useAppContext} from '@/context/state'
 import styles from './index.module.scss'
 import classNames from 'classnames'
-import { ReactElement } from 'react'
-import { LkLayoutWrapper, useLkLayoutContext } from '@/context/lk_layout_content'
-import { UserRole } from '@/data/enum/UserRole'
-import { ReceivingPointListWrapper, useReceivingPointListContext } from '@/context/receiving_point_list_state'
-import LkMenu from '@/components/for_pages/LkPage/layout/LkMenu'
+import {ReactElement} from 'react'
+import {LkLayoutWrapper, useLkLayoutContext} from '@/context/lk_layout_content'
+import {UserRole} from '@/data/enum/UserRole'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import BackButton from '@/components/ui/BackButton'
-import { useRouter } from 'next/router'
-import { Routes } from '@/types/routes'
-import LkStatsMenu from './LkStatsMenu'
+import {useRouter} from 'next/router'
+import {Routes} from '@/types/routes'
+import LkBuyerMenu from '@/components/for_pages/LkPage/layout/LkBuyerMenu'
+import LkSellerMenu from '@/components/for_pages/LkPage/layout/LkSellerMenu'
+import LkStatsMenu from '@/components/for_pages/LkPage/layout/LkStatsMenu'
 
 
 interface Props {
   children: React.ReactNode
-  menu?: ReactElement
+  menu?: ReactElement | null
   className?: string
 }
-const LKBuyerMenu = () => {
-  const receivingListContext = useReceivingPointListContext()
-  return <LkMenu receivingPoints={receivingListContext.items} />
-}
+
 
 const LkLayoutInner = (props: Props) => {
   const appContext = useAppContext()
@@ -60,14 +57,20 @@ const LkLayoutInner = (props: Props) => {
 export default function LkLayout(props: Props) {
   const appContext = useAppContext()
   const router = useRouter()
-
+  const getMenu = () => {
+    if(router.asPath.startsWith(Routes.lkCrm)){
+      return <LkStatsMenu/>
+    }
+    if(appContext.aboutMe?.role === UserRole.Buyer){
+      return <LkBuyerMenu />
+    }
+    if(appContext.aboutMe?.role === UserRole.Seller){
+      return <LkSellerMenu />
+    }
+    return null
+  }
   return <LkLayoutWrapper>
-    {appContext.aboutMe?.role === UserRole.Buyer && <ReceivingPointListWrapper>
-      <LkLayoutInner menu={router.asPath === Routes.lkCrm ?
-        <LkStatsMenu />
-        : <LKBuyerMenu />}>{props.children}</LkLayoutInner>
-    </ReceivingPointListWrapper>}
-    {appContext.aboutMe?.role === UserRole.Seller && <LkLayoutInner>{props.children}</LkLayoutInner>}
+   <LkLayoutInner menu={getMenu()}>{props.children}</LkLayoutInner>
   </LkLayoutWrapper>
 }
 

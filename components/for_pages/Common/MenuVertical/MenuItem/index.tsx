@@ -4,6 +4,7 @@ import Link from 'next/link'
 
 import classNames from 'classnames'
 import useIsActiveLink from '@/components/hooks/useIsActiveLink'
+import {MouseEventHandler} from 'react'
 
 
 interface Props {
@@ -15,10 +16,17 @@ interface Props {
 
 export const MenuItem = (props: Props) => {
   const isActive = useIsActiveLink(props.link ?? '')
+  const handleClick: MouseEventHandler = (e) => {
+    if(!props.link) {
+      e.preventDefault()
+      e.stopPropagation()
+    }
+    props.onClick?.()
+  }
   return (
     <Link
       href={props.link ?? '#'}
-      className={classNames(styles.root, {[styles.active]: isActive}, props.className)} onClick={props.onClick}>
+      className={classNames(styles.root, {[styles.active]: isActive}, props.className)} onClick={handleClick}>
       <div className={classNames(styles.title)}>
        {props.title}
       </div>
