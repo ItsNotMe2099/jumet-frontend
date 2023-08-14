@@ -12,6 +12,7 @@ import { RequestError } from '@/types/types'
 import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAppContext } from '@/context/state'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface Props {
   onComplete: (data?: { email: string }) => void
@@ -55,6 +56,7 @@ export default function BuyerRegForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         <InputField name='companyName' label='Название компании / группы компаний' validate={Validator.required} />
         <InputField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />
         <InputField name='password' label='Пароль' validate={Validator.required} />

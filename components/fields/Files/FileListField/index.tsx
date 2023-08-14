@@ -17,6 +17,7 @@ interface IFileListItem {
   value?: IFile,
   previewPath?: string
   previewName?: string
+  previewSize?: number
   progress: number
   error?: any
 }
@@ -81,6 +82,7 @@ export default function FileListField(props: Props) {
           id: uuidv4(),
           previewName: acceptedFile.name,
           previewPath: URL.createObjectURL(acceptedFiles[0]),
+          previewSize: acceptedFile.size,
           progress: 0
         }
         setFiles(files => [...files, file])
@@ -147,6 +149,7 @@ export default function FileListField(props: Props) {
           value={file.value}
           previewName={file.previewName}
           previewPath={file.previewPath}
+          previewSize={file.previewSize}
           progress={file.progress}
           onCancel={() => handleCancel(file)}
           onDelete={() => handleDelete(file)}

@@ -47,7 +47,7 @@ export default function ScheduleWorkAndWeekendsField(props: Props) {
 
   }
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       {props.description && <div className={styles.hint}>{props.description}</div>}
       <div className={styles.schedule}>

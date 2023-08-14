@@ -32,7 +32,7 @@ function TabsField<T>(props: Props<T>){
   }
 
   return (
-    <div className={classNames(styles.root, props.className)}>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       <Tabs options={props.options} value={field.value} isMulti={false} styleType={props.styleType} onClick={handleChange} fluid={props.fluid}/>
       <FieldError showError={meta.touched && !!meta.error}>{meta.error}</FieldError>

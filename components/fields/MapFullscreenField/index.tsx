@@ -31,7 +31,7 @@ export default function MapFullscreenField(props: Props) {
       )
   }
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
       <div className={styles.body}>
         {field.value && !props.noMap && <YandexStaticMap center={field.value} onClick={handleOpen}/>}

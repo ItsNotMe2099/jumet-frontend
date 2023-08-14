@@ -1,7 +1,6 @@
 import {FieldArray, FieldConfig, useField} from 'formik'
 import styles from './index.module.scss'
 import { IField } from 'types/types'
-import { InputStyleType } from '@/types/enums'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
 import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
@@ -19,14 +18,13 @@ export default function PhoneListField(props: Props & FieldConfig) {
 
   return (<FieldArray name={props.name}>
     {arrayHelpers => (
-      <div className={styles.root}>
+      <div className={styles.root} data-field={props.name}>
         <div className={styles.fields}>
           {(field.value ?? []).map((i, index) => <div className={styles.field}>
             {props.label && <div className={styles.label}>{props.label}</div> }
             <div className={styles.fieldWrapper}>
             <PhoneField
               className={styles.input}
-              styleType={InputStyleType.Default}
               key={index}
               name={`${props.name}[${index}].phone`}
               validate={Validator.phone}

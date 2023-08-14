@@ -32,7 +32,7 @@ export default function SelectField<T>(props: Props<T>) {
   }
 
   return (
-    <div className={classNames(styles.root, props.className)}>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {/*<div className={classNames({
         [styles.label]: true,
       })}>

@@ -6,7 +6,7 @@ import {ReactElement} from 'react'
 interface Props {
   title?: string
   text?: string
-  actions: ReactElement | ReactElement[]
+  actions?: ReactElement | ReactElement[]
 
 }
 

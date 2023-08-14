@@ -33,7 +33,7 @@ export default function OtpCodeField(props: Props) {
   }
 
   return (
-    <div className={classNames(styles.root, { [styles.error]: showError || props.showError })}>
+    <div className={classNames(styles.root, { [styles.error]: showError || props.showError })} data-field={props.name}>
       <PinInput
         focus
         disabled={props.disabled ?? false}

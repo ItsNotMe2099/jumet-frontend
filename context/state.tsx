@@ -16,6 +16,7 @@ import IUser from '@/data/interfaces/IUser'
 import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
 import {IDeal} from '@/data/interfaces/IDeal'
 import IReview from '@/data/interfaces/IReview'
+import {IRepresentative} from '@/data/interfaces/IRepresentative'
 
 interface IState {
   isMobile: boolean
@@ -57,6 +58,9 @@ interface IState {
   receivingPointUserDeleteState$: Subject<IReceivingPointUser>
   reviewCreateState$: Subject<IReview>
   reviewUpdateState$: Subject<IReview>
+  representativeCreateState$: Subject<IRepresentative>
+  representativeUpdateState$: Subject<IRepresentative>
+  representativeDeleteState$: Subject<IRepresentative>
 }
 
 const loginState$ = new Subject<boolean>()
@@ -77,6 +81,11 @@ const receivingPointUserUpdateState$ = new Subject<IReceivingPointUser>()
 const receivingPointUserDeleteState$ = new Subject<IReceivingPointUser>()
 const reviewCreateState$ = new Subject<IReview>()
 const reviewUpdateState$ = new Subject<IReview>()
+
+const representativeCreateState$ = new Subject<IRepresentative>()
+const representativeUpdateState$ = new Subject<IRepresentative>()
+const representativeDeleteState$ = new Subject<IRepresentative>()
+
 const ModalsBottomSheet: ModalType[] = []
 
 const defaultValue: IState = {
@@ -108,6 +117,9 @@ const defaultValue: IState = {
   receivingPointUserDeleteState$,
   reviewCreateState$,
   reviewUpdateState$,
+  representativeCreateState$,
+  representativeUpdateState$,
+  representativeDeleteState$,
   showModal: (type) => null,
   showBottomSheet: (type) => null,
   hideModal: () => null,

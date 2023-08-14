@@ -1,7 +1,7 @@
 import RadioField from '@/components/fields/RadioField'
 import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
-import {FileUploadAcceptType, InputStyleType} from '@/types/enums'
+import {FileUploadAcceptType} from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
 import {useState} from 'react'
 import PhoneField from '@/components/fields/PhoneField'
@@ -20,6 +20,7 @@ import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
 import PriceField from '@/components/fields/PriceField'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import IFile from '@/data/interfaces/IFile'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 
 interface Props {
@@ -94,6 +95,7 @@ export default function CreateSalesRequestForm(props: Props) {
 
     <FormikProvider value={formik}>
       <Form className={styles.root}>
+        <FormErrorScroll formik={formik} />
         <RadioField<string>
           label='Категория лома'
           name='scrapMetalCategory'
@@ -138,7 +140,7 @@ export default function CreateSalesRequestForm(props: Props) {
           </div>
           <RadiusField name={'radius'} validate={Validator.required}/>
         </div>
-        <PhoneField styleType={InputStyleType.Default} name='phone' label='Ваш телефон'/>
+        <PhoneField name='phone' label='Ваш телефон'/>
         <div>
           <Button type='submit' styleType='large' color='blue' spinner={loading}>
             {props.saleRequest ? 'Сохранить' : 'Создать заявку'}

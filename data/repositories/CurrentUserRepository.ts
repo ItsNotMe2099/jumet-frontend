@@ -13,4 +13,12 @@ export default class CurrentUserRepository {
     return res
   }
 
+  static async deletePassportData(): Promise<IUser> {
+    const res = await request<IUser>({
+      method: 'delete',
+      url: '/api/current-user/passport-data',
+    })
+    return res
+  }
+
 }

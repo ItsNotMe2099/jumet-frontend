@@ -38,7 +38,7 @@ export default function LocationSuggestionField(props: Props) {
   }
   const showClear = props.resettable && !!field.value
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
        <div className={classNames(styles.body, {[styles.withClear]: showClear})}>
          {!field.value && <div className={styles.empty}>Координаты не определны</div>}

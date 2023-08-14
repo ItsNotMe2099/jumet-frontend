@@ -22,7 +22,7 @@ export default function StarRatingsField(props: Props) {
   }
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} data-field={props.name}>
       <div className={styles.label}>
         {props.label}
       </div>

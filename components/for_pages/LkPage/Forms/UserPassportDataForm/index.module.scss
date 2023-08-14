@@ -1,0 +1,21 @@
+@import "styles/index";
+.root{
+
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+  background-color: $white;
+  max-width: 484px;
+  @include mq($PhoneWidth, max) {
+    max-width: 100%;
+  }
+}
+
+.changePassword{
+  align-self: flex-start;
+}
+.btn {
+ align-self: flex-start;
+}

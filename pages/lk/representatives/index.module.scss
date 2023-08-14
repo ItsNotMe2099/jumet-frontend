@@ -3,3 +3,12 @@
 .root {
 
 }
+.card{
+  @include card;
+  display: flex;
+  flex-direction: column;
+  @include list(16px)
+}
+.title{
+  @include h2;
+}

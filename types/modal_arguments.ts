@@ -6,6 +6,8 @@ import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
 import IUser from '@/data/interfaces/IUser'
 import IFile from '@/data/interfaces/IFile'
 import {IDeal} from '@/data/interfaces/IDeal'
+import {IRepresentative} from '@/data/interfaces/IRepresentative'
+import {Nullable} from '@/types/types'
 
 export interface OtpCodeModalArguments extends ISendCodeResponse{
     mode: 'email' | 'phone'
@@ -54,6 +56,12 @@ export interface SuccessModalArguments {
 export interface UserFormModalArguments {
   user: IUser
   receivingPointUser: IReceivingPointUser
+}
+export interface RepresentativeFormModalArguments {
+  representative?: Nullable<IRepresentative>
+}
+export interface RepresentativeSuccessModalArguments {
+  representative: IRepresentative
 }
 export interface GalleryModalArguments {
   images: IFile[]

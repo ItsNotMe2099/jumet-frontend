@@ -13,7 +13,8 @@ interface Props {
 export default function LkSellerMenu(props: Props) {
   return (<LkMenu<MenuItemType> items={[
     {name: 'Настройки профиля',  link: Routes.lkProfileSettings},
-    {name: 'Мои представителя',  link: Routes.lkMyRepresentatives},
+    {name: 'Паспортные данные',  link: Routes.lkMyPassportData},
+    {name: 'Мои представители',  link: Routes.lkMyRepresentatives},
     {name: 'Выход', key: MenuItemType.Exit, icon: <LogoutSvg color={colors.dark500}/>},
   ]}/>)
 }

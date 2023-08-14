@@ -2,6 +2,7 @@ import {UserRole} from '@/data/enum/UserRole'
 import {Gender} from '@/data/enum/Gender'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
 import {IPassportData} from '@/data/interfaces/IPassportData'
+import {Nullable} from '@/types/types'
 
 export default interface IUser {
   id: string;
@@ -19,6 +20,7 @@ export default interface IUser {
   password: string;
   employeeRole?: EmployeeRole;
   readedNotifications: Notification[];
-  passportData?: IPassportData
+  passport?: Nullable<IPassportData>
+  isConfirmedPi: boolean
 //  companies?: Company[];
 }

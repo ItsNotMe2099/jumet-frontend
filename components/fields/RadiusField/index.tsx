@@ -52,7 +52,7 @@ export default function RadiusField<T>(props: Props<T>) {
 
 
   return (
-      <div className={classNames(styles.root, props.className)}>
+      <div className={classNames(styles.root, props.className)} data-field={props.name}>
       <TabsField<number> label={props.label}  options={options} name={props.name} onChange={handleChangeTab}/>
       <InputField
         suffix={'км'}

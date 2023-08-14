@@ -12,6 +12,7 @@ import FileField from '@/components/fields/Files/FileField'
 import DealStepFormCardLayout from '@/components/for_pages/LkPage/DealEdit/components/DealStepFormCardLayout'
 import Validator from '@/utils/validator'
 import WeightWithUnitField from '@/components/fields/WeightWithUnitField'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData extends IDealWeighingStepRequest {
   acceptanceCertificate: Nullable<IFile>
@@ -48,6 +49,7 @@ export default function WeighingFormStepCard(props: Props) {
     <DealStepFormCardLayout title={'Результат взвешивания'}>
       <FormikProvider value={formik}>
         <Form className={styles.root}>
+          <FormErrorScroll formik={formik} />
           <WeightWithUnitField name='actualWeight' label={'Вес лома'} validate={Validator.required}/>
           <PercentField name='actualRubbishInPercents' label={'Засор'} suffix={'%'} validate={Validator.required}/>
           <TextAreaField name='weighingComment' label={'Комментарий'} />

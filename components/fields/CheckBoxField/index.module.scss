@@ -2,27 +2,36 @@
 
 .root {
   position: relative;
-  gap: 12px;
+  display: flex;
+  align-items: flex-start;
+  user-select: none;
   cursor: pointer;
-  span:first-child{
-    cursor: pointer;
-  }
-  span{
-    @include mainText;
-    margin-left: 0 !important;
-  }
+}
+.label{
+  flex:1;
+  @include mainText;
 }
 
-.wrapper {
-  background-color: $yellow500;
+.checkbox {
+  background-color: white;
   width: 16px;
   height: 16px;
   display: flex;
   justify-content: center;
   align-items: center;
   border-radius: 4px;
-}
-
-.icon {
-
+  margin-right: 10px;
+  border: 1px solid $grey400;
+  transition: background 0.2s, border 0.2s;
+  transform: translateY(4px);
+  &.hover{
+    background: $yellow300;
+  }
+  &.checked{
+    border: none;
+    background: $yellow500;
+  }
+  &.error{
+    border-color: $red500;
+  }
 }

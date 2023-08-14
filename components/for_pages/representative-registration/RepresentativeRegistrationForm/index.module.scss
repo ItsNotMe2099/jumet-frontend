@@ -1,0 +1,70 @@
+@import "styles/index";
+
+.root {
+display: flex;
+  flex-direction: column;
+  @include list(24px);
+}
+
+.title {
+  @include h1;
+}
+
+.info{
+  @include mainText;
+}
+.link{
+  color: $blue500;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+
+.heading {
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 24px;
+  color: $dark500;
+
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    line-height: 22px;
+  }
+}
+
+.formSection {
+  display: flex;
+  flex-direction: column;
+  @include list(12px, false);
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+
+  @include mq($PhoneWidth, max) {
+    max-width: 100%;
+  }
+}
+
+.changePassword {
+  align-self: flex-start;
+}
+
+.btn {
+  align-self: flex-start;
+}
+
+
+.checkbox {
+  align-items: flex-start !important;
+
+  span:first-child {
+    margin-right: 10px !important;
+  }
+}
+
+.policy {
+  color: $blue500;
+  cursor: pointer;
+}

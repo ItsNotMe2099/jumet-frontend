@@ -1,17 +1,23 @@
 @import "styles/index";
 
 .root {
-  background: $white;
-  border-radius: $StandartBorderRadius;
-
-  @include mq($PhoneWidth, max) {
-    background-color: transparent;
-    padding: 0;
-  }
+display: flex;
+  flex-direction: column;
+  @include list(24px);
 }
 
 .title {
-  @include h2;
+  @include h1;
+}
+
+.info{
+  @include mainText;
+}
+.link{
+  color: $blue500;
+  &:hover{
+    text-decoration: underline;
+  }
 }
 
 .heading {
@@ -49,18 +55,6 @@
   align-self: flex-start;
 }
 
-.disabled {
-  &:hover {
-    background-color: $lightBlue;
-    box-shadow: none;
-  }
-}
-
-.active {
-  &:hover {
-    box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
-  }
-}
 
 .checkbox {
   align-items: flex-start !important;

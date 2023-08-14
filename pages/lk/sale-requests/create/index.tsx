@@ -12,12 +12,13 @@ import SuccessBlock from '@/components/for_pages/Common/SuccessBlock'
 import {DeepPartial} from '@/types/types'
 import {useAppContext} from '@/context/state'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
+import {LkPageBaseLayout} from '@/pages/lk'
 
 interface Props {
 
 }
 
-export default function LkSaleRequestPage(props: Props) {
+const LkSaleRequestCreatePage = (props: Props) => {
   const appContext = useAppContext()
   const [loading, setLoading] = useState(false)
   const [isSuccess, setIsSuccess] = useState<boolean>(false)
@@ -48,7 +49,7 @@ export default function LkSaleRequestPage(props: Props) {
             text={<>
               Ваша заявка на модерации. Проверка занимает до 1 рабочего<br /> дня. Пока она идёт – ваша заявка не будет отображаться в каталоге.  Однако вы<br /> можете посмотреть, как будет выглядеть страница вашей заявки.
             </>}
-            additionalComp={() =>
+            actions={
               <Button href={Routes.lkSaleRequests} styleType='large' color='blue'>
                 Мои заявки
               </Button>
@@ -64,4 +65,6 @@ export default function LkSaleRequestPage(props: Props) {
     </Layout>
   )
 }
+LkSaleRequestCreatePage.getLayout = LkPageBaseLayout
+export default LkSaleRequestCreatePage
 export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

@@ -1,0 +1,19 @@
+@import "styles/index";
+.root{
+
+}
+.list{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+
+    & > * + * {
+      border-top: 1px solid $grey300;
+      padding-top: 16px;
+    }
+}
+.separator{
+  height: 1px;
+  width: 100%;
+  color: $grey400;
+}

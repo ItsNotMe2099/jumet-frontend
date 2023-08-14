@@ -22,7 +22,7 @@ export default function SwitchField(props: Props & FieldConfig) {
   }
 
   return (
-    <div className={classNames(styles.root, props.className)}>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
       <Switch
           onChange={(val) => handleChange(val)}
           checked={field.value}

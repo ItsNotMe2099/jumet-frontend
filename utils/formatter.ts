@@ -60,8 +60,11 @@ export default class Formatter {
     return formatRelative(typeof date === 'string' ? new Date(date) : date, new Date(), {locale})
   }
 
-  static formatPhone(phone: string) {
+  static formatPhone(phone: string | null) {
     try {
+      if(!phone){
+        return
+      }
       const number = phoneUtil.parseAndKeepRawInput(this.cleanPhone(`${phone}`), 'RU')
       return phoneUtil.format(number, PNF.INTERNATIONAL)
     } catch (e) {
@@ -107,6 +110,11 @@ export default class Formatter {
   }
 
 
+  static formatSize(bytes: number | undefined){
+    const sufixes = ['Байт', 'КБ', 'МБ', 'ГБ', 'ТБ', 'ПБ', 'EB', 'ZB', 'YB']
+    const i = Math.floor(Math.log(bytes ?? 0) / Math.log(1024))
+    return !bytes && '' || ((bytes ?? 0) / Math.pow(1024, i)).toFixed(2) + ' ' + sufixes[i]
+  };
 }
 
 export const pad = Formatter.pad

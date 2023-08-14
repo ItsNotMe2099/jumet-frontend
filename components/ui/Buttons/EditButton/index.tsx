@@ -9,7 +9,7 @@ interface Props  extends IButton{
 
 export default function EditButton(props: Props) {
   return (
-    <Button className={styles.root} fluid={props.fluid} color={'grey'} styleType='large' onClick={props.onClick} icon={<EditSvg color={colors.blue500} />}>
+    <Button spinner={props.spinner ?? false} disabled={props.disabled ?? false} className={styles.root} fluid={props.fluid} color={'grey'} styleType='large' onClick={props.onClick} icon={<EditSvg color={colors.blue500} />}>
       Редактировать
     </Button>
   )

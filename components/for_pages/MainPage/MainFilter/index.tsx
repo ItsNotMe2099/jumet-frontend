@@ -27,6 +27,7 @@ import {IAddress} from '@/data/interfaces/IAddress'
 import LocationSuggestionField from '@/components/fields/LocationSuggestionField'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {WorkTimeType} from '@/data/interfaces/WorkTimeType'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -119,6 +120,7 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
 
     <FormikProvider value={formik}>
       <Form className={styles.root}>
+        <FormErrorScroll formik={formik} />
         <Button onClick={handleToggleMobileFilter} fluid className={styles.mobileOpenToggle} color='blue' styleType='small'>
           <FilterSvg color={colors.white} />
           <span>{isOpenMobileFilter ? <>Скрыть фильтр</> : <>Открыть фильтр</>}</span>

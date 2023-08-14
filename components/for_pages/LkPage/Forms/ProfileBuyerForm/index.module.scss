@@ -1,31 +1,21 @@
 @import "styles/index";
+@import "styles/index";
+.root{
+ @include card;
+  display: flex;
+  flex-direction: row;
+}
 
 .form {
   display: flex;
   flex-direction: column;
   @include list(24px, false);
-  border-radius: $StandartBorderRadius;
-  padding: 20px;
-  background-color: $white;
-
-  @include mq($PhoneWidth, max) {
-    background-color: transparent;
-    padding: 0;
-  }
+  flex-basis: 484px;
 }
 
-.field {
-  width: 70% !important;
-
-  @include mq($PhoneWidth, max) {
-    width: 100% !important;
-  }
+.changePassword{
+  align-self: flex-start;
 }
-
 .btn {
-  width: 25%;
-
-  @include mq($PhoneWidth, max) {
-    width: 100% !important;
-  }
+  align-self: flex-start;
 }

@@ -9,6 +9,9 @@ import SortToggleButton from '@/components/ui/Buttons/SortToggleButton'
 import {useAppContext} from '@/context/state'
 import {SortOrder} from '@/types/enums'
 import {useEffectOnce} from '@/components/hooks/useEffectOnce'
+import {LkPageBaseLayout} from '@/pages/lk'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
 
 interface Props {
 
@@ -58,8 +61,11 @@ const FavoritesPageInner = (props: Props) => {
   )
 }
 
-export default function FavoritesPage(props: Props) {
+const FavoritesPage = (props: Props) => {
   return <FavoriteListWrapper>
     <FavoritesPageInner/>
   </FavoriteListWrapper>
 }
+FavoritesPage.getLayout = LkPageBaseLayout
+export default FavoritesPage
+export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

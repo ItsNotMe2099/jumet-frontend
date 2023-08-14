@@ -69,6 +69,7 @@ export default function LkLayout(props: Props) {
     }
     return null
   }
+
   return <LkLayoutWrapper>
    <LkLayoutInner menu={getMenu()}>{props.children}</LkLayoutInner>
   </LkLayoutWrapper>

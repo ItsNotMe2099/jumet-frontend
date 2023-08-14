@@ -1,4 +1,3 @@
-import Layout from '@/components/layout/Layout'
 import styles from 'pages/lk/sale-requests/index.module.scss'
 import {useEffect, useMemo, useState} from 'react'
 import {useRouter} from 'next/router'
@@ -15,6 +14,7 @@ import {DealStatus} from '@/data/enum/DealStatus'
 import DealCard from '@/components/for_pages/Common/Cards/DealCard'
 import {useAppContext} from '@/context/state'
 import {UserRole} from '@/data/enum/UserRole'
+import {LkPageBaseLayout} from '@/pages/lk'
 
 enum TabKey {
   Active = 'active',
@@ -77,7 +77,6 @@ const LkDealsPageInner = (props: Props) => {
   }, [tab])
 
   return (
-    <Layout>
       <div className={styles.root}>
         <div className={styles.title}>
          Сделки
@@ -105,12 +104,13 @@ const LkDealsPageInner = (props: Props) => {
           </div>
         </InfiniteScroll>
       </div>
-    </Layout>
   )
 }
-export default function LkDealsPage(props: Props) {
+const LkDealsPage = (props: Props) => {
   return <DealListOwnerWrapper>
     <LkDealsPageInner/>
   </DealListOwnerWrapper>
 }
+LkDealsPage.getLayout = LkPageBaseLayout
+export default  LkDealsPage
 export const getServerSideProps = getAuthServerSideProps()

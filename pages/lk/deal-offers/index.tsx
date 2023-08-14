@@ -1,5 +1,4 @@
 import Select from '@/components/fields/Select'
-import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
 import {useEffect, useMemo, useState} from 'react'
 import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
@@ -23,6 +22,7 @@ import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
+import {LkPageBaseLayout} from '@/pages/lk'
 
 enum TabKey {
   All = 'all',
@@ -129,7 +129,6 @@ const LkDealOffersPageInner = (props: Props) => {
     }
   }, [tab])
   return (
-    <Layout>
       <div className={styles.root}>
         <div className={styles.header}>
           <div className={styles.title}>
@@ -179,12 +178,11 @@ const LkDealOffersPageInner = (props: Props) => {
           </InfiniteScroll>}
         </div>
       </div>
-    </Layout>
   )
 }
 
 
-export default function LkDealOffersPage(props: Props) {
+const LkDealOffersPage = (props: Props) => {
   return (<ReceivingPointListWrapper>
     <DealOfferListOwnerWrapper>
       <SaleRequestListFromSellerWrapper>
@@ -193,4 +191,6 @@ export default function LkDealOffersPage(props: Props) {
     </DealOfferListOwnerWrapper>
   </ReceivingPointListWrapper>)
 }
+LkDealOffersPage.getLayout = LkPageBaseLayout
+export default LkDealOffersPage
 export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)

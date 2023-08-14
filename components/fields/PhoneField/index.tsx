@@ -6,7 +6,6 @@ import PhoneInputWithCountrySelect from 'react-phone-number-input'
 import { useState } from 'react'
 import { FieldValidator } from 'formik/dist/types'
 import { IField } from 'types/types'
-import { InputStyleType } from '@/types/enums'
 import FieldError from '../FieldError'
 
 interface Props extends IField<string> {
@@ -17,7 +16,6 @@ interface Props extends IField<string> {
   errorClassName?: string
   defaultCountry?: string
   countrySelectClassName?: string
-  styleType: InputStyleType
   inputClass?: string
 }
 
@@ -29,7 +27,7 @@ export default function PhoneField(props: Props & FieldConfig) {
     helpers.setValue(value)
   }
   return (
-    <div className={classNames(styles.root, props.className)}>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {props.label ? <div className={styles.label}>
         {props.label}
       </div> : null}

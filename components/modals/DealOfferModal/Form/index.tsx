@@ -17,6 +17,7 @@ import FormError from '@/components/ui/FormError'
 import {useAppContext} from '@/context/state'
 import {SuccessModalArguments} from '@/types/modal_arguments'
 import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData{
   receivingPointId: Nullable<number>,
@@ -86,6 +87,7 @@ const DealOfferFormInner = (props: Props) => {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         <SelectField<number | null> validate={Validator.required} name='receivingPointId' options={receivingPointOptions} label='Пункт приёма' />
         <PriceField name='price' label='Цена за тонну лома без учета доставки' suffix={'₽'} />
         <PriceField name='deliveryPrice' label='Стоимость доставки' suffix={'₽'} />

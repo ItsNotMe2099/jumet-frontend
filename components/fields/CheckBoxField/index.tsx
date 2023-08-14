@@ -1,41 +1,52 @@
-import { useField, useFormikContext } from 'formik'
+import { useField } from 'formik'
 import styles from 'components/fields/CheckBoxField/index.module.scss'
 import { IField } from '@/types/types'
 // @ts-ignore
-import ReactCheckBox from 'react-custom-checkbox'
 import { colors } from '@/styles/variables'
 import CheckBoxSvg from '@/components/svg/CheckBoxSvg'
+import classNames from 'classnames'
+import usePressAndHover from '@/components/hooks/usePressAndHover'
+import MarkdownText from '@/components/ui/MarkdownText'
 
 interface Props extends IField<boolean> {
   label?: string | React.ReactNode
   checked?: boolean
   disabled?: boolean
-  color?: string
   onChange?: (val: boolean) => void
 }
 
 const CheckBoxField = (props: Props) => {
-
-  // @ts-ignore
   const [field, meta, helpers] = useField(props as any)
-  const { setFieldValue, setFieldTouched, validateField } = useFormikContext()
-  const hasError = !!meta.error && meta.touched
-  const handleChange = (val: boolean) => {
-    helpers.setValue(val)
-    props.onChange?.(val)
+  const [ref, press, hover] = usePressAndHover()
+  const showError = meta.touched && !!meta.error
+
+  const handleChange = () => {
+    helpers.setValue(!field.value)
+    props.onChange?.(!field.value)
   }
   return (
-    <ReactCheckBox
-      checked={field.value}
-      disabled={props.disabled}
-      onChange={handleChange}
-      icon={<div className={styles.wrapper}><CheckBoxSvg className={styles.icon} color={colors.dark500} /></div>}
-      borderColor={props.color}
-      borderRadius={4}
-      size={16}
-      label={props.label}
-      containerClassName={styles.root}
-    />
+    <div ref={ref} className={styles.root} onClick={handleChange}  data-field={props.name}>
+      <div
+        className={classNames({
+          [styles.checkbox]: true,
+          [styles.hover]: hover,
+          [styles.checked]: field.value,
+          [styles.error]: showError,
+        })}
+      >
+        {field.value && <CheckBoxSvg color={colors.dark500} />}
+      </div>
+      <div
+        className={classNames({
+          [styles.label]: true,
+          [styles.error]: showError,
+        })}
+      >
+        {(props.label && typeof props.label === 'string') ? <MarkdownText>{props.label as string}</MarkdownText> : props.label}
+      </div>
+      {/*<FieldError showError={showError}>{meta.error}</FieldError>*/}
+    </div>
+
   )
 }
 export default CheckBoxField

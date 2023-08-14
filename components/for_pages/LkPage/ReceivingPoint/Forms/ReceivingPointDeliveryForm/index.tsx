@@ -14,6 +14,7 @@ import SwitchField from '@/components/fields/SwitchField'
 import TabsField from '@/components/fields/TabsField'
 import {DeliveryPriceType} from '@/data/enum/DeliveryPriceType'
 import DeleteButton from '@/components/ui/Buttons/DeleteButton'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 
 interface Props {
@@ -65,6 +66,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         <div className={styles.switches}>
           <SwitchField name='hasDelivery' label='Есть доставка'/>
           <SwitchField name='hasLoading' label='Есть погрузка'/>

@@ -4,7 +4,7 @@ import LkLayout from '@/components/for_pages/LkPage/layout'
 import LkReceivingPointBuyerLayout from '@/components/for_pages/LkPage/layout/LkReceivingPointBuyerLayout'
 import {ReactElement} from 'react'
 
-export const LkPageBaseLayout = (page: ReactElement) => <Layout>{page}</Layout>
+export const LkPageBaseLayout = (page: ReactElement) => <Layout hasAuth={true}>{page}</Layout>
 const LkReceivingPageLayoutInner = (page: ReactElement) => {
   return <LkReceivingPointBuyerLayout>
       {page}

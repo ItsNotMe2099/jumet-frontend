@@ -1,5 +1,4 @@
-import styles from './index.module.scss'
-import classNames from 'classnames'
+import StatusBadgeRaw from '@/components/ui/StatusBadgeRaw'
 export  type StatusBadgeColor = 'blue' | 'red' | 'green' | 'yellow'
 interface IData{
   label: string,
@@ -11,9 +10,5 @@ interface Props<T extends string> {
 }
 
 export default function StatusBadge<T extends string>(props: Props<T>) {
-  return (
-    <div className={classNames(styles.root, {...(props.data[props.value]?.color ? {[styles[props.data[props.value].color]]: true} : {})})}>
-      {props.data[props.value]?.label ?? ''}
-    </div>
-  )
+  return (<StatusBadgeRaw label={props.data[props.value]?.label ?? ''} color={props.data[props.value]?.color ?? 'blue'}/>)
 }

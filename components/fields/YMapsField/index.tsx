@@ -18,7 +18,7 @@ export default function YMapsField(props: Props) {
   const showError = meta.touched && !!meta.error
 
   return (
-    <div className={classNames(styles.root, props.className)}>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
       <div className={styles.map}>
         <YMaps query={{ apikey: 'YOUR_API_KEY' }}>
           <Map

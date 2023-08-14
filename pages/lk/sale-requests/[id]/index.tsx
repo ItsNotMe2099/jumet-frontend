@@ -20,6 +20,9 @@ import Layout from '@/components/layout/Layout'
 import {DealOfferListWrapper, useDealOfferListContext} from '@/context/deal_offers_list_state'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
+import {LkPageBaseLayout} from '@/pages/lk'
+import {getAuthServerSideProps} from '@/utils/auth'
+import {UserRole} from '@/data/enum/UserRole'
 
 enum TabKey {
   All = 'all',
@@ -147,7 +150,7 @@ const SaleRequestPageInner = (props: Props) => {
   )
 }
 
-export default function SaleRequestPage(props: Props) {
+const LkSaleRequestPage = (props: Props) => {
   const router = useRouter()
   const id = parseInt(router.query.id as string, 10)
   return (<ClientOnly>
@@ -160,3 +163,6 @@ export default function SaleRequestPage(props: Props) {
     </Layout>
   </ClientOnly>)
 }
+LkSaleRequestPage.getLayout = LkPageBaseLayout
+export default LkSaleRequestPage
+export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

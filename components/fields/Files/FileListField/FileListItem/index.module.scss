@@ -29,10 +29,14 @@ $height: 77px;
   flex-direction: column;
   flex: 1;
   @include list(8px, true);
+  overflow: hidden;
 }
 .name{
   font-weight: 400;
   font-size: 14px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-break: break-all;
 }
 .button{
   display: flex;

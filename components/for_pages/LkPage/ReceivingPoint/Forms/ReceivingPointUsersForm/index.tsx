@@ -10,6 +10,7 @@ import CirclePlusSvg from '@/components/svg/CirclePlusSvg'
 import {colors} from '@/styles/variables'
 import SelectField from '@/components/fields/SelectField'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
 
@@ -41,6 +42,7 @@ export default function ReceivingPointUsersForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.root}>
+        <FormErrorScroll formik={formik} />
         <FieldArray name='users'>
           {arrayHelpers => (
             <>

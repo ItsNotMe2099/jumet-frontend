@@ -3,54 +3,43 @@ import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
 import {useAppContext} from '@/context/state'
 import PhoneField from '@/components/fields/PhoneField'
-import {InputStyleType, ModalType, SnackbarType} from '@/types/enums'
-import {useState} from 'react'
+import {ModalType, SnackbarType} from '@/types/enums'
 import InputField from '@/components/fields/InputField'
 import Button from '@/components/ui/Button'
 import LinkButton from '@/components/ui/LinkButton'
-import {omit} from '@/utils/omit'
-import {RequestError} from '@/types/types'
-import CurrentUserRepository from '@/data/repositories/CurrentUserRepository'
+import {AboutMeWrapper, useAboutMeContext} from '@/context/aboutme_state'
+import IAboutMe from '@/data/interfaces/IAboutMe'
+import {Nullable} from '@/types/types'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 
-interface IFormData{
+interface IFormData {
   phone: string | null;
-  firstName: string | null;
-  lastName: string | null;
-  patronymic: string | null;
+  firstName: Nullable<string>
+  lastName: Nullable<string>
+  patronymic: Nullable<string>
 
 }
+
 interface Props {
 
 }
 
-export default function ProfileSellerForm(props: Props) {
+const ProfileSellerFormInner = (props: Props) => {
 
   const appContext = useAppContext()
-
-  const [loading, setLoading] = useState<boolean>(false)
+  const aboutMeContext = useAboutMeContext()
 
   const handleSubmit = async (data: IFormData) => {
-    setLoading(true)
-    try {
-      const res = await CurrentUserRepository.update(omit(data, ['phone']))
-      appContext.updateAboutMe(res)
-      appContext.showSnackbar('Изменения сохранены', SnackbarType.success)
-
-    } catch (err) {
-      if (err instanceof RequestError) {
-        appContext.showSnackbar(err.message, SnackbarType.error)
-      }
-
-    }
-    setLoading(false)
+    await aboutMeContext.update(data as IAboutMe)
+    appContext.showSnackbar('Изменения сохранены', SnackbarType.success)
   }
 
   const initialValues: IFormData = {
     phone: appContext.aboutMe?.phone ?? null,
-    firstName: appContext.aboutMe?.firstName?? null,
-    lastName: appContext.aboutMe?.firstName?? null,
-    patronymic: appContext.aboutMe?.firstName?? null,
+    firstName: appContext.aboutMe?.firstName ?? null,
+    lastName: appContext.aboutMe?.lastName ?? null,
+    patronymic: appContext.aboutMe?.patronymic ?? null,
   }
 
   const formik = useFormik({
@@ -59,35 +48,43 @@ export default function ProfileSellerForm(props: Props) {
   })
 
 
-
   return (
     <div className={styles.root}>
-    <FormikProvider value={formik}>
-      <Form className={styles.form}>
-        <PhoneField
-          name='phone'
-          styleType={InputStyleType.Default}
-          label='Телефон'
-          disabled={true}
-          validate={Validator.combine([Validator.required, Validator.phone])}
-        />
-        <InputField
-          name='lastName'
-          label='Ваша фамилия'
-          validate={Validator.required} />
-        <InputField
-          name='firstName'
-          label='Ваше имя'
-          validate={Validator.required} />
-        <InputField
-          name='patronymic'
-          label='Ваше отчество' />
-        <LinkButton className={styles.changePassword} onClick={()=> appContext.showModal(ModalType.PasswordChange)}>Изменить пароль</LinkButton>
-        <Button disabled={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
-          Сохранить
-        </Button>
-      </Form>
-    </FormikProvider>
+      <FormikProvider value={formik}>
+        <Form className={styles.form}>
+          <FormErrorScroll formik={formik} />
+          <PhoneField
+            name='phone'
+            label='Телефон'
+            disabled={true}
+            validate={Validator.combine([Validator.required, Validator.phone])}
+          />
+          <InputField
+            name='lastName'
+            label='Ваша фамилия'
+            validate={Validator.required}/>
+          <InputField
+            name='firstName'
+            label='Ваше имя'
+            validate={Validator.required}/>
+          <InputField
+            name='patronymic'
+            label='Ваше отчество'/>
+          <LinkButton className={styles.changePassword} onClick={() => appContext.showModal(ModalType.PasswordChange)}>Изменить
+            пароль</LinkButton>
+          <Button spinner={aboutMeContext.editLoading} type='submit' className={styles.btn} styleType='large'
+                  color='blue'>
+            Сохранить
+          </Button>
+        </Form>
+      </FormikProvider>
     </div>
   )
+}
+
+
+export default function ProfileSellerForm(props: Props) {
+  return <AboutMeWrapper>
+    <ProfileSellerFormInner/>
+  </AboutMeWrapper>
 }

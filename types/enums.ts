@@ -11,7 +11,9 @@ export enum ModalType {
   SaleRequestForm = 'saleRequestForm',
   UserForm = 'userForm',
   Gallery = 'gallery',
-  DealTerminateForm = 'dealTerminateForm'
+  DealTerminateForm = 'dealTerminateForm',
+  RepresentativeForm = 'representativeForm',
+  RepresentativeSuccess = 'representativeSuccess',
 }
 
 export enum ProfileMenuSettings {

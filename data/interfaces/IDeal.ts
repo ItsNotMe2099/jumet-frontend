@@ -10,6 +10,7 @@ import {DealStatus} from '@/data/enum/DealStatus'
 import IReview from '@/data/interfaces/IReview'
 import {Nullable} from '@/types/types'
 import {ILocation} from '@/data/interfaces/ILocation'
+import {IRepresentative} from '@/data/interfaces/IRepresentative'
 
 export interface IDeal {
   id: number
@@ -18,7 +19,7 @@ export interface IDeal {
   receivingPointId: number | null
   seller: IUser
   sellerId: string
-  representative?: ISaleRequest
+  representative?: IRepresentative
   representativeId?: string
   saleRequest?: ISaleRequest
   saleRequestId?: number

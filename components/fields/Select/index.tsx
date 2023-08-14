@@ -15,6 +15,7 @@ interface Props<T> {
   hasError?: boolean
   placeholder?: string
   className?: string
+  name?: string
 }
 
 export default function Select<T>(props: Props<T>) {
@@ -22,7 +23,7 @@ export default function Select<T>(props: Props<T>) {
   const [ref, press, hover] = usePressAndHover()
 
   return (
-    <div className={classNames(styles.root, props.className)} ref={ref}>
+    <div className={classNames(styles.root, props.className)} ref={ref} data-field={props.name}>
       { props.label && (
         <div className={classNames({
           [styles.label]: true,

@@ -1,0 +1,9 @@
+@import "styles/index";
+
+.link{
+  color: $blue500;
+  &:hover{
+    text-decoration: underline;
+  }
+
+}

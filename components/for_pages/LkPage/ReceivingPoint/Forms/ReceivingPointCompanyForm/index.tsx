@@ -10,6 +10,7 @@ import FileField from '@/components/fields/Files/FileField'
 import IFile from '@/data/interfaces/IFile'
 import {ICompany, LegalType} from '@/data/interfaces/ICompany'
 import {DeepPartial} from '@/types/types'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
   legalType?: LegalType | null
@@ -51,6 +52,7 @@ export default function ReceivingPointCompanyForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.root}>
+        <FormErrorScroll formik={formik} />
         <InputField
           name={'inn'}
           label='ИНН юр.лица*'

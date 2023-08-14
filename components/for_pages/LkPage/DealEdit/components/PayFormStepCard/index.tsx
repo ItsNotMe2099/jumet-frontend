@@ -7,6 +7,7 @@ import IFile from '@/data/interfaces/IFile'
 import FileField from '@/components/fields/Files/FileField'
 import DealStepFormCardLayout from '@/components/for_pages/LkPage/DealEdit/components/DealStepFormCardLayout'
 import Validator from '@/utils/validator'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
   paymentReceipt: Nullable<IFile>
@@ -38,6 +39,7 @@ export default function PayFormStepCard(props: Props) {
     <DealStepFormCardLayout title={'Квитанция об оплате'}>
       <FormikProvider value={formik}>
         <Form className={styles.root}>
+          <FormErrorScroll formik={formik} />
           <FileField name={'paymentReceipt'} text={<>Перетащите сюда или <span>выберите файл</span><br />
             квитанции об оплате</>} validate={Validator.required}/>
           <div>

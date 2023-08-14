@@ -1,43 +1,16 @@
 @import "styles/index";
 .root{
-  background: $white;
-  padding: 20px;
-  border-radius: $StandartBorderRadius;
-  @include mq($PhoneWidth, max) {
-    background-color: transparent;
-    padding: 0;
-  }
+
 }
-.title{
-  @include h2;
-}
-.heading{
-  font-weight: 500;
-  font-size: 16px;
-  line-height: 24px;
-  color: $dark500;
-  @include mq($PhoneWidth, max) {
-    font-size: 15px;
-    line-height: 22px;
-  }
-}
-.formSection{
+.success{
   display: flex;
   flex-direction: column;
-  @include list(12px, false);
+  @include list(24px);
 }
 .form {
   display: flex;
   flex-direction: column;
-  max-width: 484px;
   @include mq($PhoneWidth, max) {
     max-width: 100%;
   }
-}
-
-.changePassword{
-  align-self: flex-start;
-}
-.btn {
- align-self: flex-start;
 }

@@ -15,6 +15,7 @@ import IFile from '@/data/interfaces/IFile'
 import {DeepPartial, IScheduleFieldDayDescription} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointUtils from '@/utils/ReceivingPointUtils'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
   photos?: IFile[],
@@ -156,6 +157,7 @@ export default function ReceivingPointWorkingHoursForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         {props.hasPhotos && <FileListField
           name='photos'
           accept={[FileUploadAcceptType.Image]}

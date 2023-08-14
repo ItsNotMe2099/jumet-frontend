@@ -7,7 +7,7 @@ import { ReactElement } from 'react'
 interface Props {
   title: string
   text: React.ReactNode | string
-  additionalComp?: () => ReactElement
+  actions?: ReactElement | ReactElement[]
 }
 
 export default function SuccessBlock(props: Props) {
@@ -21,7 +21,7 @@ export default function SuccessBlock(props: Props) {
       <div className={styles.text}>
         {props.text}
       </div>
-      {props.additionalComp ? props.additionalComp() : null}
+      {props.actions && <div className={styles.actions}>{props.actions}</div>}
     </div>
   )
 }

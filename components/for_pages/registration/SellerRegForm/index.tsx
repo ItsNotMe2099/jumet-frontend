@@ -2,7 +2,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import {InputStyleType, ModalType, SnackbarType} from '@/types/enums'
+import { ModalType, SnackbarType} from '@/types/enums'
 import PhoneField from '@/components/fields/PhoneField'
 import Already from '@/components/for_pages/Common/Already'
 import { useAppContext } from '@/context/state'
@@ -14,6 +14,7 @@ import AuthRepository from '@/data/repositories/AuthRepository'
 import {OtpCodeModalArguments} from '@/types/modal_arguments'
 import {useRouter} from 'next/router'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 
 interface Props {
@@ -78,9 +79,9 @@ export default function SellerRegForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         <PhoneField
           name='phone'
-          styleType={InputStyleType.Default}
           label='Телефон'
           disabled={loading}
           validate={Validator.combine([Validator.required, Validator.phone])}

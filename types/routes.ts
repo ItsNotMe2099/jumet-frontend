@@ -1,5 +1,8 @@
 
 export class Routes {
+  static getGlobal(url: string){
+    return `${typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : ''}${url}`
+  }
   static login(redirect?: string) {
     return `/auth/login${redirect ? `?redirect=${redirect}` : ''}`
   }
@@ -56,6 +59,9 @@ export class Routes {
   }
   static get lkMyRepresentatives() {
     return '/lk/representatives'
+  }
+  static get lkMyPassportData() {
+    return '/lk/passport-data'
   }
   static get lkSaleRequests() {
     return '/lk/sale-requests'
@@ -132,5 +138,15 @@ export class Routes {
 
   static get lkCrmClients() {
     return '/lk/crm/clients'
+  }
+  static get representativeRegistration(){
+    return '/representative-registration'
+  }
+  static get representativeDeleteRegistration(){
+    return '/representative-delete-registration'
+  }
+
+  static get personalDataPolitics(){
+    return '/personal-data-politics'
   }
 }

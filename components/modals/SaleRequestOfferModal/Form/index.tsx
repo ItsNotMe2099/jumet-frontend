@@ -1,7 +1,7 @@
 import RadioField from '@/components/fields/RadioField'
 import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
-import {FileUploadAcceptType, InputStyleType, ModalType, SnackbarType} from '@/types/enums'
+import {FileUploadAcceptType, ModalType, SnackbarType} from '@/types/enums'
 import SwitchField from '@/components/fields/SwitchField'
 import {useEffect, useState} from 'react'
 import PhoneField from '@/components/fields/PhoneField'
@@ -24,6 +24,7 @@ import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {format} from 'date-fns'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import {SuccessModalArguments} from '@/types/modal_arguments'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 //import Select from '@/components/fields/Select'
 
@@ -137,6 +138,7 @@ export default function SaleRequestOfferForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
       {/*<Select label='Мои заявки на продажу лома' options={options} value={option} onChange={(value) => setOption(value)} />*/}
         <RadioField<string>
           label='Категория лома'
@@ -180,7 +182,7 @@ export default function SaleRequestOfferForm(props: Props) {
           </div>
           <RadiusField name={'radius'} validate={Validator.required} />
         </div>
-        <PhoneField styleType={InputStyleType.Default} name='phone' label='Ваш телефон' />
+        <PhoneField name='phone' label='Ваш телефон' />
         <Button spinner={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
           Предложить сделку
         </Button>

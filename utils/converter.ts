@@ -45,4 +45,25 @@ export default class Converter {
   static convertGeoObjectToString(geoObject: GeoObject): string | null {
     return geoObject.name
   }
+
+  static getObjectDotsKeys(obj: any, prefix?: string | null): any {
+    const flatMap = (a: any[], cb: (v: any, i: number) => any) => [].concat(...a.map(cb))
+    if (typeof obj !== 'object') throw new Error('Invalid argument, must be an object')
+    return flatMap(Object.keys(obj), (key) => {
+      const value = obj[key]
+      const fullKey = prefix ? `${prefix}.${key}` : key
+
+      if (Array.isArray(value)) {
+        return flatMap(value, (v: any, i: number) => {
+          const arrKey = `${fullKey}[${i}]`
+          if (typeof v === 'object') return this.getObjectDotsKeys(v, arrKey)
+          return arrKey
+        })
+      }
+
+      if (typeof value === 'object') return this.getObjectDotsKeys(value, fullKey)
+      return fullKey
+    })
+
+  }
 }

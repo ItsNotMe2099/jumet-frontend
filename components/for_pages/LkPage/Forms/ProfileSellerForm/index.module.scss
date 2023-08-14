@@ -1,27 +1,21 @@
 @import "styles/index";
+@import "styles/index";
 .root{
-  background: $white;
-  padding: 20px;
-  border-radius: $StandartBorderRadius;
-  @include mq($PhoneWidth, max) {
-    background-color: transparent;
-    padding: 0;
-  }
+  @include card;
+  display: flex;
+  flex-direction: row;
 }
+
 .form {
   display: flex;
   flex-direction: column;
   @include list(24px, false);
-  background-color: $white;
-  max-width: 484px;
-  @include mq($PhoneWidth, max) {
-    max-width: 100%;
-  }
+  flex-basis: 484px;
 }
 
 .changePassword{
   align-self: flex-start;
 }
 .btn {
- align-self: flex-start;
+  align-self: flex-start;
 }

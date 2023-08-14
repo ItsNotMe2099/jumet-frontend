@@ -3,9 +3,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import { InputStyleType, LoginType, SnackbarType } from '@/types/enums'
-import CheckBoxField from '@/components/fields/CheckBoxField'
-import { colors } from '@/styles/variables'
+import { LoginType, SnackbarType } from '@/types/enums'
 import Link from 'next/link'
 import Already from '../../Common/Already'
 import PhoneField from '@/components/fields/PhoneField'
@@ -80,7 +78,6 @@ export default function LoginForm(props: Props) {
           label={'Телефон'}
           name={'phone'}
           validate={Validator.phone}
-          styleType={InputStyleType.Default}
         />}
         {props.mode === LoginType.Buyer && <InputField name='email' label='Email' validate={Validator.combine([Validator.required, Validator.email])} />}
         <InputField
@@ -89,7 +86,6 @@ export default function LoginForm(props: Props) {
           label='Пароль'
           validate={Validator.required} />
         <div className={styles.checkbox}>
-          <CheckBoxField name='checkbox' color={colors.yellow500} label='Запомнить пароль' />
           <Link href={Routes.passwordForgot} className={styles.forget}>
             Забыли пароль?
           </Link>

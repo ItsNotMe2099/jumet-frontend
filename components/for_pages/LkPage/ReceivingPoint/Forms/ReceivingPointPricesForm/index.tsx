@@ -9,6 +9,7 @@ import PriceCategoryFormSection
 import {IPriceDescription} from '@/data/interfaces/IPriceDescription'
 import {DeepPartial} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
   scrapMetalCategories: string[]
@@ -96,6 +97,7 @@ export default function ReceivingPointPricesForm(props: Props) {
     <FormikProvider value={formik}>
 
       <Form className={styles.root}>
+        <FormErrorScroll formik={formik} />
         <TabsMultiField<string>
           options={dataContext.scrapMetalCategories.map((i) => ({label: i.name, value: i.category}))}
           name={'scrapMetalCategories'} label={'Категории лома, с которыми работаете'}/>

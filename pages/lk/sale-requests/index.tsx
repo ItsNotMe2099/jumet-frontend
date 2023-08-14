@@ -1,4 +1,3 @@
-import Layout from '@/components/layout/Layout'
 import styles from 'pages/lk/sale-requests/index.module.scss'
 import {useMemo, useState} from 'react'
 import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
@@ -14,6 +13,7 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import {Routes} from '@/types/routes'
+import {LkPageBaseLayout} from '@/pages/lk'
 
 enum TabKey {
   Active = 'active',
@@ -54,7 +54,6 @@ const LkSalesRequestsPageInner = (props: Props) => {
   }, [tab])
 
   return (
-    <Layout>
       <div className={styles.root}>
         <div className={styles.title}>
           Мои заявки на продажу
@@ -80,12 +79,13 @@ const LkSalesRequestsPageInner = (props: Props) => {
           </div>
         </InfiniteScroll>
       </div>
-    </Layout>
   )
 }
-export default function LkSalesRequestsPage(props: Props) {
+const LkSalesRequestsPage = (props: Props) => {
   return <SaleRequestListOwnerWrapper>
     <LkSalesRequestsPageInner/>
   </SaleRequestListOwnerWrapper>
 }
+LkSalesRequestsPage.getLayout = LkPageBaseLayout
+export default LkSalesRequestsPage
 export const getServerSideProps = getAuthServerSideProps(UserRole.Seller)

@@ -35,7 +35,7 @@ export default function MapField(props: Props) {
 
   return (
     <YMaps query={{ lang: 'ru_RU', apikey: runtimeConfig.MAP_KEY }}>
-      <div className={classNames([styles.root, props.className])}>
+      <div className={classNames([styles.root, props.className])} data-field={props.name}>
         <YMap  defaultState={{ center: value ? [value.lat, value.lng] : [44.497415, 34.169506], zoom: 17 }}
               className={props.mapClassName}
                onBoundsChange={(val: any) => {

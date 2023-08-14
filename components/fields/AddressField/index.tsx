@@ -62,7 +62,7 @@ export default function AddressField(props: Props) {
     suggestionsRef.current?.setInputValue('')
   }
     return (
-    <div className={cx(styles.root, {[styles.hasError]: !!meta.error && meta.touched})}>
+    <div className={cx(styles.root, {[styles.hasError]: !!meta.error && meta.touched})} data-field={props.name}>
       {props.label &&
         <div className={styles.label}>
           {props.label}

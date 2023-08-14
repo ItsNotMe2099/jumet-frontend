@@ -1,0 +1,57 @@
+@import "styles/index";
+.root{
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+}
+.label{
+  @include mainText;
+}
+.wrapper{
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  @include list(16px, true);
+
+}
+
+.textWrap{
+  flex-basis: 280px;
+  height: 48px;
+  border-radius: 12px;
+  padding: 0px 12px;
+  display: flex;
+  align-items: center;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  color: $blue500;
+  background: $grey100;
+  font-weight: 700;
+  font-size: 16px;
+}
+.text{
+  text-overflow: ellipsis;
+  color: $blue500;
+  font-weight: 700;
+  font-size: 16px;
+  white-space: nowrap;
+  overflow: hidden;
+}
+.copied{
+  position: absolute;
+  bottom: 8px;
+  left: 12px;
+  padding: 2px 4px;
+  background: $green300;
+  border-radius: 8px;
+  color: $green500;
+  font-size: 12px;
+  transform: translateY(100%);
+  opacity: 1;
+  transition: opacity 0.3s ease-in-out;
+  &.hidden{
+    opacity: 0;
+  }
+
+}

@@ -29,6 +29,7 @@ export default function FileField(props: Props) {
   const abortControllerRef = useRef<AbortController>()
   const [previewPath, setPreviewPath] = useState('')
   const [previewName, setPreviewName] = useState('')
+  const [previewSize, setPreviewSize] = useState<number>(0)
   const [progress, setProgress] = useState(-1)
   // @ts-ignore
   const [field, meta, helpers] = useField<IFile | null>(props)
@@ -76,6 +77,7 @@ export default function FileField(props: Props) {
       setError(null)
       setPreviewPath(URL.createObjectURL(acceptedFiles[0]))
       setPreviewName(acceptedFiles[0].name)
+      setPreviewSize(acceptedFiles[0].size)
       setProgress(0)
       abortControllerRef.current = new AbortController()
       try {
@@ -120,13 +122,14 @@ export default function FileField(props: Props) {
           accept={dropzoneAccept}
         />
 
-        {field.value && <FileListItem
+        {(field.value || previewPath) && <FileListItem
           className={styles.fileListItem}
           isImage={props.isImage ?? false}
           labelLoading={props.labelLoading ?? ''}
           value={field.value}
           previewName={previewName}
           previewPath={previewPath}
+          previewSize={previewSize}
           progress={progress}
           onCancel={handleCancel}
           onDelete={handleDelete}

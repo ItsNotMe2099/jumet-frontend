@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import {InputStyleType, LoginType, SnackbarType} from '@/types/enums'
+import { LoginType, SnackbarType} from '@/types/enums'
 import PhoneField from '@/components/fields/PhoneField'
 import {useAuthContext} from '@/context/auth_state'
 import {useState} from 'react'
@@ -65,7 +65,6 @@ export default function PasswordForgotForm(props: Props) {
           label={'Телефон'}
           name={'phone'}
           validate={Validator.phone}
-          styleType={InputStyleType.Default}
         />}
         {props.mode === LoginType.Buyer && <InputField name='email' label='Email'
                                                       validate={Validator.combine([Validator.required, Validator.email])}/>}

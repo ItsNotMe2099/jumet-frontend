@@ -17,6 +17,7 @@ import {ILocation} from '@/data/interfaces/ILocation'
 import IFile from '@/data/interfaces/IFile'
 import Formatter from '@/utils/formatter'
 import PhoneListField from '@/components/fields/PhoneListField'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
   inn?: string | null
@@ -81,6 +82,7 @@ export default function DataStep(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <FormErrorScroll formik={formik} />
         {!isCompanyDetailsEdit && <CompanyField name={'inn'}  label='ИНН юр.лица*' onChange={handleChangeCompanyByInn} validate={Validator.required}/>}
         {(formik.values.inn || formik.values.company?.inn) && <CompanyDetailsFormSection onEditToggle={handleToggleEditCompanyDetails} company={formik.values.company!} />}
         <FileField

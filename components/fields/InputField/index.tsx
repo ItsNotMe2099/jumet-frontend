@@ -96,7 +96,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
   }
   const {ref, maskRef} = useIMask({mask: pattern as any || /.*/, ...(props.format && ['number', 'price', 'weight'].includes(props.format) ? {
       mask: Number,
-      max: props.max ?? 10000,
+      max: props.max ?? 10000000,
       min: props.min ?? 0,
 
     } : {})}, {onAccept: (value) => {
@@ -183,7 +183,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
   return (
     <div className={classNames(styles.root, props.className, {
       [props.errorClassName as string]: showError,
-    })}>
+    })} data-field={props.name}>
       <div className={styles.wrapper}>
         {props.label &&
           <div className={styles.label}>

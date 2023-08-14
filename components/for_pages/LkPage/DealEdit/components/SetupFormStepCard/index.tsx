@@ -31,6 +31,10 @@ import {updatedDiff} from 'deep-object-diff'
 import CurrentUserRepository from '@/data/repositories/CurrentUserRepository'
 import {omit} from '@/utils/omit'
 import {useState} from 'react'
+import CheckBoxField from '@/components/fields/CheckBoxField'
+import {Routes} from '@/types/routes'
+import FormErrorScroll from '@/components/ui/FormErrorScroll'
+
 interface IFormData extends IDealSetUpStepRequest {
   firstName: Nullable<string>
   lastName: Nullable<string>
@@ -38,6 +42,7 @@ interface IFormData extends IDealSetUpStepRequest {
   passport: IPassportData
   isRepresentative: boolean
   card: Nullable<string>
+  isConfirmedPi?: boolean
 }
 
 interface Props {
@@ -47,7 +52,7 @@ interface Props {
 const SetupStepFormInner = (props: Props) => {
   const appContext = useAppContext()
   const aboutMe = appContext.aboutMe
-  const passportData = aboutMe?.passportData ?? {}
+  const passportData = aboutMe?.passport ?? {}
   const dealContext = useDealContext()
   const deal = dealContext.deal!
   const representativeContext = useRepresentativeListContext()
@@ -59,10 +64,12 @@ const SetupStepFormInner = (props: Props) => {
       firstName: aboutMe?.firstName ?? null,
       lastName: aboutMe?.lastName ?? null,
       patronymic: aboutMe?.patronymic ?? null,
+      isConfirmedPi: aboutMe?.isConfirmedPi ?? false,
     }, {
       firstName: data.firstName,
       lastName: data.lastName,
       patronymic: data.patronymic,
+      isConfirmedPi: data.isConfirmedPi
     })
     const passportUpdated = updatedDiff({
       address: passportData?.address,
@@ -80,7 +87,7 @@ const SetupStepFormInner = (props: Props) => {
       scanId: data.passport?.scan?.id,
     })
 
-    if(Object.keys(userUpdated).length > 0 || Object.keys(passportData).length > 0){
+    if (Object.keys(userUpdated).length > 0 || Object.keys(passportData).length > 0) {
       setLoadingInner(true)
       const res = await CurrentUserRepository.update({
         ...userUpdated,
@@ -95,6 +102,7 @@ const SetupStepFormInner = (props: Props) => {
 
   const initialValues: IFormData = {
     isRepresentative: false,
+    isConfirmedPi: aboutMe?.isConfirmedPi ?? false,
     representativeId: null,
     firstName: aboutMe?.firstName ?? null,
     lastName: aboutMe?.lastName ?? null,
@@ -107,12 +115,12 @@ const SetupStepFormInner = (props: Props) => {
     requiresDelivery: deal.requiresDelivery ?? false,
     requiresLoading: deal.requiresLoading ?? false,
     passport: {
-      address: null,
-      date: null,
-      number: null,
-      issuedBy: null,
-      series: null,
-      scan: null,
+      address: passportData?.address ?? null,
+      date: passportData?.date ?? null,
+      number: passportData?.number ?? null,
+      issuedBy: passportData?.issuedBy ?? null,
+      series: passportData?.series ?? null,
+      scan: passportData?.scan ?? null,
     },
     paymentType: null,
     card: null
@@ -123,7 +131,7 @@ const SetupStepFormInner = (props: Props) => {
     onSubmit: handleSubmit
   })
   const handleChangeAddress = (address: IAddress | string | null) => {
-    if( typeof address !== 'string' && address?.location) {
+    if (typeof address !== 'string' && address?.location) {
       formik.setFieldValue('location', address.location)
     }
   }
@@ -132,10 +140,11 @@ const SetupStepFormInner = (props: Props) => {
     <DealStepFormCardLayout title={'Оформить сделку'}>
       <FormikProvider value={formik}>
         <Form className={styles.root}>
+          <FormErrorScroll formik={formik} />
           <SwitchField name={'isRepresentative'} label={'От имени представителя'}/>
           {formik.values.isRepresentative ?
             <>
-              <SelectField<string | number> name='representativeId' options={representativeContext.items.map(i => ({
+              <SelectField<string | number> name='representativeId' options={representativeContext.data.data.map(i => ({
                 label: UserUtils.getName(i),
                 value: i.id
               }))} label='Выберите представителя*' validate={Validator.required}/>
@@ -146,7 +155,7 @@ const SetupStepFormInner = (props: Props) => {
               <FormFieldset title={'ФИО продавца*'}>
                 <InputField name='lastName' placeholder='Фамилия' validate={Validator.required}/>
                 <InputField name='firstName' placeholder='Имя' validate={Validator.required}/>
-                <InputField name='patronymic' placeholder='Отчество' />
+                <InputField name='patronymic' placeholder='Отчество'/>
               </FormFieldset>
               <FormFieldset title={'Паспортные данные (необходимы для оформления приёмо-\nсдаточного акта)*'}>
                 <PassportFormSection/>
@@ -158,13 +167,14 @@ const SetupStepFormInner = (props: Props) => {
           <SwitchField name={'requiresLoading'} label={'Нужна погрзука'}/>
 
           {formik.values.requiresDelivery && <>
-            <AddressField name='address' label='Адрес расположения лома*' onChange={handleChangeAddress} validate={Validator.required}/>
+            <AddressField name='address' label='Адрес расположения лома*' onChange={handleChangeAddress}
+                          validate={Validator.required}/>
             <FormFieldset title={'Удобное время доставки'}>
               <div className={styles.row}>
                 <DateField name='deliveryDate' placeholder='Выберите дату' validate={Validator.required}/>
                 <div className={styles.row}>
-                <TimeField name='deliveryTimeFrom' placeholder='Время от' validate={Validator.required}/>
-                <TimeField name='deliveryTimeTo' placeholder='Время до' validate={Validator.required}/>
+                  <TimeField name='deliveryTimeFrom' placeholder='Время от' validate={Validator.required}/>
+                  <TimeField name='deliveryTimeTo' placeholder='Время до' validate={Validator.required}/>
                 </div>
               </div>
             </FormFieldset>
@@ -186,8 +196,12 @@ const SetupStepFormInner = (props: Props) => {
               <InputField name='card' format='cardPan' validate={Validator.required}/>
             </FormFieldset>
           }
+          {!formik.values.representativeId && <CheckBoxField name='isConfirmedPi'
+                         validate={Validator.required}
+                         label={`Отправляя форму, я даю своё согласие с [Политикой обработки персональных данных](${Routes.personalDataPolitics})`} />}
+
           <div>
-            <Button type='submit'  spinner={loading} color='blue' styleType='large'>Оформить
+            <Button type='submit' spinner={loading} color='blue' styleType='large'>Оформить
               сделку</Button>
           </div>
         </Form>
@@ -197,7 +211,7 @@ const SetupStepFormInner = (props: Props) => {
 }
 
 export default function SetupStepFormCard(props: Props) {
-  return <RepresentativeListWrapper>
+  return <RepresentativeListWrapper limit={100}>
     <SetupStepFormInner/>
   </RepresentativeListWrapper>
 }
