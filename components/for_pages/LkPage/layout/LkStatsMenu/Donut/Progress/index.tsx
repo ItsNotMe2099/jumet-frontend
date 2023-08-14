@@ -1,6 +1,5 @@
 import styles from './index.module.scss'
-import ProgressBar from "@ramonak/react-progress-bar"
-
+import ProgressBar from '@ramonak/react-progress-bar'
 interface Props {
   completed: number
 }

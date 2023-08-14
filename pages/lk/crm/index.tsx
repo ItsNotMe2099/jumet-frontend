@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { getAuthServerSideProps } from '@/utils/auth'
 import { UserRole } from '@/data/enum/UserRole'
 import { LkReceivingPageLayout } from '@/pages/lk'
@@ -12,7 +11,7 @@ import { colors } from '@/styles/variables'
 import ReceivingPointOwnerRepository from '@/data/repositories/ReceivingPointOwnerRepository'
 import { useState, useEffect } from 'react'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
-import ProgressBar from "@ramonak/react-progress-bar"
+import ProgressBar from '@ramonak/react-progress-bar'
 import classNames from 'classnames'
 import ColoredCircleSvg from '@/components/svg/ColoredCircleSvg'
 
