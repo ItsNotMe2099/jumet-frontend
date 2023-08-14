@@ -22,7 +22,7 @@ export default function SellerDataResultCard(props: Props) {
         {dealContext.deal?.representative && <DescField label={'ФИО представителя продавца'} value={`${UserUtils.getName(dealContext.deal.representative)}`}/>}
         {passportData && <PassportDataViewSection scanModalTitle={dealContext.deal?.representative?.passport ? 'Скан паспорта представителя' : 'Скан паспорта'} passportData={passportData}/>}
         {deal.requiresDelivery &&
-          <DescField label={'Удобное время доставка'} value={DealUtils.formatDeliveryTime(deal)}/>}
+          <DescField label={'Удобное время доставки'} value={DealUtils.formatDeliveryTime(deal)}/>}
         <DescField label={'Предпочитаемый способ оплаты'} value={DealUtils.getPaymentType(deal.paymentType)}/>
       </div>
     </DealStepResultCardLayout>

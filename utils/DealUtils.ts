@@ -3,7 +3,7 @@ import {DealPaymentType} from '@/data/enum/DealPaymentType'
 import {IDeal} from '@/data/interfaces/IDeal'
 import {DealStatus} from '@/data/enum/DealStatus'
 import Formatter from '@/utils/formatter'
-import {parse} from 'date-fns'
+import {format, parse} from 'date-fns'
 
 export interface IDealStateDetails {
   shortName?: string,
@@ -59,7 +59,7 @@ export default class DealUtils {
   }
 
   static formatDeliveryTime(deal: IDeal){
-    return deal.requiresDelivery && deal.deliveryDate ? `${Formatter.formatDateRelative(parse(deal.deliveryDate, 'yyyy-mm-dd', new Date()))} ${deal.deliveryTimeFrom ? Formatter.formatTimeString(deal.deliveryTimeFrom) : ''}${deal.deliveryTimeTo ? `${deal.deliveryTimeFrom ? '-' : 'до '}${Formatter.formatTimeString(deal.deliveryTimeTo)}` : ''}` : ''
+    return deal.requiresDelivery && deal.deliveryDate ? `${format(parse(deal.deliveryDate, 'yyyy-mm-dd', new Date()), 'dd.mm.yyyy')} ${deal.deliveryTimeFrom ? Formatter.formatTimeString(deal.deliveryTimeFrom) : ''}${deal.deliveryTimeTo ? `${deal.deliveryTimeFrom ? '-' : 'до '}${Formatter.formatTimeString(deal.deliveryTimeTo)}` : ''}` : ''
   }
   private static getNewStateDescription(deal: IDeal, mode: 'seller' | 'buyer'): IDealStateDetails {
     switch (mode) {
