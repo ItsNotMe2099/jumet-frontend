@@ -5,9 +5,8 @@ import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepo
 import {ISaleRequestOwnerListRequest} from '@/data/interfaces/ISaleRequestOwnerListRequest'
 import {useAppContext} from '@/context/state'
 import {CanceledError} from 'axios'
-import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 
-interface ISaleRequestFilter extends ISaleRequestOwnerListRequest {
+export interface ISaleRequestFilter extends ISaleRequestOwnerListRequest {
 }
 
 interface IState {
@@ -78,9 +77,6 @@ export function SaleRequestListOwnerWrapper(props: Props) {
     setIsLoaded(true)
     setIsLoading(false)
   }
-  useEffectOnce(() => {
-    init()
-  })
 
   useEffect(() => {
     const subscription = appContext.saleRequestUpdateState$.subscribe((saleRequest) => {

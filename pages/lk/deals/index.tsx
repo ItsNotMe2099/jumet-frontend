@@ -1,5 +1,5 @@
 import styles from 'pages/lk/sale-requests/index.module.scss'
-import {useEffect, useMemo, useState} from 'react'
+import { useMemo, useState} from 'react'
 import {useRouter} from 'next/router'
 import Tabs from '@/components/ui/Tabs'
 import {IOption} from '@/types/types'
@@ -17,6 +17,7 @@ import {UserRole} from '@/data/enum/UserRole'
 import {LkPageBaseLayout} from '@/pages/lk'
 import {useNotificationContext} from '@/context/notifications_state'
 import {NotificationType} from '@/data/interfaces/INotification'
+import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 
 enum TabKey {
   Active = 'active',
@@ -67,9 +68,9 @@ const LkDealsPageInner = (props: Props) => {
     {label: 'Завершенные', value: TabKey.Completed, badge: badgeCompleted},
     {label: 'Расторгнутые', value: TabKey.Terminated, badge: badgeTerminated},
   ]
-  useEffect(() => {
-    dealListOwnerContext.reFetch()
-  }, [])
+  useEffectOnce(() => {
+    dealListOwnerContext.setFilter(getFilterByTab(tab))
+  })
 
 
   const stubData = useMemo<{title: string, text: string}>(() => {
