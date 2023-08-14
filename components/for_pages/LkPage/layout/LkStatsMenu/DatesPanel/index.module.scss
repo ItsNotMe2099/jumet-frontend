@@ -6,4 +6,17 @@
     background-color: $white;
     display: flex;
     justify-content: space-between;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        padding: 0;
+    }
+}
+
+.choose {
+    background-color: $white;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }

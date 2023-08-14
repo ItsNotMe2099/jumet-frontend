@@ -55,10 +55,25 @@
     .text {
         @include secondaryText;
     }
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+    }
 }
 
 .item {
     display: flex;
     @include list(8px, true);
     align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        margin: 0;
+    }
+}
+
+.mobile {
+    @include mq($PhoneWidth, max) {
+        margin-top: 24px;
+        width: 100%;
+    }
 }

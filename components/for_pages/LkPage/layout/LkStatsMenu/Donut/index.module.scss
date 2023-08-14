@@ -8,10 +8,16 @@
         width: 220px !important;
         height: 220px !important;
     }
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+    }
 }
 
 .doughnut {
     position: relative;
+    width: 220px !important;
+    height: 220px !important;
 
     .total {
         position: absolute;
@@ -39,6 +45,17 @@
     flex-direction: column;
     justify-content: center;
     @include list(8px, false);
+
+    @include mq($PhoneWidth, max) {
+        margin: 0;
+        margin-top: 24px;
+    }
+}
+
+.total {
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+    }
 }
 
 .total,
@@ -53,6 +70,10 @@
         display: flex;
         align-items: center;
         @include list(8px, true);
+    }
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
     }
 }
 

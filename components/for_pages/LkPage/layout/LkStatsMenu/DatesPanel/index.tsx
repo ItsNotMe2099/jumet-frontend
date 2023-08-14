@@ -3,6 +3,7 @@ import styles from './index.module.scss'
 import classNames from 'classnames'
 import { useState } from 'react'
 import ChoosePeriod from '@/components/ui/ChoosePeriod'
+import HiddenXs from '@/components/visibility/HiddenXs'
 
 interface Props {
   className?: string
@@ -22,8 +23,10 @@ export default function DatesPanel(props: Props) {
 
   return (
     <div className={classNames(styles.root, props.className)}>
-      <Tabs options={options} value={value} onClick={(value) => setValue(value)} />
-      <ChoosePeriod />
+      <HiddenXs>
+        <Tabs options={options} value={value} onClick={(value) => setValue(value)} />
+      </HiddenXs>
+      <ChoosePeriod className={styles.choose} />
     </div>
   )
 }

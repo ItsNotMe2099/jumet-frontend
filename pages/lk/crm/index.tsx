@@ -1,4 +1,3 @@
-import { useRouter } from 'next/router'
 import { getAuthServerSideProps } from '@/utils/auth'
 import { UserRole } from '@/data/enum/UserRole'
 import { LkReceivingPageLayout } from '@/pages/lk'
@@ -12,9 +11,11 @@ import { colors } from '@/styles/variables'
 import ReceivingPointOwnerRepository from '@/data/repositories/ReceivingPointOwnerRepository'
 import { useState, useEffect } from 'react'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
-import ProgressBar from "@ramonak/react-progress-bar"
+import ProgressBar from '@ramonak/react-progress-bar'
 import classNames from 'classnames'
 import ColoredCircleSvg from '@/components/svg/ColoredCircleSvg'
+import HiddenXs from '@/components/visibility/HiddenXs'
+import VisibleXs from '@/components/visibility/VisibleXs'
 
 interface Props {
 
@@ -45,7 +46,7 @@ const StatisticPage = (props: Props) => {
       <CardLayout title='Сделки'
         topClassName={styles.top}
         additionalEl=
-        {<Button reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button>}>
+        {<HiddenXs><Button reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button></HiddenXs>}>
         <Donut
           className={styles.donut}
           total={64}
@@ -57,13 +58,14 @@ const StatisticPage = (props: Props) => {
           completedCost={1000271}
           inProgressCost={200000}
         />
+        <VisibleXs><Button className={styles.mobile} reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button></VisibleXs>
       </CardLayout>
       {points.map((i, index) =>
         <CardLayout title={i.address.address as string}
           key={index}
           topClassName={styles.top}
           additionalEl=
-          {<Button reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button>}>
+          {<HiddenXs><Button reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button></HiddenXs>}>
           <Donut
             className={styles.donut}
             total={64}
@@ -147,6 +149,7 @@ const StatisticPage = (props: Props) => {
               <div className={styles.text}>За предыдущий период</div>
             </div>
           </div>
+          <VisibleXs><Button className={styles.mobile} reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button></VisibleXs>
         </CardLayout>
       )
       }
