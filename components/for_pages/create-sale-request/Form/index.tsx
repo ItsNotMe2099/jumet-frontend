@@ -9,7 +9,6 @@ import Button from '@/components/ui/Button'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import Validator from '@/utils/validator'
-import RadiusField from '@/components/fields/RadiusField'
 import {useDataContext} from '@/context/data_state'
 import {DeepPartial, IOption} from '@/types/types'
 import AddressField from '@/components/fields/AddressField'
@@ -133,12 +132,6 @@ export default function CreateSalesRequestForm(props: Props) {
           </div>
           {formik.values.hasCustomPrice &&
             <PriceField name='price' suffix={'₽/т'} placeholder='Моя цена за лом' validate={Validator.required}/>}
-        </div>
-        <div className={styles.section}>
-          <div className={styles.label}>
-            Радиус поиска пунктов приёма
-          </div>
-          <RadiusField name={'radius'} validate={Validator.required}/>
         </div>
         <PhoneField name='phone' label='Ваш телефон'/>
         <div>

@@ -65,7 +65,7 @@ const DealCardInner = (props: Props) => {
 
   useEffect(() => {
     if (active) {
-      if (!([DealStatus.TerminatedByBuyer, DealStatus.TerminatedByBuyer] as DealStatus[]).includes(deal.status)) {
+      if (([DealStatus.TerminatedByBuyer, DealStatus.TerminatedByBuyer, DealStatus.Paid] as DealStatus[]).includes(deal.status)) {
         notifyContext.markRead(deal.id, NotificationUnreadType.deal, true)
       }
     }

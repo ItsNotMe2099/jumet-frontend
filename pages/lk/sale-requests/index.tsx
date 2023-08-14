@@ -1,6 +1,10 @@
 import styles from 'pages/lk/sale-requests/index.module.scss'
 import {useMemo, useState} from 'react'
-import {SaleRequestListOwnerWrapper, useSaleRequestListOwnerContext} from '@/context/sale_request_list_owner_state'
+import {
+  ISaleRequestFilter,
+  SaleRequestListOwnerWrapper,
+  useSaleRequestListOwnerContext
+} from '@/context/sale_request_list_owner_state'
 import {useRouter} from 'next/router'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import Tabs from '@/components/ui/Tabs'
@@ -15,6 +19,7 @@ import {Routes} from '@/types/routes'
 import {LkPageBaseLayout} from '@/pages/lk'
 import SaleRequestOwnerCard from '@/components/for_pages/Common/Cards/SaleRequestOwnerCard'
 import {useNotificationContext} from '@/context/notifications_state'
+import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 
 enum TabKey {
   Active = 'active',
@@ -33,15 +38,25 @@ const LkSalesRequestsPageInner = (props: Props) => {
   const badgeActive = notifyContext.getTotalByTypes([
 
   ])
+  const getFilterByTab = (tab: TabKey): ISaleRequestFilter => {
+    switch (tab){
+      case TabKey.Active:
+        return {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]}
+      case TabKey.Completed:
+        return {statuses: [SaleRequestStatus.Completed]}
+    }
+  }
   const handleChangeTab = (tab: TabKey) => {
     setTab(tab)
-    saleRequestListOwnerContext.setFilter({...(tab === TabKey.Active ? {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]} : {statuses: [SaleRequestStatus.Completed]})})
+    saleRequestListOwnerContext.setFilter(getFilterByTab(tab))
   }
   const tabs: IOption<TabKey>[] = [
     {label: 'Активные', value: TabKey.Active},
     {label: ' Завершенные', value: TabKey.Completed},
   ]
-
+  useEffectOnce(() => {
+    saleRequestListOwnerContext.setFilter(getFilterByTab(tab))
+  })
 
   const stubData = useMemo<{title: string, text: string}>(() => {
     switch (tab){

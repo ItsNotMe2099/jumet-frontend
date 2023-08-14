@@ -3,13 +3,13 @@
 .modalLayout {
   position: relative;
   width: 100vw !important;
-  background: $dark500;
   height: 100vh;
   padding: 24px 15px;
   border-radius: 0 !important;
   top: 64px;
   background-color: $dark500 !important;
   border-top: 1px solid #404757;
+
   @include list(20px, false);
 }
 
@@ -62,6 +62,9 @@
 .linkWithIcon {
   @include btnText;
   color: $white;
+  &.active{
+    color: $yellow500;
+  }
 }
 
 .linkWithIcon {

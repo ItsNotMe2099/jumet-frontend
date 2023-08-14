@@ -38,7 +38,7 @@ const SaleRequestDealOfferCardInner = (props: Props) => {
 
   useEffect(() => {
     if (active) {
-        if (!([DealOfferStatus.Applied] as DealOfferStatus[]).includes(dealOffer.status)) {
+        if (([DealOfferStatus.Accepted, DealOfferStatus.Rejected, DealOfferStatus.Applied] as DealOfferStatus[]).includes(dealOffer.status)) {
           notifyContext.markRead(dealOffer.id, NotificationUnreadType.dealOffer, true)
         }
     }
