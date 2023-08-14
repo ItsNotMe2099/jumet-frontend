@@ -1,8 +1,8 @@
 import request from 'utils/request'
-import {AxiosRequestConfig} from 'axios'
-import {IPagination} from '@/types/types'
-import {IDealListRequest} from '@/data/interfaces/IDeaListRequest'
-import {IDeal} from '@/data/interfaces/IDeal'
+import { AxiosRequestConfig } from 'axios'
+import { IPagination } from '@/types/types'
+import { IDealListRequest } from '@/data/interfaces/IDeaListRequest'
+import { IDeal } from '@/data/interfaces/IDeal'
 import {
   IDealPayStepRequest,
   IDealSetUpStepRequest,
@@ -17,8 +17,16 @@ export default class DealRepository {
     const res = await request<IPagination<IDeal>>({
       method: 'get',
       url: '/api/deal',
-      data: {...data, sort: 'id,DESC'},
+      data: { ...data, sort: 'id,DESC' },
       config
+    })
+    return res
+  }
+
+  static async fetchWithoutParams(): Promise<IDeal[]> {
+    const res = await request<IDeal[]>({
+      method: 'get',
+      url: '/api/deal',
     })
     return res
   }

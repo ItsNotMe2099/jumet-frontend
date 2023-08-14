@@ -2,8 +2,6 @@ import {Routes} from '@/types/routes'
 import LkMenu from '@/components/for_pages/LkPage/layout/LkMenu'
 
 enum MenuItemType {
-  Exit = 'exit',
-
   ReceivingPoints = 'receivingPoints',
 }
 

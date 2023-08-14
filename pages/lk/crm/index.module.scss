@@ -15,3 +15,50 @@
     justify-content: space-between;
     align-items: center;
 }
+
+.line {
+    display: flex;
+    align-items: center;
+    @include list(12px, true);
+
+    .number {
+        @include h3;
+    }
+
+    .less {
+        @include secondaryText;
+        color: $grey500;
+    }
+}
+
+.progress {
+    flex: 1;
+}
+
+.label {
+    @include mainText;
+}
+
+.first {
+    margin-top: 16px;
+}
+
+.second {
+    margin-top: 14px;
+}
+
+.legend {
+    display: flex;
+    @include list(24px, true);
+    margin-top: 22px;
+
+    .text {
+        @include secondaryText;
+    }
+}
+
+.item {
+    display: flex;
+    @include list(8px, true);
+    align-items: center;
+}
