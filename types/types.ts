@@ -50,6 +50,7 @@ export interface IOption<T> {
   disabled?: boolean
   description?: string
   name?: string
+  badge?: number
 }
 
 export interface ISwitchFilterItem<T> {

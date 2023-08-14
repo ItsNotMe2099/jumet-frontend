@@ -8,6 +8,9 @@ import Formatter from '@/utils/formatter'
 import {IDealOffer} from '@/data/interfaces/IDealOffer'
 import StatusBadge from '@/components/ui/StatusBadge'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
+import {useNotificationContext} from '@/context/notifications_state'
+import {useEffect} from 'react'
+import {NotificationUnreadType} from '@/data/interfaces/INotification'
 
 interface Props {
   dealOffer: IDealOffer
@@ -15,17 +18,31 @@ interface Props {
 
 const SaleRequestDealOfferCardInner = (props: Props) => {
   const dealOfferContext = useDealOfferContext()
+  const notifyContext = useNotificationContext()
   const dealOffer = dealOfferContext.dealOffer!
   const receivingPoint = dealOffer.receivingPoint
-
   const formatDate = dealOfferContext.dealOffer?.createdAt ? Formatter.formatDateRelative(dealOfferContext.dealOffer?.createdAt!) : null
+  const active = notifyContext.store[NotificationUnreadType.dealOffer].find(i => i.eId === props.dealOffer.id)
 
+  useEffect(() => {
+    notifyContext.addRecord(dealOffer.id, NotificationUnreadType.deal)
+    return () => {
+      notifyContext.removeRecord(dealOffer.id, NotificationUnreadType.deal)
+    }
+  }, [])
   const badges = [
   ...(dealOffer.price  ? [{ text: dealOffer.price ? Formatter.formatPrice(dealOffer.price, '₽/т') : '-' }] : []),
     { text: `Доставка – ${dealOffer.deliveryPrice ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : dealOffer.deliveryPrice === 0 ? 'бесплатно' : 'не нужна'}` },
     { text: `Погрузка – ${dealOffer.loadingPrice ? Formatter.formatPrice(dealOffer.loadingPrice) : dealOffer.loadingPrice === 0 ? 'бесплатно' : 'не нужна'}` }
   ]
 
+  useEffect(() => {
+    if (active) {
+        if (!([DealOfferStatus.Applied] as DealOfferStatus[]).includes(dealOffer.status)) {
+          notifyContext.markRead(dealOffer.id, NotificationUnreadType.dealOffer, true)
+        }
+    }
+  }, [active])
   return (
     <CardLayout topClassName={styles.top} title={dealOffer.receivingPoint?.company?.name as string} contentClassName={styles.additional} additionalEl={
       <div className={styles.inner}>

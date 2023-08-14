@@ -22,6 +22,8 @@ import Button from '@/components/ui/Button'
 import {LkPageBaseLayout} from '@/pages/lk'
 import {getAuthServerSideProps} from '@/utils/auth'
 import {UserRole} from '@/data/enum/UserRole'
+import {useNotificationContext} from '@/context/notifications_state'
+import {NotificationType} from '@/data/interfaces/INotification'
 
 enum TabKey {
   All = 'all',
@@ -41,12 +43,14 @@ const SaleRequestPageInner = (props: Props) => {
   const saleRequestId = parseInt(router.query.id as string, 10)
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const dealOfferListOwnerContext = useDealOfferListContext()
+  const notifyContext = useNotificationContext()
   const [tab, setTab] = useState<TabKey>(router.query.type as TabKey ?? TabKey.All)
-  console.log('SaleRequestPageInner11', saleRequestOwnerContext.saleRequest, saleRequestOwnerContext.loading)
-
+  const badgeNew = notifyContext.getTotalByTypes([
+    NotificationType.NewDealOffer
+  ])
   const tabs: IOption<TabKey>[] = [
     {label: 'Все предложения', value: TabKey.All},
-    {label: 'Новые', value: TabKey.New},
+    {label: 'Новые', value: TabKey.New, badge: badgeNew},
     {label: 'Знакомые', value: TabKey.Familiar},
     {label: 'Отклоненные', value: TabKey.Rejected}
   ]

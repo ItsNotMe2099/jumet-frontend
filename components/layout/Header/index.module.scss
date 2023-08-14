@@ -72,6 +72,7 @@
 }
 
 .link {
+  position: relative;
   @include btnText;
   color: $white;
   transition: color 0.2s;
@@ -127,4 +128,12 @@
   flex-direction: row;
   align-items: center;
   @include list(15px, true)
+}
+.badgeOnIcon{
+  right: 0px !important;
+  top: 0px !important;
+  height: 24px !important;
+  min-width: 24px !important;
+  border: 2px solid $dark500;
+  transform: translate(50%, -50%) !important;
 }

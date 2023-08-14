@@ -5,7 +5,9 @@ interface Props {
  className?: string
  total?: number
  empty?: boolean
- borderColor?: string
+ color: 'blue' | 'white'
+  position?: 'static' | 'absolute',
+  size?: 'small' | 'large'
 }
 
 export default function NotificationBadge(props: Props) {
@@ -15,6 +17,9 @@ export default function NotificationBadge(props: Props) {
   return (<div className={classNames({
     [styles.root]: true,
     [styles.empty]: props.empty,
-  },props.className)} style={{borderColor: props.borderColor}}>{props.total ?? ''}</div>)
+    [styles[props.color]]: true,
+    [styles[props.position ?? 'absolute']]: true,
+    [styles[props.size ?? 'small']]: true,
+  },props.className)}>{props.total ? `+${props.total}` : ''}</div>)
 }
 

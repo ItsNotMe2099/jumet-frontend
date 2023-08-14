@@ -4,7 +4,7 @@ import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 import IUser from '@/data/interfaces/IUser'
 
 export interface IDealOffer {
-  id?: number
+  id: number
   receivingPoint?: IReceivingPoint
   receivingPointId: number | null
   saleRequest?: ISaleRequest

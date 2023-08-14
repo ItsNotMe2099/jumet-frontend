@@ -13,6 +13,7 @@ import {UserRole} from '@/data/enum/UserRole'
 import {useRouter} from 'next/router'
 import {DealOfferModalArguments} from '@/types/modal_arguments'
 import {ReactElement} from 'react'
+import WeightUtils from '@/utils/WeightUtils'
 
 interface FieldProps{
   item: IOption<number | string | ReactElement>
@@ -35,7 +36,7 @@ export default function SaleRequestInfoPageCard({ item }: Props) {
   const appContext = useAppContext()
   const router = useRouter()
   const options: IOption<string>[] = [
-    {label: 'Примерный вес' , value: `${item.weight} ${Formatter.pluralize(item.weight, 'тонны', 'тонн', 'тонн')}`},
+    {label: 'Примерный вес' , value: `${WeightUtils.formatWeight(item.weight)}`},
     {label: 'Цена' , value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
     {label: 'Категория лома' , value: item.scrapMetalCategory ?? '-'},
     {label: 'Доставка' , value: item.requiresDelivery ? 'Нужна доставка' : '-' },

@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import classNames from 'classnames'
-import { IButton } from 'types/types'
-import { RefObject } from 'react'
+import {IButton, Nullable} from 'types/types'
+import {ReactElement, RefObject} from 'react'
 import Spinner from '@/components/ui/Spinner'
 
 interface Props extends IButton{
@@ -10,6 +10,7 @@ interface Props extends IButton{
   buttonRef?: RefObject<any>
   bgColor?: 'transparent' | 'white' | 'grey400' | 'grey300' | 'dark400' | 'blue500'
   size?: 'normal' | 'medium' | 'large'
+  badge?: Nullable<ReactElement>
 }
 
 export default function IconButton(props: Props) {
@@ -28,6 +29,7 @@ export default function IconButton(props: Props) {
         onClick={(e) => props.onClick?.(e)}
       >
         {props.children}
+        {props.badge}
       </a>
     )
   }
@@ -50,6 +52,7 @@ export default function IconButton(props: Props) {
       })}>
          <Spinner size={22} color="#fff" secondaryColor="rgba(255,255,255,0.4)" />
       </div>
+      {props.badge}
     </button>
   )
 }

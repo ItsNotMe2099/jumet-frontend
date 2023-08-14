@@ -14,6 +14,7 @@ import Button from '@/components/ui/Button'
 import {Routes} from '@/types/routes'
 import {LkPageBaseLayout} from '@/pages/lk'
 import SaleRequestOwnerCard from '@/components/for_pages/Common/Cards/SaleRequestOwnerCard'
+import {useNotificationContext} from '@/context/notifications_state'
 
 enum TabKey {
   Active = 'active',
@@ -26,8 +27,12 @@ interface Props {
 
 const LkSalesRequestsPageInner = (props: Props) => {
   const saleRequestListOwnerContext = useSaleRequestListOwnerContext()
+  const notifyContext = useNotificationContext()
   const router = useRouter()
   const [tab, setTab] = useState<TabKey>(router.query?.active as TabKey ?? TabKey.Active)
+  const badgeActive = notifyContext.getTotalByTypes([
+
+  ])
   const handleChangeTab = (tab: TabKey) => {
     setTab(tab)
     saleRequestListOwnerContext.setFilter({...(tab === TabKey.Active ? {statuses: [SaleRequestStatus.Draft, SaleRequestStatus.Published]} : {statuses: [SaleRequestStatus.Completed]})})
@@ -74,7 +79,7 @@ const LkSalesRequestsPageInner = (props: Props) => {
           scrollThreshold={0.6}>
           <div className={styles.list}>
             {saleRequestListOwnerContext.data.data.map((i, index) =>
-              <SaleRequestOwnerCard mode={'seller'} number={1} item={i} key={i.id}/>
+              <SaleRequestOwnerCard mode={'seller'} item={i} key={i.id}/>
             )}
           </div>
         </InfiniteScroll>
