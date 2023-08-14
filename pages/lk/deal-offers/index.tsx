@@ -1,10 +1,8 @@
 import Select from '@/components/fields/Select'
 import styles from './index.module.scss'
 import {useEffect, useMemo, useState} from 'react'
-import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import queryString from 'query-string'
-import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
 import {DealOfferListOwnerWrapper, useDealOfferListOwnerContext} from '@/context/deal_offers_list_owner_state'
 import {
   SaleRequestListFromSellerWrapper,
@@ -23,6 +21,8 @@ import {UserRole} from '@/data/enum/UserRole'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import {LkPageBaseLayout} from '@/pages/lk'
+import SaleRequestOwnerCard from '@/components/for_pages/Common/Cards/SaleRequestOwnerCard'
+import DealOfferOwnerCard from '@/components/for_pages/Common/Cards/DealOfferOwnerCard'
 
 enum TabKey {
   All = 'all',
@@ -160,7 +160,7 @@ const LkDealOffersPageInner = (props: Props) => {
             scrollThreshold={0.6}>
             <div className={styles.list}>
               {dealOfferListOwnerContext.data.data.map(i =>
-                <SaleRequestCard dealOffer={i} item={i.saleRequest as ISaleRequest} key={i.id}/>)}
+                <DealOfferOwnerCard dealOffer={i} saleRequest={i.saleRequest as ISaleRequest} key={i.id}/>)}
             </div>
           </InfiniteScroll>}
           {tab === TabKey.FromSellers && <InfiniteScroll
@@ -173,7 +173,7 @@ const LkDealOffersPageInner = (props: Props) => {
             scrollThreshold={0.6}>
             <div className={styles.list}>
               {saleRequestFromSellerListContext.data.data.map(i =>
-                <MySaleRequestCard mode={'buyer'} item={i} key={i.id}/>)}
+                <SaleRequestOwnerCard mode={'buyer'} item={i} key={i.id}/>)}
             </div>
           </InfiniteScroll>}
         </div>

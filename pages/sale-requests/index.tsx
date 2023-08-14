@@ -8,7 +8,6 @@ import { ListViewType } from '@/types/types'
 import { useAppContext } from '@/context/state'
 import Sticky from 'react-stickynode'
 import {SaleRequestSearchWrapper, useSaleRequestSearchContext} from '@/context/sale_request_search_state'
-import SaleRequestCard from '@/components/for_pages/scrap-for-sale/SaleRequestCard'
 import SortToggleButton from '@/components/ui/Buttons/SortToggleButton'
 import ContentLoader from '@/components/ui/ContentLoader'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -16,6 +15,7 @@ import SaleRequestsFilter, {SaleRequestsFilterRef} from '@/components/for_pages/
 import {SortOrder} from '@/types/enums'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
+import DealOfferOwnerCard from '@/components/for_pages/Common/Cards/DealOfferOwnerCard'
 
 interface Props {
 
@@ -72,7 +72,7 @@ const SaleRequestsPageWrapper = (props: Props) => {
               hasMore={searchContext.data.total > searchContext.data.data.length}
               scrollThreshold={0.6}>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <SaleRequestCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <DealOfferOwnerCard saleRequest={i} key={i.id} />)}
               </div>
             </InfiniteScroll>
           </div>

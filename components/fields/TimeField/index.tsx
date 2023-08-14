@@ -47,7 +47,7 @@ export default function TimeField(props: Props) {
             [styles.popup]: true,
           })}
           {...(field.value ? {value: moment(field.value, 'HH:mm:ss')} : {})}
-          placeholder={props.placeholder ?? props.label ? `${props.label}` : ''}
+          placeholder={props.placeholder ?? (props.label ? `${props.label}` : '')}
           inputReadOnly
           onChange={(date) => {
             if (date) {

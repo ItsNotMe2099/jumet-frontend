@@ -50,7 +50,7 @@ export default function DateField(props: Props) {
           locale={ru}
           selected={field.value ? parse(field.value, 'dd.MM.yyyy', new Date()) : null}
           dateFormat="dd.MM.yyyy"
-          placeholderText={props.placeholder ?? props.label ? `${props.label}` : undefined}
+          placeholderText={props.placeholder ?? (props.label ? `${props.label}` : '')}
           forceShowMonthNavigation={false}
           popperPlacement="bottom"
           showYearDropdown={props.visibleYearSelector}

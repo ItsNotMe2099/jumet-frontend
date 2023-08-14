@@ -9,6 +9,7 @@ import Formatter from '@/utils/formatter'
 
 interface Props {
   offer?: IDealOffer
+  initialOpen?: boolean
 }
 
 export default function DealOfferResultCard(props: Props) {
@@ -19,15 +20,15 @@ export default function DealOfferResultCard(props: Props) {
     return null
   }
   return (
-    <DealStepResultCardLayout title={'Предложение покупателя'} date={dealOffer.createdAt} >
+    <DealStepResultCardLayout title={'Предложение покупателя'} date={dealOffer.createdAt} initialOpen={props.initialOpen ?? false}>
       <div className={styles.root}>
         <div className={styles.badges}>
           {dealOffer.price && <Badge active text={Formatter.formatPrice(dealOffer.price, '₽/т')} />}
           {dealOffer.deliveryPrice !== null && <Badge active text={`Доставка – ${dealOffer.deliveryPrice > 0 ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : 'бесплатно'}`} />}
           {dealOffer.loadingPrice !== null && <Badge active text={`Погрузка – ${dealOffer.loadingPrice > 0 ? Formatter.formatPrice(dealOffer.loadingPrice, '₽/т') : 'бесплатно'}`} />}
         </div>
-        <DescField label={'Покупатель'} value={dealOffer.receivingPoint?.company?.name}/>
-        <DescField label={'Адрес пункта приёма'} value={dealOffer.receivingPoint?.address?.address}/>
+        <DescField label={'Покупатель'} value={deal.receivingPoint?.company?.name}/>
+        <DescField label={'Адрес пункта приёма'} value={deal.receivingPoint?.address?.address}/>
         {dealOffer.coverLetter && <DescField label={'Комментарий'} value={dealOffer.coverLetter}/>}
       </div>
     </DealStepResultCardLayout>

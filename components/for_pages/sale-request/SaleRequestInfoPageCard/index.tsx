@@ -1,6 +1,6 @@
 import { format } from 'date-fns'
-import CardLayout from '../../../CardLayout'
-import styles from './index.module.scss'
+import CardLayout from 'components/for_pages/Common/CardLayout'
+import styles from 'components/for_pages/sale-request/SaleRequestInfoPageCard/index.module.scss'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import Button from '@/components/ui/Button'
 import { useAppContext } from '@/context/state'
@@ -31,7 +31,7 @@ interface Props {
   item: ISaleRequest
 }
 
-export default function SaleRequestCardForBuyer({ item }: Props) {
+export default function SaleRequestInfoPageCard({ item }: Props) {
   const appContext = useAppContext()
   const router = useRouter()
   const options: IOption<string>[] = [
@@ -50,7 +50,7 @@ export default function SaleRequestCardForBuyer({ item }: Props) {
     }
   }
   return (
-    <CardLayout titleClassName={styles.title} title={'Заявка на продажу лома №256'} className={styles.card}>
+    <CardLayout titleClassName={styles.title} title={`Заявка на продажу лома №${item.id}`} className={styles.card}>
       <div className={styles.info}>
         <div className={styles.top}>
           {[...options].slice(0, 3).map((i, index) => <Field key={index} item={i}/>)}

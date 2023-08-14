@@ -7,6 +7,8 @@ import {ModalType, SnackbarType} from '@/types/enums'
 import {ConfirmModalArguments} from '@/types/modal_arguments'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 import Formatter from '@/utils/formatter'
+import {useRouter} from 'next/router'
+import {Routes} from '@/types/routes'
 
 interface IState {
   dealOfferId: number,
@@ -50,6 +52,7 @@ interface Props {
 
 export function DealOfferWrapper(props: Props) {
   const appContext = useAppContext()
+  const router = useRouter()
   const [items, setItems] = useState<IDealOffer[]>([])
   const [dealOffer, setDealOffer] = useState<Nullable<IDealOffer>>(props.dealOffer as Nullable<IDealOffer>)
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
@@ -92,6 +95,9 @@ export function DealOfferWrapper(props: Props) {
             handleUpdate(res)
             setDealOffer(i => ({...i, status: DealOfferStatus.Accepted} as any))
             setAcceptLoading(false)
+            if(res.dealId){
+              await router.push(Routes.lkDeal(res.dealId))
+            }
             resolve(res)
             return res
           } catch (err) {

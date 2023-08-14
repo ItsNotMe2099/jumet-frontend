@@ -1,4 +1,3 @@
-import Layout from '@/components/layout/Layout'
 import styles from 'pages/lk/sale-requests/create/index.module.scss'
 import CreateSaleRequestForm from '@/components/for_pages/create-sale-request/Form'
 import {getAuthServerSideProps} from '@/utils/auth'
@@ -41,7 +40,6 @@ const LkSaleRequestCreatePage = (props: Props) => {
   }
 
   return (
-    <Layout>
       <div className={styles.root}>
         <div className={styles.container}>
           {isSuccess && <SuccessBlock
@@ -62,7 +60,6 @@ const LkSaleRequestCreatePage = (props: Props) => {
             <CreateSaleRequestForm  loading={loading} submit={handleSubmit}/></div>}
         </div>
       </div>
-    </Layout>
   )
 }
 LkSaleRequestCreatePage.getLayout = LkPageBaseLayout

@@ -35,6 +35,8 @@
   @include clearfix;
   margin: -6px -6px 0px -6px;
  .image{
+   cursor: pointer;
+   border-radius: 8px;
    float: left;
    margin: 6px;
    max-height: 48px;

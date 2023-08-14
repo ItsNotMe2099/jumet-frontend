@@ -7,6 +7,8 @@ import {ModalType, SnackbarType} from '@/types/enums'
 import {ConfirmModalArguments, SaleRequestFormModalArguments} from '@/types/modal_arguments'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import Formatter from '@/utils/formatter'
+import {useRouter} from 'next/router'
+import {Routes} from '@/types/routes'
 
 interface IState {
   saleRequestId: number,
@@ -56,6 +58,7 @@ interface Props {
 
 export function SaleRequestOwnerWrapper(props: Props) {
   const appContext = useAppContext()
+  const router = useRouter()
   const [saleRequest, setSaleRequest] = useState<Nullable<ISaleRequest>>(props.saleRequest as Nullable<ISaleRequest>)
   const [deleteLoading, setDeleteLoading] = useState<boolean>(false)
   const [publishLoading, setPublishLoading] = useState<boolean>(false)
@@ -205,6 +208,9 @@ export function SaleRequestOwnerWrapper(props: Props) {
             handleUpdate(res)
             setSaleRequest(i => ({...i, status: SaleRequestStatus.Accepted} as any))
             setAcceptLoading(false)
+            if(res.dealId){
+              await router.push(Routes.lkDeal(res.dealId))
+            }
             resolve(res)
             return res
           } catch (err) {

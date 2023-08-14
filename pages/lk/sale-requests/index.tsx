@@ -1,6 +1,5 @@
 import styles from 'pages/lk/sale-requests/index.module.scss'
 import {useMemo, useState} from 'react'
-import MySaleRequestCard from '@/components/for_pages/my-sale-requests/MySaleRequestCard'
 import {SaleRequestListOwnerWrapper, useSaleRequestListOwnerContext} from '@/context/sale_request_list_owner_state'
 import {useRouter} from 'next/router'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
@@ -14,6 +13,7 @@ import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import {Routes} from '@/types/routes'
 import {LkPageBaseLayout} from '@/pages/lk'
+import SaleRequestOwnerCard from '@/components/for_pages/Common/Cards/SaleRequestOwnerCard'
 
 enum TabKey {
   Active = 'active',
@@ -74,7 +74,7 @@ const LkSalesRequestsPageInner = (props: Props) => {
           scrollThreshold={0.6}>
           <div className={styles.list}>
             {saleRequestListOwnerContext.data.data.map((i, index) =>
-              <MySaleRequestCard mode={'seller'} number={1} item={i} key={i.id}/>
+              <SaleRequestOwnerCard mode={'seller'} number={1} item={i} key={i.id}/>
             )}
           </div>
         </InfiniteScroll>

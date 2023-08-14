@@ -41,6 +41,9 @@ export class Routes {
   static saleRequest(id: string | number) {
     return `/sale-requests/${id}`
   }
+  static saleRequestPrivate(id: string | number) {
+    return `/sale-requests/private/${id}`
+  }
 
   static get lk() {
     return '/lk'

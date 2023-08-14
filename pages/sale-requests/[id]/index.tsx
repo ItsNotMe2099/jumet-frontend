@@ -3,11 +3,11 @@ import styles from './index.module.scss'
 import { GetServerSideProps } from 'next'
 import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
-import SaleRequestCardForBuyer from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestCardForBuyer'
 import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
-import SaleRequestAddressCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestAddressCard'
 import {CookiesType} from '@/types/enums'
-import SaleRequestPhotosCard from '@/components/for_pages/Common/SaleRequestComponents/Cards/SaleRequestPhotosCard'
+import SaleRequestInfoPageCard from '@/components/for_pages/sale-request/SaleRequestInfoPageCard'
+import SaleRequestAddressPageCard from '@/components/for_pages/sale-request/SaleRequestAddressPageCard'
+import SaleRequestPhotosPageCard from '@/components/for_pages/sale-request/SaleRequestPhotosPageCard'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -20,9 +20,9 @@ export default function SaleRequestPage({ saleRequest }: Props) {
     <Layout>
       <div className={styles.root}>
         <div className={styles.colLeft}>
-          <SaleRequestCardForBuyer item={saleRequest} />
-          <SaleRequestAddressCard item={saleRequest}/>
-          <SaleRequestPhotosCard item={saleRequest}/>
+          <SaleRequestInfoPageCard item={saleRequest} />
+          <SaleRequestAddressPageCard item={saleRequest}/>
+          <SaleRequestPhotosPageCard item={saleRequest}/>
         </div>
 
         <ChatOnPage/>

@@ -30,8 +30,16 @@ export default class SaleRequestRepository {
       },
       token
     })
-    console.log('res?.data111', res?.data)
     return res?.data?.length > 0 ? res.data[0] : null
+  }
+
+  static async fetchPrivateById(id: number, token?: string): Promise<ISaleRequest | null> {
+    const res = await request<ISaleRequest>({
+      method: 'get',
+      url: `/api/sale-request/${id}`,
+      token
+    })
+    return res
   }
 
   static async fetchSaleRequestsFromSeller(data: ISaleRequestFromSellerListRequest, config?: AxiosRequestConfig): Promise<IPagination<ISaleRequest>> {

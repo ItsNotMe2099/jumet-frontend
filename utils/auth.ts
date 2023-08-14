@@ -14,7 +14,7 @@ export const getToken = (): string | undefined => {
 }
 
 
-export  function getAuthServerSideProps<Props extends { [key: string]: any } = { [key: string]: any }>(userRole?: UserRole): GetServerSideProps<Props >{
+export  function getAuthServerSideProps<Props extends { [key: string]: any } = { [key: string]: any }>(userRole?: UserRole, cb?: GetServerSideProps<Props>): GetServerSideProps<Props >{
  return async (context: GetServerSidePropsContext): Promise<GetServerSidePropsResult<Props>> => {
    const token = context.req.cookies[CookiesType.accessToken]
    let user: IAboutMe | null = null
@@ -36,6 +36,9 @@ export  function getAuthServerSideProps<Props extends { [key: string]: any } = {
      }
    }
 
+   if(cb){
+     return cb(context)
+   }
    return {
      props: {} as Props,
    }

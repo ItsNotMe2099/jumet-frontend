@@ -18,4 +18,5 @@ export interface IDealOffer {
   manager?: IUser
   ownerId?: string
   createdAt: string
+  dealId?: number
 }

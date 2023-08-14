@@ -59,20 +59,20 @@ export default class DealUtils {
   }
 
   static formatDeliveryTime(deal: IDeal){
-    return deal.requiresDelivery ? `${Formatter.formatDateRelative(parse(deal.deliveryDate, 'yyyy-mm-dd', new Date()))} ${Formatter.formatTimeString(deal.deliveryTimeFrom)}${deal.deliveryTimeTo ? `${deal.deliveryTimeFrom ? '-' : 'до '}${Formatter.formatTimeString(deal.deliveryTimeTo)}` : ''}` : ''
+    return deal.requiresDelivery && deal.deliveryDate ? `${Formatter.formatDateRelative(parse(deal.deliveryDate, 'yyyy-mm-dd', new Date()))} ${deal.deliveryTimeFrom ? Formatter.formatTimeString(deal.deliveryTimeFrom) : ''}${deal.deliveryTimeTo ? `${deal.deliveryTimeFrom ? '-' : 'до '}${Formatter.formatTimeString(deal.deliveryTimeTo)}` : ''}` : ''
   }
   private static getNewStateDescription(deal: IDeal, mode: 'seller' | 'buyer'): IDealStateDetails {
     switch (mode) {
       case 'seller':
         return {
           ...(!deal.dealOfferId && deal.saleRequestId ? {
-            shortName: 'Ваше предложение одобрено, сделка открыта',
-            name: 'Ваше предложение одобрено, сделка открыта',
+            shortName: 'Ваше предложение одобрено',
+            name: 'Ваше предложение одобрено.',
             description: 'Покупатель принял предложение. Для открытия сделки с пунктом приёма лома, заполните форму «Оформить сделку».',
 
           } : {
-            shortName: 'Вы приняли предложение, сделка открыта',
-            name: 'Вы приняли предложение, сделка открыта',
+            shortName: 'Вы приняли предложение',
+            name: 'Вы приняли предложение.',
             description: 'Вы приняли предложение покупателя. Для открытия сделки с пунктом приёма лома, заполните форму «Оформить сделку».',
 
           }),
@@ -81,14 +81,14 @@ export default class DealUtils {
       case 'buyer':
         return {
           ...(!deal.dealOfferId && deal.saleRequestId ? {
-            shortName: 'Вы приняли предложение покупателя, сделка открыта',
-            name: 'Вы приняли предложение покупателя, сделка открыта.',
-            description: '',
+            shortName: 'Вы приняли предложение покупателя',
+            name: 'Вы приняли предложение покупателя.',
+            description: 'Ожидайте открытия сделки продавцом',
 
           } : {
-            shortName: 'Продавец принял предложение, сделка открыта',
-            name: 'Продавец принял предложение, сделка открыта',
-            description: '',
+            shortName: 'Продавец принял предложение',
+            name: 'Продавец принял предложение',
+            description: 'Ожидайте открытия сделки продавцом',
 
           }),
           color: 'yellow'

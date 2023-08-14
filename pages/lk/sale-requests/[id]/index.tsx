@@ -6,7 +6,7 @@ import SaleRequestDetailsCard from '@/components/for_pages/LkPage/SaleRequest/Sa
 import Tabs from '@/components/ui/Tabs'
 import {useEffect, useMemo, useState} from 'react'
 import {IOption} from '@/types/types'
-import SaleRequestDealOfferCard from '@/components/for_pages/LkPage/SaleRequest/SaleRequestDealOfferCard'
+import SaleRequestDealOfferCard from '@/components/for_pages/Common/Cards/SaleRequestDealOfferCard'
 import {SaleRequestOwnerWrapper, useSaleRequestOwnerContext} from '@/context/sale_request_owner_state'
 import {useRouter} from 'next/router'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
@@ -16,7 +16,6 @@ import ContentLoader from '@/components/ui/ContentLoader'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ClientOnly from '@/components/visibility/ClientOnly'
 import {useAppContext} from '@/context/state'
-import Layout from '@/components/layout/Layout'
 import {DealOfferListWrapper, useDealOfferListContext} from '@/context/deal_offers_list_state'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
@@ -154,13 +153,11 @@ const LkSaleRequestPage = (props: Props) => {
   const router = useRouter()
   const id = parseInt(router.query.id as string, 10)
   return (<ClientOnly>
-    <Layout>
       <SaleRequestOwnerWrapper saleRequestId={id}>
         <DealOfferListWrapper saleRequestId={id}>
           <SaleRequestPageInner/>
         </DealOfferListWrapper>
       </SaleRequestOwnerWrapper>
-    </Layout>
   </ClientOnly>)
 }
 LkSaleRequestPage.getLayout = LkPageBaseLayout

@@ -15,6 +15,7 @@ import ImageFile from '@/components/ui/ImageFile'
 import {ModalType, Preset} from '@/types/enums'
 import {useAppContext} from '@/context/state'
 import {GalleryModalArguments} from '@/types/modal_arguments'
+import {Routes} from '@/types/routes'
 
 interface FieldProps{
   item: IOption<string | null | ReactElement>
@@ -71,6 +72,9 @@ export default function SaleRequestDetailsCard(props: Props) {
         <Button className={styles.btn} onClick={saleRequestOwnerContext.edit} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
           Редактировать заявку
         </Button>
+        {saleRequest?.status === SaleRequestStatus.Published && <Button href={Routes.lkSaleRequest(saleRequestOwnerContext.saleRequestId)} className={styles.btn} onClick={saleRequestOwnerContext.edit} color='grey' styleType='large'>
+          Предпросмотр
+        </Button>}
         <div className={styles.infoMobile}>
           <div className={styles.show} onClick={() => setOpened(!opened)}>
             <div className={styles.text}>Информация о заявке</div>

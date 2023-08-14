@@ -1,13 +1,13 @@
-import CardLayout from '../../../CardLayout'
+import CardLayout from 'components/for_pages/Common/CardLayout'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import AddressView from '@/components/for_pages/Common/ReceivingPoint/AddressView'
-import styles from './index.module.scss'
+import styles from 'components/for_pages/sale-request/SaleRequestAddressPageCard/index.module.scss'
 interface Props {
   item: ISaleRequest | null
 
 }
 
-export default function SaleRequestAddressCard(props: Props) {
+export default function SaleRequestAddressPageCard(props: Props) {
 
   if(!props.item?.location && !props.item?.address?.address){
     return null

@@ -14,6 +14,7 @@ import WeighningResultCard from '@/components/for_pages/LkPage/DealEdit/componen
 import ReceiptResultCard from '@/components/for_pages/LkPage/DealEdit/components/ReceiptResultCard'
 import ReviewFormStepCard from '@/components/for_pages/LkPage/DealEdit/components/ReviewFormStepCard'
 import ReviewResultCard from '@/components/for_pages/LkPage/DealEdit/components/ReviewResultCard'
+import SaleRequestResultCard from '@/components/for_pages/LkPage/DealEdit/components/SaleRequestResultCard'
 
 
 interface Props {
@@ -55,10 +56,9 @@ export default function DealEdit(props: Props) {
     const keys = Object.values(DealStatus)
     const index = keys.indexOf(status)
     const currentIndex = keys.indexOf(dealContext.deal!.status)
-    console.log('Index1', index, status, currentIndex)
     return index <= currentIndex
   }
-  console.log('DealNew', dealContext.deal)
+
   return (
     <div className={styles.root}>
       <DealInfoCard />
@@ -67,7 +67,8 @@ export default function DealEdit(props: Props) {
       {isStepPass(DealStatus.Paid) && dealContext.deal?.review && <ReviewResultCard/>}
       {isStepPass(DealStatus.Paid) && <ReceiptResultCard/>}
       {isStepPass(DealStatus.Weighing)  && !(dealContext.deal?.status === DealStatus.Weighing && appContext.aboutMe?.role === UserRole.Seller)&& <WeighningResultCard/>}
-      <DealOfferResultCard/>
+      <DealOfferResultCard initialOpen={dealContext.deal?.status === DealStatus.New}/>
+      <SaleRequestResultCard initialOpen={dealContext.deal?.status === DealStatus.New}/>
       {isStepPass(DealStatus.SetUp) && <SellerDataResultCard/>}
 
     </div>

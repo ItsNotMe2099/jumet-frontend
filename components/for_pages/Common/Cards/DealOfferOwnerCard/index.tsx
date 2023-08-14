@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from 'components/for_pages/Common/Cards/DealOfferOwnerCard/index.module.scss'
 import JumetSvg from '@/components/svg/JumetSvg'
 import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
@@ -15,29 +15,30 @@ import StatusBadge from '@/components/ui/StatusBadge'
 import ImageHelper from '@/utils/ImageHelper'
 import Image from 'next/image'
 import {Preset} from '@/types/enums'
+import Badge from '@/components/ui/Badge'
 
 interface Props {
-  item: ISaleRequest
+  saleRequest: ISaleRequest
   dealOffer?: IDealOffer
 }
 
-export default function SaleRequestCard({ item, dealOffer }: Props) {
+export default function DealOfferOwnerCard({ saleRequest, dealOffer }: Props) {
 
   const [showOffer, setShowOffer] = useState<boolean>(false)
 
-  const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? item.createdAt)
-
+  const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? saleRequest.createdAt)
+  const link = saleRequest.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : Routes.saleRequest(saleRequest.id)
   return (
     <div className={styles.root}>
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.top}>
             <div className={styles.first}>
-              <Link  href={Routes.saleRequest(item.id)} className={styles.weight}>
-                {item.weight > 0 ? WeightUtils.formatWeight(item.weight) : 'Вес не указан'}
+              <Link  href={link} className={styles.weight}>
+                {saleRequest.weight > 0 ? WeightUtils.formatWeight(saleRequest.weight) : 'Вес не указан'}
               </Link>
-              <Link href={Routes.saleRequest(item.id)} className={styles.number}>
-                Заявка №{item.id}
+              <Link href={link} className={styles.number}>
+                Заявка №{saleRequest.id}
               </Link>
             </div>
             <div>
@@ -49,17 +50,12 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
             </div>
           </div>
           <div className={styles.middle}>
-            {item.address.address}
+            {saleRequest.address.address}
           </div>
-          <div className={styles.bottom}>
-            <div className={styles.item}>
-              {item.scrapMetalCategory ? <>Категория {item.scrapMetalCategory}</> : 'Категория не указана'}
-            </div>
-            {item.price ?
-              <div className={styles.item}>
-                От {Formatter.formatPrice(item.price)}
-              </div> : null}
-          </div>
+          {(saleRequest.scrapMetalCategory ||saleRequest.price > 0) && <div className={styles.bottom}>
+            {saleRequest.scrapMetalCategory && <Badge active text={saleRequest.scrapMetalCategory} />}
+            {saleRequest.price > 0 && <Badge active text={`От ${Formatter.formatPrice(saleRequest.price)}`} />}
+          </div>}
           {dealOffer &&  <div className={styles.offer} onClick={() => setShowOffer(!showOffer)}>
             <div className={styles.text}>
               Ваше предложение
@@ -68,8 +64,8 @@ export default function SaleRequestCard({ item, dealOffer }: Props) {
           </div>}
         </div>
         <div className={styles.right}>
-          {(item.photos?.length ?? 0) > 0 ?
-            <Image src={ImageHelper.urlFromFile(item.photos[0], Preset.smCrop)} alt='' fill unoptimized />
+          {(saleRequest.photos?.length ?? 0) > 0 ?
+            <Image src={ImageHelper.urlFromFile(saleRequest.photos[0], Preset.smCrop)} alt='' fill unoptimized />
             :
             <JumetSvg color={colors.white} />
           }

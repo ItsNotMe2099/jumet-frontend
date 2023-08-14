@@ -35,7 +35,7 @@
     @include mainText;
     color: $dark500;
     width: 50%;
-
+  white-space: pre-line;
     @include mq(704px, max) {
         width: 100%;
     }

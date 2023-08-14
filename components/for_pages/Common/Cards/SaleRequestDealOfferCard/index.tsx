@@ -1,5 +1,5 @@
-import CardLayout from 'components/for_pages/Common/CardLayout'
-import styles from 'components/for_pages/LkPage/SaleRequest/SaleRequestDealOfferCard/index.module.scss'
+import CardLayout from '@/components/for_pages/Common/CardLayout'
+import styles from '@/components/for_pages/Common/Cards/SaleRequestDealOfferCard/index.module.scss'
 import Button from '@/components/ui/Button'
 import ChatSvg from '@/components/svg/ChatSvg'
 import { colors } from '@/styles/variables'
@@ -22,8 +22,8 @@ const SaleRequestDealOfferCardInner = (props: Props) => {
 
   const badges = [
   ...(dealOffer.price  ? [{ text: dealOffer.price ? Formatter.formatPrice(dealOffer.price, '₽/т') : '-' }] : []),
-    { text: `Доставка – ${dealOffer.deliveryPrice ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : 'бесплатно'}` },
-    { text: `Погрузка – ${dealOffer.loadingPrice ? Formatter.formatPrice(dealOffer.loadingPrice) : 'бесплатно'}` }
+    { text: `Доставка – ${dealOffer.deliveryPrice ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : dealOffer.deliveryPrice === 0 ? 'бесплатно' : 'не нужна'}` },
+    { text: `Погрузка – ${dealOffer.loadingPrice ? Formatter.formatPrice(dealOffer.loadingPrice) : dealOffer.loadingPrice === 0 ? 'бесплатно' : 'не нужна'}` }
   ]
 
   return (

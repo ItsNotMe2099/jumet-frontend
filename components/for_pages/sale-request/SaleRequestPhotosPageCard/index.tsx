@@ -1,7 +1,7 @@
-import CardLayout from '../../../CardLayout'
+import CardLayout from 'components/for_pages/Common/CardLayout'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import ImageGallery from '@/components/ui/ImageGallery'
-import styles from './index.module.scss'
+import styles from 'components/for_pages/sale-request/SaleRequestPhotosPageCard/index.module.scss'
 
 
 interface Props {
@@ -9,7 +9,7 @@ interface Props {
   cardLayoutClass?: string
 }
 
-export default function SaleRequestPhotosCard(props: Props) {
+export default function SaleRequestPhotosPageCard(props: Props) {
 
   if((props.item.photos?.length ?? 0) === 0){
     return null

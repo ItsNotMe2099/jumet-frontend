@@ -1,5 +1,5 @@
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
-import styles from './index.module.scss'
+import styles from 'components/for_pages/Common/Cards/SaleRequestOwnerCard/index.module.scss'
 import {format} from 'date-fns'
 import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
@@ -37,7 +37,7 @@ interface Props {
   mode: 'seller' | 'buyer'
 }
 
-const MySaleRequestCardInner = (props: Props) => {
+const SaleRequestOwnerCardInner = (props: Props) => {
   const {  number } = props
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const item = saleRequestOwnerContext.saleRequest!
@@ -49,13 +49,15 @@ const MySaleRequestCardInner = (props: Props) => {
     {label: 'Погрузка' , value: item.requiresDelivery ? 'Нужна погрузка' : '-'},
     {label: 'Дата создания' , value: format(new Date(item.createdAt), 'dd.MM.yyyy г.')}
   ]
+  const link = props.mode === 'seller'  ? Routes.lkSaleRequest(item.id) : item.receivingPointId ?  Routes.saleRequestPrivate(item.id) : Routes.saleRequest(item.id)
+
   return (
     <div className={styles.root}>
       <div className={styles.left}>
-        {props.mode === 'seller' && <Link href={Routes.saleRequest(item.id)} className={styles.title}>
+        {props.mode === 'seller' && <Link href={link} className={styles.title}>
           Заявка №{item.id}
         </Link>}
-        {props.mode === 'buyer' && <div className={styles.leftTop}><Link href={Routes.saleRequest(item.id)} className={styles.title}>
+        {props.mode === 'buyer' && <div className={styles.leftTop}><Link href={link} className={styles.title}>
           {WeightUtils.formatWeight(item.weight)}
         </Link>
           <StatusBadge<SaleRequestStatus> data={{
@@ -109,8 +111,8 @@ const MySaleRequestCardInner = (props: Props) => {
     </div>
   )
 }
-export default function MySaleRequestCard(props: Props) {
+export default function SaleRequestOwnerCard(props: Props) {
   return <SaleRequestOwnerWrapper saleRequestId={props.item.id} saleRequest={props.item}>
-    <MySaleRequestCardInner item={props.item} mode={props.mode}/>
+    <SaleRequestOwnerCardInner item={props.item} mode={props.mode}/>
   </SaleRequestOwnerWrapper>
 }

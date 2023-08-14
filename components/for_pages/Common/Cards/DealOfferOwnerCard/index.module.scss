@@ -1,4 +1,4 @@
-@import "styles/index";
+@import "../../../../../styles/index";
 
 .root {
   background-color: $white;
@@ -217,4 +217,5 @@
   color: $dark500;
   max-width: 516px;
   word-break: break-word;
+  white-space: pre-line;
 }
