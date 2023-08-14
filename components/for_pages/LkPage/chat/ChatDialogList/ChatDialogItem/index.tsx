@@ -51,7 +51,7 @@ export default function ChatDialogItem(props: Props) {
               />}
               {!entityHighlighted && entityName}</div>
           </div>
-          {props.chat.totalUnread > 0 && <NotificationBadge className={styles.badge} total={props.chat.totalUnread}/>}
+          {props.chat.totalUnread > 0 && <NotificationBadge position={'static'} size={'large'} color={'blue'} className={styles.badge} total={props.chat.totalUnread}/>}
         </div>
 
       </div>

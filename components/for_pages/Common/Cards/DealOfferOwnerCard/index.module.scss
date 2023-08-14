@@ -1,13 +1,8 @@
-@import "../../../../../styles/index";
+@import "styles/index";
 
 .root {
-  background-color: $white;
-  padding: 20px;
-  border-radius: 12px;
-
-  @include mq($TabletWidth, max) {
-    padding: 16px;
-  }
+  position: relative;
+  @include card;
 }
 
 .container {
@@ -28,10 +23,19 @@
 
 .top {
   display: flex;
+  align-items: center;
   @include list(8px, true);
 
   .first {
     display: flex;
+    align-items: center;
+    @include list(8px, true);
+  }
+
+  .second {
+    display: flex;
+    align-items: center;
+
     @include list(8px, true);
   }
 

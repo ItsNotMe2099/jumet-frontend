@@ -18,6 +18,7 @@ import ImageHelper from '@/utils/ImageHelper'
 import {Preset} from '@/types/enums'
 import {IOption} from '@/types/types'
 import {ReactElement} from 'react'
+import NotificationBadge from '@/components/ui/NotificationBadge'
 interface FieldProps{
   item: IOption<number | string | ReactElement>
 }
@@ -33,16 +34,14 @@ function Field(props: FieldProps) {
 }
 interface Props {
   item: ISaleRequest
-  number?: number
   mode: 'seller' | 'buyer'
 }
 
 const SaleRequestOwnerCardInner = (props: Props) => {
-  const {  number } = props
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const item = saleRequestOwnerContext.saleRequest!
   const options: IOption<string>[] = [
-    {label: 'Примерный вес' , value: `${item.weight} ${Formatter.pluralize(item.weight, 'тонны', 'тонн', 'тонн')}`},
+    {label: 'Примерный вес' , value: `${WeightUtils.formatWeight(item.weight)}`},
     {label: 'Цена' , value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
     {label: 'Категория лома' , value: item.scrapMetalCategory ?? '-'},
     {label: 'Доставка' , value: item.requiresDelivery ? 'Нужна доставка' : '-' },
@@ -80,7 +79,7 @@ const SaleRequestOwnerCardInner = (props: Props) => {
           </div>
           {props.mode === 'seller' && <div className={styles.controls}>
             <Button href={Routes.lkSaleRequest(item.id)} className={styles.btnFirst} color='blue' styleType='large'>
-              Открыть предложения {item.contacts.length ? item.contacts.length : null} {number && <div className={styles.plus}>+{number}</div>}
+              Открыть предложения {item.offersCount ?? '0'} {item.newOffersCount > 0 && <NotificationBadge className={styles.notificationBadge} position={'static'} size={'large'} color={'white'} total={item.newOffersCount}/> }
             </Button>
             <Button onClick={saleRequestOwnerContext.edit} className={styles.btn} color='grey' styleType='large' icon={<EditSvg color={colors.blue500} />}>
               Редактировать заявку

@@ -4,7 +4,7 @@ import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
 import { DealOfferStatus } from '@/data/enum/DealOfferStatus'
-import { useState } from 'react'
+import {useEffect, useState} from 'react'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import ChevronUpSvg from '@/components/svg/ChevronUpSvg'
 import WeightUtils from '@/utils/WeightUtils'
@@ -16,14 +16,17 @@ import ImageHelper from '@/utils/ImageHelper'
 import Image from 'next/image'
 import {Preset} from '@/types/enums'
 import Badge from '@/components/ui/Badge'
+import {NotificationUnreadType} from '@/data/interfaces/INotification'
+import {useNotificationContext} from '@/context/notifications_state'
+import NotificationBadge from '@/components/ui/NotificationBadge'
 
 interface Props {
   saleRequest: ISaleRequest
   dealOffer?: IDealOffer
+  active?: boolean
 }
 
-export default function DealOfferOwnerCard({ saleRequest, dealOffer }: Props) {
-
+const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
   const [showOffer, setShowOffer] = useState<boolean>(false)
 
   const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? saleRequest.createdAt)
@@ -41,13 +44,16 @@ export default function DealOfferOwnerCard({ saleRequest, dealOffer }: Props) {
                 Заявка №{saleRequest.id}
               </Link>
             </div>
-            <div>
+            <div className={styles.second}>
               {dealOffer && <StatusBadge<DealOfferStatus> data={{
                 [DealOfferStatus.Applied]: {color: 'blue', label: 'На рассмотрении'},
                 [DealOfferStatus.Accepted]: {color: 'blue', label: 'Принято (Открыта сделка)'},
                 [DealOfferStatus.Rejected]: {color: 'blue', label: 'Отклонено'},
               }} value={dealOffer.status!}/>}
+              {active && <NotificationBadge position={'static'} empty className={styles.badge} color={'blue'}/>}
+
             </div>
+
           </div>
           <div className={styles.middle}>
             {saleRequest.address.address}
@@ -104,4 +110,21 @@ export default function DealOfferOwnerCard({ saleRequest, dealOffer }: Props) {
         </div>}
     </div>
   )
+}
+
+export function DealOfferOwnerCard(props: Props) {
+  const dealOffer = props.dealOffer
+  const notifyContext = useNotificationContext()
+  const active = notifyContext.store[NotificationUnreadType.dealOffer].find(i => i.eId === dealOffer!.id)
+  useEffect(() => {
+    notifyContext.addRecord(dealOffer!.id, NotificationUnreadType.dealOffer)
+    return () => {
+      notifyContext.removeRecord(dealOffer!.id, NotificationUnreadType.dealOffer)
+    }
+  }, [])
+  return <DealOfferOwnerCardInner {...props} active={!!active}/>
+}
+
+export function SaleRequestSearchCard(props: Props) {
+  return <DealOfferOwnerCardInner {...props}/>
 }

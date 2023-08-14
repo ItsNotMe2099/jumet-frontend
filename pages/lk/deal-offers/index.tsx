@@ -22,7 +22,9 @@ import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import {LkPageBaseLayout} from '@/pages/lk'
 import SaleRequestOwnerCard from '@/components/for_pages/Common/Cards/SaleRequestOwnerCard'
-import DealOfferOwnerCard from '@/components/for_pages/Common/Cards/DealOfferOwnerCard'
+import {useNotificationContext} from '@/context/notifications_state'
+import {NotificationType} from '@/data/interfaces/INotification'
+import {DealOfferOwnerCard} from '@/components/for_pages/Common/Cards/DealOfferOwnerCard'
 
 enum TabKey {
   All = 'all',
@@ -43,7 +45,17 @@ const LkDealOffersPageInner = (props: Props) => {
   const receivingPointListContext = useReceivingPointListContext()
   const [receivingPointId, setReceivingPointId] = useState<number | null>(null)
   const [tab, setTab] = useState<TabKey>(router.query.type as TabKey ?? TabKey.All)
+  const notifyContext = useNotificationContext()
+  const badgeAccepted = notifyContext.getTotalByTypes([
+    NotificationType.DealOfferAccepted,
+  ])
+  const badgeRejected = notifyContext.getTotalByTypes([
+    NotificationType.DealOfferRejected
+  ])
 
+  const badgeFromSellers = notifyContext.getTotalByTypes([
+    NotificationType.NewSaleRequest
+  ])
 
   useEffect(() => {
     console.log('Refetch1')
@@ -94,9 +106,9 @@ const LkDealOffersPageInner = (props: Props) => {
   const tabs: IOption<TabKey>[] = [
     {label: 'Все предложения', value: TabKey.All},
     {label: 'На рассмотрении', value: TabKey.Applied},
-    {label: 'Принятые', value: TabKey.Accepted},
-    {label: 'Отклоненные', value: TabKey.Rejected},
-    {label: 'Прямые предложения от продавцов', value: TabKey.FromSellers},
+    {label: 'Принятые', value: TabKey.Accepted, badge: badgeAccepted},
+    {label: 'Отклоненные', value: TabKey.Rejected, badge: badgeRejected},
+    {label: 'Прямые предложения от продавцов', value: TabKey.FromSellers, badge: badgeFromSellers},
   ]
 
   const stubData = useMemo<{title: string, text: string}>(() => {

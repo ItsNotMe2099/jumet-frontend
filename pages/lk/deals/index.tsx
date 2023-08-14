@@ -15,6 +15,8 @@ import DealCard from '@/components/for_pages/Common/Cards/DealCard'
 import {useAppContext} from '@/context/state'
 import {UserRole} from '@/data/enum/UserRole'
 import {LkPageBaseLayout} from '@/pages/lk'
+import {useNotificationContext} from '@/context/notifications_state'
+import {NotificationType} from '@/data/interfaces/INotification'
 
 enum TabKey {
   Active = 'active',
@@ -29,8 +31,22 @@ interface Props {
 const LkDealsPageInner = (props: Props) => {
   const appContext = useAppContext()
   const dealListOwnerContext = useDealListOwnerContext()
+  const notifyContext = useNotificationContext()
+
   const router = useRouter()
   const [tab, setTab] = useState<TabKey>(router.query?.active as TabKey ?? TabKey.Active)
+  const badgeActive = notifyContext.getTotalByTypes([
+    NotificationType.DealSetUp,
+    NotificationType.DealWeighed,
+    NotificationType.DealWeighingAccepted,
+  ])
+  const badgeCompleted = notifyContext.getTotalByTypes([
+    NotificationType.DealPaid,
+  ])
+  const badgeTerminated = notifyContext.getTotalByTypes([
+    NotificationType.DealTerminatedByBuyer,
+    NotificationType.DealTerminatedBySeller,
+  ])
   const getFilterByTab = (tab: TabKey): IDealFilter => {
     switch (tab){
       case TabKey.Active:
@@ -47,9 +63,9 @@ const LkDealsPageInner = (props: Props) => {
     dealListOwnerContext.setFilter(getFilterByTab(tab))
   }
   const tabs: IOption<TabKey>[] = [
-    {label: 'Активные', value: TabKey.Active},
-    {label: 'Завершенные', value: TabKey.Completed},
-    {label: 'Расторгнутые', value: TabKey.Terminated},
+    {label: 'Активные', value: TabKey.Active, badge: badgeActive},
+    {label: 'Завершенные', value: TabKey.Completed, badge: badgeCompleted},
+    {label: 'Расторгнутые', value: TabKey.Terminated, badge: badgeTerminated},
   ]
   useEffect(() => {
     dealListOwnerContext.reFetch()

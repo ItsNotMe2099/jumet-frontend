@@ -11,13 +11,14 @@ import {getSelectorsByUserAgent} from 'react-device-detect'
 import ModalContainer from 'components/layout/ModalContainer'
 import Snackbar from 'components/layout/Snackbar'
 import Head from 'next/head'
-import { AuthWrapper } from 'context/auth_state'
-import { getToken } from '@/utils/auth'
+import {AuthWrapper} from 'context/auth_state'
+import {getToken} from '@/utils/auth'
 import 'swiper/css'
 import 'swiper/css/zoom'
-import { DataWrapper } from '@/context/data_state'
-import { FavoriteWrapper } from '@/context/favorite_state'
-import { NextPage } from 'next'
+import {DataWrapper} from '@/context/data_state'
+import {FavoriteWrapper} from '@/context/favorite_state'
+import {NextPage} from 'next'
+import {NotificationWrapper} from '@/context/notifications_state'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -28,39 +29,43 @@ export interface AppProps extends NextAppProps {
     isMobile: boolean
   }
 }
+
 type AppPropsWithLayout = AppProps & {
   Component: NextPageWithLayout
 }
-function MyApp({ Component, pageProps }: AppPropsWithLayout) {
+
+function MyApp({Component, pageProps}: AppPropsWithLayout) {
 
   useEffect(() => {
-    if (pageProps.isMobile) {
-      document.body.classList.add('mobile-ua')
-      document.documentElement.className = 'mobile-ua'
-    }
-  },
+      if (pageProps.isMobile) {
+        document.body.classList.add('mobile-ua')
+        document.documentElement.className = 'mobile-ua'
+      }
+    },
     [])
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
       <AuthWrapper>
         <DataWrapper scrapMetalCategories={[]}>
-          <FavoriteWrapper>
-            <Head>
-              <link rel="preconnect" href="https://fonts.googleapis.com" />
-              <link rel="preconnect" href="https://fonts.gstatic.com" />
-              <link
-                href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
-                rel="stylesheet" />
-              <meta
-                name="viewport"
-                content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
-              />
-            </Head>
-            {getLayout(<Component {...pageProps as any} />)}
-            <ModalContainer />
-            <Snackbar />
-          </FavoriteWrapper>
+          <NotificationWrapper>
+            <FavoriteWrapper>
+              <Head>
+                <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                <link rel="preconnect" href="https://fonts.gstatic.com"/>
+                <link
+                  href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
+                  rel="stylesheet"/>
+                <meta
+                  name="viewport"
+                  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
+                />
+              </Head>
+              {getLayout(<Component {...pageProps as any} />)}
+              <ModalContainer/>
+              <Snackbar/>
+            </FavoriteWrapper>
+          </NotificationWrapper>
         </DataWrapper>
       </AuthWrapper>
     </AppWrapper>
@@ -71,7 +76,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext)
   const ua = appContext.ctx.req ? appContext.ctx.req?.headers['user-agent'] : navigator.userAgent
   if (ua) {
-    const { isMobile, isTablet } = getSelectorsByUserAgent(ua)
+    const {isMobile, isTablet} = getSelectorsByUserAgent(ua)
     const data = getSelectorsByUserAgent(ua)
     if (isTablet && typeof window !== 'undefined' && window.screen.width >= 768) {
 

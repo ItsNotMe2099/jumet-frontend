@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import styles from './index.module.scss'
 import DealInfoCard from './components/DealInfoCard'
 import {useAppContext} from '@/context/state'
@@ -15,6 +15,8 @@ import ReceiptResultCard from '@/components/for_pages/LkPage/DealEdit/components
 import ReviewFormStepCard from '@/components/for_pages/LkPage/DealEdit/components/ReviewFormStepCard'
 import ReviewResultCard from '@/components/for_pages/LkPage/DealEdit/components/ReviewResultCard'
 import SaleRequestResultCard from '@/components/for_pages/LkPage/DealEdit/components/SaleRequestResultCard'
+import {NotificationUnreadType} from '@/data/interfaces/INotification'
+import {useNotificationContext} from '@/context/notifications_state'
 
 
 interface Props {
@@ -24,8 +26,14 @@ interface Props {
 
 export default function DealEdit(props: Props) {
   const dealContext = useDealContext()
-
   const appContext = useAppContext()
+  const notifyContext = useNotificationContext()
+  const active = notifyContext.store[NotificationUnreadType.deal].find(i => i.eId === dealContext.dealId)
+  useEffect(() => {
+    if (active) {
+        notifyContext.markRead(dealContext.dealId, NotificationUnreadType.deal, false)
+    }
+  }, [active])
   const getCurrentForm  = () => {
     switch (appContext.aboutMe?.role){
       case UserRole.Seller:

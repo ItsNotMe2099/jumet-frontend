@@ -25,6 +25,7 @@ function Tabs<T>(props: Props<T>){
         active={props.isMulti ? (props.value as T[])?.includes(i.value!) : i.value === props.value}
         text={`${i.label}`}
         key={`${i.value}`}
+        badge={i.badge}
         onClick={() => props.onClick?.(i.value!)}/></>
       )}
       </div>

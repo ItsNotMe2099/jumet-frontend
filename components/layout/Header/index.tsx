@@ -18,38 +18,62 @@ import BookmarkSvg from '@/components/svg/BookmarkSvg'
 import ProfileMenu from '@/components/layout/Header/ProfileMenu'
 import useIsActiveLink from '@/components/hooks/useIsActiveLink'
 import classNames from 'classnames'
+import {useNotificationContext} from '@/context/notifications_state'
+import {NotificationType} from '@/data/interfaces/INotification'
+import NotificationBadge from '@/components/ui/NotificationBadge'
 
+interface IMenuOption {link: string, label: string, badge?: number | null}
 interface Props {
   isSticky?: boolean
   restProps?: any
 }
 
-const MenuItem = (props: {  link: string, label: string }) => {
+const MenuItem = (props: IMenuOption) => {
   const isActive = useIsActiveLink(props.link ?? '')
   return (<Link className={classNames(styles.link, {[styles.active]: isActive})} href={props.link}>
     {props.label}
+    {(props.badge ?? 0 )> 0 && <NotificationBadge color={'blue'} total={props.badge!}/>}
   </Link>)
 }
 
 
 const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFromTop?: number }>((props, ref) => {
-
+  const notifyContext = useNotificationContext()
   const appContext = useAppContext()
-
-  const menuNotAuth = [
+  const badgeDealOffers = notifyContext.getTotalByTypes([
+    NotificationType.DealOfferRejected,
+    NotificationType.DealOfferAccepted
+  ])
+  const badgeSaleRequests = notifyContext.getTotalByTypes([
+    NotificationType.SaleRequestAccepted,
+    NotificationType.SaleRequestRejected,
+    NotificationType.NewDealOffer,
+  ])
+  const badgeDeals = notifyContext.getTotalByTypes([
+    NotificationType.DealSetUp,
+    NotificationType.DealWeighed,
+    NotificationType.DealTerminatedByBuyer,
+    NotificationType.DealTerminatedBySeller,
+    NotificationType.DealWeighingAccepted,
+    NotificationType.DealPaid
+  ])
+  const badgeChat = notifyContext.getTotalByTypes([
+    NotificationType.ChatMessage
+  ])
+  const menuNotAuth: IMenuOption[] = [
     {link: Routes.receivingPoints, label: 'Пункты приёма лома'},
     {link: Routes.saleRequests, label: 'Лом на продажу'},
 
   ]
 
-  const menuAuth = appContext.aboutMe?.role === UserRole.Seller ? [
+  const menuAuth: IMenuOption[] = appContext.aboutMe?.role === UserRole.Seller ? [
     {link: Routes.receivingPoints, label: 'Пункты приёма лома'},
-    {link: Routes.lkSaleRequests, label: 'Мои заявки на продажу'},
-    {link: Routes.lkDeals, label: 'Сделки'},
+    {link: Routes.lkSaleRequests, label: 'Мои заявки на продажу', badge: badgeSaleRequests},
+    {link: Routes.lkDeals, label: 'Сделки',  badge: badgeDeals},
   ] : [
     {link: Routes.saleRequests, label: 'Лом на продажу'},
-    {link: Routes.lkDealOffers, label: 'Предложения лома'},
-    {link: Routes.lkDeals, label: 'Сделки'},
+    {link: Routes.lkDealOffers, label: 'Предложения лома', badge: badgeDealOffers},
+    {link: Routes.lkDeals, label: 'Сделки', badge: badgeDeals},
   ]
 
   const handleOpenMobileMenu = () => {
@@ -75,13 +99,13 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
         </div>
         <div className={styles.middle}>
           {(appContext.isLogged ? menuAuth : menuNotAuth).map((i, index) =>
-            <MenuItem key={index} link={i.link} label={i.label}/>
+            <MenuItem key={index} link={i.link} label={i.label} badge={i.badge ?? 0}/>
           )}
         </div>
         <HiddenXs>
           <div className={styles.right}>
             {appContext.isLogged && <div className={styles.userButtons}>
-              <IconButton href={Routes.lkChat()} bgColor={'dark400'}><ChatSvg color={colors.white}/></IconButton>
+              <IconButton href={Routes.lkChat()} bgColor={'dark400'} badge={<NotificationBadge className={styles.badgeOnIcon} color={'blue'} total={badgeChat}/>}><ChatSvg color={colors.white}/></IconButton>
               <IconButton href={Routes.lkFavorites} bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
               <ProfileMenu/>
             </div>}
