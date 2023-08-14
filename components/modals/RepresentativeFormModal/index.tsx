@@ -14,7 +14,7 @@ export default function RepresentativeFormModal(props: Props) {
   const args = appContext.modalArguments as RepresentativeFormModalArguments
   return (
     <ModalLayout fixed size={'large'}>
-      <ModalHeader title={args.representative ? 'Редактировать представителя' : 'Добавить представителя'}/>
+      <ModalHeader title={args?.representative ? 'Редактировать представителя' : 'Добавить представителя'}/>
       <ModalBody fixed >
         <RepresentativeForm/>
       </ModalBody>

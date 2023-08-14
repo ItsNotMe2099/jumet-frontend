@@ -66,7 +66,6 @@ const RepresentativeFormInner = (props: Props) => {
         <FormikProvider value={formik}>
           <Form className={styles.form}>
             <FormErrorScroll formik={formik} />
-            <Spacer basis={16}/>
             <FormFieldset title={'ФИО Представителя*'}>
               <InputField
                 name='lastName'

@@ -1,5 +1,5 @@
 import styles from './index.module.scss'
-import { IOption } from 'types/types'
+import {IOption, Nullable} from 'types/types'
 import ReactSelect from 'react-select'
 import { DropdownIndicatorProps } from 'react-select/dist/declarations/src/components/indicators'
 import { GroupBase } from 'react-select/dist/declarations/src/types'
@@ -16,6 +16,7 @@ interface Props<T> {
   placeholder?: string
   className?: string
   name?: string
+  noOptionsMessage?: Nullable<string>
 }
 
 export default function Select<T>(props: Props<T>) {
@@ -36,6 +37,7 @@ export default function Select<T>(props: Props<T>) {
         value={selected}
         isMulti={false}
         isClearable={true}
+        noOptionsMessage={(v) => props.noOptionsMessage ?? 'Нет результатов'}
         menuPosition={'fixed'}
         className={classNames({
           [styles.input]: true,

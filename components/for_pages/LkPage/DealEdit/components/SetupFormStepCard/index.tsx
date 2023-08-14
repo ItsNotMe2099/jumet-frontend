@@ -34,6 +34,7 @@ import {useState} from 'react'
 import CheckBoxField from '@/components/fields/CheckBoxField'
 import {Routes} from '@/types/routes'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import {ModalType} from '@/types/enums'
 
 interface IFormData extends IDealSetUpStepRequest {
   firstName: Nullable<string>
@@ -144,11 +145,11 @@ const SetupStepFormInner = (props: Props) => {
           <SwitchField name={'isRepresentative'} label={'От имени представителя'}/>
           {formik.values.isRepresentative ?
             <>
-              <SelectField<string | number> name='representativeId' options={representativeContext.data.data.map(i => ({
+              <SelectField<string | number> name='representativeId' options={representativeContext.data.data.filter((i) => i.isRegistered).map(i => ({
                 label: UserUtils.getName(i),
                 value: i.id
-              }))} label='Выберите представителя*' validate={Validator.required}/>
-              <div><CreateButton>Добавить представителя</CreateButton></div>
+              }))} label='Выберите представителя*' noOptionsMessage={'У вас пока нет представителей'} validate={Validator.required}/>
+              <div><CreateButton type={'button'} onClick={() => appContext.showModal(ModalType.RepresentativeForm)}>Добавить представителя</CreateButton></div>
             </>
             :
             <>
