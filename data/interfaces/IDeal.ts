@@ -57,4 +57,6 @@ export interface IDeal {
   review?: IReview
   paidAt: Nullable<string>;
   createdAt?: string
+  total: Nullable<number>
+  subTotal: Nullable<number>
 }

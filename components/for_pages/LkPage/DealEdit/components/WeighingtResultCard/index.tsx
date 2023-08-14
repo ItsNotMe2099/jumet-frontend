@@ -10,6 +10,7 @@ import WeightUtils from '@/utils/WeightUtils'
 import ImageHelper from '@/utils/ImageHelper'
 import ImageFile from '@/components/ui/ImageFile'
 import {GalleryModalArguments} from '@/types/modal_arguments'
+import Formatter from '@/utils/formatter'
 
 //import Formatter from '@/utils/formatter'
 
@@ -41,7 +42,7 @@ export default function WeighningResultCard(props: Props) {
         <DescField label={'Засор'} value={formatRubbish()}/>
         {deal.weighingComment && <DescField label={'Комментарий к качеству лома'} value={deal.weighingComment}/>}
         <DescField label={'Вес лома за вычетом засора'} value={formatWeightWithRubbish()}/>
-        <DescField label={'К оплате'} value={'-'}/>
+        {deal.total && <DescField label={'К оплате'} value={Formatter.formatPrice(deal.total)}/>}
         <DescField label={''} value={''}/>
         <FileDownload href={ImageHelper.urlFromFile(deal?.acceptanceCertificate)} label='Приёмо-сдаточный акт' />
         {deal.weighingPhoto && <div><ImageFile preset={Preset.mdResize} onClick={() => appContext.showModal(ModalType.Gallery, {title: 'Фото подтверждения взвешивания лома', images: [deal.weighingPhoto], selectedId: deal.weighingPhoto.id} as GalleryModalArguments)} className={styles.image} file={deal.weighingPhoto} /></div>}
