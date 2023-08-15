@@ -10,7 +10,7 @@ interface Props {
 
 export default function LkStatsMenu(props: Props) {
   return (<LkMenu<MenuItemType> items={[
-    { name: 'Обзор', link: Routes.lkCrm },
+    { name: 'Обзор', link: Routes.lkCrmMain },
     { name: 'Сделки', link: Routes.lkCrmDeals },
     { name: 'Пункты приёма ', link: Routes.lkCrmReceivingPoints, key: MenuItemType.ReceivingPoints, },
     { name: 'Клиенты', link: Routes.lkCrmClients },

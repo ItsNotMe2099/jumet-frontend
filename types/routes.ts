@@ -131,6 +131,10 @@ export class Routes {
     return '/lk/crm'
   }
 
+  static get lkCrmMain() {
+    return '/lk/crm/main'
+  }
+
   static get lkCrmDeals() {
     return '/lk/crm/deals'
   }
