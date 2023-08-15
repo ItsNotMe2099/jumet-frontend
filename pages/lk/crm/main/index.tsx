@@ -1,6 +1,6 @@
 import { getAuthServerSideProps } from '@/utils/auth'
 import { UserRole } from '@/data/enum/UserRole'
-import { LkReceivingPageLayout } from '@/pages/lk'
+import { LkPageLayout } from '@/pages/lk'
 import DatesPanel from '@/components/for_pages/LkPage/layout/LkStatsMenu/DatesPanel'
 import styles from './index.module.scss'
 import Donut from '@/components/for_pages/LkPage/layout/LkStatsMenu/Donut'
@@ -16,6 +16,7 @@ import classNames from 'classnames'
 import ColoredCircleSvg from '@/components/svg/ColoredCircleSvg'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import VisibleXs from '@/components/visibility/VisibleXs'
+import { LkLayoutTitleData } from '@/context/lk_layout_content'
 
 interface Props {
 
@@ -42,6 +43,7 @@ const StatisticPage = (props: Props) => {
 
   return (
     <div className={styles.root}>
+      <LkLayoutTitleData title={'Статистика'}/>
       <DatesPanel />
       <CardLayout title='Сделки'
         topClassName={styles.top}
@@ -156,6 +158,6 @@ const StatisticPage = (props: Props) => {
     </div >
   )
 }
-StatisticPage.getLayout = LkReceivingPageLayout
+StatisticPage.getLayout = LkPageLayout
 export default StatisticPage
 export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer)
