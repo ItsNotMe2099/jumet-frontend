@@ -1,9 +1,10 @@
 import styles from './index.module.scss'
-import {ReactElement, useState} from 'react'
+import { ReactElement, useState } from 'react'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
-import {colors} from '@/styles/variables'
+import { colors } from '@/styles/variables'
 import ChevronRightSvg from '@/components/svg/ChevronRightSvg'
-import {Nullable} from '@/types/types'
+import { Nullable } from '@/types/types'
+import classNames from 'classnames'
 
 interface ITableCell {
   value?: Nullable<string | ReactElement>
@@ -31,7 +32,7 @@ export default function PricingTable(props: Props) {
     <div className={styles.table}>
       <div className={styles.row}>
         {props.headerRow?.cells.map((i, index) =>
-          <div key={index} className={styles.cell}>
+          <div key={index} className={styles.cellHead}>
             {i.value}
           </div>
         )}
@@ -49,17 +50,17 @@ export default function PricingTable(props: Props) {
               <div className={styles.label}>{i.value}</div>
               <div className={styles.controls}>
                 <ChevronLeftSvg onClick={() => index !== 0 && setActiveOption(index + 1 - 1)}
-                                className={styles.chevron} color={index !== 0 ? colors.grey500 : colors.grey400}/>
+                  className={styles.chevron} color={index !== 0 ? colors.grey500 : colors.grey400} />
                 <ChevronRightSvg
                   onClick={() => index + 1 !== props.headerRow?.cells.slice(1).length && setActiveOption(index + 1 + 1)}
                   className={styles.chevron}
-                  color={index + 1 !== props.headerRow?.cells.slice(1).length ? colors.grey500 : colors.grey400}/>
+                  color={index + 1 !== props.headerRow?.cells.slice(1).length ? colors.grey500 : colors.grey400} />
               </div>
             </div>
           </div>
         )}
       </div>
-      {props.data.map((row) => <div className={styles.secondRow}>
+      {props.data.map((row, index) => <div className={classNames(styles.secondRow, { [styles.white]: index % 2 !== 0 })}>
         {row.cells.map((i, index) =>
           <div key={index} className={styles.cell}>
             {i.value}

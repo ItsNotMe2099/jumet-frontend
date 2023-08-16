@@ -58,7 +58,7 @@ export default function LkLayout(props: Props) {
   const appContext = useAppContext()
   const router = useRouter()
   const getMenu = () => {
-    if(router.asPath.startsWith(Routes.lkCrmMain)){
+    if(router.asPath.startsWith(Routes.lkCrm)){
       return <LkStatsMenu/>
     }
     if(appContext.aboutMe?.role === UserRole.Buyer){
