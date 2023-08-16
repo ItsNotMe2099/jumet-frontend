@@ -1,6 +1,6 @@
 
 export class Routes {
-  static getGlobal(url: string){
+  static getGlobal(url: string) {
     return `${typeof window !== 'undefined' ? `${window.location.protocol}//${window.location.host}` : ''}${url}`
   }
   static login(redirect?: string) {
@@ -139,6 +139,10 @@ export class Routes {
     return '/lk/crm/deals'
   }
 
+  static lkCrmReceivingPoint(id: number | string) {
+    return `/lk/crm/receiving-points/${id}`
+  }
+
   static get lkCrmReceivingPoints() {
     return '/lk/crm/receiving-points'
   }
@@ -146,14 +150,14 @@ export class Routes {
   static get lkCrmClients() {
     return '/lk/crm/clients'
   }
-  static get representativeRegistration(){
+  static get representativeRegistration() {
     return '/representative-registration'
   }
-  static get representativeDeleteRegistration(){
+  static get representativeDeleteRegistration() {
     return '/representative-delete-registration'
   }
 
-  static get personalDataPolitics(){
+  static get personalDataPolitics() {
     return '/personal-data-politics'
   }
 }

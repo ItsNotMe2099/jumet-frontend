@@ -1,3 +1,54 @@
 @import "styles/index";
 
-.root {}
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.legend {
+    display: flex;
+    @include list(24px, true);
+    margin-top: 22px;
+
+    .text {
+        @include secondaryText;
+    }
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+    }
+}
+
+.first {
+    margin-top: 16px;
+}
+
+.second {
+    margin-top: 14px;
+}
+
+.line {
+    display: flex;
+    align-items: center;
+    @include list(12px, true);
+
+    .number {
+        @include h3;
+    }
+
+    .less {
+        @include secondaryText;
+        color: $grey500;
+    }
+}
+
+.progress {
+    flex: 1;
+}
+
+.top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
