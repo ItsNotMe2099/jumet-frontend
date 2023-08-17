@@ -14,13 +14,28 @@
   }
 
 }
-.chatMobile{
+
+.modalRoot {
+  padding-top: 64px;
+}
+
+.chatMobile {
   width: 100%;
   flex: 1 1 auto;
+  height: calc(100% - 72px);
 }
+
+
 .chatMobileHeader{
   padding: 24px 16px;
   width: 100%;
   background: $grey100;
   flex: 0 0 auto;
+  //     /* margin-top: 70px; */
+  // padding: 24px 16px;
+  // width: 100%;
+  // position: absolute;
+  // top: 0;
+  // z-index: 400;
+  // background: #f2f4f9;
 }

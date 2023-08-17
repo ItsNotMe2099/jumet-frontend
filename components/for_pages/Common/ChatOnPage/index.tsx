@@ -54,19 +54,23 @@ const ChatOnPageInner = (props: Props) => {
                 ref={wrapperRef}
               >
 
-                <Chat receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
+                <Chat receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'} onBackClick={function (): void {
+                  throw new Error('Function not implemented.')
+                } }/>
               </div>
             </div>
 
           )}
         </RenderPropSticky>
         {showMobile && <RemoveScroll enabled={true}>
-          <PageModal>
+          <PageModal className={styles.modalRoot}>
             <div className={styles.chatMobileHeader}>
               <BackButton onClick={() => setShowMobile(false)}>Назад</BackButton>
             </div>
             <div className={styles.chatMobile} >
-            <Chat  receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
+            <Chat  receivingPointId={props.receivingPointId} title={'receivingPoint'} onBackClick={function (): void {
+                throw new Error('Function not implemented.')
+              } }/>
             </div>
           </PageModal>
         </RemoveScroll>
