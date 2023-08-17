@@ -16,10 +16,11 @@
 }
 .chatMobile{
   width: 100%;
-  align-items: stretch;
+  flex: 1 1 auto;
 }
 .chatMobileHeader{
   padding: 24px 16px;
   width: 100%;
   background: $grey100;
+  flex: 0 0 auto;
 }

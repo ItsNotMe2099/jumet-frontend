@@ -1,31 +1,38 @@
 import styles from './index.module.scss'
 import React, {KeyboardEventHandler} from 'react'
-import classNames from 'classnames'
-import {colors} from 'styles/variables'
-import SearchSvg from '@/components/svg/SearchSvg'
+import InputField from '@/components/fields/InputField'
+import {Form, FormikProvider, useFormik} from 'formik'
+import {Nullable} from '@/types/types'
 
 interface Props {
   onChange: (value: string) => void
 }
 
-export default function ChatDialogSearch(props: Props){
-  const handleKeyDown: KeyboardEventHandler = (e)=>{
-    if(e.key === 'Enter' && !e.shiftKey) {
+export default function ChatDialogSearch(props: Props) {
+  const handleKeyDown: KeyboardEventHandler = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
-  //    formik.submitForm()
+      //    formik.submitForm()
     }
   }
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    props.onChange(e.currentTarget.value)
+  const handleChange = (value: Nullable<string>) => {
+    props.onChange(value)
   }
+  const handleSubmit = () => {
 
-    return (
-      <div className={classNames({[styles.root]: true, [styles.outlined]: false})} >
-        <SearchSvg className={styles.inputIcon} color={colors.grey500}/>
-        <input type="text" placeholder="Поиск" onKeyDown={handleKeyDown} className={styles.input}
-               onChange={handleChange}
-        />
-      </div>
-    )
+  }
+  const initialValues = {}
+  const formik = useFormik({
+    initialValues,
+    onSubmit: handleSubmit
+  })
+
+  return (
+    <FormikProvider value={formik}>
+      <Form className={styles.root}>
+        <InputField name={'text'} placeholder={'Поиск'} prefix={'search'} onChange={handleChange}/>
+      </Form>
+    </FormikProvider>
+  )
 
 }

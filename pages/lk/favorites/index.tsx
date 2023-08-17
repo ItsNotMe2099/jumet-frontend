@@ -1,4 +1,3 @@
-import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
 import ReceivingPointCard from '@/components/for_pages/LkPage/Favorites/ReceivingPointCard'
 import {FavoriteListWrapper, useFavoriteListContext} from '@/context/favorite_list_state'
@@ -30,7 +29,6 @@ const FavoritesPageInner = (props: Props) => {
   }
 
   return (
-    <Layout>
       <div className={styles.root}>
         <div className={styles.header}>
           <div className={styles.title}>
@@ -57,7 +55,6 @@ const FavoritesPageInner = (props: Props) => {
           </div>
         </InfiniteScroll>
       </div>
-    </Layout>
   )
 }
 

@@ -20,6 +20,7 @@ $radius: 20px;
   flex-basis: 480px;
   border-right: 1px solid $grey300;
   z-index: 1;
+  min-width: 0;
 }
 
 .chat {

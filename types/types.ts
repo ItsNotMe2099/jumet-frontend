@@ -2,6 +2,7 @@ import { UrlObject } from 'url'
 import { HTMLInputTypeAttribute, MouseEventHandler, ReactElement } from 'react'
 import { FieldConfig } from 'formik'
 import { DayType, SnackbarType, WeekDays } from 'types/enums'
+import IChatMessage from '@/data/interfaces/IChatMessage'
 
 export type Nullable<T> = T | null;
 
@@ -124,4 +125,9 @@ export interface IFormStepProps<T> {
 export interface IReceivingPointInfoEditCardProps {
   isEdit?: boolean
   onSetIsEdit?: (val: boolean) => void
+}
+
+export interface ChatMessageProps{
+  message: IChatMessage
+  side: 'my' | 'other' | undefined | null
 }

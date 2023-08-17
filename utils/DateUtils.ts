@@ -155,13 +155,30 @@ export default class DateUtils {
 
   static formatDateRelativeUtc = (_date: string | Date, showTime: boolean = true) => {
     const date = utcToZonedTime(typeof _date === 'string' ? new Date(_date) : _date, 'UTC')
-    return this.formatDateRelative(date, showTime)
+    return this.formatDateRelative(date, {showTime: true})
   }
-  static formatDateRelative(date: string | Date, showTime: boolean = true){
+  static formatDateRelative(date: string | Date,{showTime, shortMonth}: {showTime?: boolean, shortMonth?: boolean} = {shortMonth: false, showTime: false}){
     const formatRelativeLocale: {[key: string] : string} = {
       yesterday: 'Вчера в HH:mm',
       today: 'Сегодня в HH:mm',
       other:  isSameYear(new Date(), new Date(date)) ? 'dd MMMM HH:mm' : 'dd MMMM yyyy HH:mm',
+    }
+    const locale = {
+      ...ru,
+      formatRelative: (token: string) => formatRelativeLocale[token] || formatRelativeLocale['other'],
+    }
+    if (!date) {
+      return ''
+    }
+
+    return formatRelative(new Date(date), new Date(), { locale })
+  }
+
+  static formatDateRelativeShort(date: string | Date){
+    const formatRelativeLocale: {[key: string] : string} = {
+      yesterday: 'Вчера',
+      today: 'HH:mm',
+      other:  isSameYear(new Date(), new Date(date)) ? 'dd.MM' : 'dd.MM.yy',
     }
     const locale = {
       ...ru,

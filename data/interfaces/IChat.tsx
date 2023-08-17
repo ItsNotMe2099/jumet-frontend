@@ -14,6 +14,10 @@ export default interface IChat {
   last: IChatMessage
   isGroup: boolean;
   lastMessage: string
+  lastMessageType: string
+  searchMessage?: string
+  searchMessageType?: string
+  searchMessageAt?: string
   users: IUser[]
   lastMessageAt: string
   firstReplyAt: string

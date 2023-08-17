@@ -9,19 +9,20 @@ import {ReactElement, RefObject} from 'react'
 import ChatHeader from '@/components/for_pages/LkPage/chat/Chat/ChatHeader'
 import ChatMessageForm from '@/components/for_pages/LkPage/chat/Chat/ChatMessageForm'
 import classNames from 'classnames'
-
 interface Props {
   className?: string
   chatId?: number | null
   title?: string | ReactElement | null
   receivingPointId?: number
+  hasBack?: boolean
+  onBackClick: () => void
 }
 
 const ChatInner = (props: Props) => {
   const appContext = useAppContext()
   const chatContext = useChatDialogContext()
   return (<div className={classNames(styles.root, props.className)}>
-      {<ChatHeader chat={chatContext.chat} title={props.title ?? null}/>}
+      {<ChatHeader hasBack={props.hasBack ?? false} onBackClick={props.onBackClick} chat={chatContext.chat} title={props.title ?? null}/>}
       <div className={styles.messages} id={'chat-messages'}
            ref={chatContext.scrollableTarget as RefObject<HTMLDivElement>}>
         <InfiniteScroll

@@ -16,6 +16,7 @@ export interface OtpCodeModalArguments extends ISendCodeResponse{
     onCancel?: () => void
     onSendAgain: () => Promise<ISendCodeResponse>
 }
+
 export interface MapSelectorModalArguments {
   onChange: (location: ILocation | null) => void,
   location: ILocation | null
@@ -34,6 +35,7 @@ export interface ConfirmModalArguments {
 export interface LoginModalArguments {
   hint?: string
 }
+
 export interface DealOfferModalArguments {
   saleRequestId: number
 }
@@ -41,6 +43,7 @@ export interface DealOfferModalArguments {
 export interface SaleRequestOfferModalArguments {
   receivingPointId: number
 }
+
 export interface SaleRequestFormModalArguments {
   saleRequest: ISaleRequest
 }
@@ -57,21 +60,28 @@ export interface UserFormModalArguments {
   user: IUser
   receivingPointUser: IReceivingPointUser
 }
+
 export interface RepresentativeFormModalArguments {
   representative?: Nullable<IRepresentative>
 }
+
 export interface RepresentativeSuccessModalArguments {
   representative: IRepresentative
 }
+
 export interface GalleryModalArguments {
   images: IFile[]
   title: string
   selectedId: number
 }
 
-
 export interface DealTerminateFormModalArguments {
   title?: string
   text?: string
   deal: IDeal
 }
+
+export interface ChatFileUploadModalArguments {
+  message?: string | null
+}
+

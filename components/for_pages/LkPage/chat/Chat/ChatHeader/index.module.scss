@@ -2,20 +2,33 @@
 .root{
   padding: 20px 20px 0px 20px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   position: relative;
   min-height: 82px;
-
+  align-items: center;
+  border-bottom: 1px solid $grey300;
 }
 .wrapper{
   display: flex;
   flex-direction: row;
   align-items: center;
   flex: 1;
-  border-bottom: 1px solid $grey300;
+
 }
 .title{
   @include btnText;
   color: $dark500;
   flex: 1;
+}
+.label{
+  font-weight: 400;
+  color: $grey500;
+}
+.link{
+  &:hover{
+    text-decoration: underline;
+  }
+}
+.back{
+  margin-right: 4px;
 }

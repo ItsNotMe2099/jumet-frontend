@@ -26,11 +26,11 @@ export default function ChatPage(props: Props) {
       <ChatWrapper>
         <div className={styles.wrapper}>
           <div className={styles.root}>
-            <div className={styles.sidebar}>
+            {(appContext.isDesktop || !chatId) && <div className={styles.sidebar}>
               <ChatDialogList chatId={chatId} onSelect={handleSelectChat}/>
-            </div>
+            </div>}
             <div className={styles.chat}>
-              {chatId && <Chat chatId={chatId}/>}
+              {chatId && <Chat hasBack={true} onBackClick={() => setChatId(null)} chatId={chatId}/>}
             </div>
 
           </div>

@@ -1,9 +1,12 @@
 import {ChatMessageType} from '@/data/enum/ChatMessageType'
+import {Nullable} from '@/types/types'
+import IFile from '@/data/interfaces/IFile'
 
 export interface IChatMessageFormData{
   sid?: string
   chatId?: number
-  message?: string
+  message?: Nullable<string>
   type?: ChatMessageType
   assetsIds?: number[]
+  assets?: IFile[]
 }

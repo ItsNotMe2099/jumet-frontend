@@ -17,4 +17,7 @@ export default interface IChatMessage {
   userStates?: IChatMessageUser[]
   assets?: IFile[]
   createdAt: string
+  dealId?: number
+  saleRequestId?: number
+  dealOfferId?: number
 }

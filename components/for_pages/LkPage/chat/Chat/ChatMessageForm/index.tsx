@@ -1,16 +1,21 @@
 import styles from './index.module.scss'
-import { Form, FormikProvider, useFormik } from 'formik'
+import {Form, FormikProvider, useFormik} from 'formik'
 import React, {KeyboardEventHandler, useRef, useState} from 'react'
 import cx from 'classnames'
 import {useChatDialogContext} from 'context/chat_dialog_state'
 import {RequestError} from 'types/types'
-import {SnackbarType} from 'types/enums'
+import {ModalType, SnackbarType} from 'types/enums'
 import {useAppContext} from 'context/state'
 import {IChatMessageFormData} from '@/types/form_data/IChatMessageFormData'
 import TextAreaChatField from '@/components/fields/TextAreaChatField'
 import IconButton from '@/components/ui/IconButton'
 import {colors} from '@/styles/variables'
 import SendSvg from '@/components/svg/SendSvg'
+import Modal from '@/components/ui/Modal'
+import {ChatFileUploadModal} from '@/components/modals/ChatFileUploadModal'
+import {RemoveScroll} from 'react-remove-scroll'
+import AttachSvg from '@/components/svg/AttachSvg'
+import {ChatFileUploadModalArguments} from '@/types/modal_arguments'
 
 interface Props {
 }
@@ -21,12 +26,12 @@ export default function ChatMessageForm() {
   const [sending, setSending] = useState<boolean>(false)
   const inputRef = useRef<HTMLTextAreaElement>(null)
   const handleSubmit = async (data: IChatMessageFormData) => {
-  if(!data.message?.replace(/\s+/g, ' ').trim()){
-    return
-  }
-  setSending(true)
+    if (!data.message?.replace(/\s+/g, ' ').trim()) {
+      return
+    }
+    setSending(true)
     try {
-     await chatContext.sendMessage(data)
+      await chatContext.sendMessage(data)
       formik.resetForm({
         values: {
           message: '',
@@ -47,38 +52,51 @@ export default function ChatMessageForm() {
 
   const formik = useFormik<IChatMessageFormData>({
     initialValues: {
-     message: ''
+      message: ''
     },
 
     onSubmit: handleSubmit,
   })
-  const handleKeyDown: KeyboardEventHandler = (e)=>{
-    if(e.key === 'Enter' && !e.shiftKey) {
+  const handleKeyDown: KeyboardEventHandler = (e) => {
+    if (e.key === 'Enter' && !e.shiftKey) {
       e.preventDefault()
       formik.submitForm()
     }
   }
 
-    return (
+  return (
+    <div>
       <FormikProvider value={formik}>
         <Form className={styles.root}>
           <div className={styles.field}>
-          <TextAreaChatField
-            ref={inputRef}
-            name={'message'}
-            disabled={sending}
-            placeholder={'Сообщение'}
-            styleType={'message'}
-            onKeyDown={handleKeyDown}
-            className={cx(styles.textarea)}
-          />
-            <IconButton type={'submit'} bgColor={'blue500'} disabled={!formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
+            <IconButton type={'submit'} bgColor={'white'} onClick={() => appContext.showModal(ModalType.ChatFileUpload, {message: formik.values.message} as ChatFileUploadModalArguments)}>
+              <AttachSvg color={colors.dark500}/>
+            </IconButton>
+            <TextAreaChatField
+              ref={inputRef}
+              name={'message'}
+              disabled={sending}
+              placeholder={'Сообщение'}
+              styleType={'message'}
+              onKeyDown={handleKeyDown}
+              className={cx(styles.textarea)}
+            />
+            <IconButton type={'submit'} bgColor={'blue500'}
+                        disabled={!formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
               <SendSvg color={colors.white}/>
             </IconButton>
-         </div>
+          </div>
         </Form>
       </FormikProvider>
-    )
+      <RemoveScroll enabled={appContext.modal === ModalType.ChatFileUpload}>
+        <div aria-hidden="true">
+          <Modal isOpen={appContext.modal === ModalType.ChatFileUpload} onRequestClose={appContext.hideModal}>
+            {appContext.modal === ModalType.ChatFileUpload && <ChatFileUploadModal/>}
+          </Modal>
+        </div>
+      </RemoveScroll>
+    </div>
+  )
 
 }
 

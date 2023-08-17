@@ -2,17 +2,14 @@ import request from 'utils/request'
 import IChat from 'data/interfaces/IChat'
 import {IPagination} from 'types/types'
 import {AxiosRequestConfig} from 'axios'
+import {IChatListRequest} from '@/data/interfaces/IChatListRequest'
 
 export default class ChatRepository {
-  static async fetchAll(page: number = 1, limit: number = 30, search?: string, config?: AxiosRequestConfig): Promise<IPagination<IChat>> {
+  static async fetchAll(data: IChatListRequest, config?: AxiosRequestConfig): Promise<IPagination<IChat>> {
     return request({
       url: '/api/chat',
       method: 'get',
-      data: {
-        page,
-        limit,
-      ...(search ? {search} : {}),
-      },
+      data,
       config
     })
   }

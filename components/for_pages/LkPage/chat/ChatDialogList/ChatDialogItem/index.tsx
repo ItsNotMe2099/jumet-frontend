@@ -5,8 +5,10 @@ import classNames from 'classnames'
 import Highlighter from 'react-highlight-words'
 import UserUtils from '@/utils/UserUtils'
 import DateUtils from '@/utils/DateUtils'
-import usePressAndHover from '@/components/hooks/usePressAndHover'
 import NotificationBadge from '@/components/ui/NotificationBadge'
+import {UserRole} from '@/data/enum/UserRole'
+import ChatUserAvatar from '@/components/ui/ChatUserAvatar'
+import {forwardRef} from 'react'
 
 interface Props {
   chat: IChat
@@ -14,16 +16,17 @@ interface Props {
   onClick: () => void
   highlight: string | null
 }
-
-export default function ChatDialogItem(props: Props) {
+const ChatDialogItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const appContext = useAppContext()
-  const [avatarRef, press, hover] = usePressAndHover()
   const user = appContext.aboutMe?.id !== props.chat.sellerId ? props.chat.seller : props.chat.users[0]
   const profileName = UserUtils.getName(user)
-  const entityName = 'Тест имя'
-  const entityHighlighted = props.highlight && entityName ? props.highlight?.split(' ').some(i => entityName.toLowerCase().includes(i.toLowerCase())) : false
   const nameHighlighted = props.highlight && profileName ? props.highlight?.split(' ').some(i => profileName.toLowerCase().includes(i.toLowerCase())) : false
-  return (<div className={classNames(styles.root, {[styles.active]: props.isActive})} onClick={props.onClick}>
+  const messageHighlighted = props.highlight && props.chat.searchMessage  ? props.highlight?.split(' ').some(i => props.chat.searchMessage!.toLowerCase().includes(i.toLowerCase())) : false
+  const chatName = appContext.aboutMe?.role === UserRole.Seller ? props.chat.receivingPoint?.address?.address : UserUtils.getName(user)
+  const lastMessage = props.chat.searchMessage ?? props.chat.lastMessage
+  const lastMessageAt = props.chat.searchMessageAt ?? props.chat.lastMessageAt
+  return (<div ref={ref} className={classNames(styles.root, {[styles.active]: props.isActive})} onClick={props.onClick}>
+      <ChatUserAvatar type={appContext.aboutMe?.role === UserRole.Seller ? 'receivingPoint' : 'user'} user={user} receivingPoint={props.chat.receivingPoint} />
       <div className={styles.content}>
         <div className={styles.top}>
           <div className={classNames(styles.name, {[styles.highlighting]: nameHighlighted})}>
@@ -31,25 +34,24 @@ export default function ChatDialogItem(props: Props) {
               highlightClassName={styles.highlighted}
               searchWords={props.highlight?.split(' ') || []}
               autoEscape={true}
-              textToHighlight={UserUtils.getName(user)}
+              textToHighlight={chatName ?? ''}
             />}
-            {!nameHighlighted && UserUtils.getName(user)}
+            {!nameHighlighted && chatName}
           </div>
-          {props.chat.lastMessageAt &&
-            <div className={styles.date}>{DateUtils.formatDateRelative(props.chat.lastMessageAt, true)}</div>}
+          {lastMessageAt &&
+            <div className={styles.date}>{DateUtils.formatDateRelativeShort(lastMessageAt)}</div>}
 
         </div>
         <div className={styles.center}>
           <div className={styles.left}>
-            {props.chat.lastMessage && <div className={styles.lastMessage}>{props.chat.lastMessage}</div>}
-            <div className={classNames(styles.entityName, {[styles.highlighting]: entityHighlighted})}>
-              {entityHighlighted && <Highlighter
-                highlightClassName={styles.highlighted}
-                searchWords={props.highlight?.split(' ') || []}
-                autoEscape={true}
-                textToHighlight={entityName ?? ''}
-              />}
-              {!entityHighlighted && entityName}</div>
+            {lastMessage  && <div className={styles.lastMessage}>
+              {messageHighlighted && <Highlighter
+              highlightClassName={styles.highlighted}
+              searchWords={props.highlight?.split(' ') || []}
+              autoEscape={true}
+              textToHighlight={lastMessage ?? ''}
+            />}
+              {!messageHighlighted && lastMessage}</div>}
           </div>
           {props.chat.totalUnread > 0 && <NotificationBadge position={'static'} size={'large'} color={'blue'} className={styles.badge} total={props.chat.totalUnread}/>}
         </div>
@@ -59,6 +61,6 @@ export default function ChatDialogItem(props: Props) {
 
     </div>
   )
-}
+})
 
-
+export default ChatDialogItem

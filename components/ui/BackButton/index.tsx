@@ -3,11 +3,13 @@ import {colors} from 'styles/variables'
 import ChevronLeftSvg from '@/components/svg/ChevronLeftSvg'
 import {ReactElement} from 'react'
 import Link from 'next/link'
+import classNames from 'classnames'
 
 export interface Props {
   children: ReactElement | ReactElement[] | string | null
   onClick: () => void
   href?: string | null
+  className?: string
 }
 
 export default function BackButton(props: Props) {
@@ -19,7 +21,7 @@ export default function BackButton(props: Props) {
     return <Link className={styles.root} href={props.href}>{content}</Link>
   }
   return (
-    <div className={styles.root} onClick={props.onClick}>
+    <div className={classNames(styles.root, props.className)} onClick={props.onClick}>
       {content}
     </div>
   )

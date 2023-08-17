@@ -65,7 +65,9 @@ const ChatOnPageInner = (props: Props) => {
             <div className={styles.chatMobileHeader}>
               <BackButton onClick={() => setShowMobile(false)}>Назад</BackButton>
             </div>
-            <Chat receivingPointId={props.receivingPointId} className={styles.chatMobile} title={'Чат с пунктом приема'}/>
+            <div className={styles.chatMobile} >
+            <Chat  receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
+            </div>
           </PageModal>
         </RemoveScroll>
         }

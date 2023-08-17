@@ -54,6 +54,11 @@ export default function FileListField(props: Props) {
       return
     }
     helpers.setValue(files.filter(i => !!i.value).map(i => i.value as IFile))
+    if(files.find( i => !i.value)){
+      appContext.setIsFilesUploading(true)
+    }else{
+      appContext.setIsFilesUploading(false)
+    }
   }, [files])
   const handleDelete = async (file: IFileListItem) => {
     if (field.value) {

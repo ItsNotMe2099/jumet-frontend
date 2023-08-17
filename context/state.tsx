@@ -61,6 +61,9 @@ interface IState {
   representativeCreateState$: Subject<IRepresentative>
   representativeUpdateState$: Subject<IRepresentative>
   representativeDeleteState$: Subject<IRepresentative>
+  fileUploadingState$: Subject<boolean>
+  setIsFilesUploading: (value: boolean) => void
+  isFilesUploading: boolean
 }
 
 const loginState$ = new Subject<boolean>()
@@ -85,6 +88,7 @@ const reviewUpdateState$ = new Subject<IReview>()
 const representativeCreateState$ = new Subject<IRepresentative>()
 const representativeUpdateState$ = new Subject<IRepresentative>()
 const representativeDeleteState$ = new Subject<IRepresentative>()
+const fileUploadingState$ = new Subject<boolean>()
 
 const ModalsBottomSheet: ModalType[] = []
 
@@ -120,6 +124,7 @@ const defaultValue: IState = {
   representativeCreateState$,
   representativeUpdateState$,
   representativeDeleteState$,
+  fileUploadingState$,
   showModal: (type) => null,
   showBottomSheet: (type) => null,
   hideModal: () => null,
@@ -130,6 +135,8 @@ const defaultValue: IState = {
   setModalNonSkippable: (val) => null,
   logout: () => null,
   token: null,
+  setIsFilesUploading: (value) => null,
+  isFilesUploading: false
 }
 
 const AppContext = createContext<IState>(defaultValue)
@@ -153,7 +160,7 @@ export function AppWrapper(props: Props) {
   const [aboutMeLoaded, setAboutMeLoaded] = useState<boolean>(false)
   const [isLogged, setIsLogged] = useState<boolean>(false)
   const [allLoaded, setAllLoaded] = useState<boolean>(false)
-  console.log('aboutMe111', aboutMe)
+  const [isFilesUploading, setIsFilesUploading] = useState<boolean>(false)
   useEffect(() => {
     if (props.token) {
       setIsLogged(true)
@@ -282,6 +289,11 @@ export function AppWrapper(props: Props) {
 
       loginState$.next(false)
     },
+    isFilesUploading,
+    setIsFilesUploading: (value) => {
+      setIsFilesUploading(value)
+      fileUploadingState$.next(value)
+    }
 
   }
 

@@ -26,7 +26,7 @@ export interface InputFieldProps<T> extends IField<InputValueType<T>> {
   className?: string
   label?: string
   errorClassName?: string
-  suffix?: 'clear' | 'arrow' | string | ReactElement
+  suffix?: 'clear' | 'arrow' | 'search' | string | ReactElement
   prefix?: 'search' | string | ReactElement
   prefixClassName?: string
   suffixClassName?: string
@@ -158,7 +158,9 @@ export default function InputField<T extends string | number>(props: InputFieldP
     }
   }
   const renderSuffix = () => {
-    if (typeof props.suffix === 'string') {
+    if(props.suffix === 'search'){
+      return <div className={cx(styles.suffix)}><SearchSvg color={colors.grey400} /></div>
+    }else if (typeof props.suffix === 'string') {
       return <div className={cx(styles.suffix)}>{props.suffix}</div>
     }
     return props.suffix

@@ -4,32 +4,51 @@
   flex-direction: row;
   align-items: center;
   position: relative;
-  padding: 10px;
-  border-radius: 10px;
+  padding: 12px 20px;
   cursor: pointer;
   &:hover, &.active{
-    background-color: $yellow500;
+    background-color: $yellow300;
+  }
+  &.hover{
+    background-color: $yellow300;
+  }
+  &.active{
+    background-color: $yellow300;
+    &:before{
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      background-color: $yellow500;
+      width: 4px;
+    }
   }
 }
 .content{
   flex: 1;
   display: flex;
   flex-direction: column;
-  padding-left: 8px;
+  padding-left: 16px;
+  min-width: 0;
 }
 .top{
   display: flex;
   flex-direction: row;
-  > * + *{
-    margin-left: 8px;
-  }
+  @include list(8px, true);
+  min-width: 0;
 }
 .name{
-  flex: 1;
-  padding-right: 8px;
-  font-weight: 600;
-  font-size: 14px;
+ flex: 1;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  font-weight: 500;
+  font-size: 16px;
   color: $dark500;
+  line-height: 24px;
+  white-space: nowrap;
+
 
 }
 .highlighting{
@@ -38,27 +57,23 @@
 .highlighted{
   color: $blue500;
   background: transparent;
-
 }
 .date{
-  color: $grey400;
-  font-size: 12px;
+  color: $grey500;
+  font-weight: 400;
+  font-size: 14px;
 }
 .lastMessage{
-  font-size: 12px;
-}
-.entityName{
-  font-size: 12px;
-
+  margin-top: 2px;
+  font-size: 16px;
+  font-weight: 400;
 }
 .center{
   display: flex;
   .left{
     flex: 1;
   }
-  > * + *{
-    margin-left: 8px;
-  }
+@include list(8px, true)
 }
 
 .badge{

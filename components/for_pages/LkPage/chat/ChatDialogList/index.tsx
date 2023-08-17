@@ -4,9 +4,9 @@ import IChat from 'data/interfaces/IChat'
 import InfiniteScroll from 'react-infinite-scroll-component'
 import ContentLoader from 'components/ui/ContentLoader'
 import ChatDialogItem from './ChatDialogItem'
-import ChatDialogSearch from './ChatDialogSearch'
 import {useChatContext} from 'context/chat_state'
 import FlipMove from 'react-flip-move'
+import ChatDialogFilter from '@/components/for_pages/LkPage/chat/ChatDialogList/ChatDialogFilter'
 
 interface Props {
   chatId: number | null
@@ -19,9 +19,7 @@ export default function ChatDialogList(props: Props) {
 
 
   return (<div className={styles.root}>
-      <div className={styles.search}>
-        <ChatDialogSearch onChange={chatContext.fetchSearch}/>
-      </div>
+        <ChatDialogFilter/>
       <div className={styles.dialogs}>
         {!chatContext.loading && chatContext.search && chatContext.totalChats === 0 ? <div className={styles.empty}>
           По вашей запросу ничего не найдено
@@ -39,7 +37,7 @@ export default function ChatDialogList(props: Props) {
               enterAnimation={'accordionVertical'}
               leaveAnimation={'accordionVertical'}
             >
-            {chatContext.chats.map((i, index) => <ChatDialogItem key={`${i.id}`} highlight={chatContext.search} isActive={props.chatId === i.id} chat={i}
+            {chatContext.chats.map((i, index) => <ChatDialogItem key={`${i.id}`} highlight={chatContext.filter?.search} isActive={props.chatId === i.id} chat={i}
                                            onClick={() => props.onSelect(i)}/>)}
             </FlipMove>
          </div>

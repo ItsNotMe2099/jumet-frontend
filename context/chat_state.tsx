@@ -5,15 +5,20 @@ import {debounce} from 'debounce'
 import {useAppContext} from 'context/state'
 import {useChatSocketContext} from 'context/chat_socket_state'
 import useWindowFocus from 'use-window-focus'
+import {IChatListRequest} from '@/data/interfaces/IChatListRequest'
 
+interface IChatFilter extends IChatListRequest{
+
+
+}
 interface IState {
   chats: IChat[]
   currentChatId: number | null,
   totalChats: number
   fetchMore: () => void
   loading: boolean
-  search: string | null
-  fetchSearch: (value: string) => void
+  filter: IChatFilter
+  setFilter: (filter: IChatFilter) => void,
   decreaseUnreadCount: (chatId: number, total: number) => void
   setCurrentChatId: (chatId: number | null) => void,
   scrollableTarget: RefObject<HTMLElement> | null
@@ -24,10 +29,10 @@ const defaultValue: IState = {
   chats: [],
   totalChats: 0,
   currentChatId: 0,
+  filter: {},
+  setFilter: (filter: IChatFilter) => null,
   fetchMore: () => null,
   loading: false,
-  search: null,
-  fetchSearch: (value) => null,
   decreaseUnreadCount: (chatId: number, total: number) => null,
   setCurrentChatId: (chatId: number | null) => null,
   scrollableTarget: null
@@ -47,52 +52,52 @@ export function ChatWrapper(props: Props) {
   const windowFocused = useWindowFocus()
   const isLogged = appContext.isLogged
   const isLoggedRef = useRef<boolean>(isLogged)
-  const searchRef = useRef<string | null>(null)
   const scrollableTarget = useRef<HTMLElement | null>(null)
   const [chats, setChats] = useState<IChat[]>([])
   const [currentChatId, setCurrentChatId] = useState<number | null>(0)
   const [totalChats, setTotalChats] = useState<number>(0)
   const [page, setPage] = useState<number>(1)
-  const [search, setSearch] = useState<string | null>(null)
   const [loading, setLoading] = useState(true)
-  const windowFocusInit = useRef(false)
   const limit = 30
+  const [filter, setFilter] = useState<IChatFilter>({page: 1, limit: limit ?? 30})
+  const filterRef = useRef<IChatFilter>(filter)
+  const windowFocusInit = useRef(false)
 
-  const debouncedSearch = debounce(async (value: string) => {
-    if (value.length < 2) {
-      setSearch(null)
-      setPage(1)
-      setLoading(true)
-      await loadMessages(1)
-      setLoading(false)
-      return
+  const getFilterChatListRequest = (): IChatListRequest => {
+    return {
+      ...(filterRef.current?.search ? {search: filterRef.current.search} : {}),
+      ...(filterRef.current?.receivingPointId ? {receivingPointId: filterRef.current.receivingPointId,}: {}),
+      ...(filterRef.current?.dealId ? {receivingPointId: filterRef.current.dealId}: {}),
+      ...(filterRef.current?.userId ? {receivingPointId: filterRef.current.userId}: {}),
     }
-
-    setSearch(value)
-    setPage(1)
-    setLoading(true)
-    await loadMessages(1, value)
-    setLoading(false)
-  }, 400)
+  }
+  const checkIsFilterEmpty = (): boolean => {
+    return !filterRef.current?.search && !filterRef.current?.receivingPointId && !filterRef.current?.dealId && !filterRef.current?.userId
+  }
   const debouncedReconnect = debounce(async () => {
-    const data = await ChatRepository.fetchAll(page, chats.length > limit ? chats.length : limit)
+    const data = await ChatRepository.fetchAll({page, limit: chats.length > limit ? chats.length : limit, ...getFilterChatListRequest()})
     setChats(data.data ?? [])
     setTotalChats(data.total)
   }, 1000)
   const init = async () => {
-    await loadMessages(1)
+    await loadChats(1)
     setLoading(false)
   }
-  const loadMessages = async (page: number, search?: string) => {
+  const loadChats = async (page: number) => {
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort()
     }
     abortControllerRef.current = new AbortController()
+
     try {
-      const data = await ChatRepository.fetchAll(page, limit, search, {signal: abortControllerRef.current?.signal})
+      const data = await ChatRepository.fetchAll({page, limit,
+        ...getFilterChatListRequest()
+      }, {signal: abortControllerRef.current?.signal!})
 
       abortControllerRef.current = null
-      if (search || page === 1) {
+
+      console.log('setChats', page, data.data)
+      if (page === 1) {
         setChats(data.data)
       } else {
         setChats(i => [...i, ...data.data])
@@ -109,8 +114,8 @@ export function ChatWrapper(props: Props) {
   }, [isLogged])
 
   useEffect(() => {
-    searchRef.current = search
-  }, [search])
+    filterRef.current = filter
+  }, [filter])
 
 
   useEffect(() => {
@@ -123,7 +128,7 @@ export function ChatWrapper(props: Props) {
         return
     }
     const subscription = chatSocket.messageAllState$.subscribe((message) => {
-      if (searchRef.current) {
+      if (!checkIsFilterEmpty()) {
         return
       }
       if (chats.find(i => i.id === message.chatId)) {
@@ -137,7 +142,7 @@ export function ChatWrapper(props: Props) {
             (objA, objB) => (new Date(objB.lastMessageAt)).getTime() - (new Date(objA.lastMessageAt)).getTime(),
           ))
       } else if (page === 1) {
-        loadMessages(1)
+        loadChats(1)
       }
     })
     return () => {
@@ -148,7 +153,7 @@ export function ChatWrapper(props: Props) {
 
   useEffect(() => {
     const subscription = chatSocket.reconnectState$.subscribe(async (val) => {
-      if (!searchRef.current) {
+      if (checkIsFilterEmpty()) {
         debouncedReconnect()
       }
     })
@@ -162,12 +167,12 @@ export function ChatWrapper(props: Props) {
       windowFocusInit.current = true
       return
     }
-    if (windowFocused && !searchRef.current) {
+    if (windowFocused && checkIsFilterEmpty()) {
       debouncedReconnect()
     }
   }, [windowFocused])
   const fetchMore = async () => {
-    await loadMessages(page + 1)
+    await loadChats(page + 1)
     setPage(page + 1)
   }
 
@@ -179,17 +184,19 @@ export function ChatWrapper(props: Props) {
     totalChats,
     loading,
     fetchMore,
-    search,
-    fetchSearch(value: string) {
-      debouncedSearch(value)
-    },
     decreaseUnreadCount(chatId: number, total: number) {
       setChats(i => i.map(i => i.id === chatId ? {
         ...i,
         totalUnread: i.totalUnread - total < 0 ? 0 : i.totalUnread - total
       } : i))
     },
-    scrollableTarget
+    scrollableTarget,
+    filter,
+    setFilter: (data) => {
+      filterRef.current = data
+      setFilter(data)
+      loadChats(1)
+    },
 
   }
 

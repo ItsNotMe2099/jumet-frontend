@@ -2,13 +2,15 @@ import request from 'utils/request'
 import {IReceivingPointUserListRequest} from '@/data/interfaces/IReceivingPointUserListRequest'
 import {DeepPartial, IPagination} from '@/types/types'
 import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
+import {AxiosRequestConfig} from 'axios/index'
 
 export default class ReceivingPointUserRepository {
-  static async fetch(data: IReceivingPointUserListRequest): Promise<IPagination<IReceivingPointUser>> {
+  static async fetch(data: IReceivingPointUserListRequest, config?: AxiosRequestConfig): Promise<IPagination<IReceivingPointUser>> {
     const res = await request<IPagination<IReceivingPointUser>>({
       method: 'get',
       url: '/api/receiving-point-user',
       data,
+      config,
     })
     return res
   }

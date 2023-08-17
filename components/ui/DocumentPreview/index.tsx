@@ -1,9 +1,11 @@
 import styles from './index.module.scss'
+import classNames from 'classnames'
 
 
 interface Props {
- file: string
+  file: string
   name?: string
+  className?: string | undefined
 }
 
 export default function DocumentPreview(props: Props) {
@@ -30,12 +32,12 @@ export default function DocumentPreview(props: Props) {
     'ZIP',
   ]
   const isValid = ext ? extensions.includes(ext) : false
- return (
-   <div className={styles.root}>
-     {!isValid && <div className={styles.ext}>.{ext}</div>}
-     {isValid && <div className={styles.icon}><img src={`/img/icons/files/${ext}.svg`}/></div>}
-     {props.name && <div className={styles.name}>{props.name}</div>}
-   </div>
- )
+  return (
+    <div className={classNames(styles.root, props.className)}>
+      {!isValid && <div className={styles.ext}>.{ext}</div>}
+      {isValid && <div className={styles.icon}><img src={`/img/icons/files/${ext}.svg`}/></div>}
+      {props.name && <div className={styles.name}>{props.name}</div>}
+    </div>
+  )
 }
 

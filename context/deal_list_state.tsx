@@ -17,7 +17,7 @@ interface IState {
   setPage: (page: number) => void
   filter: IDealFilter
   setFilter: (data: IDealFilter) => void
-  reFetch: () => void
+  reFetch: () => Promise<IPagination<IDeal>>
   fetchMore: () => void
 }
 
@@ -29,7 +29,7 @@ const defaultValue: IState = {
   setPage: (page: number) => null,
   filter: {page: 1, limit: 10},
   setFilter: (data: IDealFilter) => null,
-  reFetch: () => null,
+  reFetch: async () => ({data: [], total: 0}),
   fetchMore: () => null
 }
 
@@ -46,7 +46,7 @@ export function DealListOwnerWrapper(props: Props) {
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
-  const [filter, setFilter] = useState<IDealFilter>({page: 1, limit: 10})
+  const [filter, setFilter] = useState<IDealFilter>({page: 1, limit: props.limit ?? 10})
   const filterRef = useRef<IDealFilter>(filter)
   const abortControllerRef = useRef<AbortController | null>(null)
 
@@ -63,14 +63,15 @@ export function DealListOwnerWrapper(props: Props) {
       subscription.unsubscribe()
     }
   }, [data])
-  const fetch = async ({page}: { page: number } = {page: 1}) => {
+  const fetch = async ({page}: { page: number } = {page: 1}): Promise<IPagination<IDeal>> => {
     setIsLoading(true)
+    let res = {data: [], total: 0}
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort()
     }
     abortControllerRef.current = new AbortController()
     try {
-      const res = await DealRepository.fetch({
+       res = await DealRepository.fetch({
         ...filterRef.current,
        limit: filterRef.current.limit ?? limit,
         page
@@ -84,13 +85,14 @@ export function DealListOwnerWrapper(props: Props) {
     }
     setIsLoaded(true)
     setIsLoading(false)
+    return res
   }
 
-  const reFetch = () => {
+  const reFetch = (): Props => {
     setPage(1)
     setData({data: [], total: 0})
     setIsLoaded(false)
-    fetch({page: 1})
+    return fetch({page: 1})
   }
   const value: IState = {
     ...defaultValue,
