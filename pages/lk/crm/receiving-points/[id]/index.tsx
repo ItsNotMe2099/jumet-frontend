@@ -18,6 +18,7 @@ import VisibleXs from '@/components/visibility/VisibleXs'
 import { LkLayoutTitleData } from '@/context/lk_layout_content'
 import { useRouter } from 'next/router'
 import PricingTable from '@/components/for_pages/Common/PricingTable'
+import LineChart from '@/components/for_pages/LkPage/layout/LkStatsMenu/LineChart'
 
 interface Props {
   id: number
@@ -138,8 +139,8 @@ const StatisticReceivingPointPage = (props: Props) => {
         </div>
         <VisibleXs><Button className={styles.mobile} reverse styleType='large' color='grey' icon={<ChevronRightSvg color={colors.blue500} />}>Детали</Button></VisibleXs>
       </CardLayout>
+      <LineChart title='Просмотры страницы пункта приёма' />
       <CardLayout>
-
         <PricingTable headerRow={{
           cells: [
             { value: <>Номер сделки</> },
@@ -161,7 +162,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -171,7 +172,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -181,7 +182,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -191,7 +192,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -201,7 +202,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -211,7 +212,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -221,7 +222,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -231,7 +232,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -241,7 +242,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -251,7 +252,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -261,7 +262,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -271,7 +272,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -281,7 +282,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -291,7 +292,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -301,7 +302,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -311,7 +312,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -321,7 +322,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -331,7 +332,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
@@ -341,7 +342,7 @@ const StatisticReceivingPointPage = (props: Props) => {
           },
           {
             cells: [{ value: '245' },
-           
+
             { value: '3А' },
             { value: '22' },
             { value: '2 230 000 ₽' },
