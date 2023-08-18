@@ -16,11 +16,13 @@ interface Props {
   receivingPointId?: number
   hasBack?: boolean
   onBackClick: () => void
+  sellerId?: string | undefined
 }
 
 const ChatInner = (props: Props) => {
   const appContext = useAppContext()
   const chatContext = useChatDialogContext()
+
   return (<div className={classNames(styles.root, props.className)}>
       {<ChatHeader hasBack={props.hasBack ?? false} onBackClick={props.onBackClick} chat={chatContext.chat} title={props.title ?? null}/>}
       <div className={styles.messages} id={'chat-messages'}
@@ -54,7 +56,7 @@ const ChatInner = (props: Props) => {
 
 export default function Chat(props: Props) {
   console.log('props.receivingPointId', props.receivingPointId)
-  return <ChatDialogWrapper chatId={props.chatId} receivingPointId={props.receivingPointId}>
+  return <ChatDialogWrapper chatId={props.chatId} sellerId={props.sellerId} receivingPointId={props.receivingPointId}>
     <ChatInner {...props}/>
   </ChatDialogWrapper>
 }

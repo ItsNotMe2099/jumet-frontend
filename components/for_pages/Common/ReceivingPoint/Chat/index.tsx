@@ -1,7 +1,7 @@
 import ChatHeader from './ChatHeader'
 import ChatMessage from './ChatMessage'
 import ChatMessageForm from './ChatMessageForm'
-import SuggestionCard from './SuggestionCard'
+import SuggestionCard from '../../../LkPage/chat/Chat/ChatSuggestionCardLayout'
 import styles from './index.module.scss'
 import classNames from 'classnames'
 

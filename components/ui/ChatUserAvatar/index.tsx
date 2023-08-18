@@ -100,11 +100,11 @@ export default function ChatUserAvatar(props: Props) {
   }, [props.file, props.user, props.receivingPoint, props.type])
 
   const size = 48
+  const color = calculateColor(getStrForColor())
   switch (avatarType) {
     case AvatarType.Image:
       return <AvatarCircular color={color} size={size} file={props.file ?? null}/>
     case AvatarType.Initials:
-      const color = calculateColor(getStrForColor())
       return <AvatarCircular color={color} size={size} initials={getInitials()}/>
     case AvatarType.Stub:
       return <AvatarCircular color={color} size={size} icon={<UserSvg color={colors.white} />}/>

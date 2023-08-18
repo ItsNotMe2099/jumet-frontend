@@ -79,3 +79,12 @@
 .badge{
 
 }
+.unassignedBadge{
+  display: flex;
+  align-items: center;
+  font-size: 11px;
+  background-color: $blue500;
+  border-radius: 12px;
+  padding: 2px 4px;
+  color: $white;
+}

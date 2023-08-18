@@ -12,7 +12,8 @@ import BackButton from '@/components/ui/BackButton'
 import {ChatSocketWrapper} from '@/context/chat_socket_state'
 
 interface Props {
-  receivingPointId?: number
+  receivingPointId?: number | undefined
+  sellerId?: string | undefined
 }
 
 const ChatOnPageInner = (props: Props) => {
@@ -53,10 +54,7 @@ const ChatOnPageInner = (props: Props) => {
                 }
                 ref={wrapperRef}
               >
-
-                <Chat receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'} onBackClick={function (): void {
-                  throw new Error('Function not implemented.')
-                } }/>
+                <Chat sellerId={props.sellerId} receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
               </div>
             </div>
 
@@ -68,9 +66,7 @@ const ChatOnPageInner = (props: Props) => {
               <BackButton onClick={() => setShowMobile(false)}>Назад</BackButton>
             </div>
             <div className={styles.chatMobile} >
-            <Chat  receivingPointId={props.receivingPointId} title={'receivingPoint'} onBackClick={function (): void {
-                throw new Error('Function not implemented.')
-              } }/>
+            <Chat sellerId={props.sellerId}  receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'} onBackClick={() => setShowMobile(false)}/>
             </div>
           </PageModal>
         </RemoveScroll>

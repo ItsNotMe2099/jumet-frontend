@@ -145,8 +145,26 @@ export function ChatWrapper(props: Props) {
         loadChats(1)
       }
     })
+
+    const subscriptionChatUpdate = chatSocket.chatUpdateState$.subscribe((chat) => {
+      if (!checkIsFilterEmpty()) {
+        return
+      }
+      if (chats.find(i => i.id === chat.id)) {
+        setChats(i => i.map(i => i.id === chat.id ? {
+          ...i,
+         ...chat
+        } : i)
+          .sort(
+            (objA, objB) => (new Date(objB.lastMessageAt)).getTime() - (new Date(objA.lastMessageAt)).getTime(),
+          ))
+      } else if (page === 1) {
+        loadChats(1)
+      }
+    })
     return () => {
       subscription.unsubscribe()
+      subscriptionChatUpdate.unsubscribe()
     }
 
   }, [chats, currentChatId])

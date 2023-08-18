@@ -10,6 +10,7 @@ import useWindowFocus from 'use-window-focus'
 import {IChatMessageFormData} from '@/types/form_data/IChatMessageFormData'
 import ChatRepository from '@/data/repositories/ChatRepository'
 import ChatMessageRepository from '@/data/repositories/ChatMessageRepository'
+import {UserRole} from '@/data/enum/UserRole'
 
 const chatIds: number[] = []
 const markReadList: number[] = []
@@ -24,6 +25,7 @@ interface IState {
   markRead: (messageId: number) => void
   markReadMulti: (messageIds: number[]) => void,
   scrollableTarget: RefObject<HTMLElement> | null
+  isDisabledByOtherManager: boolean
 }
 
 
@@ -36,7 +38,8 @@ const defaultValue: IState = {
   sendMessage: (data) => null,
   markRead: (messageId: number) => null,
   markReadMulti: (messageIds: number[]) => null,
-  scrollableTarget: null
+  scrollableTarget: null,
+  isDisabledByOtherManager: false
 }
 
 const ChatDialogContext = createContext<IState>(defaultValue)
@@ -46,6 +49,7 @@ interface Props {
   chatId?: number | null
   children: React.ReactNode
   receivingPointId?: number
+  sellerId?: string
 }
 
 export function ChatDialogWrapper(props: Props) {
@@ -64,6 +68,7 @@ export function ChatDialogWrapper(props: Props) {
   const [page, setPage] = useState<number>(1)
   const [chat, setChat] = useState<IChat | null>(props.chat ?? null)
   const [error, setError] = useState(null)
+  const[isDisabledByOtherManager, setIsDisabledByOtherManager] = useState(false)
   const [loading, setLoading] = useState(false)
   const windowFocusInit = useRef(false)
   const chatIdRef = useRef<number | null>(null)
@@ -78,20 +83,28 @@ export function ChatDialogWrapper(props: Props) {
   useEffect(() => {
     chatIdRef.current = props.chatId ?? null
   }, [props.chatId])
+  useEffect(() => {
+    const isDisabled = !!(appContext.aboutMe?.role === UserRole.Buyer && chat?.managerId && ((chat?.manager?.id ?? chat?.managerId) !== appContext.aboutMe!.id))
+    setIsDisabledByOtherManager(isDisabled)
+  }, [props.chat])
   const init = async () => {
-    console.log('InitP', props.chatId, props.receivingPointId)
-    let _chat: IChat | null = null
-    if(!props.chatId){
-      if(appContext.aboutMe && props.receivingPointId && (chat?.receivingPointId !== props.receivingPointId)){
-        const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({receivingPointId: props.receivingPointId!, sellerId: appContext.aboutMe!.id!})
-        console.log('GetChat11', _chat)
+   let _chat: IChat | null = null
+    if (!props.chatId) {
+      if (appContext.aboutMe && props.receivingPointId && props.sellerId && (chat?.receivingPointId !== props.receivingPointId || chat?.sellerId !== props.sellerId)) {
+        const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({
+          receivingPointId: props.receivingPointId!,
+          sellerId: props.sellerId!
+        })
+        console.log('GetChat112', _chat)
         setChat(_chat)
-        if(_chat?.messages) {
-          processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
-        }else if(_chat){
+        if (_chat?.messages) {
+          processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total, true)
+        } else if (_chat) {
           await loadMessages()
+        } else {
+          processLoadedMessages([], 0, true)
         }
-      }else {
+      } else {
         setChat(null)
         setLoading(false)
         setMessages([])
@@ -101,15 +114,15 @@ export function ChatDialogWrapper(props: Props) {
       return
     }
     if (!chat || chat.id !== props.chatId) {
-       _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
+      _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
       setChat(_chat)
     }
     setLoading(true)
     setMessages([])
     setTotalMessages(100000000)
-    if(_chat?.messages) {
+    if (_chat?.messages) {
       processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
-    }else{
+    } else {
       await loadMessages()
     }
   }
@@ -125,7 +138,8 @@ export function ChatDialogWrapper(props: Props) {
     }
     debouncedMarkRead()
   }
-  const processLoadedMessages =  (data: IChatMessage[], total: number | null) => {
+  const processLoadedMessages = (data: IChatMessage[], total: number | null, fromInit: boolean = false) => {
+    console.log('processLoadedMessages', total)
     if (total === 0) {
       setTotalMessages(messages.length)
     }
@@ -134,14 +148,14 @@ export function ChatDialogWrapper(props: Props) {
       chatContext.decreaseUnreadCount(props.chatId!, readIds.length)
       markReadMulti(readIds)
     }
-    setMessages(i => [...i, ...data])
+    setMessages(i => fromInit ? data : [...i, ...data])
   }
   const loadMessages = async (lastCreatedAt?: string) => {
     const data = await ChatMessageRepository.fetchAll(props.chatId!, lastCreatedAt, limit)
     processLoadedMessages(data.data, data.total)
   }
   const fetchMore = async () => {
-    if(!props.chatId){
+    if (!props.chatId) {
       return
     }
     await loadMessages(messages[messages.length - 1]?.createdAt)
@@ -149,12 +163,11 @@ export function ChatDialogWrapper(props: Props) {
   }
 
   const sendMessage = async (data: IChatMessageFormData) => {
-    if(!appContext.aboutMe){
+    if (!appContext.aboutMe) {
       return
     }
     const sid = uuidv4()
-    console.log('SendMessage')
-    if(props.receivingPointId && !chat?.id){
+    if ((props.receivingPointId && props.sellerId) && !chat?.id) {
       setTotalMessages(i => i + 1)
       setMessages((i) => [{
         ...data as IChatMessage,
@@ -163,14 +176,17 @@ export function ChatDialogWrapper(props: Props) {
         userId: appContext.aboutMe?.id,
         createdAt: (new Date()).toISOString(),
       }, ...i])
-      const chat = await ChatRepository.createChat({receivingPointId: props.receivingPointId, sellerId: appContext.aboutMe.id})
+      const chat = await ChatRepository.createChat({
+        receivingPointId: props.receivingPointId,
+        sellerId: props.sellerId
+      })
       setChat(chat)
 
       ChatMessageRepository.create({...data, chatId: chat!.id, sid})
-    }else{
+    } else {
       ChatMessageRepository.create({...data, chatId: chat!.id, sid})
     }
-    if(!chat?.id){
+    if (!chat?.id) {
       return
     }
 
@@ -225,7 +241,6 @@ export function ChatDialogWrapper(props: Props) {
   }, 1000)
   useEffect(() => {
     if (chat) {
-      console.log('ChatJoin')
       chatSocket.join(chat.id)
     }
     return () => {
@@ -237,14 +252,13 @@ export function ChatDialogWrapper(props: Props) {
 
   useEffect(() => {
     reconnectRef.current = false
-    init()
-    chatContext.setCurrentChatId(props.chatId ?? null)
-  }, [props.chatId])
-  useEffect(() => {
-    if(appContext.aboutMeLoaded && appContext.aboutMe){
+    if (props.chatId) {
+      chatContext.setCurrentChatId(props.chatId)
+    }
+    if (appContext.aboutMeLoaded && appContext.aboutMe) {
       init()
     }
- }, [props.receivingPointId, appContext.aboutMeLoaded])
+  }, [props.receivingPointId, props.sellerId, appContext.aboutMeLoaded, props.chatId])
   useEffect(() => {
     if (!chat) {
       return
@@ -266,8 +280,15 @@ export function ChatDialogWrapper(props: Props) {
 
       }
     })
+
+    const subscriptionChatUpdate = chatSocket.chatUpdateState$.subscribe((updated) => {
+      if (chat.id === updated.id) {
+        setChat((i) => ({...i,...updated}))
+      }
+    })
     return () => {
       subscription.unsubscribe()
+      subscriptionChatUpdate.unsubscribe()
     }
 
   }, [chat, messages])
@@ -275,7 +296,7 @@ export function ChatDialogWrapper(props: Props) {
 
   useEffect(() => {
 
-    if(!props.chatId){
+    if (!props.chatId) {
       return
     }
     const subscription = chatSocket.reconnectState$.subscribe(async (message) => {
@@ -288,7 +309,7 @@ export function ChatDialogWrapper(props: Props) {
 
   }, [messages, props.chatId])
   useEffect(() => {
-    if(!chatIdRef?.current){
+    if (!chatIdRef?.current) {
       return
     }
     if (!windowFocusInit.current) {
@@ -310,7 +331,8 @@ export function ChatDialogWrapper(props: Props) {
     sendMessage,
     markRead,
     markReadMulti,
-    scrollableTarget
+    scrollableTarget,
+    isDisabledByOtherManager
 
   }
 

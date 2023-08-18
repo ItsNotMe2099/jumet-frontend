@@ -15,6 +15,7 @@ import {useAppContext} from '@/context/state'
 import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
 import PhotosViewCard from '@/components/for_pages/ReceivingPoint/Cards/PhotosViewCard'
 import {UserRole} from '@/data/enum/UserRole'
+import ClientOnly from '@/components/visibility/ClientOnly'
 
 interface Props {
   receivingPoint: IReceivingPoint;
@@ -38,8 +39,9 @@ export default function ReceivingPoint(props: Props) {
           <PhotosViewCard receivingPoint={receivingPoint}/>
           <CompanyViewCard receivingPoint={receivingPoint}/>
         </div>
-        {appContext.aboutMe?.role !== UserRole.Buyer && <ChatOnPage receivingPointId={receivingPoint?.id}/>}
-
+        <ClientOnly>
+        {appContext.aboutMe?.role !== UserRole.Buyer ? <ChatOnPage sellerId={appContext.aboutMe?.id} receivingPointId={receivingPoint?.id}/> : null}
+        </ClientOnly>
       </div>
     </Layout>
   )

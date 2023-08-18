@@ -7,6 +7,7 @@ import UserUtils from '@/utils/UserUtils'
 import Link from 'next/link'
 import {Routes} from '@/types/routes'
 import BackButton from '@/components/ui/BackButton'
+import Formatter from '@/utils/formatter'
 enum ChatNameType{
   ReceivingPoint = 'receivingPoint',
   Seller = 'seller'
@@ -22,8 +23,8 @@ interface Props {
 export default function ChatHeader(props: Props) {
   const appContext = useAppContext()
   const user = appContext.aboutMe?.id !== props.chat?.sellerId ? props.chat?.seller : ((props.chat?.users?.length ?? 0) > 0 ? props.chat?.users[0] : null)
-  const profileName = user ? UserUtils.getName(user) : ''
-  const chatName = props.title || appContext.aboutMe?.role === UserRole.Seller ? props.chat?.receivingPoint?.address?.address : UserUtils.getName(user)
+  const profileName = (user?.firstName || user?.lastName) ? UserUtils.getName(user) : (user?.phone ? Formatter.formatPhone(user.phone) : '')
+  const chatName = props.title || appContext.aboutMe?.role === UserRole.Seller ? props.chat?.receivingPoint?.address?.address : profileName
   const chatNameType = props.title ? null : (appContext.aboutMe?.role === UserRole.Seller ? ChatNameType.ReceivingPoint : ChatNameType.Seller)
   const getChatNameType = () => {
     switch (chatNameType){

@@ -18,6 +18,8 @@ export const CookiesLifeTime: {
 }
 export const Timers: {
   notificationsRefresh: number,
+  dealRefresh: number,
 } = {
   notificationsRefresh: 15 * 1000 ,
+  dealRefresh: 30 * 1000
 }

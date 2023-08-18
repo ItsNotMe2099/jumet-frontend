@@ -38,7 +38,6 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
     }
   }
 
-  console.log('SelectMeta', meta)
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {/*<div className={classNames({

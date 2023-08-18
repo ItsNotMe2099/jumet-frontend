@@ -17,7 +17,7 @@ export default function Already(props: Props) {
       <div className={styles.top}>
         {props.topText}
       </div>
-      <Button href={props.link} className={classNames(styles.signIn, props.btnClassName)} styleType='large' color='grey'>
+      <Button type={'button'} href={props.link} className={classNames(styles.signIn, props.btnClassName)} styleType='large' color='grey'>
         {props.btnText}
       </Button>
       <div className={styles.bottom}>

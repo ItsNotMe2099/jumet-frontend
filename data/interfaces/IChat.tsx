@@ -9,6 +9,8 @@ export default interface IChat {
   published: boolean
   seller: IUser
   sellerId: number | string
+  manager: IUser
+  managerId: number | string
   receivingPoint: IReceivingPoint
   receivingPointId: number
   last: IChatMessage

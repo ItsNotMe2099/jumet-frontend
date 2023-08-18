@@ -17,7 +17,7 @@ const LkDealPageInner = () => {
           <div className={styles.colLeft}>
             <DealEdit/>
           </div>
-          <ChatOnPage receivingPointId={dealContext.deal!.receivingPointId!}/>
+          <ChatOnPage sellerId={dealContext.deal!.sellerId!} receivingPointId={dealContext.deal!.receivingPointId!}/>
         </>}
       </div>
   )

@@ -6,24 +6,33 @@ import IChatMessage from 'data/interfaces/IChatMessage'
 import Cookies from 'js-cookie'
 import {CookiesType} from 'types/enums'
 import {useAppContext} from 'context/state'
+import IChat from '@/data/interfaces/IChat'
 const chatIds: number[] = []
+const receivingPointIds: number[] = []
 interface IState {
   reconnectState$: Subject<boolean>,
   messageState$: Subject<IChatMessage>,
   messageAllState$: Subject<IChatMessage>,
+  chatUpdateState$: Subject<IChat>,
   join: (chatId: number) => void,
   leave: (chatId: number) => void,
+  joinReceivingPointId: (receivingPointId: number) => void,
+  leaveReceivingPointId: (receivingPointId: number) => void,
 }
 const reconnectState$ = new Subject<boolean>()
 const messageState$ = new Subject<IChatMessage>()
 const messageAllState$ = new Subject<IChatMessage>()
+const chatUpdateState$ = new Subject<IChat>()
 
 const defaultValue: IState = {
   reconnectState$,
   messageState$,
   messageAllState$,
+  chatUpdateState$,
   join: (chatId: number) => null,
   leave: (chatId: number) => null,
+  joinReceivingPointId: (receivingPointId: number) => null,
+  leaveReceivingPointId: (receivingPointId: number) => null,
 }
 
 const ChatSocketContext = createContext<IState>(defaultValue)
@@ -84,11 +93,13 @@ export function ChatSocketWrapper(props: Props) {
       })
     }
     const onChatMessage = ({message}: {message: IChatMessage}) => {
-
       messageState$.next(message)
     }
     const onChatMessageAll = ({message}: {message: IChatMessage}) => {
       messageAllState$.next(message)
+    }
+    const onChatUpdated = (chat: IChat) => {
+      messageState$.next(chat)
     }
 
     socket.on('connect', onConnect)
@@ -96,6 +107,7 @@ export function ChatSocketWrapper(props: Props) {
     socket.on('disconnect', onDisConnect)
     socket.on('chat:message' , onChatMessage)
     socket.on('chat:message:all' , onChatMessageAll)
+    socket.on('chat:updated' , onChatUpdated)
     return () => {
       socket.off('connect', onConnect)
       socket.off('reconnect', onRecConnect)
@@ -115,7 +127,7 @@ export function ChatSocketWrapper(props: Props) {
       if(!chatIds.includes(chatId)) {
         chatIds.push(chatId)
       }
-        socket?.emit('chat:join', {chatId})
+      socket?.emit('chat:join', {chatId})
 
     },
     leave: (chatId: number) => {
@@ -124,6 +136,21 @@ export function ChatSocketWrapper(props: Props) {
         chatIds.splice(index, 1)
       }
       socket?.emit('chat:leave', {chatId})
+    },
+
+    joinReceivingPointId: (receivingPointId: number) => {
+      if(!receivingPointIds.includes(receivingPointId)) {
+        receivingPointIds.push(receivingPointId)
+      }
+      socket?.emit('receivingPoint:join', {receivingPointId})
+
+    },
+    leaveReceivingPointId: (receivingPointId: number) => {
+      const index = receivingPointIds.findIndex(i => i === receivingPointId)
+      if(index >= 0) {
+        receivingPointIds.splice(index, 1)
+      }
+      socket?.emit('receivingPoint:leave', {receivingPointId})
     },
 
   }

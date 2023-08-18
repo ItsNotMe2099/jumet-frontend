@@ -1,4 +1,4 @@
-import {createContext, useContext, useEffect, useState} from 'react'
+import {createContext, useContext, useEffect, useRef, useState} from 'react'
 import {IDeal} from '@/data/interfaces/IDeal'
 import DealRepository from '@/data/repositories/DealRepository'
 import {Nullable, RequestError} from '@/types/types'
@@ -11,6 +11,10 @@ import {
   IDealTermByBuyerStepRequest,
   IDealTermBySellerStepRequest, IDealWeighingStepRequest
 } from '@/data/interfaces/IDealStepRequest'
+import useWindowFocus from 'use-window-focus'
+import {useNetworkStatus} from 'use-network-status'
+import useInterval from 'use-interval'
+import {Timers} from '@/types/constants'
 
 interface IState {
   dealId: number,
@@ -61,10 +65,31 @@ export function DealWrapper(props: Props) {
   const [terminateLoading, setTerminateLoading] = useState<boolean>(false)
   const [loading, setLoading] = useState<boolean>(false)
   const [editLoading, setEditLoading] = useState<boolean>(false)
+  const windowFocused = useWindowFocus()
+  const isOnline = useNetworkStatus()
+  const initWindowFocusedRef = useRef<boolean>(false)
+  const dealIdRef = useRef<number>(props.dealId)
+  const fetchAbortControllerRef = useRef<AbortController | null>(null)
+
+  useEffect(() => {
+    dealIdRef.current = props.dealId
+  }, [props.dealId])
   useEffect(() => {
     setDeal(props.deal as Nullable<IDeal>)
-
   }, [props.deal])
+  useInterval(() => {
+    fetch()
+  }, Timers.dealRefresh)
+  useEffect(() => {
+    if (!initWindowFocusedRef.current) {
+      initWindowFocusedRef.current = true
+      return
+    }
+    if (windowFocused || isOnline) {
+      fetch()
+    }
+
+  }, [windowFocused, isOnline])
   useEffect(() => {
     const subscriptionUpdateDeal = appContext.dealUpdateState$.subscribe((newDeal) => {
       if (deal && newDeal.id === deal?.id) {
@@ -87,10 +112,29 @@ export function DealWrapper(props: Props) {
       subscriptionCreate.unsubscribe()
     }
   }, [deal])
+  const stopAbort = () => {
+    try {
+      if (fetchAbortControllerRef.current) {
+        fetchAbortControllerRef.current?.abort()
+        fetchAbortControllerRef.current = null
+      }
+    }catch (e) {
+
+    }
+  }
   const fetch = async (): Promise<Nullable<IDeal>> => {
-    const res = await DealRepository.fetchById(props.dealId)
-    setDeal(res)
-    return res
+    stopAbort()
+    fetchAbortControllerRef.current = new AbortController()
+    try {
+      const res = await DealRepository.fetchById(dealIdRef.current)
+      setDeal(res)
+      return res
+    } catch (e) {
+      if (fetchAbortControllerRef.current?.signal?.aborted) {
+        return
+      }
+    }
+    return null
   }
   useEffect(() => {
     if (!props.deal && props.dealId) {
@@ -105,6 +149,7 @@ export function DealWrapper(props: Props) {
 
   const submitStepSetup = async (data: IDealSetUpStepRequest): Promise<Nullable<IDeal>> => {
     try {
+      stopAbort()
       setEditLoading(true)
       const res = await DealRepository.setUp(props.dealId, data)
       handleUpdate(res)
@@ -121,6 +166,7 @@ export function DealWrapper(props: Props) {
 
   const submitStepWeighing = async (data: IDealWeighingStepRequest): Promise<Nullable<IDeal>> => {
     try {
+      stopAbort()
       setEditLoading(true)
       const res = await DealRepository.weighing(props.dealId, data)
       handleUpdate(res)
@@ -136,6 +182,7 @@ export function DealWrapper(props: Props) {
   }
   const submitStepWeighingAccept = async (): Promise<Nullable<IDeal>> => {
     try {
+      stopAbort()
       setEditLoading(true)
       const res = await DealRepository.weighingAccept(props.dealId)
       handleUpdate(res)
@@ -151,6 +198,7 @@ export function DealWrapper(props: Props) {
   }
   const submitStepPay = async (data: IDealPayStepRequest): Promise<Nullable<IDeal>> => {
     try {
+      stopAbort()
       setEditLoading(true)
       const res = await DealRepository.pay(props.dealId, data)
       handleUpdate(res)
@@ -173,6 +221,7 @@ export function DealWrapper(props: Props) {
         confirmColor: 'red',
         onConfirm: async () => {
           try {
+            stopAbort()
             setTerminateLoading(true)
             appContext.hideModal()
             const res = await terminateBySellerRequest({})
@@ -194,6 +243,7 @@ export function DealWrapper(props: Props) {
   }
   const terminateByBuyerRequest = async (data: IDealTermByBuyerStepRequest): Promise<Nullable<IDeal>> => {
     try {
+      stopAbort()
       setTerminateLoading(true)
       const res = await DealRepository.terminateByBuyer(props.dealId, data)
       handleUpdate(res)
@@ -201,14 +251,15 @@ export function DealWrapper(props: Props) {
       setDeal((i) => ({...i, ...res} as any))
       setTerminateLoading(false)
       return {...deal, ...res}
-    }catch (err) {
+    } catch (err) {
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)
       }
     }
-    return  null
+    return null
   }
   const terminateBySellerRequest = async (data: IDealTermBySellerStepRequest): Promise<Nullable<IDeal>> => {
+    stopAbort()
     setTerminateLoading(true)
     const res = await DealRepository.terminateBySeller(props.dealId)
     handleUpdate(res)

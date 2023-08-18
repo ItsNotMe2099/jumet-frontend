@@ -21,8 +21,11 @@ $radius: 12px;
       border-top-right-radius: 0px;
     }
   }
+
   &.yellow{
-    background: $yellow300;
+    .message {
+      background: $yellow300;
+    }
   }
 }
 .message{

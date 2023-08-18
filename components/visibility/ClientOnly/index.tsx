@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react'
 
 interface Props {
-  children: JSX.Element
+  children: JSX.Element | null | undefined
 }
 
 export default function ClientOnly(props: Props) {
