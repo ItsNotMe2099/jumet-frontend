@@ -9,4 +9,5 @@ export interface IChatMessageFormData{
   type?: ChatMessageType
   assetsIds?: number[]
   assets?: IFile[]
+  userId?: string
 }

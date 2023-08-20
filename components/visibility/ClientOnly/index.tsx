@@ -12,7 +12,7 @@ export default function ClientOnly(props: Props) {
   }, [])
 
   if (visible) {
-    return props.children
+    return props.children ?? null
   } else {
     return null
   }

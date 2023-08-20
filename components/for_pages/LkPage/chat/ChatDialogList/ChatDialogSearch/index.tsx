@@ -1,11 +1,11 @@
 import styles from './index.module.scss'
 import React, {KeyboardEventHandler} from 'react'
-import InputField from '@/components/fields/InputField'
+import InputField, {InputValueType} from '@/components/fields/InputField'
 import {Form, FormikProvider, useFormik} from 'formik'
 import {Nullable} from '@/types/types'
 
 interface Props {
-  onChange: (value: string) => void
+  onChange: (value: Nullable<string>) => void
 }
 
 export default function ChatDialogSearch(props: Props) {
@@ -15,8 +15,8 @@ export default function ChatDialogSearch(props: Props) {
       //    formik.submitForm()
     }
   }
-  const handleChange = (value: Nullable<string>) => {
-    props.onChange(value)
+  const handleChange = (value: InputValueType<string>) => {
+    props.onChange(value ?? null)
   }
   const handleSubmit = () => {
 

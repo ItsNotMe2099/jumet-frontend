@@ -67,10 +67,11 @@ export default function FinishForm(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         <InputField name='name' label='Ваше имя' validate={Validator.required} />
-        <InputField name='password' label='Придумайте пароль' validate={Validator.required} />
+        <InputField obscure={true} name='password' label='Придумайте пароль' validate={Validator.required} />
         <InputField
           name='passwordConfirm'
           label='Повторите пароль'
+          obscure={true}
           validate={Validator.combine([Validator.required, Validator.passwordsMustMatch(formik.values)])} />
         <Button type='submit' className={styles.btn} styleType='large' color='blue' spinner={loading}>
           Зарегистрироваться

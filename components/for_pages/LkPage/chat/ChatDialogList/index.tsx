@@ -19,11 +19,11 @@ export default function ChatDialogList(props: Props) {
 
 
   return (<div className={styles.root}>
-        <ChatDialogFilter/>
+      <ChatDialogFilter/>
       <div className={styles.dialogs}>
-        {!chatContext.loading && chatContext.search && chatContext.totalChats === 0 ? <div className={styles.empty}>
+        {!chatContext.loading && !chatContext.filterIsEmpty && chatContext.totalChats === 0 ? <div className={styles.empty}>
           По вашей запросу ничего не найдено
-        </div> :  <InfiniteScroll
+        </div> : <InfiniteScroll
           dataLength={chatContext.chats.length}
           next={chatContext.fetchMore}
           style={{overflow: 'inherit'}}
@@ -37,10 +37,12 @@ export default function ChatDialogList(props: Props) {
               enterAnimation={'accordionVertical'}
               leaveAnimation={'accordionVertical'}
             >
-            {chatContext.chats.map((i, index) => <ChatDialogItem key={`${i.id}`} highlight={chatContext.filter?.search} isActive={props.chatId === i.id} chat={i}
-                                           onClick={() => props.onSelect(i)}/>)}
+              {chatContext.chats.map((i, index) => <ChatDialogItem key={`${i.id}`}
+                                                                   highlight={chatContext.filter?.search ?? ''}
+                                                                   isActive={props.chatId === i.id} chat={i}
+                                                                   onClick={() => props.onSelect(i)}/>)}
             </FlipMove>
-         </div>
+          </div>
         </InfiniteScroll>}
       </div>
     </div>

@@ -8,6 +8,9 @@ import {CookiesType} from '@/types/enums'
 import SaleRequestInfoPageCard from '@/components/for_pages/sale-request/SaleRequestInfoPageCard'
 import SaleRequestAddressPageCard from '@/components/for_pages/sale-request/SaleRequestAddressPageCard'
 import SaleRequestPhotosPageCard from '@/components/for_pages/sale-request/SaleRequestPhotosPageCard'
+import {useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import {UserRole} from '@/data/enum/UserRole'
+import {useAppContext} from '@/context/state'
 
 interface Props {
   saleRequest: ISaleRequest
@@ -15,7 +18,8 @@ interface Props {
 
 
 export default function SaleRequestPage({ saleRequest }: Props) {
-  console.log('saleRequest', saleRequest)
+  const appContext = useAppContext()
+  const receivingPointListContext = useReceivingPointListContext()
   return (
     <Layout>
       <div className={styles.root}>
@@ -24,8 +28,7 @@ export default function SaleRequestPage({ saleRequest }: Props) {
           <SaleRequestAddressPageCard item={saleRequest}/>
           <SaleRequestPhotosPageCard item={saleRequest}/>
         </div>
-
-        <ChatOnPage/>
+        {appContext.aboutMe?.role !== UserRole.Seller ? <ChatOnPage title={'Чат с покупателем'}  sellerId={saleRequest.ownerId} receivingPointId={receivingPointListContext.currentReceivingPoint?.id}/> : null}
       </div>
     </Layout>
   )

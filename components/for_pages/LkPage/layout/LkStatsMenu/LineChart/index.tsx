@@ -71,7 +71,7 @@ export default function LineChart(props: Props) {
   }
 
   return (
-    <CardLayout topClassName={styles.top} title={props.title} additionalEl=
+    <CardLayout topClassName={styles.top} title={props.title ?? ''} additionalEl=
       {<HiddenXs><Button styleType='large' color='grey' icon={<ReloadSvg color={colors.blue500} />}>Обновлено в 13:01</Button></HiddenXs>}>
       <Line className={styles.line} options={options} data={data} />
       <div className={styles.legend}>

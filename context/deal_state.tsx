@@ -131,7 +131,7 @@ export function DealWrapper(props: Props) {
       return res
     } catch (e) {
       if (fetchAbortControllerRef.current?.signal?.aborted) {
-        return
+        return null
       }
     }
     return null

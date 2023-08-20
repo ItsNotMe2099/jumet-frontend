@@ -19,6 +19,7 @@ import {DataWrapper} from '@/context/data_state'
 import {FavoriteWrapper} from '@/context/favorite_state'
 import {NextPage} from 'next'
 import {NotificationWrapper} from '@/context/notifications_state'
+import {ReceivingPointListWrapper} from '@/context/receiving_point_list_state'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -48,24 +49,26 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
     <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
       <AuthWrapper>
         <DataWrapper scrapMetalCategories={[]}>
-          <NotificationWrapper>
-            <FavoriteWrapper>
-              <Head>
-                <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                <link
-                  href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
-                  rel="stylesheet"/>
-                <meta
-                  name="viewport"
-                  content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
-                />
-              </Head>
-              {getLayout(<Component {...pageProps as any} />)}
-              <ModalContainer/>
-              <Snackbar/>
-            </FavoriteWrapper>
-          </NotificationWrapper>
+          <ReceivingPointListWrapper>
+            <NotificationWrapper>
+              <FavoriteWrapper>
+                <Head>
+                  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                  <link rel="preconnect" href="https://fonts.gstatic.com"/>
+                  <link
+                    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
+                    rel="stylesheet"/>
+                  <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
+                  />
+                </Head>
+                {getLayout(<Component {...pageProps as any} />)}
+                <ModalContainer/>
+                <Snackbar/>
+              </FavoriteWrapper>
+            </NotificationWrapper>
+          </ReceivingPointListWrapper>
         </DataWrapper>
       </AuthWrapper>
     </AppWrapper>

@@ -65,7 +65,7 @@ export function DealListOwnerWrapper(props: Props) {
   }, [data])
   const fetch = async ({page}: { page: number } = {page: 1}): Promise<IPagination<IDeal>> => {
     setIsLoading(true)
-    let res = {data: [], total: 0}
+    let res: IPagination<IDeal> = {data: [], total: 0}
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort()
     }
@@ -80,7 +80,7 @@ export function DealListOwnerWrapper(props: Props) {
 
     } catch (err) {
       if (err instanceof CanceledError) {
-        return
+        return res
       }
     }
     setIsLoaded(true)
@@ -88,7 +88,7 @@ export function DealListOwnerWrapper(props: Props) {
     return res
   }
 
-  const reFetch = (): Props => {
+  const reFetch = () => {
     setPage(1)
     setData({data: [], total: 0})
     setIsLoaded(false)

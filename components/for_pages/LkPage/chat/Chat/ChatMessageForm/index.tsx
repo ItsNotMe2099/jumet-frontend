@@ -69,20 +69,20 @@ export default function ChatMessageForm() {
       <FormikProvider value={formik}>
         <Form className={styles.root}>
           <div className={styles.field}>
-            <IconButton type={'submit'} bgColor={'white'} onClick={() => appContext.showModal(ModalType.ChatFileUpload, {message: formik.values.message} as ChatFileUploadModalArguments)}>
+            <IconButton disabled={chatContext.disabled} type={'submit'} bgColor={'white'} onClick={() => appContext.showModal(ModalType.ChatFileUpload, {message: formik.values.message} as ChatFileUploadModalArguments)}>
               <AttachSvg color={colors.dark500}/>
             </IconButton>
             <TextAreaChatField
               ref={inputRef}
               name={'message'}
-              disabled={sending}
+              disabled={chatContext.disabled || sending}
               placeholder={'Сообщение'}
               styleType={'message'}
               onKeyDown={handleKeyDown}
               className={cx(styles.textarea)}
             />
             <IconButton type={'submit'} bgColor={'blue500'}
-                        disabled={!formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
+                        disabled={chatContext.disabled || !formik.values.message?.replace(/\s+/g, ' ').trim() || sending} spinner={sending}>
               <SendSvg color={colors.white}/>
             </IconButton>
           </div>

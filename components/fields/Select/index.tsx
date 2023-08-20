@@ -1,10 +1,11 @@
+// @ts-nocheck
 import styles from './index.module.scss'
 import {IOption, Nullable} from 'types/types'
 import ReactSelect from 'react-select'
-import { DropdownIndicatorProps } from 'react-select/dist/declarations/src/components/indicators'
 import classNames from 'classnames'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
 import type {
+  DropdownIndicatorProps,
   GroupBase,
   SelectInstance,
   Props as SelectProps,
@@ -17,12 +18,13 @@ interface Props<T> {
   label?: string
   options: IOption<T>[]
   value: T
-  onChange: (value: T | undefined) => void
+  onChange: (value: Nullable<T>) => void
   hasError?: boolean
   placeholder?: string
   className?: string
   name?: string
   noOptionsMessage?: Nullable<string>
+  resettable?: boolean
 }
 
 export default function Select<T>(props: Props<T>) {
@@ -38,13 +40,12 @@ export default function Select<T>(props: Props<T>) {
           {props.label}
         </div>
       )}
-      <ReactSelect<IOption<T>>
-        defaultValue={selected}
-        value={selected}
-        isMulti={false}
-        isClearable={true}
+      <ReactSelect<IOption<T>, false,  GroupBase<IOption<T>>>
+        value={selected as any}
+        isClearable={props.r}
         noOptionsMessage={(v) => props.noOptionsMessage ?? 'Нет результатов'}
         menuPosition={'fixed'}
+        menuPlacement={'auto'}
         className={classNames({
           [styles.input]: true,
           [styles.default]: true,
@@ -59,8 +60,9 @@ export default function Select<T>(props: Props<T>) {
           props.onChange((option as IOption<T>)?.value)
         }}
         options={props.options as any}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator } as any}
         {...(props.selectProps ? {...props.selectProps} : {})}
+        {...(selected ? {defaultValue: selected} : {})}
       />
     </div>
   )
@@ -70,12 +72,14 @@ interface AsyncProps<T> {
   initialAsyncData: any,
   label?: string
   value: T
-  onChange: (value: T | undefined) => void
+  onChange: (value: Nullable<T>) => void
   hasError?: boolean
   placeholder?: string
   className?: string
   name?: string
   noOptionsMessage?: Nullable<string>
+  selectProps?: Nullable<SelectProps>
+  resettable?: boolean
 }
 export function SelectAsync<T>(props: AsyncProps<T>) {
   const [ref, press, hover] = usePressAndHover()
@@ -94,7 +98,7 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
           {props.label}
         </div>
       )}
-      <AsyncPaginate<IOption<T>>
+      <AsyncPaginate<IOption<T>, false, GroupBase<IOption<T>>>
         defaultValue={selected}
         value={selected}
         ref={mainRef}
@@ -118,17 +122,19 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
           setSelected(option)
           props.onChange((option as IOption<T>)?.value)
         }}
-        components={{ DropdownIndicator }}
+        components={{ DropdownIndicator } as any}
 
       />
     </div>
   )
 }
-const DropdownIndicator = (props: DropdownIndicatorProps<IOption<any>, false, GroupBase<IOption<any>>>) => {
+function DropdownIndicator<T>(props: DropdownIndicatorProps<IOption<T>, false, GroupBase<IOption<T>>>) {
   return (
-    <img src="/images/icons/arrow_select.svg" alt="" className={classNames({
-      [styles.indicator]: true,
-      [styles.indicatorInverse]: props.selectProps.menuIsOpen,
-    })}/>
+    <div>
+     <img src="/images/icons/arrow_select.svg" alt="" className={classNames({
+       [styles.indicator]: true,
+       [styles.indicatorInverse]: props.selectProps.menuIsOpen,
+      })}/>
+    </div>
   )
 }

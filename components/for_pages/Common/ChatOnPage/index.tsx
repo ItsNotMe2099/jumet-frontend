@@ -14,6 +14,7 @@ import {ChatSocketWrapper} from '@/context/chat_socket_state'
 interface Props {
   receivingPointId?: number | undefined
   sellerId?: string | undefined
+  title?: string | undefined
 }
 
 const ChatOnPageInner = (props: Props) => {
@@ -54,7 +55,7 @@ const ChatOnPageInner = (props: Props) => {
                 }
                 ref={wrapperRef}
               >
-                <Chat sellerId={props.sellerId} receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'}/>
+                <Chat sellerId={props.sellerId} receivingPointId={props.receivingPointId} title={props.title}/>
               </div>
             </div>
 
@@ -66,7 +67,7 @@ const ChatOnPageInner = (props: Props) => {
               <BackButton onClick={() => setShowMobile(false)}>Назад</BackButton>
             </div>
             <div className={styles.chatMobile} >
-            <Chat sellerId={props.sellerId}  receivingPointId={props.receivingPointId} title={'Чат с пунктом приема'} onBackClick={() => setShowMobile(false)}/>
+             <Chat sellerId={props.sellerId}  receivingPointId={props.receivingPointId} title={props.title} onBackClick={() => setShowMobile(false)}/>
             </div>
           </PageModal>
         </RemoveScroll>

@@ -11,7 +11,7 @@ interface Props extends ChatMessageProps{
 
 export default function ChatMessageDealStatus(props: Props) {
   const appContext = useAppContext()
-  const convertMessageTypeToDealStatus = (type: ChatMessageType): DealStatus => {
+  const convertMessageTypeToDealStatus = (type: ChatMessageType): DealStatus | undefined => {
     switch (props.message.type){
       case ChatMessageType.DealSetUp:
         return DealStatus.SetUp
@@ -27,7 +27,11 @@ export default function ChatMessageDealStatus(props: Props) {
         return DealStatus.Paid
     }
   }
-  const description = DealUtils.getStateDescription({status: convertMessageTypeToDealStatus(props.message.type) } as any, appContext?.aboutMe!.role)
+  const dealStatus = convertMessageTypeToDealStatus(props.message.type)
+  if(!dealStatus){
+    return null
+  }
+  const description = DealUtils.getStateDescription({status: dealStatus } as any, appContext?.aboutMe!.role)
   return <ChatMessageCardLayout color={'yellow'} message={props.message} side={props.side}>
     <div className={styles.root}>
       {description.name && <div className={styles.title}>{description.name}</div>}

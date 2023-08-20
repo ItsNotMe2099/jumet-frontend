@@ -18,6 +18,7 @@ interface IState {
   fetchMore: () => void
   loading: boolean
   filter: IChatFilter
+  filterIsEmpty: boolean,
   setFilter: (filter: IChatFilter) => void,
   decreaseUnreadCount: (chatId: number, total: number) => void
   setCurrentChatId: (chatId: number | null) => void,
@@ -30,6 +31,7 @@ const defaultValue: IState = {
   totalChats: 0,
   currentChatId: 0,
   filter: {},
+  filterIsEmpty: true,
   setFilter: (filter: IChatFilter) => null,
   fetchMore: () => null,
   loading: false,
@@ -210,6 +212,7 @@ export function ChatWrapper(props: Props) {
     },
     scrollableTarget,
     filter,
+    filterIsEmpty: checkIsFilterEmpty(),
     setFilter: (data) => {
       filterRef.current = data
       setFilter(data)

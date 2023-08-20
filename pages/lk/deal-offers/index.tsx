@@ -8,7 +8,7 @@ import {
   SaleRequestListFromSellerWrapper,
   useSaleRequestListFromSellerContext
 } from '@/context/sale_request_list_from_seller_state'
-import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import { useReceivingPointListContext} from '@/context/receiving_point_list_state'
 import {IOption} from '@/types/types'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 import ContentLoader from '@/components/ui/ContentLoader'
@@ -195,13 +195,11 @@ const LkDealOffersPageInner = (props: Props) => {
 
 
 const LkDealOffersPage = (props: Props) => {
-  return (<ReceivingPointListWrapper>
-    <DealOfferListOwnerWrapper>
+  return (<DealOfferListOwnerWrapper>
       <SaleRequestListFromSellerWrapper>
         <LkDealOffersPageInner/>
       </SaleRequestListFromSellerWrapper>
-    </DealOfferListOwnerWrapper>
-  </ReceivingPointListWrapper>)
+    </DealOfferListOwnerWrapper>)
 }
 LkDealOffersPage.getLayout = LkPageBaseLayout
 export default LkDealOffersPage

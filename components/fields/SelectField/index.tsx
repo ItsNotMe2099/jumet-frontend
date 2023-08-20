@@ -1,5 +1,5 @@
 import React from 'react'
-import { useField } from 'formik'
+import {useField} from 'formik'
 import {IField, IOption, Nullable} from '@/types/types'
 import styles from './index.module.scss'
 import classNames from 'classnames'
@@ -8,18 +8,18 @@ import FieldError from '@/components/fields/FieldError'
 import {Props as SelectProps} from 'react-select/dist/declarations/src'
 
 
-
 export interface SelectFieldProps<T> extends IField<T> {
   options: IOption<T>[]
-  onChange: (value: T) => void
+  onChange?: (value: Nullable<T>) => void
   placeholder?: string
   className?: string
   errorClassName?: string
   noOptionsMessage?: Nullable<string>
-  selectProps?: Nullable<SelectProps>,
+  selectProps?: Nullable<SelectProps> | undefined,
   async?: boolean
-  loadOptions?: (search: string, loadedOptions: IOption<T>[], data: any) => Promise<{options: IOption<T>[], hasMore: boolean, additional?: any | null}>
-  initialAsyncData: any
+  loadOptions?: (search: string, loadedOptions: IOption<T>[], data: any) => Promise<{ options: IOption<T>[], hasMore: boolean, additional?: any | null }>
+  initialAsyncData?: any
+  resettable?: boolean
 }
 
 export default function SelectField<T>(props: SelectFieldProps<T>) {
@@ -40,24 +40,23 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
 
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
-      {/*<div className={classNames({
+      <div className={classNames({
         [styles.label]: true,
       })}>
         {props.label}
-    </div>*/}
+    </div>
       {props.async ? <SelectAsync<T>
         label={props.label as string}
-        options={props.options}
-        //value={field.value}
+        value={field.value}
         hasError={showError}
         noOptionsMessage={props.noOptionsMessage}
         placeholder={props.placeholder ?? props.label as string ?? ''}
         selectProps={props.selectProps}
         onChange={(value) => {
-          console.log('OnChange11', value)
           helpers.setValue(value)
           props.onChange?.(value)
         }}
+        resettable={props.resettable ?? false}
         loadOptions={props.loadOptions!}
         initialAsyncData={props.initialAsyncData}
       /> : <Select<T>
@@ -66,6 +65,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
         value={field.value}
         hasError={showError}
         noOptionsMessage={props.noOptionsMessage}
+        resettable={props.resettable ?? false}
         placeholder={props.placeholder ?? props.label as string ?? ''}
         selectProps={props.selectProps}
         onChange={(value) => {

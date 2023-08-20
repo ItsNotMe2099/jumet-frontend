@@ -3,7 +3,7 @@ import {colors} from '@/styles/variables'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import {Routes} from '@/types/routes'
 import LkMenu from '@/components/for_pages/LkPage/layout/LkMenu'
-import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import { useReceivingPointListContext} from '@/context/receiving_point_list_state'
 
 enum MenuItemType {
   Exit = 'exit',
@@ -42,7 +42,5 @@ const LkBuyerMenuInner = (props: Props)  => {
 }
 
 export default function LkBuyerMenu(props: Props) {
-  return (<ReceivingPointListWrapper>
-    <LkBuyerMenuInner/>
-  </ReceivingPointListWrapper>)
+  return ( <LkBuyerMenuInner/>)
 }

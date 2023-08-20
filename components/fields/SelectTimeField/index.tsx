@@ -5,7 +5,7 @@ import Formatter from 'utils/formatter'
 import { InputStyleType } from '@/types/enums'
 
 interface Props extends IField<string> {
-  styleType: InputStyleType
+  styleType?: InputStyleType
   step?: number
   isEndDate?: boolean
 }
@@ -27,8 +27,8 @@ export default function SelectTimeField(props: Props) {
   }, [])
 
   return (
-    <SelectField
-      {...props}
+    <SelectField<string>
+      {...props as any}
       options={options}
     />
   )

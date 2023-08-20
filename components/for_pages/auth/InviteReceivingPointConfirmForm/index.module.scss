@@ -1,0 +1,27 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.btn {
+
+}
+
+.bottom {
+    @include secondaryText;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forget {
+    @include btnText;
+    color: $blue500;
+}
+

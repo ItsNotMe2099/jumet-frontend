@@ -6,9 +6,12 @@ import {getAuthServerSideProps} from '@/utils/auth'
 import {DealWrapper, useDealContext} from '@/context/deal_state'
 import ContentLoader from '@/components/ui/ContentLoader'
 import {LkPageBaseLayout} from '@/pages/lk'
+import {useAppContext} from '@/context/state'
+import {UserRole} from '@/data/enum/UserRole'
 
 
 const LkDealPageInner = () => {
+  const appContext = useAppContext()
   const dealContext = useDealContext()
   return (
       <div className={styles.root}>
@@ -17,7 +20,7 @@ const LkDealPageInner = () => {
           <div className={styles.colLeft}>
             <DealEdit/>
           </div>
-          <ChatOnPage sellerId={dealContext.deal!.sellerId!} receivingPointId={dealContext.deal!.receivingPointId!}/>
+          <ChatOnPage title={appContext.aboutMe?.role === UserRole.Seller ? 'Чат с пунктом приема' : 'Чат с покупателем'} sellerId={dealContext.deal!.sellerId!} receivingPointId={dealContext.deal!.receivingPointId!}/>
         </>}
       </div>
   )

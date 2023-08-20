@@ -1,18 +1,20 @@
 import React, {useRef} from 'react'
-import {IField, IOption} from '@/types/types'
+import {IField, IOption, Nullable} from '@/types/types'
 import SelectField from '@/components/fields/SelectField'
 import ReceivingPointUserRepository from '@/data/repositories/ReceivingPointUserRepository'
 import UserUtils from '@/utils/UserUtils'
 
 
 interface Props extends IField<number | null> {
-
+  resettable?: boolean
+  onChange: (value: Nullable<number>) => void
 }
 
 export default function UserField(props: Props) {
   const abortControllerRef = useRef<AbortController | null>(null)
 
-  const loadOptions = async (search: string, loadedOptions: IOption<number | null>[], {page}): Promise<{options: IOption<number | null>[], hasMore: boolean, additional?: any | null}> => {
+  const loadOptions = async (search: string, loadedOptions: IOption<number | null>[], data: any): Promise<{options: IOption<number | null>[], hasMore: boolean, additional?: any | null}> => {
+   const page = data.page
     if (abortControllerRef.current) {
       abortControllerRef.current?.abort()
     }

@@ -108,6 +108,16 @@ export default class AuthRepository {
     return res
   }
 
+  static async confirmInviteToReceivingPoint(data: { login: string, code: string, newPassword: string }): Promise<IAuthResponse> {
+    const res = await request<IAuthResponse>({
+        method: 'get',
+        url: '/api/auth/inviteToReceivingPointConfirmation',
+        data
+      }
+    )
+    return res
+  }
+
 
   static async fetchAboutMe(token?: string): Promise<IAboutMe> {
     return request({url: '/api/auth/currentUser', token})

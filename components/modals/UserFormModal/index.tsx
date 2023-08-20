@@ -16,8 +16,6 @@ import UserUtils from '@/utils/UserUtils'
 import {useState} from 'react'
 import {SnackbarType} from '@/types/enums'
 import UserOwnerRepository from '@/data/repositories/UserOwnerRepository'
-import ReceivingPointUserRepository from '@/data/repositories/ReceivingPointUserRepository'
-import {omit} from '@/utils/omit'
 
 interface IFormData{
   name: Nullable<string>
@@ -41,12 +39,7 @@ export default function UserFormModal(props: Props) {
         const res = await UserOwnerRepository.update(args.user.id, {employeeRole: data.role!})
         appContext.receivingPointUserUpdateState$.next({...args.receivingPointUser, user: {...args.user, ...res}})
       }else{
-        const res = await ReceivingPointUserRepository.update(args.receivingPointUser!.id, {
-          ...omit(data, ['role']),
-          initialRole: data.role!})
-        appContext.receivingPointUserUpdateState$.next({...args.receivingPointUser,...res})
-
-      }
+        }
     }catch (err) {
       if (err instanceof RequestError) {
         appContext.showSnackbar(err.message, SnackbarType.error)

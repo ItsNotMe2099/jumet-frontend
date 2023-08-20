@@ -3,9 +3,10 @@ import classNames from 'classnames'
 import {ReactElement} from 'react'
 
 interface Props {
-  text: string
+  text?: string
   actions?: ReactElement | ReactElement[] | undefined
   children?:  ReactElement | ReactElement[] | undefined
+  className?: string
 }
 
 export default function ChatSuggestionCardLayout(props: Props) {

@@ -40,7 +40,7 @@ export default function ReceivingPoint(props: Props) {
           <CompanyViewCard receivingPoint={receivingPoint}/>
         </div>
         <ClientOnly>
-        {appContext.aboutMe?.role !== UserRole.Buyer ? <ChatOnPage sellerId={appContext.aboutMe?.id} receivingPointId={receivingPoint?.id}/> : null}
+        {appContext.aboutMe?.role !== UserRole.Buyer ? <ChatOnPage title={'Чат с пунктом приема'} sellerId={appContext.aboutMe?.id} receivingPointId={receivingPoint?.id}/> : null}
         </ClientOnly>
       </div>
     </Layout>

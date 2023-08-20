@@ -30,7 +30,7 @@ const avatarColors = [
 
 function calculateColor(email: string): string {
   let sum = 0
-  for (const index in email) {
+  for (const index in email.split('')) {
     sum += email.charCodeAt(Number(index))
   }
   return avatarColors[sum % avatarColors.length]
@@ -63,7 +63,7 @@ export default function ChatUserAvatar(props: Props) {
         return getInitials() ?? `${props.receivingPoint?.address?.address}` ?? ''
     }
   }
-  const getInitials = (): string | null => {
+  const getInitials = (): string | null | undefined => {
     switch (props.type) {
       case 'user':
         if (props.user?.firstName || props.user?.lastName) {

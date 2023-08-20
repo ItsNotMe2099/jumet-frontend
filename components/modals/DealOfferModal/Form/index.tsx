@@ -16,7 +16,7 @@ import {ModalType, SnackbarType} from '@/types/enums'
 import FormError from '@/components/ui/FormError'
 import {useAppContext} from '@/context/state'
 import {SuccessModalArguments} from '@/types/modal_arguments'
-import {ReceivingPointListWrapper, useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import { useReceivingPointListContext} from '@/context/receiving_point_list_state'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData{
@@ -31,7 +31,7 @@ interface Props {
   saleRequestId: number
 }
 
-const DealOfferFormInner = (props: Props) => {
+export default function DealOfferForm(props: Props) {
   const appContext = useAppContext()
   const receivingPointListContext = useReceivingPointListContext()
   const [loading, setLoading] = useState(false)
@@ -101,10 +101,4 @@ const DealOfferFormInner = (props: Props) => {
       </Form>
     </FormikProvider>
   )
-}
-
-export default function DealOfferForm(props: Props) {
-return (<ReceivingPointListWrapper>
-  <DealOfferFormInner {...props}/>
-</ReceivingPointListWrapper>)
 }

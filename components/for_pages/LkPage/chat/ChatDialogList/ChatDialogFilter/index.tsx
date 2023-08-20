@@ -1,8 +1,7 @@
 import styles from './index.module.scss'
 import React, {useState} from 'react'
-import InputField from '@/components/fields/InputField'
+import InputField, {InputValueType} from '@/components/fields/InputField'
 import {Form, FormikProvider, useFormik} from 'formik'
-import {Nullable} from '@/types/types'
 import IconButton from '@/components/ui/IconButton'
 import FilterSvg from '@/components/svg/FilterSvg'
 import {colors} from '@/styles/variables'
@@ -16,20 +15,17 @@ import {useAppContext} from '@/context/state'
 import {UserRole} from '@/data/enum/UserRole'
 
 interface Props {
-  onChange: (value: string) => void
 }
 
 export default function ChatDialogFilter(props: Props) {
   const chatContext = useChatContext()
   const [showFilter, setShowFilter] = useState(false)
   const appContext = useAppContext()
-  const handleChange = (value: Nullable<string>) => {
-    props.onChange(value)
-  }
+
   const handleSubmit = () => {
 
   }
-  const debouncedSearchChange = debounce(async (search: string) => {
+  const debouncedSearchChange = debounce(async (search: InputValueType<string>) => {
     chatContext.setFilter({...chatContext.filter, search})
   }, 300)
   const initialValues = {
@@ -52,7 +48,7 @@ const handleFilterClick = () => {
           <ReceivingPointField name={'receivingPointId'} resettable onChange={(id) => chatContext.setFilter({...chatContext.filter, receivingPointId: id})}/>
         </div>}
           <div className={styles.center}>
-            <InputField className={styles.searchField} resettable name={'search'} placeholder={'Поиск'} suffix={'search'} onChange={debouncedSearchChange}/>
+            <InputField<string> className={styles.searchField} resettable name={'search'} placeholder={'Поиск'} suffix={'search'} onChange={(val) => debouncedSearchChange(val)}/>
             {appContext.aboutMe?.role === UserRole.Buyer && <IconButton bgColor={'grey300'} size={'large'} onClick={handleFilterClick}><FilterSvg color={colors.blue500}/></IconButton>}
           </div>
 

@@ -14,6 +14,7 @@ interface IState {
   messageState$: Subject<IChatMessage>,
   messageAllState$: Subject<IChatMessage>,
   chatUpdateState$: Subject<IChat>,
+  chatCreateState$: Subject<IChat>,
   join: (chatId: number) => void,
   leave: (chatId: number) => void,
   joinReceivingPointId: (receivingPointId: number) => void,
@@ -23,12 +24,14 @@ const reconnectState$ = new Subject<boolean>()
 const messageState$ = new Subject<IChatMessage>()
 const messageAllState$ = new Subject<IChatMessage>()
 const chatUpdateState$ = new Subject<IChat>()
+const chatCreateState$ = new Subject<IChat>()
 
 const defaultValue: IState = {
   reconnectState$,
   messageState$,
   messageAllState$,
   chatUpdateState$,
+  chatCreateState$,
   join: (chatId: number) => null,
   leave: (chatId: number) => null,
   joinReceivingPointId: (receivingPointId: number) => null,
@@ -99,7 +102,11 @@ export function ChatSocketWrapper(props: Props) {
       messageAllState$.next(message)
     }
     const onChatUpdated = (chat: IChat) => {
-      messageState$.next(chat)
+      chatUpdateState$.next(chat)
+    }
+    const onChatCreated = (chat: IChat) => {
+      console.log('onChatCreated', chat)
+      chatCreateState$.next(chat)
     }
 
     socket.on('connect', onConnect)
@@ -108,15 +115,15 @@ export function ChatSocketWrapper(props: Props) {
     socket.on('chat:message' , onChatMessage)
     socket.on('chat:message:all' , onChatMessageAll)
     socket.on('chat:updated' , onChatUpdated)
+    socket.on('chat:created' , onChatCreated)
     return () => {
       socket.off('connect', onConnect)
       socket.off('reconnect', onRecConnect)
       socket.off('disconnect', onDisConnect)
       socket.off('chat:message', onChatMessage)
       socket.off('chat:message:all', onChatMessageAll)
-      socket.off('aviator')
-      socket.off('game:round')
-      socket.off('game:turn')
+      socket.off('chat:updated' , onChatUpdated)
+      socket.off('chat:created' , onChatCreated)
     }
   }, [socket])
 
@@ -142,7 +149,7 @@ export function ChatSocketWrapper(props: Props) {
       if(!receivingPointIds.includes(receivingPointId)) {
         receivingPointIds.push(receivingPointId)
       }
-      socket?.emit('receivingPoint:join', {receivingPointId})
+      socket?.emit('chat:receivingPoint:join', {receivingPointId})
 
     },
     leaveReceivingPointId: (receivingPointId: number) => {
@@ -150,7 +157,7 @@ export function ChatSocketWrapper(props: Props) {
       if(index >= 0) {
         receivingPointIds.splice(index, 1)
       }
-      socket?.emit('receivingPoint:leave', {receivingPointId})
+      socket?.emit('chat:receivingPoint:leave', {receivingPointId})
     },
 
   }

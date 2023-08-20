@@ -25,7 +25,7 @@ export default function ChatMessagePhotos(props: Props) {
         } as GalleryModalArguments)
       }} className={styles.image} preset={Preset.xsResize} key={i.id} file={i} />)}
     </div>
-    {props.message.message && <div className={styles.text}>{props.message.message}</div>}
+    {props.message.message ? <div className={styles.text}>{props.message.message!}</div> : <></>}
   </ChatMessageCardLayout>
 }
 

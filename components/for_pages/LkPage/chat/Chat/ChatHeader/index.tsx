@@ -17,7 +17,7 @@ interface Props {
   title?: string | ReactElement | null
   actions?: ReactElement
   hasBack?: boolean
-  onBackClick: () => void
+  onBackClick?: () => void | undefined
 }
 
 export default function ChatHeader(props: Props) {
@@ -26,6 +26,7 @@ export default function ChatHeader(props: Props) {
   const profileName = (user?.firstName || user?.lastName) ? UserUtils.getName(user) : (user?.phone ? Formatter.formatPhone(user.phone) : '')
   const chatName = props.title || appContext.aboutMe?.role === UserRole.Seller ? props.chat?.receivingPoint?.address?.address : profileName
   const chatNameType = props.title ? null : (appContext.aboutMe?.role === UserRole.Seller ? ChatNameType.ReceivingPoint : ChatNameType.Seller)
+
   const getChatNameType = () => {
     switch (chatNameType){
       case ChatNameType.Seller:
@@ -36,6 +37,7 @@ export default function ChatHeader(props: Props) {
         return null
     }
   }
+
   const getChatName = () => {
     switch (chatNameType){
       case ChatNameType.ReceivingPoint:
@@ -43,13 +45,13 @@ export default function ChatHeader(props: Props) {
       case ChatNameType.Seller:
         return <span className={styles.value}>{chatName}</span>
       default:
-        return null
+        return props.title
     }
   }
   return (   <div className={styles.root}>
         <div className={styles.colLeft}>
 
-          <div className={styles.title}>   {props.hasBack &&    <BackButton className={styles.back} onClick={props.onBackClick}>Назад</BackButton>}
+          <div className={styles.title}>   {props.hasBack && props.onBackClick &&    <BackButton className={styles.back} onClick={props.onBackClick}>Назад</BackButton>}
             {chatNameType && <span className={styles.label}>{getChatNameType()}: </span>}{getChatName()}</div>
         </div>
       </div>

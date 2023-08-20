@@ -11,10 +11,16 @@ import {IChatMessageFormData} from '@/types/form_data/IChatMessageFormData'
 import ChatRepository from '@/data/repositories/ChatRepository'
 import ChatMessageRepository from '@/data/repositories/ChatMessageRepository'
 import {UserRole} from '@/data/enum/UserRole'
+import {Nullable} from '@/types/types'
 
 const chatIds: number[] = []
 const markReadList: number[] = []
+export enum ChatDisabledType {
+  OtherManager = 'otherManager',
+  Auth = 'auth',
+  ReceivingPoint = 'receivingPoint'
 
+}
 interface IState {
   chat: IChat | null,
   messages: IChatMessage[]
@@ -26,6 +32,8 @@ interface IState {
   markReadMulti: (messageIds: number[]) => void,
   scrollableTarget: RefObject<HTMLElement> | null
   isDisabledByOtherManager: boolean
+  disabledType: Nullable<any>,
+  disabled: boolean
 }
 
 
@@ -39,7 +47,9 @@ const defaultValue: IState = {
   markRead: (messageId: number) => null,
   markReadMulti: (messageIds: number[]) => null,
   scrollableTarget: null,
-  isDisabledByOtherManager: false
+  isDisabledByOtherManager: false,
+  disabled: false,
+  disabledType: ChatDisabledType
 }
 
 const ChatDialogContext = createContext<IState>(defaultValue)
@@ -68,12 +78,15 @@ export function ChatDialogWrapper(props: Props) {
   const [page, setPage] = useState<number>(1)
   const [chat, setChat] = useState<IChat | null>(props.chat ?? null)
   const [error, setError] = useState(null)
-  const[isDisabledByOtherManager, setIsDisabledByOtherManager] = useState(false)
+  const[disabled, setIsDisabled] = useState(false)
+  const[disabledType, setDisabledType] = useState<ChatDisabledType | null>(null)
   const [loading, setLoading] = useState(false)
   const windowFocusInit = useRef(false)
   const chatIdRef = useRef<number | null>(null)
-
+  const receivingPointIdRef = useRef<number | null | undefined>(props.receivingPointId)
+  const chatRef = useRef<Nullable<IChat>>(null)
   const limit = 30
+
   useEffect(() => {
     isLoggedRef.current = isLogged
   }, [isLogged])
@@ -84,18 +97,29 @@ export function ChatDialogWrapper(props: Props) {
     chatIdRef.current = props.chatId ?? null
   }, [props.chatId])
   useEffect(() => {
+    receivingPointIdRef.current = props.receivingPointId ?? null
+  }, [props.receivingPointId])
+  useEffect(() => {
+    chatRef.current = chat
+  }, [chat])
+  useEffect(() => {
     const isDisabled = !!(appContext.aboutMe?.role === UserRole.Buyer && chat?.managerId && ((chat?.manager?.id ?? chat?.managerId) !== appContext.aboutMe!.id))
-    setIsDisabledByOtherManager(isDisabled)
-  }, [props.chat])
+    setIsDisabled(isDisabled)
+    if(isDisabled){
+      setDisabledType(ChatDisabledType.OtherManager)
+      return
+    }
+  }, [chat, appContext.aboutMe])
   const init = async () => {
    let _chat: IChat | null = null
+
     if (!props.chatId) {
       if (appContext.aboutMe && props.receivingPointId && props.sellerId && (chat?.receivingPointId !== props.receivingPointId || chat?.sellerId !== props.sellerId)) {
+        setLoading(true)
         const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({
           receivingPointId: props.receivingPointId!,
           sellerId: props.sellerId!
         })
-        console.log('GetChat112', _chat)
         setChat(_chat)
         if (_chat?.messages) {
           processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total, true)
@@ -104,6 +128,7 @@ export function ChatDialogWrapper(props: Props) {
         } else {
           processLoadedMessages([], 0, true)
         }
+        setLoading(false)
       } else {
         setChat(null)
         setLoading(false)
@@ -113,11 +138,12 @@ export function ChatDialogWrapper(props: Props) {
 
       return
     }
+    setLoading(true)
     if (!chat || chat.id !== props.chatId) {
       _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
       setChat(_chat)
     }
-    setLoading(true)
+
     setMessages([])
     setTotalMessages(100000000)
     if (_chat?.messages) {
@@ -125,6 +151,7 @@ export function ChatDialogWrapper(props: Props) {
     } else {
       await loadMessages()
     }
+    setLoading(false)
   }
   const markRead = (messageId: number) => {
     markReadList.push(messageId)
@@ -167,30 +194,6 @@ export function ChatDialogWrapper(props: Props) {
       return
     }
     const sid = uuidv4()
-    if ((props.receivingPointId && props.sellerId) && !chat?.id) {
-      setTotalMessages(i => i + 1)
-      setMessages((i) => [{
-        ...data as IChatMessage,
-        sid,
-        id: 0,
-        userId: appContext.aboutMe?.id,
-        createdAt: (new Date()).toISOString(),
-      }, ...i])
-      const chat = await ChatRepository.createChat({
-        receivingPointId: props.receivingPointId,
-        sellerId: props.sellerId
-      })
-      setChat(chat)
-
-      ChatMessageRepository.create({...data, chatId: chat!.id, sid})
-    } else {
-      ChatMessageRepository.create({...data, chatId: chat!.id, sid})
-    }
-    if (!chat?.id) {
-      return
-    }
-
-
     setTotalMessages(i => i + 1)
     setMessages((i) => [{
       ...data as IChatMessage,
@@ -199,6 +202,18 @@ export function ChatDialogWrapper(props: Props) {
       userId: appContext.aboutMe?.id,
       createdAt: (new Date()).toISOString(),
     }, ...i])
+    if ((props.receivingPointId && props.sellerId) && !chat?.id) {
+      const chat = await ChatRepository.createChat({
+        receivingPointId: props.receivingPointId,
+        sellerId: props.sellerId
+      })
+      setChat(chat)
+
+      ChatMessageRepository.create({...data, chatId: chat!.id, sid, userId: appContext.aboutMe?.id})
+    } else {
+      ChatMessageRepository.create({...data, chatId: chat!.id, sid, userId: appContext.aboutMe?.id})
+    }
+
   }
   const debouncedMarkRead = debounce(async () => {
     if (isLoggedRef.current && markReadList.length > 0) {
@@ -224,20 +239,29 @@ export function ChatDialogWrapper(props: Props) {
     if (!reconnectRef.current) {
       return
     }
-
-    const data = await ChatMessageRepository.fetchAll(props.chatId!, null, limit)
-
-    if (!reconnectRef.current) {
-      return
+    if(receivingPointIdRef.current){
+      chatSocket.joinReceivingPointId(receivingPointIdRef.current!)
     }
-    const lastIds = data.data.map(i => i.id)
-    const currentIds = messagesRef.current.map(i => i.id)
-    const existsIds = currentIds.filter(i => lastIds.includes(i))
-    const newIds = lastIds.filter(i => !existsIds.includes(i))
-    if (newIds.length > 0) {
-      setMessages(i => ([...lastIds.map(a => data.data.find(i => i.id === a)).filter(i => !!i) as IChatMessage[], ...i]))
-      debouncedScroll()
+    if(chatIdRef.current){
+      chatSocket.join(chatIdRef.current!)
     }
+
+    if(chatIdRef.current){
+      const data = await ChatMessageRepository.fetchAll(props.chatId!, null, limit)
+
+      if (!reconnectRef.current) {
+        return
+      }
+      const lastIds = data.data.map(i => i.id)
+      const currentIds = messagesRef.current.map(i => i.id)
+      const existsIds = currentIds.filter(i => lastIds.includes(i))
+      const newIds = lastIds.filter(i => !existsIds.includes(i))
+      if (newIds.length > 0) {
+        setMessages(i => ([...lastIds.map(a => data.data.find(i => i.id === a)).filter(i => !!i) as IChatMessage[], ...i]))
+        debouncedScroll()
+      }
+    }
+
   }, 1000)
   useEffect(() => {
     if (chat) {
@@ -251,20 +275,40 @@ export function ChatDialogWrapper(props: Props) {
   }, [chat])
 
   useEffect(() => {
+    if (props.receivingPointId) {
+      chatSocket.joinReceivingPointId(props.receivingPointId)
+    }
+    return () => {
+      if (props.receivingPointId) {
+        chatSocket.leaveReceivingPointId(props.receivingPointId)
+      }
+    }
+  }, [props.receivingPointId])
+
+  useEffect(() => {
     reconnectRef.current = false
     if (props.chatId) {
       chatContext.setCurrentChatId(props.chatId)
     }
     if (appContext.aboutMeLoaded && appContext.aboutMe) {
       init()
+      if(!props.chatId && !props.receivingPointId && appContext.aboutMe?.role === UserRole.Buyer){
+        setIsDisabled(true)
+        setDisabledType(ChatDisabledType.ReceivingPoint)
+      }else{
+        setIsDisabled(false)
+        setDisabledType(null)
+      }
+    }else{
+      setIsDisabled(true)
+      setDisabledType(ChatDisabledType.Auth)
+      setLoading(false)
     }
   }, [props.receivingPointId, props.sellerId, appContext.aboutMeLoaded, props.chatId])
   useEffect(() => {
-    if (!chat) {
-      return
-    }
+
     const subscription = chatSocket.messageState$.subscribe((message) => {
-      if (message.chatId === chat.id && !messages.find(i => i.id === message.id)) {
+      if (chat && message.chatId === chat.id && !messages.find(i => i.id === message.id)) {
         markRead(message.id!)
 
         if (message.sid && messages.find(i => i.sid === message.sid)) {
@@ -282,15 +326,23 @@ export function ChatDialogWrapper(props: Props) {
     })
 
     const subscriptionChatUpdate = chatSocket.chatUpdateState$.subscribe((updated) => {
-      if (chat.id === updated.id) {
+
+      console.log('chatUpdateState$', updated, chat)
+      if (chat && chat.id === updated.id) {
         setChat((i) => ({...i,...updated}))
+      }
+    })
+    const subscriptionChatCreated = chatSocket.chatCreateState$.subscribe((created) => {
+      console.log('subscriptionChatCreated', created, props)
+      if (!chat && props.receivingPointId && props.sellerId && props.receivingPointId === created.receivingPointId && props.sellerId === created.sellerId) {
+        init()
       }
     })
     return () => {
       subscription.unsubscribe()
       subscriptionChatUpdate.unsubscribe()
+      subscriptionChatCreated.unsubscribe()
     }
-
   }, [chat, messages])
 
 
@@ -332,8 +384,8 @@ export function ChatDialogWrapper(props: Props) {
     markRead,
     markReadMulti,
     scrollableTarget,
-    isDisabledByOtherManager
-
+    disabled,
+    disabledType
   }
 
   return (
