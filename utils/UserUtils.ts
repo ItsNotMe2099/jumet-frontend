@@ -1,9 +1,13 @@
 import IUser from '@/data/interfaces/IUser'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
 import {IRepresentative} from '@/data/interfaces/IRepresentative'
+import {Nullable} from '@/types/types'
 
 export default class UserUtils {
-  static getName(user: IUser | null | IRepresentative): string {
+  static getName(user: IUser | null | IRepresentative | {
+    firstName?: Nullable<string>
+    lastName?: Nullable<string>
+    patronymic?: Nullable<string>}): string {
     if (!user) {
       return ''
     }

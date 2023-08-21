@@ -7,7 +7,7 @@ import { Nullable } from '@/types/types'
 import classNames from 'classnames'
 
 interface ITableCell {
-  value?: Nullable<string | ReactElement>
+  value?: Nullable<string | number | ReactElement>
   className?: Nullable<string>
 }
 

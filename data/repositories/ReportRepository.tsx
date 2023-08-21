@@ -4,6 +4,8 @@ import {IReportDashboardRequest} from '@/data/interfaces/IReportDashboardRequest
 import IReportDashboard, {IReportDashboardRaw} from '@/data/interfaces/IReportDashboard'
 import {IReportDealsRequest} from '@/data/interfaces/IReportDealsRequest'
 import IReportDeals, {IReportDealsRaw} from '@/data/interfaces/IReportDeals'
+import {IReportSellersRequest} from '@/data/interfaces/IReportSellersRequest'
+import {IReportSellers} from '@/data/interfaces/IReportSellers'
 
 export default class ReportRepository {
   static async fetchDashBoard(data: IReportDashboardRequest, config?: AxiosRequestConfig): Promise<IReportDashboard> {
@@ -89,5 +91,15 @@ export default class ReportRepository {
       },
 
     }
+  }
+
+  static async fetchSellers(data: IReportSellersRequest, config?: AxiosRequestConfig): Promise<IReportSellers> {
+    const res = await request<IReportSellers>({
+      method: 'get',
+      url: '/api/reports/sellers',
+      data: {...data},
+      config
+    })
+    return res
   }
 }

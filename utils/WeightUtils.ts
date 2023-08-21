@@ -21,4 +21,7 @@ export default class WeightUtils {
     const unit = this.getUnitByValue(weight)
     return `${unit === UnitWeight.Ton ? weight / 1000: weight}`
   }
+  static formatWeightInTons(weight: number): number {
+    return parseFloat((weight / 1000).toFixed(3))
+  }
 }
