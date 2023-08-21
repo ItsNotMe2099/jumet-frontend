@@ -10,11 +10,11 @@ import VisibleXs from '@/components/visibility/VisibleXs'
 import {Nullable} from '@/types/types'
 import ContentLoader from '@/components/ui/ContentLoader'
 import {useEffectOnce} from '@/components/hooks/useEffectOnce'
-import PricingTable from '@/components/for_pages/Common/PricingTable'
 import {ReportDealsBuyerWrapper, useReportDealsBuyerContext} from '@/context/report_deals_state'
 import Formatter from '@/utils/formatter'
 import WeightUtils from '@/utils/WeightUtils'
 import {IntervalType} from '@/data/interfaces/IntervalType'
+import StatisticTable from '@/components/for_pages/Common/StatsisticTable'
 
 interface Props {
 
@@ -91,7 +91,7 @@ const CrmReportDealsInner = (props: Props) => {
       </CardLayout>}
       {data?.data && reportDealsContext.isLoaded && <CardLayout>
 
-        <PricingTable headerRow={{
+        <StatisticTable headerRow={{
           cells: [
             { value: <>Номер <br />сделки</> },
             { value: 'Пункт приёма' },
@@ -103,7 +103,7 @@ const CrmReportDealsInner = (props: Props) => {
           ]
         }} data={data.data.map((i) => ({
           cells: [{ value: `${i.id}` },
-            { value: i.receivingPoint?.address.address },
+            { value: <div title={i.receivingPoint?.address.street as string} className={styles.address}>{i.receivingPoint?.address.street}</div> },
             { value: '' },
             { value: WeightUtils.formatWeightWithoutSuffix(i.actualWeight) },
             { value: i.total ? Formatter.formatPrice(i.total) : '-' },
