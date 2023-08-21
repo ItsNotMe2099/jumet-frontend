@@ -1,4 +1,4 @@
-import styles from './index.module.scss'
+import styles from '@/components/for_pages/LkPage/crm/components/LineChart/index.module.scss'
 import { colors } from '@/styles/variables'
 import React from 'react'
 import {

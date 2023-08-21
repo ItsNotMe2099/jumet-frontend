@@ -59,4 +59,5 @@ export interface IDeal {
   createdAt?: string
   total: Nullable<number>
   subTotal: Nullable<number>
+  distance?: Nullable<number>
 }

@@ -3,7 +3,7 @@ import { UserRole } from '@/data/enum/UserRole'
 import { LkReceivingPageLayout } from '@/pages/lk'
 import { LkLayoutTitleData } from '@/context/lk_layout_content'
 import styles from './index.module.scss'
-import DatesPanel from '@/components/for_pages/LkPage/layout/LkStatsMenu/DatesPanel'
+import DatesPanel from '@/components/for_pages/LkPage/crm/components/DatesPanel'
 import CardLayout from '@/components/for_pages/Common/CardLayout'
 import PricingTable from '@/components/for_pages/Common/PricingTable'
 
@@ -209,7 +209,7 @@ const StatisticClientsPage = (props: Props) => {
             { value: '2 230 000 ₽' },
             ]
           },
-          
+
         ] ?? []}
         />
       </CardLayout>

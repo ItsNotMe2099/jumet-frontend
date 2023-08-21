@@ -36,6 +36,7 @@ const LkBuyerMenuInner = (props: Props)  => {
       )) ?? []
     },
     {name: 'Сотрудники', link: Routes.lkEmployees},
+    {name: 'Статистика', link: Routes.lkCrm},
     {name: 'Оплата сервиса Jumet', link: Routes.lkPayment},
     {name: 'Выход', key: MenuItemType.Exit, icon: <LogoutSvg color={colors.dark500}/>},
   ]} excludeFromMobileNested={[MenuItemType.ReceivingPoints]}/>)

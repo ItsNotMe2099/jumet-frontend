@@ -1,9 +1,9 @@
 import { getAuthServerSideProps } from '@/utils/auth'
 import { UserRole } from '@/data/enum/UserRole'
 import { LkPageLayout } from '@/pages/lk'
-import DatesPanel from '@/components/for_pages/LkPage/layout/LkStatsMenu/DatesPanel'
+import DatesPanel from '@/components/for_pages/LkPage/crm/components/DatesPanel'
 import styles from './index.module.scss'
-import Donut from '@/components/for_pages/LkPage/layout/LkStatsMenu/Donut'
+import Donut from '@/components/for_pages/LkPage/crm/components/Donut'
 import CardLayout from '@/components/for_pages/Common/CardLayout'
 import Button from '@/components/ui/Button'
 import ChevronRightSvg from '@/components/svg/ChevronRightSvg'
@@ -18,7 +18,7 @@ import VisibleXs from '@/components/visibility/VisibleXs'
 import { LkLayoutTitleData } from '@/context/lk_layout_content'
 import { useRouter } from 'next/router'
 import PricingTable from '@/components/for_pages/Common/PricingTable'
-import LineChart from '@/components/for_pages/LkPage/layout/LkStatsMenu/LineChart'
+import LineChart from '@/components/for_pages/LkPage/crm/components/LineChart'
 
 interface Props {
   id: number
