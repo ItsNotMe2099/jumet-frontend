@@ -17,6 +17,7 @@ import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 import {useMemo} from 'react'
 import {IAddress} from '@/data/interfaces/IAddress'
 import {IntervalType} from '@/data/interfaces/IntervalType'
+import {Routes} from '@/types/routes'
 
 interface Props {
 
@@ -103,7 +104,7 @@ const CrmReportDashboardInner = (props: Props) => {
             },
           ]}
         />
-        <VisibleXs><Button className={styles.mobile} reverse styleType='large' color='grey'
+        <VisibleXs><Button href={Routes.lkCrmDeals} className={styles.mobile} reverse styleType='large' color='grey'
                            icon={<ChevronRightSvg color={colors.blue500}/>}>Детали</Button></VisibleXs>
       </CardLayout>}
       {data?.deals && reportDashboardContext.isLoaded && receivingPoints.map((i, index) => {
@@ -131,7 +132,7 @@ const CrmReportDashboardInner = (props: Props) => {
                               key={index}
                               topClassName={styles.top}
                               additionalEl=
-                                {<HiddenXs><Button reverse styleType='large' color='grey'
+                                {<HiddenXs><Button href={Routes.lkCrmReceivingPoint(i.receivingPointId)} reverse styleType='large' color='grey'
                                                    icon={<ChevronRightSvg
                                                      color={colors.blue500}/>}>Детали</Button></HiddenXs>}>
             <Donut

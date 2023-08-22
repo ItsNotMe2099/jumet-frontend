@@ -24,7 +24,7 @@ const initStore = {
 }
 const tmpList: INotificationRecord[] = []
 const markReadList: { id: number, recordId: number, type: NotificationUnreadType, shallow?: boolean }[] = []
-const deleteRecordList: { id: number, recordId: number, type: NotificationUnreadType }[] = []
+const deleteRecordList: { id: number, recordId: number, type: NotificationUnreadType, time: Date }[] = []
 interface IState {
   store: NotificationUnreadStoreType,
   addRecord(id: number, type: NotificationUnreadType): void
@@ -118,7 +118,7 @@ export function NotificationWrapper(props: Props) {
   }
 
   const debouncedSave = debounce(async () => {
-
+    console.log('DealOffer1Save', tmpList)
     if (isLoggedRef.current && tmpList.length > 0) {
       const list = await NotificationRepository.fetchStatus(tmpList)
       if (list) {
@@ -149,66 +149,71 @@ export function NotificationWrapper(props: Props) {
     }
   }, 500)
   const debouncedDeleteRecord = debounce(async () => {
-    const notificationIds = deleteRecordList.filter(i => i.id !== 0).map(i => i.id)
+    const toDeletedRecordList =  deleteRecordList.filter((i) => tmpList.find(a => i.time?.getTime() > a.time.getTime()))
+    const notificationIds = toDeletedRecordList.filter(i => i.id !== 0).map(i => i.id)
     const keys = Object.keys(store) as NotificationUnreadType[]
     const newStore = { ...storeRef.current }
     for (const key of keys) {
       newStore[key] = store[key].filter(i => !notificationIds.includes(i.id))
     }
-    for (const mark of deleteRecordList) {
+    for (const mark of toDeletedRecordList) {
       const index = tmpList.findIndex(i => i.type === mark.type && i.id === mark.recordId)
       if (index >= 0) {
         tmpList.splice(index, 1)
       }
     }
+
+    console.log('DealOffer1Delete', tmpList)
     setStore(newStore)
     deleteRecordList.length = 0
   }, 200)
   const value: IState = {
     store,
     addRecord(id: number, type: NotificationUnreadType) {
+
+      console.log('DealOffer1Add0', tmpList)
       if (!tmpList.find(i => i.id === id && i.type === type)) {
-        tmpList.push({ id, type })
+        tmpList.push({ id, type, time: new Date() })
         debouncedSave()
       }
     },
     removeRecord(recordId: number, type: NotificationUnreadType) {
       const inStore = store[type].filter(i => i.eId === recordId)
       for (const item of inStore) {
-        deleteRecordList.push({ recordId, type, id: item.id })
+        deleteRecordList.push({ recordId, type, id: item.id, time: new Date() })
       }
       const inTmpList = tmpList.filter(i => i.id === recordId && i.type === type)
       for (const item of inTmpList) {
-        deleteRecordList.push({ id: 0, type, recordId: item.id })
+        deleteRecordList.push({ id: 0, type, recordId: item.id, time: new Date() })
       }
       debouncedDeleteRecord()
     },
     removeRecords(ids: number[], type: NotificationUnreadType) {
       const inStore = store[type].filter(i => ids.includes(i.eId))
       for (const item of inStore) {
-        deleteRecordList.push({ recordId: item.eId, type, id: item.id })
+        deleteRecordList.push({ recordId: item.eId, type, id: item.id, time: new Date() })
       }
       const inTmpList = tmpList.filter(i =>  ids.includes(i.id) && i.type === type)
       for (const item of inTmpList) {
-        deleteRecordList.push({ id: 0, type, recordId: item.id })
+        deleteRecordList.push({ id: 0, type, recordId: item.id, time: new Date() })
       }
       debouncedDeleteRecord()
     },
     removeRecordsByType(type: NotificationUnreadType) {
       const inStore = store[type]
       for (const item of inStore) {
-        deleteRecordList.push({ recordId: item.eId, type, id: item.id })
+        deleteRecordList.push({ recordId: item.eId, type, id: item.id, time: new Date()})
       }
       const inTmpList = tmpList.filter(i => i.type === type)
       for (const item of inTmpList) {
-        deleteRecordList.push({ id: 0, type, recordId: item.id })
+        deleteRecordList.push({ id: 0, type, recordId: item.id, time: new Date() })
       }
       debouncedDeleteRecord()
     },
     addRecords(ids: number[], type: NotificationUnreadType) {
       for (const id of ids) {
         if (!tmpList.find(i => i.id === id && i.type === type)) {
-          tmpList.push({ id, type })
+          tmpList.push({ id, type, time: new Date() })
         }
       }
       debouncedSave()

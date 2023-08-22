@@ -1,3 +1,5 @@
+import queryString from 'query-string'
+import {Nullable} from '@/types/types'
 
 export class Routes {
   static getGlobal(url: string) {
@@ -54,8 +56,8 @@ export class Routes {
   static lkDeal(id: string | number) {
     return `/lk/deals/${id}`
   }
-  static lkChat(id?: number | null) {
-    return `/lk/chat${id ? `?chatId=${id}` : ''}`
+  static lkChat(id?: number | null, params: {receivingPointId?: Nullable<number>, sellerId?: Nullable<string>} = {}) {
+    return `/lk/chat${id || params.receivingPointId || params.sellerId ? '?' : ''}${queryString.stringify({...(params ?? {}), chatId: id}, {skipNull: true})}`
   }
   static get lkProfileSettings() {
     return '/lk/profile-settings'
@@ -128,7 +130,7 @@ export class Routes {
   }
 
   static get lkCrm() {
-    return '/lk/crm/main'
+    return '/lk/crm'
   }
 
   static get lkCrmMain() {

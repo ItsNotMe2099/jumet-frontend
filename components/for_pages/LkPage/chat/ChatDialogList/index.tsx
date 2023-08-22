@@ -39,7 +39,7 @@ export default function ChatDialogList(props: Props) {
             >
               {chatContext.chats.map((i, index) => <ChatDialogItem key={`${i.id}`}
                                                                    highlight={chatContext.filter?.search ?? ''}
-                                                                   isActive={props.chatId === i.id} chat={i}
+                                                                   isActive={chatContext.currentChatId === i.id} chat={i}
                                                                    onClick={() => props.onSelect(i)}/>)}
             </FlipMove>
           </div>

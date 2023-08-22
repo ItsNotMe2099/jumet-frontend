@@ -1,6 +1,5 @@
 import {createContext, useContext, useRef, useState} from 'react'
 import { Nullable} from 'types/types'
-import {useAppContext} from '@/context/state'
 import {CanceledError} from 'axios'
 import IReportDashboard from '@/data/interfaces/IReportDashboard'
 import ReportRepository from '@/data/repositories/ReportRepository'
@@ -32,10 +31,10 @@ const ReportDashboardBuyerContext = createContext<IState>(defaultValue)
 interface Props {
   children: React.ReactNode
   limit?: number
+  receivingPointId?: number
 }
 
 export function ReportDashboardBuyerWrapper(props: Props) {
-  const appContext = useAppContext()
   const [data, setData] = useState<Nullable<IReportDashboard>>(null)
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -52,7 +51,8 @@ export function ReportDashboardBuyerWrapper(props: Props) {
     abortControllerRef.current = new AbortController()
     try {
        res = await ReportRepository.fetchDashBoard({
-        ...filterRef.current
+        ...filterRef.current,
+        ...(props.receivingPointId ? {receivingPointId: props.receivingPointId} : {})
       }, {signal: abortControllerRef.current?.signal})
       setData(res)
 

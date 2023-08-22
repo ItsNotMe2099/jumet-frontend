@@ -80,6 +80,7 @@ export enum NotificationUnreadType {
 export interface INotificationRecord {
   id: number
   type: NotificationUnreadType
+  time: Date
 }
 export interface INotificationUnreadStoreItem {
   eId: number

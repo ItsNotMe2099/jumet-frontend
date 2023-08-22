@@ -2,6 +2,8 @@ import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 import IUser from '@/data/interfaces/IUser'
+import {IDeal} from '@/data/interfaces/IDeal'
+import {Nullable} from '@/types/types'
 
 export interface IDealOffer {
   id: number
@@ -19,4 +21,5 @@ export interface IDealOffer {
   ownerId?: string
   createdAt: string
   dealId?: number
+  deal: Nullable<IDeal>
 }

@@ -58,8 +58,8 @@ interface Props {
   chat?: IChat
   chatId?: number | null
   children: React.ReactNode
-  receivingPointId?: number
-  sellerId?: string
+  receivingPointId?: Nullable<number | undefined>
+  sellerId?: Nullable<string | undefined>
 }
 
 export function ChatDialogWrapper(props: Props) {
@@ -114,13 +114,20 @@ export function ChatDialogWrapper(props: Props) {
    let _chat: IChat | null = null
 
     if (!props.chatId) {
+      console.log('Init0')
       if (appContext.aboutMe && props.receivingPointId && props.sellerId && (chat?.receivingPointId !== props.receivingPointId || chat?.sellerId !== props.sellerId)) {
+
+        console.log('Init1')
         setLoading(true)
         const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({
           receivingPointId: props.receivingPointId!,
           sellerId: props.sellerId!
         })
         setChat(_chat)
+        if(_chat) {
+          console.log('SetCurrentChatId', _chat.id)
+          chatContext.setCurrentChatId(_chat.id)
+        }
         if (_chat?.messages) {
           processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total, true)
         } else if (_chat) {
@@ -290,6 +297,7 @@ export function ChatDialogWrapper(props: Props) {
     if (props.chatId) {
       chatContext.setCurrentChatId(props.chatId)
     }
+    console.log('useEffect11', appContext.aboutMeLoaded, appContext.aboutMe)
     if (appContext.aboutMeLoaded && appContext.aboutMe) {
       init()
       if(!props.chatId && !props.receivingPointId && appContext.aboutMe?.role === UserRole.Buyer){

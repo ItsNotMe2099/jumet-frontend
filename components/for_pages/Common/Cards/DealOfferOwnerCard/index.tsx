@@ -4,7 +4,7 @@ import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
 import { DealOfferStatus } from '@/data/enum/DealOfferStatus'
-import {useEffect, useState} from 'react'
+import {MouseEventHandler, useEffect, useState} from 'react'
 import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import ChevronUpSvg from '@/components/svg/ChevronUpSvg'
 import WeightUtils from '@/utils/WeightUtils'
@@ -30,9 +30,14 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
   const [showOffer, setShowOffer] = useState<boolean>(false)
 
   const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? saleRequest.createdAt)
-  const link = saleRequest.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : Routes.saleRequest(saleRequest.id)
+  const link = dealOffer?.deal ? Routes.lkDeal(dealOffer.deal.id) : (saleRequest.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : Routes.saleRequest(saleRequest.id))
+  const handleShowOffer: MouseEventHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+     setShowOffer(!showOffer)
+  }
   return (
-    <div className={styles.root}>
+    <Link href={link} className={styles.root}>
       <div className={styles.container}>
         <div className={styles.left}>
           <div className={styles.top}>
@@ -43,6 +48,9 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
               <Link href={link} className={styles.number}>
                 Заявка №{saleRequest.id}
               </Link>
+              {dealOffer?.deal && <Link href={Routes.lkDeal(dealOffer.deal.id)} className={styles.number}>
+                Сделка №{dealOffer.deal.id}
+              </Link>}
             </div>
             <div className={styles.second}>
               {dealOffer && <StatusBadge<DealOfferStatus> data={{
@@ -62,7 +70,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
             {saleRequest.scrapMetalCategory && <Badge active text={saleRequest.scrapMetalCategory} />}
             {saleRequest.price > 0 && <Badge active text={`От ${Formatter.formatPrice(saleRequest.price)}`} />}
           </div>}
-          {dealOffer &&  <div className={styles.offer} onClick={() => setShowOffer(!showOffer)}>
+          {dealOffer &&  <div className={styles.offer} onClick={handleShowOffer}>
             <div className={styles.text}>
               Ваше предложение
             </div>
@@ -108,7 +116,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
             {dealOffer?.coverLetter}
           </div>
         </div>}
-    </div>
+    </Link>
   )
 }
 
@@ -117,11 +125,18 @@ export function DealOfferOwnerCard(props: Props) {
   const notifyContext = useNotificationContext()
   const active = notifyContext.store[NotificationUnreadType.dealOffer].find(i => i.eId === dealOffer!.id)
   useEffect(() => {
+    console.log('AddDealOffer1', dealOffer?.id)
     notifyContext.addRecord(dealOffer!.id, NotificationUnreadType.dealOffer)
     return () => {
+      console.log('RemoveDealOffer1', dealOffer?.id)
       notifyContext.removeRecord(dealOffer!.id, NotificationUnreadType.dealOffer)
     }
   }, [])
+  useEffect(() => {
+    if (active) {
+      notifyContext.markRead(dealOffer!.id, NotificationUnreadType.dealOffer, true)
+    }
+  }, [active])
   return <DealOfferOwnerCardInner {...props} active={!!active}/>
 }
 

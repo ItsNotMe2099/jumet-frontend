@@ -29,7 +29,6 @@ const ReceivingPointEmployeesPageInner = (props: Props) => {
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
     setLoading(true)
-    console.log('handleSubmit22', data)
     await receivingPointContext.editRequest(data)
     await userListOwnerContext.reFetch()
     setIsEdit(false)

@@ -5,12 +5,7 @@
   display: flex;
   flex-direction: column;
   @include list(8px);
-  width: 100%;
-  :global{
-    .react-datepicker-popper{
-      z-index: 2;
-    }
-  }
+
 }
 
 .label{

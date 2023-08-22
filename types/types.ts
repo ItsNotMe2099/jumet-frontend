@@ -131,3 +131,7 @@ export interface ChatMessageProps{
   message: IChatMessage
   side: 'my' | 'other' | undefined | null
 }
+export enum ChatNameType{
+  ReceivingPoint = 'receivingPoint',
+  Seller = 'seller'
+}

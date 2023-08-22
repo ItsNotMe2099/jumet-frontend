@@ -58,7 +58,7 @@ const LkDealOffersPageInner = (props: Props) => {
   ])
 
   useEffect(() => {
-    console.log('Refetch1')
+    console.log('Refetch1', tab, receivingPointId)
     reFetch(tab, receivingPointId)
   }, [tab, receivingPointId])
 

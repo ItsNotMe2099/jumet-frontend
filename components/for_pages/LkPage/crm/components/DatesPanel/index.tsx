@@ -1,4 +1,4 @@
-import styles from '@/components/for_pages/LkPage/crm/components/DatesPanel/index.module.scss'
+import styles from './index.module.scss'
 import HiddenXs from '@/components/visibility/HiddenXs'
 import {IOption, Nullable} from '@/types/types'
 import {IntervalType} from '@/data/interfaces/IntervalType'
@@ -47,7 +47,9 @@ export default function DatesPanel(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.root}>
         <HiddenXs>
-          <TabsField<IntervalType> name={'interval'} options={intervals} onChange={handleChangeInterval} />
+          <div className={styles.tabsWrapper}>
+            <TabsField<IntervalType> name={'interval'} options={intervals} onChange={handleChangeInterval} />
+          </div>
         </HiddenXs>
         <DateRangeField name={'range'} onChange={handleChangeRange}/>
       </Form>

@@ -57,8 +57,10 @@ const DealCardInner = (props: Props) => {
   ]
   const allStatuesDescription = useMemo(() => appContext.aboutMe?.role! ? DealUtils.getStateDescriptionAllStatus(deal, appContext.aboutMe?.role!) : {}, [deal, appContext.aboutMe?.role])
   useEffect(() => {
+    console.log('AddDealId', deal.id)
     notifyContext.addRecord(deal.id, NotificationUnreadType.deal)
     return () => {
+      console.log('RemoveDealId', deal.id)
       notifyContext.removeRecord(deal.id, NotificationUnreadType.deal)
     }
   }, [])

@@ -17,10 +17,11 @@ interface Props {
   className?: string
   chatId?: number | null
   title?: string | ReactElement | null
-  receivingPointId?: number | undefined
+  receivingPointId?: number | undefined | null
   hasBack?: boolean
   onBackClick?: () => void | undefined
-  sellerId?: string | undefined
+  sellerId?: string | undefined | null
+  showBothChatNames?: boolean | undefined
 }
 
 const ChatInner = (props: Props) => {
@@ -40,7 +41,7 @@ const ChatInner = (props: Props) => {
 
   }
   return (<div className={classNames(styles.root, props.className)}>
-      {<ChatHeader hasBack={props.hasBack ?? false} onBackClick={props.onBackClick} chat={chatContext.chat}
+      {<ChatHeader hasBack={props.hasBack ?? false} showBothChatNames={props.showBothChatNames} onBackClick={props.onBackClick} chat={chatContext.chat}
                    title={props.title ?? null}/>}
       <div className={styles.messages} id={'chat-messages'}
            ref={chatContext.scrollableTarget as RefObject<HTMLDivElement>}>

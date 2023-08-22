@@ -1,6 +1,5 @@
 import {createContext, useContext, useRef, useState} from 'react'
 import { Nullable} from 'types/types'
-import {useAppContext} from '@/context/state'
 import {CanceledError} from 'axios'
 import IReportDeals from '@/data/interfaces/IReportDeals'
 import ReportRepository from '@/data/repositories/ReportRepository'
@@ -38,10 +37,10 @@ const ReportDealsBuyerContext = createContext<IState>(defaultValue)
 interface Props {
   children: React.ReactNode
   limit?: number
+  receivingPointId?: number
 }
 
 export function ReportDealsBuyerWrapper(props: Props) {
-  const appContext = useAppContext()
   const [data, setData] = useState<IReportDeals>({data: [], total: 0})
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -59,7 +58,8 @@ export function ReportDealsBuyerWrapper(props: Props) {
     abortControllerRef.current = new AbortController()
     try {
        res = await ReportRepository.fetchDeals({
-        ...filterRef.current
+        ...filterRef.current,
+         ...(props.receivingPointId ? {receivingPointId: props.receivingPointId} : {})
       }, {signal: abortControllerRef.current?.signal})
       setData(page > 1 ? (i) => ({...res, total: res!.total, data: [...i.data, ...res!.data]}) : res)
 

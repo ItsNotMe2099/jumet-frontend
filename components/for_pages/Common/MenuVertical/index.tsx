@@ -32,7 +32,7 @@ function MenuAccordion<T>(props: AccordionProps<T>) {
   >
       {props.item.children?.map((item, index) => {
         const initialPath = (initialAsPath ?? '').replace('/', '') ?? ''
-        const initialIsActive = initialPath.includes((item.link ?? '').replace('/', '')) || !!item.children?.find(i => (initialPath ?? '').includes((i.link ?? '').replace('/', '')))
+        const initialIsActive = (item.link && initialPath.includes((item.link ?? '').replace('/', ''))) || !!item.children?.find(i => (initialPath ?? '').includes((i.link ?? '').replace('/', '')))
         return (item.children?.length ?? 0) > 0 ?
           <MenuAccordion item={item} open={initialIsActive} onClick={props.onClick}/> :
           <MenuItem className={styles.menuItem} key={item.link} title={item.name} link={item.link} onClick={() => props.onClick(item)}/>
@@ -54,7 +54,7 @@ export default function MenuVertical<T>(props: Props<T>) {
     <div className={styles.root}>
       {props.items.map((item, index) => {
         const initialPath = (initialAsPath ?? '').replace('/', '') ?? ''
-        const initialIsActive = initialPath.includes((item.link ?? '').replace('/', '')) || !!item.children?.find(i => (initialPath ?? '').includes((i.link ?? '').replace('/', '')))
+        const initialIsActive = (item.link && initialPath.includes((item.link ?? '').replace('/', ''))) || !!item.children?.find(i => (initialPath ?? '').includes((i.link ?? '').replace('/', '')))
         return (
           <>
             {(item.children?.length ?? 0) > 0 &&
