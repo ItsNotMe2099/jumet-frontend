@@ -1,5 +1,5 @@
 import React from 'react'
-import { useField } from 'formik'
+import {useField} from 'formik'
 import {IField, IOption} from '@/types/types'
 import styles from './index.module.scss'
 import classNames from 'classnames'
@@ -17,15 +17,15 @@ interface Props<T> extends IField<T> {
   styleType?: TabStyleType
 }
 
-function TabsMultiField<T>(props: Props<T>){
+function TabsMultiField<T>(props: Props<T>) {
 
   const [field, meta, helpers] = useField(props as any)
 
   const handleChange = (value: T) => {
     props.onChange?.(value)
-    if(field.value.includes(value)){
+    if (field.value.includes(value)) {
       helpers.setValue(field.value.filter((i: T) => i !== value))
-    }else{
+    } else {
       helpers.setValue([...field.value, value])
     }
   }
@@ -33,7 +33,10 @@ function TabsMultiField<T>(props: Props<T>){
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
-      <Tabs options={props.options} value={field.value} isMulti={true} styleType={props.styleType} onClick={handleChange} fluid={props.fluid ?? false}/>
+      <div>
+        <Tabs options={props.options} value={field.value} isMulti={true} styleType={props.styleType}
+              onClick={handleChange} fluid={props.fluid ?? false}/>
+      </div>
       <FieldError showError={meta.touched && !!meta.error}>{meta.error}</FieldError>
     </div>
   )

@@ -33,7 +33,7 @@ export default function ChatPage(props: Props) {
               <ChatDialogList chatId={chatId} onSelect={handleSelectChat}/>
             </div>}
             <div className={styles.chat}>
-              {chatId || (router.query.receivingPointId && router.query.sellerId) && <Chat showBothChatNames={appContext.aboutMe?.role === UserRole.Buyer} hasBack={appContext.isMobile} onBackClick={() => setChatId(null)} chatId={chatId}
+              {(chatId || (router.query.receivingPointId && router.query.sellerId)) && <Chat showBothChatNames={appContext.aboutMe?.role === UserRole.Buyer} hasBack={appContext.isMobile} onBackClick={() => setChatId(null)} chatId={chatId}
                                                                                            receivingPointId={router.query.receivingPointId ? parseInt(router.query.receivingPointId as string, 10) : null}
                                                                                            sellerId={router.query.sellerId as string}
               />}

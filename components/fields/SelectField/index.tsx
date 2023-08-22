@@ -40,11 +40,6 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
 
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
-      <div className={classNames({
-        [styles.label]: true,
-      })}>
-        {props.label}
-    </div>
       {props.async ? <SelectAsync<T>
         label={props.label as string}
         value={field.value}

@@ -27,7 +27,7 @@ export default function ChatHeader(props: Props) {
   const chatNameType = props.title ? null : (appContext.aboutMe?.role === UserRole.Seller ? ChatNameType.ReceivingPoint : ChatNameType.Seller)
 
   const getChatNameType = (type: Nullable<ChatNameType>) => {
-    switch (type){
+    switch (type) {
       case ChatNameType.Seller:
         return 'Продавец'
       case ChatNameType.ReceivingPoint:
@@ -38,32 +38,37 @@ export default function ChatHeader(props: Props) {
   }
 
   const getChatName = (type: Nullable<ChatNameType>) => {
-    switch (type){
-      case ChatNameType.ReceivingPoint:
-        const chatName = props.title || appContext.aboutMe?.role === UserRole.Seller ? props.chat?.receivingPoint?.address?.address : profileName
+    switch (type) {
+      case ChatNameType.ReceivingPoint: {
+        const chatName = props.chat?.receivingPoint?.address?.address
 
-        return <Link className={styles.link} target={'_blank'} href={Routes.receivingPoint(props.chat?.receivingPointId!)}>{chatName}</Link>
-      case ChatNameType.Seller:
+        return <Link className={styles.link} target={'_blank'}
+                     href={Routes.receivingPoint(props.chat?.receivingPointId!)}>{chatName}</Link>
+      }
+      case ChatNameType.Seller: {
+        const chatName = profileName
         return <span className={styles.value}>{chatName}</span>
+      }
       default:
         return props.title
     }
   }
   const renderChatNameType = (type: ChatNameType) => {
     return <div className={styles.name}>
-      <span className={styles.label}>{getChatNameType(chatNameType)}: </span>
-      {getChatName(chatNameType)}
+      <span className={styles.label}>{getChatNameType(type)}: </span>
+      {getChatName(type)}
     </div>
   }
-  return (   <div className={styles.root}>
-        <div className={styles.colLeft}>
-
-          <div className={styles.title}>   {props.hasBack && props.onBackClick &&    <BackButton className={styles.back} onClick={props.onBackClick}>Назад</BackButton>}
-            {!props.showBothChatNames && chatNameType && renderChatNameType(chatNameType)}
-            {props.showBothChatNames && <div className={styles.names}>{renderChatNameType(ChatNameType.ReceivingPoint)}{renderChatNameType(ChatNameType.Seller)}</div>}
-          </div>
+  return (<div className={styles.root}>
+      <div className={styles.colLeft}>
+        <div className={styles.title}>   {props.hasBack && props.onBackClick &&
+          <BackButton className={styles.back} onClick={props.onBackClick}>Назад</BackButton>}
+          {!props.showBothChatNames && chatNameType && renderChatNameType(chatNameType)}
+          {props.showBothChatNames && <div
+            className={styles.names}>{renderChatNameType(ChatNameType.ReceivingPoint)}{renderChatNameType(ChatNameType.Seller)}</div>}
         </div>
       </div>
+    </div>
   )
 }
 
