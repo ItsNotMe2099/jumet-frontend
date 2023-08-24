@@ -41,7 +41,7 @@ export default function LocationSuggestionField(props: Props) {
     <div className={styles.root} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
        <div className={classNames(styles.body, {[styles.withClear]: showClear})}>
-         {!field.value && <div className={styles.empty}>Координаты не определны</div>}
+         {!field.value && <div className={styles.empty}>Координаты не определены</div>}
          {field.value && <div className={styles.value}>{field.value?.lat},{field.value?.lng}</div>}
 
          <LinkButton type='button' onClick={handleOpen}>{field.value ? 'Изменить' : 'Выбрать'}</LinkButton>
