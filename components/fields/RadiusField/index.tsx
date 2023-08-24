@@ -1,6 +1,6 @@
-import React, {useState} from 'react'
-import { useField} from 'formik'
-import {IField, IOption} from '@/types/types'
+import React, { useState } from 'react'
+import { useField } from 'formik'
+import { IField, IOption } from '@/types/types'
 import styles from './index.module.scss'
 import classNames from 'classnames'
 import FieldError from '@/components/fields/FieldError'
@@ -15,16 +15,16 @@ interface IFormData {
 interface Props<T> extends IField<T> {
   options?: IOption<T>[]
   placeholder?: string
-  className?: string  | null
-  errorClassName?: string  | null
+  className?: string | null
+  errorClassName?: string | null
 }
 
 export default function RadiusField<T>(props: Props<T>) {
 
   const [field, meta, helpers] = useField(props as any)
   const showError = meta.touched && !!meta.error
-  const[ lastInput, setLastInput ] = useState<'tabs' | 'custom'>('tabs')
-   const options: IOption<number>[] = [
+  const [lastInput, setLastInput] = useState<'tabs' | 'custom'>('tabs')
+  const options: IOption<number>[] = [
     { label: '5 км', value: 5 },
     { label: '10 км', value: 10 },
     { label: '20 км', value: 20 },
@@ -35,12 +35,12 @@ export default function RadiusField<T>(props: Props<T>) {
   const handleChangeTab = (radius: number | null) => {
     setLastInput('tabs')
 
-    if(field.value === radius){
+    if (field.value === radius) {
       setTimeout(() => {
         helpers.setValue(null)
       }, 100)
 
-    }else {
+    } else {
       helpers.setValue(radius)
     }
   }
@@ -52,18 +52,18 @@ export default function RadiusField<T>(props: Props<T>) {
 
 
   return (
-      <div className={classNames(styles.root, props.className)} data-field={props.name}>
-      <TabsField<number> label={props.label}  options={options} name={props.name} onChange={handleChangeTab}/>
+    <div className={classNames(styles.root, props.className)} data-field={props.name}>
+      <TabsField<number> label={props.label} options={options} name={props.name} onChange={handleChangeTab} />
       <InputField
         suffix={'км'}
-        resettable={true}
+        resettable={lastInput !== 'tabs' ? true : false}
         placeholder='Свой радиус поиска'
         format={'number'}
         parseValue={(value) => lastInput === 'custom' ? value : !options.find((i) => i.value === field.value) ? value : ''}
         name={props.name}
-        onChange={(val) => handleChangeCustom(val as number | null)}/>
+        onChange={(val) => handleChangeCustom(val as number | null)} />
       <FieldError className={props.errorClassName} showError={showError}>{meta.error}</FieldError>
-      </div>
+    </div>
   )
 }
 
