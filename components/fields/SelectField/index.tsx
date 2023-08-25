@@ -20,6 +20,7 @@ export interface SelectFieldProps<T> extends IField<T> {
   loadOptions?: (search: string, loadedOptions: IOption<T>[], data: any) => Promise<{ options: IOption<T>[], hasMore: boolean, additional?: any | null }>
   initialAsyncData?: any
   resettable?: boolean
+  menuPosition?: string
 }
 
 export default function SelectField<T>(props: SelectFieldProps<T>) {
@@ -45,6 +46,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
         value={field.value}
         hasError={showError}
         noOptionsMessage={props.noOptionsMessage}
+        menuPosition={!props.menuPosition ? 'fixed' : props.menuPosition}
         placeholder={props.placeholder ?? props.label as string ?? ''}
         selectProps={props.selectProps}
         onChange={(value) => {
@@ -59,6 +61,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
         options={props.options}
         value={field.value}
         hasError={showError}
+        menuPosition={!props.menuPosition ? 'fixed' : props.menuPosition}
         noOptionsMessage={props.noOptionsMessage}
         resettable={props.resettable ?? false}
         placeholder={props.placeholder ?? props.label as string ?? ''}

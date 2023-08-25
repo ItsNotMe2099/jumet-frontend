@@ -1,6 +1,6 @@
 // @ts-nocheck
 import styles from './index.module.scss'
-import {IOption, Nullable} from 'types/types'
+import { IOption, Nullable } from 'types/types'
 import ReactSelect from 'react-select'
 import classNames from 'classnames'
 import usePressAndHover from '@/components/hooks/usePressAndHover'
@@ -10,8 +10,10 @@ import type {
   SelectInstance,
   Props as SelectProps,
 } from 'react-select'
-import {AsyncPaginate} from 'react-select-async-paginate'
-import {useEffect, useRef, useState} from 'react'
+import { AsyncPaginate } from 'react-select-async-paginate'
+import { useEffect, useRef, useState } from 'react'
+import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
+import { colors } from '@/styles/variables'
 
 interface Props<T> {
   selectProps?: Nullable<SelectProps>,
@@ -25,6 +27,7 @@ interface Props<T> {
   name?: string
   noOptionsMessage?: Nullable<string>
   resettable?: boolean
+  menuPosition?: string
 }
 
 export default function Select<T>(props: Props<T>) {
@@ -33,19 +36,19 @@ export default function Select<T>(props: Props<T>) {
 
   return (
     <div className={classNames(styles.root, props.className)} ref={ref} data-field={props.name}>
-      { props.label && (
+      {props.label && (
         <div className={classNames({
           [styles.label]: true,
         })}>
           {props.label}
         </div>
       )}
-      <ReactSelect<IOption<T>, false,  GroupBase<IOption<T>>>
+      <ReactSelect<IOption<T>, false, GroupBase<IOption<T>>>
         value={selected as any}
         isClearable={props.r}
         noOptionsMessage={(v) => props.noOptionsMessage ?? 'Нет результатов'}
-        menuPosition={'fixed'}
-        menuPlacement={'auto'}
+        menuPosition={!props.menuPosition ? 'fixed' : props.menuPosition}
+        menuPlacement={'bottom'}
         className={classNames({
           [styles.input]: true,
           [styles.default]: true,
@@ -61,14 +64,14 @@ export default function Select<T>(props: Props<T>) {
         }}
         options={props.options as any}
         components={{ DropdownIndicator } as any}
-        {...(props.selectProps ? {...props.selectProps} : {})}
-        {...(selected ? {defaultValue: selected} : {})}
+        {...(props.selectProps ? { ...props.selectProps } : {})}
+        {...(selected ? { defaultValue: selected } : {})}
       />
     </div>
   )
 }
 interface AsyncProps<T> {
-  loadOptions?: (search: string, loadedOptions: IOption<T>[], data: any) => Promise<{options: IOption<T>[], hasMore: boolean, additional?: any | null}>
+  loadOptions?: (search: string, loadedOptions: IOption<T>[], data: any) => Promise<{ options: IOption<T>[], hasMore: boolean, additional?: any | null }>
   initialAsyncData: any,
   label?: string
   value: T
@@ -80,6 +83,7 @@ interface AsyncProps<T> {
   noOptionsMessage?: Nullable<string>
   selectProps?: Nullable<SelectProps>
   resettable?: boolean
+  menuPosition?: string
 }
 export function SelectAsync<T>(props: AsyncProps<T>) {
   const [ref, press, hover] = usePressAndHover()
@@ -88,10 +92,10 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
   const [selected, setSelected] = useState<any>(null)
   useEffect(() => {
 
-  },[props.value])
+  }, [props.value])
   return (
     <div className={classNames(styles.root, props.className)} ref={ref} data-field={props.name}>
-      { props.label && (
+      {props.label && (
         <div className={classNames({
           [styles.label]: true,
         })}>
@@ -105,7 +109,8 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
         selectRef={(ref) => selectRef.current = ref as any}
         loadOptions={props.loadOptions!}
         additional={props.initialAsyncData}
-        menuPosition={'fixed'}
+        menuPlacement={'bottom'}
+        menuPosition={!props.menuPosition ? 'fixed' : props.menuPosition}
         className={classNames({
           [styles.input]: true,
           [styles.default]: true,
@@ -113,7 +118,7 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
           [styles.hover]: hover,
           [styles.press]: press,
         })}
-      //  onFocus={props.onFocus}
+        //  onFocus={props.onFocus}
         classNamePrefix="yg-select"
         isSearchable={true}
         isClearable={true}
@@ -131,10 +136,10 @@ export function SelectAsync<T>(props: AsyncProps<T>) {
 function DropdownIndicator<T>(props: DropdownIndicatorProps<IOption<T>, false, GroupBase<IOption<T>>>) {
   return (
     <div>
-     <img src="/images/icons/arrow_select.svg" alt="" className={classNames({
-       [styles.indicator]: true,
-       [styles.indicatorInverse]: props.selectProps.menuIsOpen,
-      })}/>
+      <ChevronDownSvg color={colors.grey500} className={classNames({
+        [styles.indicator]: true,
+        [styles.indicatorInverse]: props.selectProps.menuIsOpen,
+      })} />
     </div>
   )
 }

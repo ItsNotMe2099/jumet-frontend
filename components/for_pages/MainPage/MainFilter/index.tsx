@@ -144,7 +144,7 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
                 <RadiusField name={'radius'}/>
               </FilterComponent>
               <FilterComponent title='Категория лома'>
-                <SelectField<string> options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
+                <SelectField<string> menuPosition={'bottom'} options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
                   name={'scrapMetalCategory'} />
               </FilterComponent>
               <FilterComponent title='Вес лома'>
