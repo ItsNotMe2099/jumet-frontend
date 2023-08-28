@@ -116,6 +116,8 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
       formik.setFieldValue('address', null)
     }
   }
+
+  console.log('filterFORM', formik.values)
   return (
 
     <FormikProvider value={formik}>

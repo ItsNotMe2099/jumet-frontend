@@ -39,10 +39,14 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
     }
   }
 
+   // Generate a unique key based on Formik field name and value
+   const uniqueKey = `${props.name}_${field.value}`
+
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {props.async ? <SelectAsync<T>
         label={props.label as string}
+        key={uniqueKey} // Add a unique key to trigger re-render
         value={field.value}
         hasError={showError}
         noOptionsMessage={props.noOptionsMessage}
@@ -58,6 +62,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
         initialAsyncData={props.initialAsyncData}
       /> : <Select<T>
         label={props.label as string}
+        key={uniqueKey} // Add a unique key to trigger re-render
         options={props.options}
         value={field.value}
         hasError={showError}
