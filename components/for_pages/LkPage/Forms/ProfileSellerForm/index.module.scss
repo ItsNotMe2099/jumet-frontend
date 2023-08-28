@@ -10,7 +10,7 @@
   display: flex;
   flex-direction: column;
   @include list(24px, false);
-  flex-basis: 484px;
+  flex-basis: $maxFormWidth;
 }
 
 .changePassword{

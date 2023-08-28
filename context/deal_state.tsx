@@ -15,6 +15,9 @@ import useWindowFocus from 'use-window-focus'
 import {useNetworkStatus} from 'use-network-status'
 import useInterval from 'use-interval'
 import {Timers} from '@/types/constants'
+import {IDealCalculateRequest} from '@/data/interfaces/IDealCalculateRequest'
+import {IDealCalculateResult} from '@/data/interfaces/IDealCalculateResult'
+import {CanceledError} from 'axios'
 
 interface IState {
   dealId: number,
@@ -22,6 +25,9 @@ interface IState {
   terminateLoading: boolean,
   loading: boolean
   editLoading: boolean,
+  calculateLoading: boolean
+  isCalculateManual: boolean
+  calculationData: Nullable<IDealCalculateResult>
   fetch: () => Promise<Nullable<IDeal>>
   submitStepSetup: (data: IDealSetUpStepRequest) => Promise<Nullable<IDeal>>
   submitStepWeighing: (data: IDealWeighingStepRequest) => Promise<Nullable<IDeal>>
@@ -31,6 +37,9 @@ interface IState {
   terminateBySellerRequest: (data: IDealTermBySellerStepRequest) => Promise<Nullable<IDeal>>
   terminateByBuyer: () => void
   terminateByBuyerRequest: (data: IDealTermByBuyerStepRequest) => Promise<Nullable<IDeal>>
+  calculate: (data: IDealCalculateRequest) => Promise<Nullable<IDealCalculateResult>>,
+  calculateClear: () => void,
+  setCalculateIsManual: (value: boolean) => void
 
 }
 
@@ -40,6 +49,9 @@ const defaultValue: IState = {
   terminateLoading: false,
   loading: false,
   editLoading: false,
+  calculateLoading: false,
+  calculationData: null,
+  isCalculateManual: false,
   fetch: async () => null,
   submitStepSetup: async (data: IDealSetUpStepRequest) => null,
   submitStepWeighing: async (data: IDealWeighingStepRequest) => null,
@@ -49,6 +61,9 @@ const defaultValue: IState = {
   terminateBySellerRequest: async (data: IDealTermBySellerStepRequest) => null,
   terminateByBuyer: () => null,
   terminateByBuyerRequest: async (data: IDealTermByBuyerStepRequest) => null,
+  calculate: async (data: IDealCalculateRequest) => null,
+  calculateClear: () => null,
+  setCalculateIsManual: (value: boolean) => null
 }
 
 const DealContext = createContext<IState>(defaultValue)
@@ -70,7 +85,10 @@ export function DealWrapper(props: Props) {
   const initWindowFocusedRef = useRef<boolean>(false)
   const dealIdRef = useRef<number>(props.dealId)
   const fetchAbortControllerRef = useRef<AbortController | null>(null)
-
+  const calculateAbortControllerRef = useRef<AbortController | null>(null)
+  const [calculationData, setCalculationData] = useState<Nullable<IDealCalculateResult>>(null)
+  const [isCalculateManual, setIsCalculateManual] = useState(false)
+  const [calculateLoading, setCalculateLoading] = useState(false)
   useEffect(() => {
     dealIdRef.current = props.dealId
   }, [props.dealId])
@@ -118,7 +136,7 @@ export function DealWrapper(props: Props) {
         fetchAbortControllerRef.current?.abort()
         fetchAbortControllerRef.current = null
       }
-    }catch (e) {
+    } catch (e) {
 
     }
   }
@@ -126,7 +144,7 @@ export function DealWrapper(props: Props) {
     stopAbort()
     fetchAbortControllerRef.current = new AbortController()
     try {
-      const res = await DealRepository.fetchById(dealIdRef.current)
+      const res = await DealRepository.fetchById(dealIdRef.current, {signal: fetchAbortControllerRef.current?.signal!})
       setDeal(res)
       return res
     } catch (e) {
@@ -267,8 +285,69 @@ export function DealWrapper(props: Props) {
     setTerminateLoading(false)
     return {...deal, ...res}
   }
+  const calculate = async (data: IDealCalculateRequest): Promise<Nullable<IDealCalculateResult>> => {
+    if(!data.actualWeight){
+      setCalculationData(null)
+      return null
+    }
+    if(isCalculateManual){
+      return calculateManual(data)
+    }
+    try {
+      if (calculateAbortControllerRef.current) {
+        calculateAbortControllerRef.current?.abort()
+        calculateAbortControllerRef.current = null
+      }
+      setCalculateLoading(true)
+      const res = await DealRepository.calculate(props.dealId, data, {signal: fetchAbortControllerRef.current?.signal!})
+      setCalculationData(res)
+      setCalculateLoading(false)
+      return res
+    } catch (e) {
+      if (e instanceof CanceledError) {
+        return null
+      }
+      throw e
+    }
 
-
+    setCalculateLoading(false)
+    return null
+  }
+  const calculateManual = (dto: IDealCalculateRequest): Nullable<IDealCalculateResult> => {
+    if(!dto.price || !dto.actualWeight){
+      setCalculationData(null)
+      return null
+    }
+    const actualWeight =
+      (dto.actualWeight *
+        ((100 -
+            (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) /
+          100)) /
+      1000
+    const deliveryPrice = deal!.requiresDelivery
+      ? dto.deliveryPrice ?? 0
+      : 0
+    const loadingPrice = deal!.requiresLoading
+      ? dto.loadingPrice ?? 0
+      : 0
+    const totalDelivery = actualWeight * deliveryPrice
+    const totalLoading = actualWeight * loadingPrice
+    const price =
+      dto.price ?? 0
+    const subTotal = actualWeight * price
+    const total = subTotal - totalLoading - totalDelivery
+    const res: IDealCalculateResult = {
+      total: total < 0 ? 0 : total,
+      subTotal: subTotal < 0 ? 0 : subTotal,
+      price,
+      loadingPrice,
+      deliveryPrice,
+      totalDelivery,
+      totalLoading,
+    }
+    setCalculationData( res)
+    return res
+  }
   const value: IState = {
     ...defaultValue,
     deal,
@@ -276,7 +355,11 @@ export function DealWrapper(props: Props) {
     terminateLoading,
     editLoading,
     loading,
+    calculationData,
+    calculateLoading,
+    isCalculateManual,
     fetch,
+    calculate,
     submitStepSetup,
     submitStepWeighing,
     submitStepWeighingAccept,
@@ -285,6 +368,10 @@ export function DealWrapper(props: Props) {
     terminateBySellerRequest,
     terminateByBuyer,
     terminateByBuyerRequest,
+    setCalculateIsManual: (value) => {
+      setCalculationData(null)
+      setIsCalculateManual(value)
+    }
   }
   return (
     <DealContext.Provider value={value}>

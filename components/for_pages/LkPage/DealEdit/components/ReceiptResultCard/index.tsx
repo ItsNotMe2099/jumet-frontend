@@ -4,6 +4,7 @@ import DealStepResultCardLayout from '@/components/for_pages/LkPage/DealEdit/com
 import {useDealContext} from '@/context/deal_state'
 import ImageHelper from '@/utils/ImageHelper'
 import DescField from '@/components/ui/DescField'
+import Formatter from '@/utils/formatter'
 //import Formatter from '@/utils/formatter'
 
 
@@ -17,7 +18,7 @@ export default function ReceiptResultCard(props: Props) {
   return (
     <DealStepResultCardLayout title={'Квитанция об оплате'} date={dealContext.deal!.paidAt} >
       <div className={styles.root}>
-        <DescField label={'Дата оплаты'} value={'-'}/>
+        {dealContext.deal!.paidAt && <DescField label={'Дата оплаты'} value={Formatter.formatDateRelative(dealContext.deal!.paidAt)}/>}
         {dealContext.deal!.paymentReceipt && <FileDownload href={ImageHelper.urlFromFile(dealContext.deal!.paymentReceipt)} label='Квитанция об оплате' />}
       </div>
     </DealStepResultCardLayout>

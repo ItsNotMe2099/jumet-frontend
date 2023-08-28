@@ -7,7 +7,7 @@ import {Nullable} from '@/types/types'
 export interface IReceivingPointSearchRequest extends IPaginationRequest {
   location?:  Nullable<ILocation>;
   radius?:  Nullable<number>;
-  scrapMetalCategory?: Nullable<ScrapMetalCategory>;
+  scrapMetalCategories?: Nullable<ScrapMetalCategory[]>;
   weight?:  Nullable<number>;
   hasDelivery?:  Nullable<boolean>;
   hasLoading?:  Nullable<boolean>;

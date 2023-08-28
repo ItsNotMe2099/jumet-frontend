@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useRef, useState} from 'react'
-import {IPagination} from 'types/types'
+import {IPagination, Nullable} from 'types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointRepository from '@/data/repositories/ReceivingPointRepository'
 import {IReceivingPointSearchRequest} from '@/data/interfaces/IReceivingPointSearchRequest'
@@ -7,6 +7,8 @@ import {omit} from '@/utils/omit'
 import {SortOrder} from '@/types/enums'
 import {CanceledError} from 'axios'
 import {useEffectOnce} from '@/components/hooks/useEffectOnce'
+import {useDataContext} from '@/context/data_state'
+import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
 export enum ViewType {
   List = 'list',
@@ -14,6 +16,7 @@ export enum ViewType {
 }
 
 interface IReceivingPointFilter extends IReceivingPointSearchRequest {
+  scrapMetalCategory?: Nullable<ScrapMetalCategory>;
 }
 
 interface IState {
@@ -61,6 +64,7 @@ interface Props {
 }
 
 export function ReceivingPointSearchWrapper(props: Props) {
+  const dataContext = useDataContext()
   const [data, setData] = useState<IPagination<IReceivingPoint>>({data: [], total: 0})
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
@@ -91,8 +95,11 @@ export function ReceivingPointSearchWrapper(props: Props) {
     }
     abortControllerRef.current = new AbortController()
     try {
+      const getSynonymCategories = () => {
+        return dataContext.scrapMetalCategories.filter(i => (dataContext.scrapMetalCategoriesMap[filterRef.current.scrapMetalCategory!]?.synonymIds ?? []).includes(i.id)).map(i => i.category)
+      }
       const res = await ReceivingPointRepository.search({
-        ...omit(filterRef.current, ['hasDelivery', 'hasLoading']), ...(!filterRef?.current?.location ? {
+        ...omit(filterRef.current, ['hasDelivery', 'hasLoading', 'scrapMetalCategory']), ...(!filterRef?.current?.location ? {
           location: {
             lat: 56.795132,
             lng: 40.1633231
@@ -101,6 +108,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
         ...(filterRef.current.hasDelivery ? {hasDelivery: true} : {}),
         ...(filterRef.current.hasLoading ? {hasLoading: true} : {}),
         ...(sortOrderRef.current ? {sortOrder: sortOrderRef.current} : {}),
+        ...(filterRef.current.scrapMetalCategory ? {scrapMetalCategories: [filterRef.current.scrapMetalCategory, ...getSynonymCategories()]} : {}),
         page,
         limit
       }, {signal: abortControllerRef.current?.signal})

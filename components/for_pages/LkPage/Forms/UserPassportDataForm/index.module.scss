@@ -7,7 +7,7 @@
   flex-direction: column;
   @include list(24px, false);
   background-color: $white;
-  max-width: 484px;
+  max-width: $maxFormWidth;
   @include mq($PhoneWidth, max) {
     max-width: 100%;
   }

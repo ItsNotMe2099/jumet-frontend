@@ -31,8 +31,6 @@ export interface IDeal {
   ownerId?: string
   requiresDelivery: boolean
   requiresLoading: boolean
-  deliveryPrice: number
-  loadingPrice: number
   address: IAddress
   location: ILocation
   deliveryDate: string
@@ -57,7 +55,12 @@ export interface IDeal {
   review?: IReview
   paidAt: Nullable<string>;
   createdAt?: string
+  price: Nullable<number>
   total: Nullable<number>
+  totalDelivery: Nullable<number>
+  totalLoading: Nullable<number>
+  deliveryPrice: Nullable<number>
+  loadingPrice: Nullable<number>
   subTotal: Nullable<number>
   distance?: Nullable<number>
 }

@@ -9,6 +9,8 @@ import {
   IDealTermByBuyerStepRequest,
   IDealWeighingStepRequest
 } from '@/data/interfaces/IDealStepRequest'
+import {IDealCalculateRequest} from '@/data/interfaces/IDealCalculateRequest'
+import {IDealCalculateResult} from '@/data/interfaces/IDealCalculateResult'
 
 export default class DealRepository {
 
@@ -32,10 +34,11 @@ export default class DealRepository {
   }
 
 
-  static async fetchById(id: number): Promise<IDeal> {
+  static async fetchById(id: number, config?: AxiosRequestConfig): Promise<IDeal> {
     const res = await request<IDeal>({
       method: 'get',
       url: `/api/deal/${id}`,
+      config
     })
     return res
   }
@@ -58,6 +61,17 @@ export default class DealRepository {
     })
     return res
   }
+
+  static async calculate(id: number, data: IDealCalculateRequest, config?: AxiosRequestConfig): Promise<IDealCalculateResult> {
+    const res = await request<IDealCalculateResult>({
+      method: 'post',
+      url: `/api/deal/${id}/calculate`,
+      data,
+      config
+    })
+    return res
+  }
+
   static async terminateBySeller(id: number): Promise<IDeal> {
     const res = await request<IDeal>({
       method: 'post',

@@ -10,7 +10,7 @@ import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
 import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
-import { ListViewType } from '@/types/types'
+import {ListViewType} from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import SwitchField from '@/components/fields/SwitchField'
 import SelectField from '@/components/fields/SelectField'
@@ -28,6 +28,7 @@ import LocationSuggestionField from '@/components/fields/LocationSuggestionField
 import {ILocation} from '@/data/interfaces/ILocation'
 import {WorkTimeType} from '@/data/interfaces/WorkTimeType'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -35,6 +36,7 @@ export interface ReceivingPointFilterRef {
 interface IFormData extends IReceivingPointSearchRequest {
   radiusCustom?: number | null
   address?: string | null
+  scrapMetalCategory?: ScrapMetalCategory | null;
 }
 
 interface Props {

@@ -22,6 +22,9 @@ export interface IDealWeighingStepRequest{
   weighingComment: Nullable<string>,
   weighingPhotoId?: Nullable<number>,
   acceptanceCertificateId?: Nullable<number>
+  price: Nullable<number>,
+  deliveryPrice: Nullable<number>,
+  loadingPrice: Nullable<number>,
 }
 export interface IDealTermByBuyerStepRequest{
   terminateReasonType: TerminateReasonType

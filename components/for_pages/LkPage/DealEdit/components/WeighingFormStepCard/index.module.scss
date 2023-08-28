@@ -1,12 +1,40 @@
 @import "styles/index";
 
 .root {
-    display: flex;
+  display: flex;
+  flex-direction: row;
+  @include list(16px, true);
+  @media (max-width: $xs-max) {
     flex-direction: column;
-    @include list(24px, false);
+    @include list(0px, true);
+    @include list(16px);
+  }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
 }
 
 .buttons {
   display: flex;
   @include list(12px, true);
+}
+
+.cardContent {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.left {
+  flex-basis: $maxFormWidth;
+}
+
+.right {
+  flex: 1;
+  @media (max-width: $xs-max) {
+   flex: auto;
+  }
 }
