@@ -25,7 +25,7 @@ interface Props {
 
 export default function ReceivingPointUsersForm(props: Props) {
   const handleSubmit = async (data: IFormData) => {
-    await props.onSubmit(data as DeepPartial<IReceivingPoint>)
+    await props.onSubmit({users: data?.users.filter(i => !!i.email)} as DeepPartial<IReceivingPoint>)
   }
 
   const initialValues: IFormData = {
@@ -51,12 +51,11 @@ export default function ReceivingPointUsersForm(props: Props) {
                   <InputField
                     label={'Имя и фамилия сотрудника'}
                     name={`users[${index}].name`}
-                    validate={Validator.required}
                   />
                   <InputField
                     label={'Email сотрудника'}
                     name={`users[${index}].email`}
-                    validate={Validator.combine([Validator.required, Validator.email])}
+                    validate={Validator.combine([ Validator.email])}
                   />
                   <SelectField<EmployeeRole>
                     options={[
@@ -65,7 +64,6 @@ export default function ReceivingPointUsersForm(props: Props) {
                     ]}
                     label={'Роль сотрудника'}
                     name={`users[${index}].initialRole`}
-                    validate={Validator.required}
                   />
                 </>))}
               <Button onClick={() => arrayHelpers.push({name: null, email: null, initialRole: EmployeeRole.ReceivingPointManager})} type='button' className={styles.add}

@@ -1,6 +1,6 @@
 import {DeepPartial, IFormStep, RequestError} from '@/types/types'
-import React, { useEffect, useMemo, useState } from 'react'
-import { useRouter } from 'next/router'
+import React, {useEffect, useMemo, useState} from 'react'
+import {useRouter} from 'next/router'
 import FormStepSwitch from '@/components/ui/FormStepSwitch'
 import DataStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DataStep'
 import DeliveryZoneStep from 'components/for_pages/LkPage/ReceivingPointCreateForm/components/DeliveryZonesStep'
@@ -76,9 +76,9 @@ export default function ReceivingPointCreateForm(props: Props) {
   const currentStepIndex = useMemo(() => steps.findIndex(i => i.key === step.key) ?? 0, [step, steps])
   const loadInitial = async () => {
 
-      const receivingPoint = props.id ? await ReceivingPointOwnerRepository.fetchById(props.id!) : null
-        setReceivingPoint(receivingPoint)
-        setInitialLoading(false)
+    const receivingPoint = props.id ? await ReceivingPointOwnerRepository.fetchById(props.id!) : null
+    setReceivingPoint(receivingPoint)
+    setInitialLoading(false)
 
     const newSteps = [...steps]
     const hasPublishStep = !!newSteps.find(i => i.key === FormStep.Approve)
@@ -115,7 +115,7 @@ export default function ReceivingPointCreateForm(props: Props) {
   const setStepValue = async (stepKey: FormStep) => {
     const step = steps.find(i => i.key === stepKey)!
     setStep(step)
-   await router.push('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(receivingPoint!.id, step.key as any), {
+    await router.push('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(receivingPoint!.id, step.key as any), {
       shallow: true
     })
   }
@@ -127,28 +127,28 @@ export default function ReceivingPointCreateForm(props: Props) {
     }
   }
   const submit = async (data: DeepPartial<IReceivingPoint>) => {
-    if(props.isNew){
+    if (props.isNew) {
       setLoading(true)
-      try{
+      try {
         const res = await ReceivingPointOwnerRepository.create(data)
         setReceivingPoint(i => ({...i, ...res}))
         await router.replace('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(res!.id, steps[currentStepIndex + 1].key), {
           shallow: true
         })
-      }catch (err) {
+      } catch (err) {
         if (err instanceof RequestError) {
           appContext.showSnackbar(err.message, SnackbarType.error)
         }
       }
       setLoading(false)
 
-    }else{
+    } else {
       setLoading(true)
-      try{
+      try {
         const res = await ReceivingPointOwnerRepository.update(receivingPoint!.id, data)
         setReceivingPoint(i => ({...i, ...res}))
         postSubmit()
-      }catch (err) {
+      } catch (err) {
         if (err instanceof RequestError) {
           appContext.showSnackbar(err.message, SnackbarType.error)
         }
@@ -168,25 +168,25 @@ export default function ReceivingPointCreateForm(props: Props) {
       shallow: true
     })
   }
-  if(initialLoading){
+  if (initialLoading) {
     return <ContentLoader style={'fullscreen'}/>
   }
 
   return (
     <div className={styles.root}>
-    <ReceivingPointStepLayout<FormStep>
-      title={steps[currentStepIndex].description as string}
-      steps={steps}
-      currentStepIndex={currentStepIndex} indicator={true} onBack={handleBack} filter={false}>
-      <FormStepSwitch index={currentStepIndex} options={[
-        <DataStep key={1} onSubmit={submit} />,
-        <DeliveryZoneStep key={2} onSubmit={submit} onBack={handleBack} />,
-        <PricesStep key={3} onSubmit={submit} onBack={handleBack} />,
-        <UsersStep key={4} onSubmit={submit} onBack={handleBack} />,
-        <WorkingHoursStep key={5} onSubmit={submit} onBack={handleBack} />,
-        <ApproveStep key={6}  />
-      ]} />
-    </ReceivingPointStepLayout>
+      <ReceivingPointStepLayout<FormStep>
+        title={steps[currentStepIndex].description as string}
+        steps={steps}
+        currentStepIndex={currentStepIndex} indicator={true} onBack={handleBack} filter={false}>
+        <FormStepSwitch index={currentStepIndex} options={[
+          <DataStep key={1} onSubmit={submit} receivingPoint={receivingPoint}/>,
+          <DeliveryZoneStep key={2} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          <PricesStep key={3} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          <UsersStep key={4} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          <WorkingHoursStep key={5} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          ...(receivingPoint ? [<ApproveStep key={6} receivingPoint={receivingPoint}/>] : []),
+        ]}/>
+      </ReceivingPointStepLayout>
     </div>
   )
 }

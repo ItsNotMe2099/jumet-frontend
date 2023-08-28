@@ -18,7 +18,7 @@ import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 
 interface Props {
-  receivingPoint?: IReceivingPoint | null
+  receivingPoint?: IReceivingPoint | null | undefined
   footer: ReactElement
   onSubmit: (data: DeepPartial<IReceivingPoint>) => Promise<void>
 }
@@ -39,6 +39,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
     await props.onSubmit({
       hasDelivery: data.hasDelivery,
       hasLoading: data.hasLoading,
+      deliveryPriceType: data.deliveryPriceType,
       ...(data.hasDelivery ? {
       ...(data.deliveryPriceType === DeliveryPriceType.Fixed ? {deliveryPriceFixed: data.deliveryPriceFixed, deliveryAreas: []} : {deliveryAreas: data.deliveryAreas, deliveryPriceFixed: null})
       } : {}),
@@ -48,14 +49,14 @@ export default function ReceivingPointDeliveryForm(props: Props) {
 
 
   const initialValues: IFormData = {
-    hasDelivery: true,
-    hasLoading: true,
-    deliveryPriceType: DeliveryPriceType.ByDistance,
-    deliveryPriceFixed: null,
-    loadingPrice: null,
-    deliveryAreas: props.receivingPoint?.deliveryAreas ?? [
+    hasDelivery: props.receivingPoint?.hasDelivery ?? true,
+    hasLoading: props.receivingPoint?.hasLoading ?? true,
+    deliveryPriceType: props.receivingPoint?.deliveryPriceType ?? DeliveryPriceType.ByDistance,
+    deliveryPriceFixed: props.receivingPoint?.deliveryPriceFixed ?? null,
+    loadingPrice: props.receivingPoint?.loadingPrice ?? null,
+    deliveryAreas: props.receivingPoint?.deliveryPriceType === DeliveryPriceType.ByDistance ? (props.receivingPoint?.deliveryAreas ?? [
       {...initialDeliveryArea},
-    ],
+    ]) : [],
   }
 
   const formik = useFormik({

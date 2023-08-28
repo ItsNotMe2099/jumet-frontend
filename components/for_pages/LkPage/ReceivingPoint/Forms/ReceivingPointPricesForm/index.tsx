@@ -16,7 +16,7 @@ interface IFormData {
 }
 
 interface Props {
-  receivingPoint?: IReceivingPoint | null
+  receivingPoint?: IReceivingPoint | null | undefined
   footer: ReactElement
   onSubmit: (data: DeepPartial<IReceivingPoint>) => Promise<void>
 }
