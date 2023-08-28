@@ -74,6 +74,7 @@ export function CompanyOwnerWrapper(props: Props) {
     try {
       setEditLoading(true)
       const res = await CompanyOwnerRepository.update(props.companyId, data)
+      handleUpdate(res)
       setCompany(i => ({...i, ...res}))
       setEditLoading(false)
       return res

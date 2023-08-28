@@ -11,7 +11,7 @@ import {ICompany} from '@/data/interfaces/ICompany'
 import CompanyDetailsFormSection from '@/components/for_pages/Common/CompanyDetailsFormSection'
 import {useState} from 'react'
 import FormStepFooter from '@/components/ui/FormStepFooter'
-import {DeepPartial, IFormStepProps} from '@/types/types'
+import {DeepPartial, IFormStepProps, Nullable} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {ILocation} from '@/data/interfaces/ILocation'
 import IFile from '@/data/interfaces/IFile'
@@ -29,7 +29,7 @@ interface IFormData {
 }
 
 interface Props extends IFormStepProps<DeepPartial<IReceivingPoint>>{
-
+  receivingPoint?: Nullable<IReceivingPoint> | undefined
 }
 
 export default function DataStep(props: Props) {
@@ -37,7 +37,7 @@ export default function DataStep(props: Props) {
   const handleSubmit = async (data: IFormData) => {
     props.onSubmit({
       name: data.address?.address,
-      company: {...data.company, licenseScan: data.licenseScan},
+      company: {...data.company, licenseScanId: data.licenseScan?.id},
       phones: data.phones?.map(i => Formatter.cleanPhone(i.phone)),
       location: data.location,
       address: data.address,
@@ -46,18 +46,19 @@ export default function DataStep(props: Props) {
   }
 
   const initialValues: IFormData = {
-    inn: null,
+    inn: props.receivingPoint?.company?.inn ?? null,
+    licenseScan: props.receivingPoint?.company.licenseScan ?? null,
     company: {
-      name: null,
-      inn: null,
-      kpp: null,
-      ogrn: null,
-      address: null,
-      legalType: null
+      name: props.receivingPoint?.company?.name ?? null,
+      inn: props.receivingPoint?.company?.inn ?? null,
+      kpp: props.receivingPoint?.company?.kpp ?? null,
+      ogrn: props.receivingPoint?.company?.ogrn ?? null,
+      address: props.receivingPoint?.company?.address ?? null,
+      legalType: props.receivingPoint?.company?.legalType ?? null
     },
-    address: null,
-    location: null,
-    phones: [{ phone: '' }],
+    address: props.receivingPoint?.address ?? null,
+    location: props.receivingPoint?.location ?? null,
+    phones: props.receivingPoint?.phones?.map(i => ({phone: i})) ?? [{ phone: '' }],
   }
 
   const formik = useFormik({
@@ -79,6 +80,7 @@ export default function DataStep(props: Props) {
   const handleToggleEditCompanyDetails = (isEdit: boolean) => {
     setIsCompanyDetailsEdit(isEdit)
   }
+  console.log('FormikValues', formik.values)
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
@@ -89,7 +91,7 @@ export default function DataStep(props: Props) {
           name='licenseScan'
           accept={[FileUploadAcceptType.Image, FileUploadAcceptType.Document]}
           label='Лицензия ломозаготовителя*'
-          validate={Validator.required}
+          validate={Validator.requiredFile}
           isImage={true}
           text={<div className={styles.text}>Перетащите сюда или <span>выберите фото</span> лицензии<br />
             ломозаготовителя на своем устройстве</div>}

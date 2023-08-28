@@ -7,6 +7,7 @@ import Tabs from '@/components/ui/Tabs'
 import DescField from '@/components/ui/DescField'
 import {IDeliveryArea} from '@/data/interfaces/IDeliveryArea'
 import Formatter from '@/utils/formatter'
+import {DeliveryPriceType} from '@/data/enum/DeliveryPriceType'
 
 interface Props {
   receivingPoint: IReceivingPoint
@@ -26,13 +27,16 @@ export default function DeliveryZonesViewCard(props: Props) {
     }), {} as OptionsMap)
     , [receivingPoint.deliveryAreas])
   const [filterRadius, setFilterRadius] = useState<number>(options.length > 0 ? (options[0].value ?? 0) : 0)
+  console.log('receivingPoint', receivingPoint.deliveryAreas)
 
-  return (
-    <ReceivingPointViewCard title='Зоны доставки'>
-      <div className={styles.root}>
-      <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>
-        <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}</div>}/>
-      </div>
-    </ReceivingPointViewCard>
-  )
+    return (
+      <ReceivingPointViewCard title={receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance  ? 'Зоны доставки' : 'Доставка'}>
+        <div className={styles.root}>
+          {receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>}
+          {receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}</div>}/>}
+          {receivingPoint.deliveryPriceType === DeliveryPriceType.Fixed && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(receivingPoint.deliveryPriceFixed)}</div>}/>}
+          {receivingPoint.hasLoading && <DescField label={'Стоимость погрузки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}</div>}/>}
+            </div>
+      </ReceivingPointViewCard>
+    )
 }

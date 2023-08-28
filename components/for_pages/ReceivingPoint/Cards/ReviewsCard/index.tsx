@@ -11,6 +11,9 @@ interface Props {
 const ReviewsViewCardInner = (props: Props) => {
   const reviewListContext = useReviewListContext()
 
+  if(reviewListContext.data.total === 0){
+    return null
+  }
   return (
     <ReceivingPointViewCard title='Отзывы'>
       <div className={styles.root}>

@@ -2,11 +2,10 @@ import Badge from '@/components/ui/Badge'
 import styles from './index.module.scss'
 import StarSvg from '@/components/svg/StarSvg'
 import { colors } from '@/styles/variables'
-import { formatInTimeZone } from 'date-fns-tz'
-import ru from 'date-fns/locale/ru'
 import Link from 'next/link'
 import {Routes} from '@/types/routes'
 import { IReceivingPoint } from '@/data/interfaces/IReceivingPoint'
+import Formatter from '@/utils/formatter'
 
 
 interface Props {
@@ -15,26 +14,8 @@ interface Props {
 
 export default function ReceivingPointSearchCard(props: Props) {
 
-  const date = new Date()
-  const timeZone = 'Europe/Moscow'
-  const hour = formatInTimeZone(date, timeZone, 'H', { locale: ru })
+  const openingStatus = props.item.workNow  ? 'Открыто сейчас' : (props.item.nextWorkTime ? `Откроется в ${Formatter.formatDateRelative(props.item.nextWorkTime!)}` : '')
 
-  const opens = Number(0)
-  const closes = Number(1)
-  const currentHour = Number(hour)
-
-  const openingTime = new Date()
-  openingTime.setHours(opens, 0, 0)
-
-  const closingTime = new Date()
-  closingTime.setHours(closes, 0, 0)
-
-  let openingStatus
-  if ((currentHour < opens || currentHour >= closes)) {
-    openingStatus = `Откроется в ${opens}:00`
-  } else {
-    openingStatus = 'Открыто сейчас'
-  }
 
   // format the opening time to display in the UI
 
@@ -61,9 +42,9 @@ export default function ReceivingPointSearchCard(props: Props) {
         <div className={styles.bottom}>
           <Badge active={props.item.hasDelivery} text='Есть доставка' />
           <Badge active={props.item.hasLoading} text='Есть погрузка' />
-          <Badge
-            active={props.item.workNow ? true : currentHour >= opens && currentHour < closes }
-            text={openingStatus} />
+          {openingStatus && <Badge
+            active={props.item.workNow}
+            text={openingStatus} />}
         </div>
       </div>
     </Link>

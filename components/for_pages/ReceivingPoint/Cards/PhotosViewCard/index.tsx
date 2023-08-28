@@ -7,6 +7,9 @@ interface Props {
 }
 
 export default function PhotosViewCard(props: Props) {
+  if(props.receivingPoint.photos?.length === 0){
+    return null
+  }
   return (
     <ReceivingPointViewCard title='Фотографии пункта приёма'>
       <ImageGallery images={props.receivingPoint.photos ?? []} modalTitle={'Фото пункта приема'}/>

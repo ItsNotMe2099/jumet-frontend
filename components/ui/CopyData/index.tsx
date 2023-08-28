@@ -19,10 +19,11 @@ export default function CopyData(props: Props) {
   const timerRef = useRef<any>(null)
   const [showCopied, setShowCopied] = useState(false)
   const handleCopy = () => {
-    navigator.clipboard.writeText(props.copyText ?? props.text)
+    navigator.clipboard.writeText(props.text)
     if (timerRef.current) {
       clearTimeout(timerRef.current)
     }
+
     setShowCopied(true)
     timerRef.current = setTimeout(() => {
       setShowCopied(false)

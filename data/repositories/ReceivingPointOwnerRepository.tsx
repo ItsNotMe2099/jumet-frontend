@@ -23,10 +23,11 @@ export default class ReceivingPointOwnerRepository {
     return res
   }
 
-  static async fetchById(id: number): Promise<IReceivingPoint> {
+  static async fetchById(id: number, token?: string): Promise<IReceivingPoint> {
     const res = await request<IReceivingPoint>({
       method: 'get',
       url: `/api/owner/receiving-point/${id}`,
+      token
     })
     return res
   }

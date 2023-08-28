@@ -16,6 +16,8 @@ import ChatOnPage from '@/components/for_pages/Common/ChatOnPage'
 import PhotosViewCard from '@/components/for_pages/ReceivingPoint/Cards/PhotosViewCard'
 import {UserRole} from '@/data/enum/UserRole'
 import ClientOnly from '@/components/visibility/ClientOnly'
+import ReceivingPointOwnerRepository from '@/data/repositories/ReceivingPointOwnerRepository'
+import {CookiesType} from '@/types/enums'
 
 interface Props {
   receivingPoint: IReceivingPoint;
@@ -51,18 +53,33 @@ export default function ReceivingPoint(props: Props) {
 
 export const getServerSideProps: GetServerSideProps<Props> = async (context) => {
   const id = parseInt(context.query?.slug as string, 10)
+  const hasPrivate = !!context.query.private
   try {
-    const receivingPoint = await ReceivingPointRepository.fetchById(id)
-    return {
-      props: {
-        receivingPoint,
-      } as Props
+    try {
+      let receivingPoint = await ReceivingPointRepository.fetchById(id)
+      if(!receivingPoint && hasPrivate){
+        const token = context.req.cookies[CookiesType.accessToken]
+        receivingPoint = await ReceivingPointOwnerRepository.fetchById(id, token)
+      }
+      return {
+        props: {
+          receivingPoint,
+        } as Props
+      }
+    } catch (e) {
+      if (hasPrivate) {
+        const receivingPoint = await ReceivingPointOwnerRepository.fetchById(id)
+        console.log('receivingPoint1111', receivingPoint)
+        return {
+          props: {
+            receivingPoint,
+          } as Props
+        }
+      }
+      throw e
     }
-  } catch (e) {
-    console.error(e)
-    return {
-      notFound: true
-    }
+  }catch (e) {
+    return {notFound: true} as  { notFound: true }
   }
 
 }

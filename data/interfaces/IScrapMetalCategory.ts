@@ -5,4 +5,5 @@ export interface IScrapMetalCategory {
   category: ScrapMetalCategory
   name: string
   description: string
+  synonymIds: number[]
 }

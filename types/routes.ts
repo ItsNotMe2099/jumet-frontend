@@ -62,6 +62,9 @@ export class Routes {
   static get lkProfileSettings() {
     return '/lk/profile-settings'
   }
+  static get lkApiSettings() {
+    return '/lk/api-settings'
+  }
   static get lkMyRepresentatives() {
     return '/lk/representatives'
   }

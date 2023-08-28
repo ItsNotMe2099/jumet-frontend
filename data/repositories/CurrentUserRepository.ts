@@ -12,6 +12,21 @@ export default class CurrentUserRepository {
     })
     return res
   }
+  static async getApiToken(): Promise<string> {
+    const res = await request<string>({
+      method: 'get',
+      url: '/api/current-user/api-token',
+    })
+    return res
+  }
+
+  static async regenerateApiToken(): Promise<string> {
+    const res = await request<string>({
+      method: 'put',
+      url: '/api/current-user/regenerate-api-token',
+    })
+    return res
+  }
 
   static async deletePassportData(): Promise<IUser> {
     const res = await request<IUser>({

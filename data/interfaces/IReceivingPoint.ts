@@ -40,5 +40,6 @@ export interface IReceivingPoint {
   distance: number;
   workNow: boolean;
   price: number;
-  createdAt: Date;
+  createdAt: string;
+  nextWorkTime?: string
 }
