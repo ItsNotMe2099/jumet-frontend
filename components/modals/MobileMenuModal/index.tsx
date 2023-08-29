@@ -20,6 +20,7 @@ import {useRouter} from 'next/router'
 import {Nullable} from '@/types/types'
 import UserSvg from '@/components/svg/UserSvg'
 import classNames from 'classnames'
+import GraphSvg from '@/components/svg/GraphSvg'
 
 enum MenuKey {
   Logout = 'logout'
@@ -34,7 +35,8 @@ enum MenuIcon {
   User = 'user',
   Cash = 'cash',
   Logout = 'logout',
-  Login = 'login'
+  Login = 'login',
+  Graph = 'graph'
 
 }
 
@@ -72,6 +74,8 @@ const MenuItem = (props: IMenuOption & { onClick: () => void }) => {
         return <UserSvg color={iconColor}/>
       case MenuIcon.Map:
         return <MapsSvg color={iconColor}/>
+      case MenuIcon.Graph:
+        return <GraphSvg color={iconColor}/>
 
     }
   }
@@ -144,6 +148,7 @@ const MobileMenuModalInner = (props: Props) => {
       {link: Routes.lkMyRepresentatives, label: 'Доверители', icon: MenuIcon.Users},
     ] : [
       {link: Routes.lkReceivingPoints, label: 'Мои пункты приема', icon: MenuIcon.Map},
+      {link: Routes.lkCrmMain, label: 'Статистика', icon: MenuIcon.Graph},
       {link: Routes.lkEmployees, label: 'Сотрудники', icon: MenuIcon.Users},
       {link: Routes.lkPayment, label: 'Оплата сервиса', icon: MenuIcon.Cash},
     ]),

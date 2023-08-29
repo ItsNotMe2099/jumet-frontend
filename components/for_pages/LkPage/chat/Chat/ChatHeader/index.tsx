@@ -59,12 +59,14 @@ export default function ChatHeader(props: Props) {
       {getChatName(type)}
     </div>
   }
+  console.log('ChatType', chatNameType, props.title)
   return (<div className={styles.root}>
       <div className={styles.colLeft}>
         <div className={styles.title}>   {props.hasBack && props.onBackClick &&
           <BackButton className={styles.back} onClick={props.onBackClick}>Назад</BackButton>}
-          {!props.showBothChatNames && chatNameType && renderChatNameType(chatNameType)}
-          {props.showBothChatNames && <div
+          {props.title && <div className={styles.name}>{props.title}</div>}
+          {!props.title && !props.showBothChatNames && chatNameType && renderChatNameType(chatNameType)}
+          {!props.title && props.showBothChatNames && <div
             className={styles.names}>{renderChatNameType(ChatNameType.ReceivingPoint)}{renderChatNameType(ChatNameType.Seller)}</div>}
         </div>
       </div>

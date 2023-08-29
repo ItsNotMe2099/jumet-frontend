@@ -10,7 +10,7 @@ export default class WeightUtils {
     if (!value) {
       return UnitWeight.Ton
     }
-    return value >= 1000 && value % 1000 === 0 ? UnitWeight.Ton : UnitWeight.Kg
+    return value >= 1000  ? UnitWeight.Ton : UnitWeight.Kg
   }
 
   static formatWeight(weight: number): string {

@@ -1,7 +1,7 @@
 import styles from './index.module.scss'
 import { useField} from 'formik'
 import classNames from 'classnames'
-import {ReactElement, useEffect, useState} from 'react'
+import {ReactElement, useEffect, useRef, useState} from 'react'
 import {FieldValidator} from 'formik/dist/types'
 import {useIMask} from 'react-imask'
 import {AsYouType, isValidPhoneNumber} from 'libphonenumber-js'
@@ -17,7 +17,7 @@ import SearchSvg from '@/components/svg/SearchSvg'
 import ClearSvg from '@/components/svg/ClearSvg'
 
 export type InputValueType<T> = T | null | undefined
-type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv' | 'number' | 'price' | 'weight'
+type FormatType = 'phone' | 'phoneAndEmail' | 'cardExpiry' | 'cardPan' | 'cardCvv' | 'number' | 'price' | 'weight' | 'decimal'
 
 export interface InputFieldProps<T> extends IField<InputValueType<T>> {
   obscure?: boolean
@@ -34,6 +34,7 @@ export interface InputFieldProps<T> extends IField<InputValueType<T>> {
   noAutoComplete?: boolean
   max?: number,
   min?: number
+  scale?: number
   resettable?: boolean
   formatValue?: (val: InputValueType<T>) => InputValueType<T>
   parseValue?: (val: InputValueType<T>) => InputValueType<T>
@@ -53,7 +54,7 @@ const getInitialPatternFromFormat = (format: FormatType | undefined) => {
       case 'number':
       case 'price':
       case 'weight':
-        return Number
+        return 'd'
       case 'cardPan':
         return defaultCardPanPattern
       case 'cardCvv':
@@ -71,10 +72,12 @@ export default function InputField<T extends string | number>(props: InputFieldP
   const [phoneIsValid, setPhoneIsValid] = useState(false)
   const [pattern, setPattern] = useState<string | null | NumberConstructor>(getInitialPatternFromFormat(props.format))
   const showError = meta.touched && !!meta.error && !focused
+  const decimalStartTyping = useRef<boolean>(false)
   const formatValue = (value: InputValueType<T>) => {
     return props.formatValue ? props.formatValue(value) : value
   }
   const parseValue = (value: InputValueType<T>) => {
+    console.log('P1parseValue', value, props.parseValue?.(value))
     return props.parseValue ? props.parseValue(value) : value
   }
 
@@ -85,7 +88,10 @@ export default function InputField<T extends string | number>(props: InputFieldP
       case 'number':
       case 'price':
       case 'weight':
-        return value ? parseInt(`${value}`.replace(/\D+/g, ''), 10) : null
+        return value || value === '0' ? parseInt(`${value}`.replace(/\D+/g, ''), 10) : null
+      case 'decimal':
+        return value || value === '0' ? parseFloat(`${value}`) : null
+
       case 'cardExpiry':
       case 'cardPan':
       case 'cardCvv':
@@ -94,12 +100,31 @@ export default function InputField<T extends string | number>(props: InputFieldP
         return value
     }
   }
-  const {ref, maskRef} = useIMask({mask: pattern as any || /.*/, ...(props.format && ['number', 'price', 'weight'].includes(props.format) ? {
+
+  const {ref, maskRef} = useIMask({mask: pattern as any || /.*/, ...(props.format && ['number', 'price', 'weight', 'decimal'].includes(props.format) ? {
       mask: Number,
       max: props.max ?? 10000000,
       min: props.min ?? 0,
+      ...(props.format === 'decimal' ? {
+        normalizeZeros: false,
+        padFractionalZeros: false,
+        radix: '.',
+        mapToRadix: [','],
+        scale: props.scale ?? 3
+      } : {}),
 
     } : {})}, {onAccept: (value) => {
+      if(props.format === 'decimal'){
+        const valueStr = `${value}`
+        if([',', '.'].includes(valueStr[valueStr.length - 1]) || (valueStr.length > 2 && valueStr.slice(-2) === '.0')){
+          console.log('Set111')
+          decimalStartTyping.current = true
+        }else{
+          console.log('Set111000')
+          decimalStartTyping.current = false
+
+        }
+      }
       const formatted = formatValue(formatValueByType(props.format!, value as any  as InputValueType<T>) as InputValueType<T>)
       helpers.setValue(formatted)
       props.onChange?.(formatted)
@@ -205,7 +230,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
           )}
           <input
             name={field.name}
-            value={`${parseValue(field.value) ?? ''}`}
+            value={(props.format === 'decimal' && decimalStartTyping.current) ? undefined : `${parseValue(field.value) ?? ''}`}
             disabled={props.disabled}
             ref={props.format && ref as any}
             type={props.obscure ? (obscureShow ? 'text' : 'password') : props.type ?? 'text'}
@@ -217,6 +242,7 @@ export default function InputField<T extends string | number>(props: InputFieldP
               [styles.withClear]: props.resettable && !!field.value,
             })}
             {...!props.format ? {onChange: (e) => {
+
               const formatted = formatValue(e.currentTarget.value as InputValueType<T>)
               helpers.setValue(formatted)
               props.onChange?.(formatted)

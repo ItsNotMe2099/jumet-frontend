@@ -25,7 +25,7 @@ export default function WeightWithUnitField(props: Props) {
         helpers.setValue(field.value)
         break
       case UnitWeight.Ton:
-       helpers.setValue((field.value ?? 0) % 1000 > 0 ? Math.floor((field.value ?? 0) /1000) * 1000 : field.value)
+       helpers.setValue((field.value ?? 0) % 1000 > 0 ? ((field.value ?? 0) /1000) * 1000 : field.value)
     }
 
 
@@ -36,29 +36,30 @@ export default function WeightWithUnitField(props: Props) {
                                     />)
 
   const formatValue = (value: InputValueType<number>) => {
-    if(!value){
+    console.log('Value1100', value, Math.round(value! * 1000))
+    if(value === null){
       return null
     }
     switch (unit){
       case UnitWeight.Kg:
         return value
       case UnitWeight.Ton:
-        return value! * 1000
+        return Math.round(value! * 1000)
     }
   }
 
   const parseValue = (value: InputValueType<number>): InputValueType<number> => {
-    if(!value){
+    if(value === null){
       return
     }
     switch (unit){
       case UnitWeight.Kg:
         return value
       case UnitWeight.Ton:
-        return value / 1000
+        return value! / 1000
     }
   }
     return (
-  <WeightField resettable={props.resettable ?? false} name={props.name} label={props.label ?? ''} formatValue={formatValue} parseValue={parseValue} suffix={dropDown} />)
+  <WeightField resettable={props.resettable ?? false} name={props.name} label={props.label ?? ''} formatValue={formatValue} parseValue={parseValue} suffix={dropDown} format={unit === UnitWeight.Kg ? 'number' : 'decimal'} />)
 }
 

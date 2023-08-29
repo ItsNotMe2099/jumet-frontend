@@ -21,6 +21,7 @@ import classNames from 'classnames'
 import {useNotificationContext} from '@/context/notifications_state'
 import {NotificationType} from '@/data/interfaces/INotification'
 import NotificationBadge from '@/components/ui/NotificationBadge'
+import GraphSvg from '@/components/svg/GraphSvg'
 
 interface IMenuOption {link: string, label: string, badge?: number | null}
 interface Props {
@@ -106,7 +107,8 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
           <div className={styles.right}>
             {appContext.isLogged && <div className={styles.userButtons}>
               <IconButton href={Routes.lkChat()} bgColor={'dark400'} badge={<NotificationBadge className={styles.badgeOnIcon} color={'blue'} total={badgeChat}/>}><ChatSvg color={colors.white}/></IconButton>
-              <IconButton href={Routes.lkFavorites} bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>
+              {appContext.aboutMe?.role === UserRole.Seller && <IconButton href={Routes.lkFavorites} bgColor={'dark400'}><BookmarkSvg color={colors.white}/></IconButton>}
+              {appContext.aboutMe?.role === UserRole.Buyer && <IconButton href={Routes.lkCrmMain} bgColor={'dark400'}><GraphSvg color={colors.white}/></IconButton>}
               <ProfileMenu/>
             </div>}
             {appContext.isLogged && appContext.aboutMe?.role === UserRole.Buyer &&
