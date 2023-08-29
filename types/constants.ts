@@ -7,6 +7,7 @@ export const LINKS = {
   vk: ''
 }
 
+export const SITE_NAME = 'Лом маркет'
 
 export const CookiesLifeTime: {
   accessToken: number,

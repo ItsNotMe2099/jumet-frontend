@@ -13,9 +13,9 @@ services:
           args:
             - ENV_FILE=.env.prod
         volumes:
-          - /srv/jumet-frontend/cache:/usr/src/app/.next/cache
+          - /srv/lommarket-frontend/cache:/usr/src/app/.next/cache
         image: ${APP_IMAGE}
-        container_name: jumet-front-app
+        container_name: lommarket-front-app
         restart: ${DK_RESTART}
         networks:
           - app
@@ -26,7 +26,7 @@ services:
           args:
             - APP_IMAGE=${APP_IMAGE}
         image: ${NGINX_IMAGE}
-        container_name: jumet-front-nginx
+        container_name: lommarket-front-nginx
         restart: ${DK_RESTART}
         ports:
           - "80:80"

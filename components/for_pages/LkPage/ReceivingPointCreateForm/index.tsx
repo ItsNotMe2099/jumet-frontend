@@ -18,6 +18,7 @@ import {ReceivingPointStatus} from '@/data/enum/ReceivingPointStatus'
 import ApproveStep from '@/components/for_pages/LkPage/ReceivingPointCreateForm/components/ApproveStep'
 import ReceivingPointStepLayout
   from '@/components/for_pages/LkPage/ReceivingPointCreateForm/components/ReceivingPointStepLayout'
+import {SITE_NAME} from '@/types/constants'
 
 
 enum FormStep {
@@ -47,7 +48,7 @@ const initialSteps: IFormStep<FormStep>[] = [
   },
   {
     name: 'Персонал',
-    description: 'Добавьте доступ к Jumet для сотрудников пункта приёма',
+    description: `Добавьте доступ к ${SITE_NAME} для сотрудников пункта приёма`,
     key: FormStep.Users
   },
   {

@@ -4,6 +4,7 @@ import ChevronDownSvg from '@/components/svg/ChevronDownSvg'
 import {Routes} from '@/types/routes'
 import LkMenu from '@/components/for_pages/LkPage/layout/LkMenu'
 import { useReceivingPointListContext} from '@/context/receiving_point_list_state'
+import {SITE_NAME} from '@/types/constants'
 
 enum MenuItemType {
   Exit = 'exit',
@@ -37,7 +38,7 @@ const LkBuyerMenuInner = (props: Props)  => {
     },
     {name: 'Сотрудники', link: Routes.lkEmployees},
     {name: 'Статистика', link: Routes.lkCrmMain},
-    {name: 'Оплата сервиса Jumet', link: Routes.lkPayment},
+    {name: `Оплата сервиса ${SITE_NAME}`, link: Routes.lkPayment},
     {name: 'API', link: Routes.lkApiSettings},
 
     {name: 'Выход', key: MenuItemType.Exit, icon: <LogoutSvg color={colors.dark500}/>},

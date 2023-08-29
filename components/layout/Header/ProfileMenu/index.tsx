@@ -14,6 +14,7 @@ import UsersSvg from '@/components/svg/UsersSvg'
 import CashSvg from '@/components/svg/CashSvg'
 import LogoutSvg from '@/components/svg/LogoutSvg'
 import {Routes} from '@/types/routes'
+import {SITE_NAME} from '@/types/constants'
 
 interface Option {
   label: string
@@ -46,7 +47,7 @@ export default function ProfileMenu(props: Props) {
       { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
       { icon: <MapsSvg color={colors.white} />, label: 'Мои пункты приема', key: ActionType.ReceivingPoints },
       { icon: <UsersSvg color={colors.white} />, label: 'Сотрудники', key: ActionType.Employees },
-      { icon: <CashSvg color={colors.white} />, label: 'Оплата сервиса Jumet', key: ActionType.Payment },
+      { icon: <CashSvg color={colors.white} />, label: `Оплата сервиса ${SITE_NAME}`, key: ActionType.Payment },
       { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
     ]
 

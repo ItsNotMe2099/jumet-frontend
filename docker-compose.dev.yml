@@ -13,7 +13,7 @@ services:
           args:
             - ENV_FILE=.env.dev
         image: ${APP_IMAGE}
-        container_name: jumet-front-app
+        container_name: lommarket-front-app
         restart: ${DK_RESTART}
         logging:
           driver: 'json-file'
@@ -29,7 +29,7 @@ services:
           args:
             - APP_IMAGE=${APP_IMAGE}
         image: ${NGINX_IMAGE}
-        container_name: jumet-front-nginx
+        container_name: lommarket-front-nginx
         logging:
           driver: 'json-file'
           options:
@@ -42,9 +42,7 @@ services:
         depends_on:
           - app
         environment:
-          API_HOST: http://jumet-api-nginx
-          ADMIN_HOST: http://jumet-admin
-          VIRTUAL_HOST: jumet.dev.glob-com.ru
+          API_HOST: http://lommarket-api-nginx
+          ADMIN_HOST: http://lommarket-admin
+          VIRTUAL_HOST: dev.lommarket.com
           VIRTUAL_PORT: 80
-          LETSENCRYPT_HOST: jumet.dev.glob-com.ru
-          LETSENCRYPT_EMAIL: sites.globcom@yandex.ru

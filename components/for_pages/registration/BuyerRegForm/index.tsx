@@ -13,6 +13,7 @@ import { useRouter } from 'next/router'
 import { useState } from 'react'
 import { useAppContext } from '@/context/state'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import {SITE_NAME} from '@/types/constants'
 
 interface Props {
   onComplete: (data?: { email: string }) => void
@@ -68,7 +69,7 @@ export default function BuyerRegForm(props: Props) {
           Зарегистрироваться
         </Button>
         <Already
-          topText='Уже есть аккаунт на Jumet?'
+          topText={`Уже есть аккаунт на ${SITE_NAME}?`}
           btnText='Войти'
           link={Routes.login()} />
       </Form>

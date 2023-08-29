@@ -1,7 +1,7 @@
 - hosts: web
   vars_files:
   vars:
-    image_name: jumet-frontend
+    image_name: lommarket-frontend
     base_path: "/var/www/{{ image_name }}"
     release_path: "{{ base_path }}/releases"
     work_path: "{{ release_path }}/{{ CI_COMMIT_SHA }}"

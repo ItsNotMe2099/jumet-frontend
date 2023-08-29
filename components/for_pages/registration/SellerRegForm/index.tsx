@@ -15,6 +15,7 @@ import {OtpCodeModalArguments} from '@/types/modal_arguments'
 import {useRouter} from 'next/router'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import {SITE_NAME} from '@/types/constants'
 
 
 interface Props {
@@ -90,7 +91,7 @@ export default function SellerRegForm(props: Props) {
           Зарегистрироваться
         </Button>
         <Already
-          topText='Уже есть аккаунт на Jumet?'
+          topText={`Уже есть аккаунт на ${SITE_NAME}?`}
           btnText='Войти'
           link={Routes.login()} />
       </Form>

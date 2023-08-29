@@ -14,6 +14,7 @@ import { RequestError } from '@/types/types'
 import { useAppContext } from '@/context/state'
 import { Routes } from '@/types/routes'
 import { useRouter } from 'next/router'
+import {SITE_NAME} from '@/types/constants'
 
 
 interface Props {
@@ -95,7 +96,7 @@ export default function LoginForm(props: Props) {
         </Button>
         <Already
           btnClassName={styles.alreadyBtn}
-          topText='Нет аккаунта на Jumet?'
+          topText={`Нет аккаунта на ${SITE_NAME}?`}
           btnText='Зарегистрироваться'
           link={Routes.registration}
         />
