@@ -65,16 +65,18 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   const handleSubmit = () => {
 
   }
+
   const formik = useFormik<IFormData>({
     initialValues,
     onSubmit: handleSubmit
   })
+  const modified = formik.dirty
   useImperativeHandle(
     ref,
     () => ({
       clear() {
        formik.resetForm()
-      }
+      }, modified
     }),
   )
   const handleToggleMobileFilter = () => {

@@ -89,6 +89,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
   }
 }
 
@@ -136,4 +137,16 @@
 
 .km {
   padding-right: 48px;
+}
+
+.btns {
+  display: flex;
+  @include list(8px, true);
+
+
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(8px, false);
+    width: 100%;
+  }
 }

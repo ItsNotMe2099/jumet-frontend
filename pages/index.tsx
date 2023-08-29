@@ -1,7 +1,7 @@
 import Layout from '@/components/layout/Layout'
 import styles from './index.module.scss'
 import Banner from '@/components/for_pages/MainPage/Banner'
-import {useRef, useState} from 'react'
+import { useRef, useState } from 'react'
 import classNames from 'classnames'
 import VisibleXs from '@/components/visibility/VisibleXs'
 import ReceivingPointSearchCard from '@/components/for_pages/MainPage/ReceivingPointSearchCard'
@@ -14,10 +14,10 @@ import Formatter from '@/utils/formatter'
 import SortToggleButton from '@/components/ui/Buttons/SortToggleButton'
 import ContentLoader from '@/components/ui/ContentLoader'
 import InfiniteScroll from 'react-infinite-scroll-component'
-import {SortOrder} from '@/types/enums'
+import { SortOrder } from '@/types/enums'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
-import {SaleRequestsFilterRef} from '@/components/for_pages/scrap-for-sale/Filter'
+import { SaleRequestsFilterRef } from '@/components/for_pages/scrap-for-sale/Filter'
 
 const IndexWrapper = () => {
   const appContext = useAppContext()
@@ -27,6 +27,7 @@ const IndexWrapper = () => {
   const handleClearFilter = () => {
     filterRef.current?.clear()
   }
+
   return (
     <Layout>
       <div className={styles.root}>
@@ -46,25 +47,30 @@ const IndexWrapper = () => {
               <div className={classNames(styles.total, styles.nonePhone)}>
                 {searchContext.data?.total ?? 0} {Formatter.pluralize(searchContext.data?.total ?? 0, 'пункт', 'пункта', 'пунктов')} приема
               </div>
-            <SortToggleButton fluid={appContext.isMobile} value={searchContext.sortOrder} onSelect={searchContext.setSortOrder} labels={{
-              [SortOrder.Desc]: 'Вначале с большей ценой', [SortOrder.Asc] : 'Вначале с меньшей ценой'
-            }}/>
+              <div className={styles.btns}>
+                {filterRef.current?.modified && searchContext.data.total > 0 && <Button onClick={handleClearFilter} styleType='small' color='blue'>
+                  Очистить фильтр
+                </Button>}
+                <SortToggleButton fluid={appContext.isMobile} value={searchContext.sortOrder} onSelect={searchContext.setSortOrder} labels={{
+                  [SortOrder.Desc]: 'Вначале с большей ценой', [SortOrder.Asc]: 'Вначале с меньшей ценой'
+                }} />
+              </div>
             </div>
-            {!searchContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
-            {searchContext.isLoaded && searchContext.data.total === 0 &&
-              <EmptyStub title={'Ничего не найдено'} text={'Мы не смогли найти пункты приема удолетворяющие условиям поиска. Попробуйте изменить условия'} actions={ <Button onClick={handleClearFilter} styleType='large' color='blue'>
+            {!searchContext.isLoaded && <ContentLoader isOpen style={'block'} />}
+            {searchContext.isLoaded && searchContext.data.total == 0 &&
+              <EmptyStub title={'Ничего не найдено'} text={'Мы не смогли найти пункты приема удолетворяющие условиям поиска. Попробуйте изменить условия'} actions={filterRef.current?.modified ? <Button onClick={handleClearFilter} styleType='large' color='blue'>
                 Очистить фильтр
-              </Button>}/>}
+              </Button> : <></>} />}
             <InfiniteScroll
               dataLength={searchContext.data.data.length}
               next={searchContext.fetchMore}
-              style={{overflow: 'inherit'}}
+              style={{ overflow: 'inherit' }}
               loader={searchContext.data.total > 0 ?
-                <ContentLoader style={'infiniteScroll'} isOpen={true}/> : null}
+                <ContentLoader style={'infiniteScroll'} isOpen={true} /> : null}
               hasMore={searchContext.data.total > searchContext.data.data.length}
               scrollThreshold={0.6}>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index}/>)}
+                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
                 <VisibleXs>
                   <Banner />
                 </VisibleXs>

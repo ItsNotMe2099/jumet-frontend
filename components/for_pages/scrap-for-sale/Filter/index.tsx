@@ -27,6 +27,7 @@ import {debounce} from 'debounce'
 
 export interface SaleRequestsFilterRef {
   clear(): void
+  modified?: boolean
 }
 interface IFormData extends ISaleRequestSearchRequest {
   id: number | null
