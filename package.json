@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@appigram/react-yandex-metrika": "^2.8.4",
     "@ernestorb/useposition": "^3.0.1",
     "@jukben/emoji-search": "^2.0.1",
     "@nestjsx/crud": "^5.0.0-alpha.3",

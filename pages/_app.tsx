@@ -22,6 +22,9 @@ import {FavoriteWrapper} from '@/context/favorite_state'
 import {NextPage} from 'next'
 import {NotificationWrapper} from '@/context/notifications_state'
 import {ReceivingPointListWrapper} from '@/context/receiving_point_list_state'
+import {YMInitializer} from '@appigram/react-yandex-metrika'
+import {runtimeConfig} from '@/config/runtimeConfig'
+import ClientOnly from '@/components/visibility/ClientOnly'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -49,6 +52,18 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
     <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
+      <ClientOnly>
+      <YMInitializer
+        accounts={[runtimeConfig.YA_METRIKA_ID]}
+        version="2"
+        options={{
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true,
+          trackHash: true,
+        }} />
+      </ClientOnly>
       <AuthWrapper>
         <DataWrapper scrapMetalCategories={[]}>
           <ReceivingPointListWrapper>

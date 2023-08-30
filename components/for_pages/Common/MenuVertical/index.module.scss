@@ -24,17 +24,27 @@
     width: 4px;
   }
 }
-
+.menuHeader, .menuItem{
+  padding-left: 40px !important;
+}
 .content{
   .menuHeader{
-    padding-left: 40px;
+    padding-left: 60px !important;
   }
   .menuItem{
-    padding-left: 20px;
+    padding-left: 60px !important;
   }
   .content{
+    .menuHeader{
+      padding-left: 80px !important;
+    }
     .menuItem{
-      padding-left: 60px;
+      padding-left: 80px !important;
+    }
+    .content{
+      .menuItem{
+        padding-left: 100px !important;
+      }
     }
   }
 }

@@ -27,12 +27,12 @@ export default function MenuHeader(props: Props) {
 
   }
   const content = (<>
-    <div className={styles.label} style={{color: props.color}}>
-      {props.title}
-    </div>
     {props.hasChildren && <div className={styles.arrow}>
       <ChevronDownSvg color={colors.grey500}/>
     </div>}
+    <div className={styles.label} style={{color: props.color}}>
+      {props.title}
+    </div>
   </>)
 
   const classes = classNames(styles.root, {[styles.opened]: props.isOpen, [styles.active]: props.isActive}, props.className)

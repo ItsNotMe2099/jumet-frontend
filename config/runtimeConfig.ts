@@ -9,6 +9,7 @@ interface IRuntimeConfig {
   MAP_KEY: string
   CACHE_TIME_HOURS: number
   DADATA_KEY: string
+  YA_METRIKA_ID: number
 }
 
 interface IServerRuntimeConfig {
