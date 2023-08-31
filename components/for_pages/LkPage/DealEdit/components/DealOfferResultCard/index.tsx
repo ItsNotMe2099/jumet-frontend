@@ -24,8 +24,8 @@ export default function DealOfferResultCard(props: Props) {
       <div className={styles.root}>
         <div className={styles.badges}>
           {dealOffer.price && <Badge active text={Formatter.formatPrice(dealOffer.price, '₽/т')} />}
-          {dealOffer.deliveryPrice !== null && <Badge active text={`Доставка – ${dealOffer.deliveryPrice > 0 ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : 'бесплатно'}`} />}
-          {dealOffer.loadingPrice !== null && <Badge active text={`Погрузка – ${dealOffer.loadingPrice > 0 ? Formatter.formatPrice(dealOffer.loadingPrice, '₽/т') : 'бесплатно'}`} />}
+          {dealOffer.deliveryPrice !== null && <Badge active text={`Доставка – ${dealOffer.deliveryPrice > 0 ? Formatter.formatPrice(dealOffer.deliveryPrice, '₽/т') : dealOffer.deliveryPrice  === 0 ? 'бесплатно' : 'не нужна'}`} />}
+          {dealOffer.loadingPrice !== null && <Badge active text={`Погрузка – ${dealOffer.loadingPrice > 0 ? Formatter.formatPrice(dealOffer.loadingPrice, '₽/т') : dealOffer.loadingPrice  === 0 ? 'бесплатно' : 'не нужна'}`} />}
         </div>
         <DescField label={'Покупатель'} value={deal.receivingPoint?.company?.name}/>
         <DescField label={'Адрес пункта приёма'} value={deal.receivingPoint?.address?.address}/>

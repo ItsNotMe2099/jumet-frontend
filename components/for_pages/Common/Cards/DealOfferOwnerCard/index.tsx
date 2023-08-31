@@ -106,10 +106,10 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
               {dealOffer?.price ? `${Formatter.formatPrice(dealOffer.price, '₽/т')}` : 'Цена не указана'}
             </div>
             <div className={styles.badge}>
-              Доставка - {dealOffer?.deliveryPrice ? `${Formatter.formatPrice(dealOffer?.deliveryPrice, '₽/т')}` : 'бесплатно'}
+              Доставка - {dealOffer?.deliveryPrice ? `${Formatter.formatPrice(dealOffer?.deliveryPrice, '₽/т')}` : dealOffer?.deliveryPrice === 0  ? 'бесплатно' : 'не нужна'}
             </div>
             <div className={styles.badge}>
-              Погрузка - {dealOffer?.loadingPrice ? `${Formatter.formatPrice(dealOffer?.loadingPrice, '₽/т')}` : 'бесплатно'}
+              Погрузка - {dealOffer?.loadingPrice ? `${Formatter.formatPrice(dealOffer?.loadingPrice, '₽/т')}` : dealOffer?.loadingPrice === 0  ? 'бесплатно' : 'не нужна'}
             </div>
           </div>
           <div className={styles.cover}>
