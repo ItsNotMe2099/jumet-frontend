@@ -21,7 +21,7 @@ export default function PasswordForgotPage() {
         onClick={(type) => setType(type)}
         items={[
           {label: 'Продавец лома', value: LoginType.Seller},
-          {label: 'Ломазаготовитель', value: LoginType.Buyer},
+          {label: 'Ломозаготовитель', value: LoginType.Buyer},
         ]}
       />
       <div className={styles.form}>

@@ -68,7 +68,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
     <FormikProvider value={formik}>
       <Form className={styles.form}>
         <FormErrorScroll formik={formik} />
-        <div className={styles.switches}>
+    <div className={styles.switches}>
           <SwitchField name='hasDelivery' label='Есть доставка'/>
           <SwitchField name='hasLoading' label='Есть погрузка'/>
         </div>
@@ -79,7 +79,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
         {formik.values.hasLoading &&
           <PriceField name={'loadingPrice'} label={'Стоимость погрузки'} suffix={'₽/т'} validate={Validator.required}/>}
         {formik.values.hasLoading && formik.values.hasDelivery && <div className={styles.line}/>}
-        <TabsField<DeliveryPriceType>
+        {formik.values.hasDelivery && <TabsField<DeliveryPriceType>
           name={'deliveryPriceType'}
           styleType={'filter'}
           options={[
@@ -92,7 +92,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
               value: DeliveryPriceType.ByDistance,
             },
           ]}
-        />
+        />}
         {formik.values.hasDelivery && <div className={styles.title}>Условия доставки</div>}
         {formik.values.hasDelivery && formik.values.deliveryPriceType === DeliveryPriceType.Fixed &&
           <PriceField name={'deliveryPriceFixed'} label={'Стоимость доставки'} suffix={'₽/т'}

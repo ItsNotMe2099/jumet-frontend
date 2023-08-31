@@ -1,12 +1,12 @@
 import styles from './index.module.scss'
-import { Form, FormikProvider, useFormik } from 'formik'
+import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import { ModalType, SnackbarType} from '@/types/enums'
+import {Goal, ModalType, SnackbarType} from '@/types/enums'
 import PhoneField from '@/components/fields/PhoneField'
 import Already from '@/components/for_pages/Common/Already'
-import { useAppContext } from '@/context/state'
-import { useAuthContext } from '@/context/auth_state'
+import {useAppContext} from '@/context/state'
+import {useAuthContext} from '@/context/auth_state'
 import {RequestError} from '@/types/types'
 import {Routes} from '@/types/routes'
 import {useState} from 'react'
@@ -16,6 +16,8 @@ import {useRouter} from 'next/router'
 import {IAuthResponse} from '@/data/interfaces/IAuthResponse'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
 import {SITE_NAME} from '@/types/constants'
+import Analytics from '@/utils/goals'
+import {UserRole} from '@/data/enum/UserRole'
 
 
 interface Props {
@@ -31,6 +33,7 @@ export default function SellerRegForm(props: Props) {
 
   const redirect = router.query.redirect as string
   const handleCodeConfirmed = async (res: IAuthResponse) => {
+    Analytics.goal(Goal.AuthReg, {role: UserRole.Seller})
     appContext.setToken(res.accessToken)
    const  user = await appContext.updateAboutMe()
     appContext.hideModal()

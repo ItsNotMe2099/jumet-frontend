@@ -65,7 +65,7 @@ export default function ReceivingPointCompanyForm(props: Props) {
           styleType={'default'}
           name={'legalType'}
           label='Форма собственности'
-          options={[{label: 'Юридическиео лицо', value: LegalType.LegalEntity},
+          options={[{label: 'Юридическое лицо', value: LegalType.LegalEntity},
             {label: 'Индивидуальный предприниматель', value: LegalType.Ip}]}
           validate={Validator.required}/>
         <AddressField

@@ -59,7 +59,7 @@ export default function PricesViewCard(props: Props) {
       </div>
 
       {!price.priceDependsOnWeight && deliveryAreaNames.length === 0 && <DescField label={'Самовывоз продавцом'} value={Formatter.formatDeliveryPrice(switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents) : price.price)}/>}
-        {price.priceDependsOnWeight   && <PricingTable headerRow={{cells: [
+        {price.priceDependsOnWeight && deliveryAreaNames.length > 0   && <PricingTable headerRow={{cells: [
             {value: 'Вес лома'},
             {value: 'Самовывоз продавцом'},
             ...deliveryAreaNames?.map(a => ({value: a.label})),
@@ -70,7 +70,7 @@ export default function PricesViewCard(props: Props) {
             ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(i.price, price.rubbishInPercents) : i.price) + (deliveryAreaMap[a.value!]?.price ?? 0))})),
           ]
         })) ?? []}/>}
-        {!price.priceDependsOnWeight && <PricingTable headerRow={{cells: [
+        {!price.priceDependsOnWeight  && deliveryAreaNames.length > 0  && <PricingTable headerRow={{cells: [
             {value: 'Самовывоз продавцом'},
             ...deliveryAreaNames?.map(a => ({value: a.label})),
           ]}}  data={[{

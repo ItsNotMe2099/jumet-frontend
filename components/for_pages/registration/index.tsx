@@ -44,7 +44,7 @@ export default function RegPage(props: Props) {
         onClick={(type) => setType(type)}
         items={[
           {label: 'Продавец лома', value: RegType.Seller},
-          {label: 'Ломазаготовитель', value: RegType.Buyer},
+          {label: 'Ломозаготовитель', value: RegType.Buyer},
         ]}
       />
 

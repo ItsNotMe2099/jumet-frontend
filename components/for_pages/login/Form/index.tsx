@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import { LoginType, SnackbarType } from '@/types/enums'
+import {Goal, LoginType, SnackbarType} from '@/types/enums'
 import Link from 'next/link'
 import Already from '../../Common/Already'
 import PhoneField from '@/components/fields/PhoneField'
@@ -15,6 +15,7 @@ import { useAppContext } from '@/context/state'
 import { Routes } from '@/types/routes'
 import { useRouter } from 'next/router'
 import {SITE_NAME} from '@/types/constants'
+import Analytics from '@/utils/goals'
 
 
 interface Props {
@@ -37,6 +38,7 @@ export default function LoginForm(props: Props) {
       if (accessToken) {
         appContext.setToken(accessToken)
         appContext.updateAboutMe()
+        Analytics.goal(Goal.AuthReg, {role: props.mode})
         if (redirect) {
           router.replace(redirect)
         } else {

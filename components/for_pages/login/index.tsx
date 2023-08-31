@@ -22,7 +22,7 @@ export default function LoginPage(props: Props) {
                 onClick={(type) => setType(type)}
                 items={[
                     {label: 'Продавец лома', value: LoginType.Seller},
-                    {label: 'Ломазаготовитель', value: LoginType.Buyer},
+                    {label: 'Ломозаготовитель', value: LoginType.Buyer},
                 ]}
             />
             <LoginForm mode={type}/>

@@ -69,7 +69,6 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
     } catch (e) {
       if (hasPrivate) {
         const receivingPoint = await ReceivingPointOwnerRepository.fetchById(id)
-        console.log('receivingPoint1111', receivingPoint)
         return {
           props: {
             receivingPoint,

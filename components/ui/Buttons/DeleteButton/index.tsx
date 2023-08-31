@@ -8,7 +8,7 @@ interface Props extends ButtonProps{
 
 export default function DeleteButton(props: Props) {
   return (
-    <Button spinner={props.spinner ?? false} disabled={props.disabled ?? false} className={styles.root} href={props.href ?? null} onClick={props.onClick ?? null} color={props.color ?? 'grey'} styleType={props.styleType ?? 'large'} icon={<TrashSvg color={colors.blue500} />}>
+    <Button type={'button'} spinner={props.spinner ?? false} disabled={props.disabled ?? false} className={styles.root} href={props.href ?? null} onClick={props.onClick ?? null} color={props.color ?? 'grey'} styleType={props.styleType ?? 'large'} icon={<TrashSvg color={colors.blue500} />}>
       {props.children ?? 'Удалить'}
     </Button>
   )

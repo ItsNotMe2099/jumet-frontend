@@ -19,6 +19,7 @@ import ApproveStep from '@/components/for_pages/LkPage/ReceivingPointCreateForm/
 import ReceivingPointStepLayout
   from '@/components/for_pages/LkPage/ReceivingPointCreateForm/components/ReceivingPointStepLayout'
 import {SITE_NAME} from '@/types/constants'
+import * as Scroll from 'react-scroll'
 
 
 enum FormStep {
@@ -119,6 +120,7 @@ export default function ReceivingPointCreateForm(props: Props) {
     await router.push('/lk/receiving-points/edit/[id]/[step]', Routes.lkReceivingPointEditStep(receivingPoint!.id, step.key as any), {
       shallow: true
     })
+    Scroll.animateScroll.scrollToTop()
   }
   const postSubmit = () => {
     if (currentStepIndex === steps.length - 1) {

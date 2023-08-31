@@ -3,7 +3,7 @@ import styles from './index.module.scss'
 import { Form, FormikProvider, useFormik } from 'formik'
 import Validator from '@/utils/validator'
 import Button from '@/components/ui/Button'
-import { SnackbarType } from '@/types/enums'
+import {Goal, SnackbarType} from '@/types/enums'
 import Already from '@/components/for_pages/Common/Already'
 import { useAuthContext } from '@/context/auth_state'
 import { Routes } from '@/types/routes'
@@ -14,6 +14,8 @@ import { useState } from 'react'
 import { useAppContext } from '@/context/state'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
 import {SITE_NAME} from '@/types/constants'
+import Analytics from '@/utils/goals'
+import {UserRole} from '@/data/enum/UserRole'
 
 interface Props {
   onComplete: (data?: { email: string }) => void
@@ -28,6 +30,7 @@ export default function BuyerRegForm(props: Props) {
     setLoading(true)
     try {
       const res = await AuthRepository.buyerRegister(data)
+      Analytics.goal(Goal.AuthReg, {role: UserRole.Buyer})
       props.onComplete({ email: data.email })
     } catch (err) {
 
