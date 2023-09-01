@@ -8,12 +8,14 @@ import ReceivingPointDeliveryForm from '@/components/for_pages/LkPage/ReceivingP
 import FormFooter from '@/components/ui/FormFooter'
 import ReceivingPointInfoEditCard from '@/components/for_pages/LkPage/ReceivingPoint/ReceivingPointInfoEditCard'
 import DescField from '@/components/ui/DescField'
+import {DeliveryPriceType} from '@/data/enum/DeliveryPriceType'
 
 interface Props{
 }
 
 export default function DeliveryZonesLkCard(props: Props) {
   const receivingPointContext = useReceivingPointOwnerContext()
+  const receivingPoint = receivingPointContext.receivingPoint
   const [loading, setLoading] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
@@ -24,18 +26,21 @@ export default function DeliveryZonesLkCard(props: Props) {
     setLoading(false)
   }
   return (
-    <ReceivingPointInfoEditCard title='Зоны доставки'
+    <ReceivingPointInfoEditCard title={receivingPoint?.deliveryPriceType === DeliveryPriceType.ByDistance  ? 'Зоны доставки' : 'Доставка'}
                                   isEdit={isEdit}
                                   onSetIsEdit={setIsEdit}
                                   form={<ReceivingPointDeliveryForm footer={<FormFooter hasBack onBack={() => setIsEdit(false)} spinner={loading} />} receivingPoint={receivingPointContext.receivingPoint}  onSubmit={handleSubmit}/>}>
       <div className={styles.root}>
-        {receivingPointContext.receivingPoint?.deliveryAreas?.map((i, index) =>
+        {receivingPoint?.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint?.deliveryAreas?.map((i, index) =>
           <div className={styles.item} key={index}>
               <DescField label={'Зона доставки'} value={`Зона ${index + 1}`}/>
               <DescField label={'Расстояние от пункта приёма'} value={` От ${i.fromDistance} км до ${i.toDistance} км`}/>
               {i.deliveryPricePerTon && <DescField label={'Стоимость доставки за тонну'} value={Formatter.formatDeliveryPrice(i.deliveryPricePerTon)}/>}
           </div>
         )}
+        {receivingPoint?.deliveryPriceType === DeliveryPriceType.Fixed && <DescField label={'Стоимость доставки'} value={Formatter.formatDeliveryPrice(receivingPoint.deliveryPriceFixed)}/>}
+        {receivingPoint?.hasLoading && <DescField label={'Стоимость погрузки'} value={Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}/>}
+
       </div>
     </ReceivingPointInfoEditCard>
   )

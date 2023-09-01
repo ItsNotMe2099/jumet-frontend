@@ -25,7 +25,7 @@ export default function CompanyDetailsFormSection(props: Props) {
     return [
       {label: 'Наименование юр. лица', value: value.name},
       {label: 'Форма собственности', value: value.legalType === LegalType.LegalEntity ? 'Юридическое лицо' : 'ИП'},
-      {label: 'Юрюдический адрес', value: value.address},
+      {label: 'Юридический адрес', value: value.address},
       {label: 'ИНН', value: value.inn},
       {label: 'ОГРН', value: value.ogrn},
       {label: 'КПП', value: value.kpp},
@@ -59,7 +59,7 @@ export default function CompanyDetailsFormSection(props: Props) {
               validate={Validator.required}/>
             <AddressField
               name={'company.address'}
-              label='Юрюдический адрес'
+              label='Юридический адрес'
               resettable={true}
               isString
               validate={Validator.required}/>

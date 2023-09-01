@@ -70,7 +70,7 @@ export default function ReceivingPointCompanyForm(props: Props) {
           validate={Validator.required}/>
         <AddressField
           name={'address'}
-          label='Юрюдический адрес*'
+          label='Юридический адрес*'
           isString
           validate={Validator.required}/>
         <InputField

@@ -113,6 +113,8 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   const handleChangeAddress = (address: IAddress | string | null) => {
     if( typeof address !== 'string' && address?.location) {
       formik.setFieldValue('location', address.location)
+    }else if(!address){
+      formik.setFieldValue('location', null)
     }
   }
   const handleChangeLocation = (location: ILocation | null) => {

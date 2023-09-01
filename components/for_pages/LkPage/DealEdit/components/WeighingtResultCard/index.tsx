@@ -26,7 +26,7 @@ export default function WeighningResultCard(props: Props) {
   const dealContext = useDealContext()
   const deal =dealContext.deal!
   const formatWeightWithRubbish = () => {
-    return WeightUtils.formatWeight(parseFloat((deal.actualWeight * (deal.actualRubbishInPercents / 100)).toFixed(2)))
+    return WeightUtils.formatWeight(deal.actualWeight - parseFloat((deal.actualWeight * (deal.actualRubbishInPercents / 100)).toFixed(2)))
   }
   const formatRubbish = () => {
     if(!deal.actualRubbishInPercents){

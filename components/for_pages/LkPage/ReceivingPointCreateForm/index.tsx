@@ -185,8 +185,8 @@ export default function ReceivingPointCreateForm(props: Props) {
           <DataStep key={1} onSubmit={submit} receivingPoint={receivingPoint}/>,
           <DeliveryZoneStep key={2} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
           <PricesStep key={3} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
-          <UsersStep key={4} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
-          <WorkingHoursStep key={5} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          <WorkingHoursStep key={4} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
+          <UsersStep key={5} onSubmit={submit} receivingPoint={receivingPoint} onBack={handleBack}/>,
           ...(receivingPoint ? [<ApproveStep key={6} receivingPoint={receivingPoint}/>] : []),
         ]}/>
       </ReceivingPointStepLayout>

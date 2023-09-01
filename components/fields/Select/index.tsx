@@ -45,7 +45,8 @@ export default function Select<T>(props: Props<T>) {
       )}
       <ReactSelect<IOption<T>, false, GroupBase<IOption<T>>>
         value={selected as any}
-        isClearable={props.r}
+        isClearable={props.resettable ?? false}
+        menuIsOpen={true}
         noOptionsMessage={(v) => props.noOptionsMessage ?? 'Нет результатов'}
         menuPosition={!props.menuPosition ? 'fixed' : props.menuPosition}
         menuPlacement={'bottom'}

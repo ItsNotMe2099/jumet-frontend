@@ -22,7 +22,7 @@ export default function CompanyViewCard(props: Props) {
     return [
       {label: 'Наименование юр. лица', value: company?.name},
       {label: 'Форма собственности', value: company?.legalType === LegalType.LegalEntity ? 'Юридическое лицо' : 'ИП'},
-      {label: 'Юрюдический адрес', value: company?.address},
+      {label: 'Юридический адрес', value: company?.address},
       {label: 'ИНН', value: company?.inn},
       {label: 'ОГРН', value: company?.ogrn},
       {label: 'КПП', value: company?.kpp},

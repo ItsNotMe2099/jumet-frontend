@@ -1,10 +1,10 @@
 @import "styles/index";
 
 .root {
-  @include list(48px, false);
+  @include list(24px, false);
 }
 .item{
-
+  margin-bottom: 8px;
 }
 
 .fields {
@@ -31,4 +31,15 @@
 .map {
     margin-top: 24px;
   height: 328px;
+}
+
+.price{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+  }
 }

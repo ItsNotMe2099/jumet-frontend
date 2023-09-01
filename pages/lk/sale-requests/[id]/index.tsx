@@ -63,7 +63,7 @@ const SaleRequestPageInner = (props: Props) => {
       case TabKey.All:
         return {}
       case TabKey.New:
-        return {new: 'true'}
+        return {statuses: [DealOfferStatus.Applied]}
       case TabKey.Rejected:
         return {statuses: [DealOfferStatus.Rejected]}
       case TabKey.Familiar:
