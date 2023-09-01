@@ -10,7 +10,7 @@ interface Props{
 }
 
 export default function FileDownload(props: Props) {
-  return  (<Link href={props.href} className={styles.root}>
+  return  (<Link href={props.href} className={styles.root} target={'_blank'}>
     <IconButton bgColor={'grey300'}>
       <FileDownloadSvg color={colors.blue500}/>
     </IconButton>

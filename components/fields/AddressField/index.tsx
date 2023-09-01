@@ -27,8 +27,13 @@ export default function AddressField(props: Props) {
       initRef.current = true
       return
     }
-    suggestionsRef.current?.setInputValue(field.value?.address ?? '')
-  }, [field.value])
+    if(props.isString){
+      suggestionsRef.current?.setInputValue(field.value ?? '')
+    }else{
+      suggestionsRef.current?.setInputValue(field.value?.address ?? '')
+    }
+
+  }, [field.value, props.isString])
   const handleChange = (val?: DaDataSuggestion<DaDataAddress>) => {
     if(!val){
       helpers.setValue(null)
@@ -38,6 +43,7 @@ export default function AddressField(props: Props) {
     if(props.isString){
       helpers.setValue(val.value)
       props.onChange?.(val.value)
+      console.log('setValue11', val.value, val)
       return
     }
     const newAddress: IAddress = {
@@ -69,7 +75,7 @@ export default function AddressField(props: Props) {
         </div>
       }
       <div className={styles.inputWrapper}>
-      <AddressSuggestions ref={suggestionsRef} defaultQuery={field.value?.address ?? (typeof field.value === 'string' ? field.value : null)} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
+      <AddressSuggestions ref={suggestionsRef}  defaultQuery={field.value?.address ?? (typeof field.value === 'string' ? field.value : null)}  currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{
         placeholder: props.placeholder ?? '',
         className: classNames({
           [styles.input]: true,
