@@ -60,6 +60,7 @@ const ReceivingPointSearchContext = createContext<IState>(defaultValue)
 
 interface Props {
   children: React.ReactNode
+  initialFilter?: Nullable<IReceivingPointFilter>
 
 }
 
@@ -68,7 +69,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
   const [data, setData] = useState<IPagination<IReceivingPoint>>({data: [], total: 0})
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
-  const [filter, setFilter] = useState<IReceivingPointFilter>({page: 1, limit: 10})
+  const [filter, setFilter] = useState<IReceivingPointFilter>({...(props.initialFilter ?? {}), page: 1, limit: 10})
   const [page, setPage] = useState<number>(1)
   const [viewType, setViewType] = useState<ViewType>(ViewType.List)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)

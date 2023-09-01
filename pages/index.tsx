@@ -18,6 +18,7 @@ import { SortOrder } from '@/types/enums'
 import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import { SaleRequestsFilterRef } from '@/components/for_pages/scrap-for-sale/Filter'
+import {useRouter} from 'next/router'
 
 const IndexWrapper = () => {
   const appContext = useAppContext()
@@ -84,9 +85,17 @@ const IndexWrapper = () => {
     </Layout>
   )
 }
+function parseJsonSave<T>(json: string): T | null {
+  try {
+    return JSON.parse(json) as any  as T
+  }catch (e) {
+    return null
+  }
+}
 
 export default function IndexPage() {
-  return (<ReceivingPointSearchWrapper>
+  const router = useRouter()
+  return (<ReceivingPointSearchWrapper initialFilter={parseJsonSave(router.query.filter as string)}>
     <IndexWrapper />
   </ReceivingPointSearchWrapper>)
 }
