@@ -44,9 +44,6 @@ const LkSaleRequestCreatePage = (props: Props) => {
         <div className={styles.container}>
           {isSuccess && <SuccessBlock
             title='Ваша заявка создана!'
-            text={<>
-              Ваша заявка на модерации. Проверка занимает до 1 рабочего<br /> дня. Пока она идёт – ваша заявка не будет отображаться в каталоге.  Однако вы<br /> можете посмотреть, как будет выглядеть страница вашей заявки.
-            </>}
             actions={
               <Button href={Routes.lkSaleRequests} styleType='large' color='blue'>
                 Мои заявки

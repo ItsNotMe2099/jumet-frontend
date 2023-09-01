@@ -18,7 +18,7 @@ export interface ISaleRequest {
   requiresLoading: boolean
   contacts: any[]
   address: IAddress
-  phones?: string[]
+  phone?: string
   ownerId?: string
   price: number
   weight: number

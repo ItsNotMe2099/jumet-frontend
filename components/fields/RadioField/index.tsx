@@ -50,7 +50,7 @@ export default function RadioField<T>(props: Props<T>) {
           />
         ))}
       </div>
-      <FieldError className={props.errorClassName} showError={showError}>{meta.error}</FieldError>
+      <FieldError className={classNames(props.errorClassName, styles.error)} showError={showError}>{meta.error}</FieldError>
     </div>
   )
 }

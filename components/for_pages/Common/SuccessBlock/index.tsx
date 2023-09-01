@@ -5,8 +5,8 @@ import { ReactElement } from 'react'
 
 
 interface Props {
-  title: string
-  text: React.ReactNode | string
+  title?: string
+  text?: React.ReactNode | string
   actions?: ReactElement | ReactElement[]
 }
 
@@ -15,12 +15,12 @@ export default function SuccessBlock(props: Props) {
   return (
     <div className={styles.root}>
       <CheckSvg className={styles.check} color={colors.blue500} />
-      <div className={styles.title}>
+      {props.title && <div className={styles.title}>
         {props.title}
-      </div>
-      <div className={styles.text}>
+      </div>}
+      {props.text && <div className={styles.text}>
         {props.text}
-      </div>
+      </div>}
       {props.actions && <div className={styles.actions}>{props.actions}</div>}
     </div>
   )

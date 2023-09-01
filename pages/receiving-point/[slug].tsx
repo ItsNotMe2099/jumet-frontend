@@ -61,6 +61,9 @@ export const getServerSideProps: GetServerSideProps<Props> = async (context) => 
         const token = context.req.cookies[CookiesType.accessToken]
         receivingPoint = await ReceivingPointOwnerRepository.fetchById(id, token)
       }
+      if(!receivingPoint){
+        return {notFound: true} as  { notFound: true }
+      }
       return {
         props: {
           receivingPoint,

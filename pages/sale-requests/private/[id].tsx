@@ -22,6 +22,9 @@ export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer, async (
   try {
 
     const saleRequest = await SaleRequestRepository.fetchPrivateById(+id, token)
+    if(!saleRequest){
+      return {notFound: true} as  { notFound: true }
+    }
     return {
       props: {
         saleRequest
@@ -29,9 +32,6 @@ export const getServerSideProps = getAuthServerSideProps(UserRole.Buyer, async (
     }
   }catch (e) {
     console.error(e)
-    return {
-      notFound: true,
-      props: {}
-    }
+    return {notFound: true} as  { notFound: true }
   }
 })

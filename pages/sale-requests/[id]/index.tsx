@@ -40,6 +40,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
   try {
 
     const saleRequest = await SaleRequestRepository.fetchById(+id, token)
+    if(!saleRequest){
+      return {notFound: true} as  { notFound: true }
+    }
     return {
       props: {
         saleRequest
@@ -47,9 +50,6 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
     }
   }catch (e) {
     console.error(e)
-    return {
-      notFound: true,
-      props: {}
-    }
+    return {notFound: true} as  { notFound: true }
   }
 }

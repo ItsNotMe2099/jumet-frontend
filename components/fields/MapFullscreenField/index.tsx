@@ -13,6 +13,7 @@ interface Props  extends IField<ILocation | null>{
   className?: string
   address?: string
   noMap?: boolean
+  helperText?: string
 }
 
 export default function MapFullscreenField(props: Props) {
@@ -33,8 +34,10 @@ export default function MapFullscreenField(props: Props) {
   return (
     <div className={styles.root} data-field={props.name}>
       {props.label && <div className={styles.label}>{props.label}</div>}
+
       <div className={styles.body}>
         {field.value && !props.noMap && <YandexStaticMap center={field.value} onClick={handleOpen}/>}
+        {props.helperText && <div className={styles.helperText}>{props.helperText}</div>}
         <LinkButton type='button' onClick={handleOpen}>{field.value ? 'Изменить' : 'Указать на карте'}</LinkButton>
       </div>
       <FieldError showError={showError}>{meta.error}</FieldError>

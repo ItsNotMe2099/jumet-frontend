@@ -48,7 +48,7 @@ const SaleRequestOwnerCardInner = (props: Props) => {
     {label: 'Цена', value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
     {label: 'Категория лома', value: item.scrapMetalCategory ?? '-'},
     {label: 'Доставка', value: item.requiresDelivery ? 'Нужна доставка' : '-'},
-    {label: 'Погрузка', value: item.requiresDelivery ? 'Нужна погрузка' : '-'},
+    {label: 'Погрузка', value: item.requiresLoading ? 'Нужна погрузка' : '-'},
     {label: 'Дата создания', value: format(new Date(item.createdAt), 'dd.MM.yyyy г.')}
   ]
   const link = props.mode === 'seller' ? Routes.lkSaleRequest(item.id) : item.receivingPointId ? Routes.saleRequestPrivate(item.id) : Routes.saleRequest(item.id)
@@ -80,27 +80,27 @@ const SaleRequestOwnerCardInner = (props: Props) => {
           </div>
         </div>
         {props.mode === 'seller' && <div className={styles.controls}>
-          <Button href={Routes.lkSaleRequest(item.id)} className={styles.btnFirst} color='blue' styleType='large'>
+          <Button  href={Routes.lkSaleRequest(item.id)} className={styles.btnFirst} color='blue' styleType='large'>
             Открыть предложения {item.offersCount ?? '0'} {item.newOffersCount > 0 &&
             <NotificationBadge className={styles.notificationBadge} position={'static'} size={'large'} color={'white'}
                                total={item.newOffersCount}/>}
           </Button>
-          <Button onClick={saleRequestOwnerContext.edit} className={styles.btn} color='grey' styleType='large'
+          <Button preventDefault={true}  onClick={saleRequestOwnerContext.edit} className={styles.btn} color='grey' styleType='large'
                   icon={<EditSvg color={colors.blue500}/>}>
             Редактировать заявку
           </Button>
         </div>}
         {props.mode === 'buyer' && <div className={styles.controls}>
           {([SaleRequestStatus.Published, SaleRequestStatus.Draft] as SaleRequestStatus[]).includes(item.status) && <>
-            <Button spinner={saleRequestOwnerContext.acceptLoading}
+            <Button preventDefault={true} spinner={saleRequestOwnerContext.acceptLoading}
                     disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading}
                     color='blue' styleType='large' onClick={() => saleRequestOwnerContext.accept()}>
               Принять предложение
             </Button>
-            <Button spinner={saleRequestOwnerContext.rejectLoading}
+            <Button preventDefault={true}  spinner={saleRequestOwnerContext.rejectLoading}
                     disabled={saleRequestOwnerContext.acceptLoading || saleRequestOwnerContext.rejectLoading}
                     className={styles.btn} color='grey' styleType='large'
-                    onClick={() => saleRequestOwnerContext.reject()}>
+                    onClick={(e) => saleRequestOwnerContext.reject()}>
               Отклонить
             </Button>
             <div className={styles.controlsSeparator}></div>

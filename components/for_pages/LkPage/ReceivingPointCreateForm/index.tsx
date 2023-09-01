@@ -48,15 +48,15 @@ const initialSteps: IFormStep<FormStep>[] = [
     key: FormStep.Prices
   },
   {
-    name: 'Персонал',
-    description: `Добавьте доступ к ${SITE_NAME} для сотрудников пункта приёма`,
-    key: FormStep.Users
-  },
-  {
     name: 'Режим работы',
     description: 'Укажите режим работы и фото пункта приёма',
     key: FormStep.WorkingHours
   },
+  {
+    name: 'Персонал',
+    description: `Добавьте доступ к ${SITE_NAME} для сотрудников пункта приёма`,
+    key: FormStep.Users
+  }
 ]
 
 interface Props {

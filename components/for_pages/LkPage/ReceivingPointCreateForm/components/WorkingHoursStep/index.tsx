@@ -3,7 +3,6 @@ import {DeepPartial, IFormStepProps, Nullable} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointWorkingHoursForm
   from '@/components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointWorkingHoursForm'
-import {ReceivingPointStatus} from '@/data/enum/ReceivingPointStatus'
 
 interface Props extends IFormStepProps<IReceivingPoint> {
   receivingPoint?: Nullable<IReceivingPoint> | undefined
@@ -12,7 +11,7 @@ interface Props extends IFormStepProps<IReceivingPoint> {
 export default function WorkingHoursStep(props: Props) {
 
   const handleSubmit = (data: DeepPartial<IReceivingPoint>) => {
-      return props.onSubmit({...data, status: ReceivingPointStatus.Moderation})
+    return props.onSubmit({...data})
   }
   return (
     <ReceivingPointWorkingHoursForm

@@ -60,6 +60,7 @@ export default function CompanyDetailsFormSection(props: Props) {
             <AddressField
               name={'company.address'}
               label='Юрюдический адрес'
+              resettable={true}
               isString
               validate={Validator.required}/>
             <InputField

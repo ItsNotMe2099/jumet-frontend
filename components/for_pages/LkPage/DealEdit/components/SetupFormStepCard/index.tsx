@@ -168,7 +168,7 @@ const SetupStepFormInner = (props: Props) => {
           <SwitchField name={'requiresLoading'} label={'Нужна погрзука'}/>
 
           {formik.values.requiresDelivery && <>
-            <AddressField name='address' label='Адрес расположения лома*' onChange={handleChangeAddress}
+            <AddressField name='address' label='Адрес расположения лома*' onChange={handleChangeAddress} resettable={true}
                           validate={Validator.required}/>
             <FormFieldset title={'Удобное время доставки'}>
               <div className={styles.row}>

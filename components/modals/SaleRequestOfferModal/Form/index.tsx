@@ -164,8 +164,8 @@ export default function SaleRequestOfferForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressField name={'address'} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress} />
-          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required} />
+          <AddressField name={'address'}  resettable={true} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress} />
+          {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>

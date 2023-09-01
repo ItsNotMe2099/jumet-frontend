@@ -98,7 +98,7 @@ export default function DataStep(props: Props) {
         />
         <div className={styles.address}>
           <AddressField name={'address'} label={'Адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
-          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
+          {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
           <PhoneListField name={'phones'} label={'Телефоны пункта приема*'}/>
         </div>
         <FormStepFooter  onBack={props.onBack} spinner={props.loading}/>

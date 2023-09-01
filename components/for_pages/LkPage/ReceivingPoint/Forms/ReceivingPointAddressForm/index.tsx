@@ -54,8 +54,8 @@ export default function ReceivingPointAddressForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.root}>
-          <AddressField name={'address'} label={'Адрес'} validate={Validator.required} onChange={handleChangeAddress}/>
-          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
+          <AddressField name={'address'} label={'Адрес'} resettable={true} validate={Validator.required} onChange={handleChangeAddress}/>
+        {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
         {props.footer}
       </Form>
     </FormikProvider>

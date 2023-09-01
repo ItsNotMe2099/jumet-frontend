@@ -11,12 +11,15 @@ import {DealOfferStatus} from '@/data/enum/DealOfferStatus'
 import {useNotificationContext} from '@/context/notifications_state'
 import {useEffect} from 'react'
 import {NotificationUnreadType} from '@/data/interfaces/INotification'
+import {Routes} from '@/types/routes'
+import {useAppContext} from '@/context/state'
 
 interface Props {
   dealOffer: IDealOffer
 }
 
 const SaleRequestDealOfferCardInner = (props: Props) => {
+  const appContext = useAppContext()
   const dealOfferContext = useDealOfferContext()
   const notifyContext = useNotificationContext()
   const dealOffer = dealOfferContext.dealOffer!
@@ -82,7 +85,7 @@ const SaleRequestDealOfferCardInner = (props: Props) => {
             </>}
           </div>
           <div className={styles.left}>
-            <Button className={styles.btn} color='grey' styleType='large' icon={<ChatSvg color={colors.blue500} />}>
+            <Button className={styles.btn} color='grey' styleType='large' icon={<ChatSvg color={colors.blue500} />} href={Routes.lkChat(null,{receivingPointId: dealOffer.receivingPointId!, sellerId: appContext.aboutMe?.id})}>
               Чат с пунктом приёма
             </Button>
           </div>

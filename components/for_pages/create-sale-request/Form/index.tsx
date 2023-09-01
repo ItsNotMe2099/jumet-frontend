@@ -34,7 +34,7 @@ interface IFormData {
   address: IAddress | null;
   price: number | null;
   weight: number | null;
-  phones: string[] | null;
+  phone: string | null;
   location: ILocation | null;
   requiresDelivery: boolean;
   scrapMetalCategory: ScrapMetalCategory;
@@ -69,7 +69,7 @@ export default function CreateSalesRequestForm(props: Props) {
     price: saleRequest?.price ?? null,
     searchRadius: saleRequest?.searchRadius ?? null,
     location: saleRequest?.location ?? null,
-    phones: saleRequest?.phones ?? null,
+    phone: saleRequest?.phone ?? null,
   }
 
   const formik = useFormik({
@@ -89,6 +89,7 @@ export default function CreateSalesRequestForm(props: Props) {
       formik.setFieldValue('location', address.location)
     }
   }
+  console.log('FormikValues11', formik.values.address )
 
   return (
 
@@ -119,9 +120,9 @@ export default function CreateSalesRequestForm(props: Props) {
           <div className={styles.label}>
             Адрес расположения лома
           </div>
-          <AddressField name={'address'} placeholder={'Введите адрес'} validate={Validator.required}
+          <AddressField name={'address'} resettable={true} placeholder={'Введите адрес'} validate={Validator.required}
                         onChange={handleChangeAddress}/>
-          <MapFullscreenField name={'location'} label={'Точка на карте'} validate={Validator.required}/>
+          {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
         </div>
         <div className={styles.section}>
           <div className={styles.label}>

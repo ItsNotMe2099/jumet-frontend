@@ -45,7 +45,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
               <Link  href={link} className={styles.weight}>
                 {saleRequest.weight > 0 ? WeightUtils.formatWeight(saleRequest.weight) : 'Вес не указан'}
               </Link>
-              <Link href={link} className={styles.number}>
+              <Link href={(saleRequest.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : Routes.saleRequest(saleRequest.id))} className={styles.number}>
                 Заявка №{saleRequest.id}
               </Link>
               {dealOffer?.deal && <Link href={Routes.lkDeal(dealOffer.deal.id)} className={styles.number}>

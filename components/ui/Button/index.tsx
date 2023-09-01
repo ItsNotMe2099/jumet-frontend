@@ -23,6 +23,7 @@ export interface ButtonProps extends IButton {
   press?: boolean
   hover?: boolean
   stopPropagation?: boolean
+  preventDefault?: boolean
   icon?: ReactElement
   reverse?: boolean
 }
@@ -54,7 +55,14 @@ export default function Button(props: ButtonProps) {
             className={classNames(cn)}
             target={props.isExternalHref ? '_blank' : ''}
             rel={props.isExternalHref ? 'noreferrer' : ''}
-            onClick={(e) => props.onClick?.(e)}>
+            onClick={(e) => {
+              if (props.stopPropagation) {
+                e.stopPropagation()
+              }
+              if (props.onClick && !props.spinner && !props.disabled) {
+                props.onClick(e)
+              }
+            }}>
         <span className={classNames({
           [styles.text]: true,
           [styles.textHidden]: props.spinner,
@@ -71,6 +79,9 @@ export default function Button(props: ButtonProps) {
       onClick={(e) => {
         if (props.stopPropagation) {
           e.stopPropagation()
+        }
+        if(props.preventDefault){
+          e.preventDefault()
         }
         if (props.onClick && !props.spinner && !props.disabled) {
           props.onClick(e)

@@ -51,7 +51,7 @@ const SaleRequestPageInner = (props: Props) => {
   const tabs: IOption<TabKey>[] = [
     {label: 'Все предложения', value: TabKey.All},
     {label: 'Новые', value: TabKey.New, badge: badgeNew},
-    {label: 'Знакомые', value: TabKey.Familiar},
+   // {label: 'Знакомые', value: TabKey.Familiar},
     {label: 'Отклоненные', value: TabKey.Rejected}
   ]
 
