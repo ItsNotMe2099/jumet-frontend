@@ -29,6 +29,7 @@ import {ILocation} from '@/data/interfaces/ILocation'
 import {WorkTimeType} from '@/data/interfaces/WorkTimeType'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
+import {useRouter} from 'next/router'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -48,7 +49,7 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   const searchContext = useReceivingPointSearchContext()
   const dataContext = useDataContext()
   const appContext = useAppContext()
-
+  const router = useRouter()
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
   const initValuesRef = useRef<boolean>(false)
   const initialValues: IFormData = {
@@ -76,6 +77,9 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     () => ({
       clear() {
        formik.resetForm()
+        router.replace('/', '/', {
+          shallow: true
+        })
       }, modified
     }),
   )
@@ -84,6 +88,17 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   }
   const debouncedSetFilter = debounce((data: IFormData) => {
     searchContext.setFilter(formik.values)
+    const cleanObject = Object.fromEntries(Object.entries(formik.values).filter(([_, v]) => v != null && !!v))
+    if(Object.keys(cleanObject).length === 0){
+      router.replace('/', '/', {
+        shallow: true
+      })
+    }else{
+      router.replace('/', `/?filter=${encodeURI(JSON.stringify(Object.fromEntries(Object.entries(formik.values).filter(([_, v]) => v != null && !!v))))}`, {
+        shallow: true
+      })
+    }
+
   }, 400)
   useEffect(() => {
     if (!initValuesRef.current) {
