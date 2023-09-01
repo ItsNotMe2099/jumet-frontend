@@ -43,7 +43,7 @@ export default function CompanyField(props: Props) {
           {props.label}
         </div>
       }
-      <PartySuggestions ref={suggestionRef} defaultQuery={field.value?.inn ?? field.value} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{className: classNames({
+      <PartySuggestions ref={suggestionRef} defaultQuery={field.value?.inn ?? (typeof field.value === 'string' ? field.value : null)} currentSuggestionClassName={styles.active} highlightClassName={styles.highlight} inputProps={{className: classNames({
           [styles.input]: true,
           [styles.inputError]: showError,
         })}} onChange={handleChange} token={runtimeConfig.DADATA_KEY} />
