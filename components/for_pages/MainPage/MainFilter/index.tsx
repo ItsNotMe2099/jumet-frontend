@@ -52,16 +52,16 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   const router = useRouter()
   const [isOpenMobileFilter, setIsOpenMobileFilter] = useState(false)
   const initValuesRef = useRef<boolean>(false)
+  const initFilterRef = useRef<boolean>(false)
   const initialValues: IFormData = {
-    location: null,
-    address: null,
-    radius: null,
-    radiusCustom: null,
-    scrapMetalCategory: null,
-    weight: null,
-    hasDelivery: false,
-    hasLoading: false,
-    workTimeType: null
+    location: searchContext.filter?.location ?? null,
+    address:  null,
+    radius: searchContext.filter?.radius ?? null,
+    scrapMetalCategory: searchContext.filter?.scrapMetalCategory ?? null,
+    weight: searchContext.filter?.weight ?? null,
+    hasDelivery: searchContext.filter?.hasDelivery ?? null,
+    hasLoading: searchContext.filter?.hasLoading ?? null,
+    workTimeType: searchContext.filter?.workTimeType ?? null
   }
   const handleSubmit = () => {
 
@@ -87,6 +87,10 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     setIsOpenMobileFilter(!isOpenMobileFilter)
   }
   const debouncedSetFilter = debounce((data: IFormData) => {
+    if (!initFilterRef.current) {
+      initFilterRef.current = true
+      return
+    }
     searchContext.setFilter(formik.values)
     const cleanObject = Object.fromEntries(Object.entries(formik.values).filter(([_, v]) => v != null && !!v))
     if(Object.keys(cleanObject).length === 0){
@@ -138,7 +142,6 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     }
   }
 
-  console.log('filterFORM', formik.values)
   return (
 
     <FormikProvider value={formik}>

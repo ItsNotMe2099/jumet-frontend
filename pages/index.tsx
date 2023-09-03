@@ -87,6 +87,7 @@ const IndexWrapper = () => {
 }
 function parseJsonSave<T>(json: string): T | null {
   try {
+    console.log('parseJson', json)
     return JSON.parse(json) as any  as T
   }catch (e) {
     return null

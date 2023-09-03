@@ -28,11 +28,14 @@ export default function WeighningResultCard(props: Props) {
   const formatWeightWithRubbish = () => {
     return WeightUtils.formatWeight(deal.actualWeight - parseFloat((deal.actualWeight * (deal.actualRubbishInPercents / 100)).toFixed(2)))
   }
+  const formatWeightRubbish = () => {
+    return WeightUtils.formatWeight( parseFloat((deal.actualWeight * (deal.actualRubbishInPercents / 100)).toFixed(2)))
+  }
   const formatRubbish = () => {
     if(!deal.actualRubbishInPercents){
       return '0%'
     }
-    return `${deal.actualRubbishInPercents}% (${formatWeightWithRubbish()})`
+    return `${deal.actualRubbishInPercents}% (${formatWeightRubbish()})`
   }
 
   return (
@@ -43,8 +46,8 @@ export default function WeighningResultCard(props: Props) {
         {deal.weighingComment && <DescField label={'Комментарий к качеству лома'} value={deal.weighingComment}/>}
         <DescField label={'Вес лома за вычетом засора'} value={formatWeightWithRubbish()}/>
         {!!deal.price && <DescField label={'Цена за тонну'} value={Formatter.formatDeliveryPrice(deal.price)}/>}
-        {(deal.requiresDelivery) && <DescField label={'Доставка'} value={`${Formatter.formatPrice(deal.totalDelivery ?? 0)} (${Formatter.formatDeliveryPrice(deal.deliveryPrice ?? 0)})`}/>}
-        {(deal.requiresLoading) && <DescField label={'Погрузка'} value={`${Formatter.formatPrice(deal.totalLoading ?? 0)} (${Formatter.formatDeliveryPrice(deal.loadingPrice ?? 0)})`}/>}
+        {(deal.requiresDelivery) && <DescField label={'Доставка'} value={`${Formatter.formatPrice(deal.totalDelivery ?? 0)} ${deal.deliveryPrice > 0 ? `(${Formatter.formatDeliveryPrice(deal.deliveryPrice ?? 0)})` : ''}`}/>}
+        {(deal.requiresLoading && deal.totalLoading > 0) && <DescField label={'Погрузка'} value={`${Formatter.formatPrice(deal.totalLoading ?? 0)} ${deal.loadingPrice > 0 ? `(${Formatter.formatDeliveryPrice(deal.loadingPrice ?? 0)})`: ''}`}/>}
         {(deal.requiresLoading || deal.requiresDelivery) && <DescField label={'Сумма без доставки и погрузки'} value={Formatter.formatPrice(deal.subTotal ?? 0)}/>}
         {!!deal.total && <DescField label={'К оплате'} value={Formatter.formatPrice(deal.total)}/>}
         {deal?.acceptanceCertificate && <FileDownload href={ImageHelper.urlFromFile(deal?.acceptanceCertificate)} label='Приёмо-сдаточный акт' />}
