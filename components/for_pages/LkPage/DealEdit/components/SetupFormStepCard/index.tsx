@@ -88,7 +88,7 @@ const SetupStepFormInner = (props: Props) => {
       scanId: data.passport?.scan?.id,
     })
 
-    if (Object.keys(userUpdated).length > 0 || Object.keys(passportData).length > 0) {
+    if (Object.keys(userUpdated).length > 0 || Object.keys(passportUpdated).length > 0) {
       setLoadingInner(true)
       const res = await CurrentUserRepository.update({
         ...userUpdated,
