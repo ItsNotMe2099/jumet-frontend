@@ -47,7 +47,7 @@ export default function WeighningResultCard(props: Props) {
         <DescField label={'Вес лома за вычетом засора'} value={formatWeightWithRubbish()}/>
         {!!deal.price && <DescField label={'Цена за тонну'} value={Formatter.formatDeliveryPrice(deal.price)}/>}
         {(deal.requiresDelivery) && <DescField label={'Доставка'} value={`${Formatter.formatPrice(deal.totalDelivery ?? 0)} ${(deal.deliveryPrice ?? 0) > 0 ? `(${Formatter.formatDeliveryPrice(deal.deliveryPrice ?? 0)})` : ''}`}/>}
-        {(deal.requiresLoading && deal.totalLoading > 0) && <DescField label={'Погрузка'} value={`${Formatter.formatPrice(deal.totalLoading ?? 0)} ${(deal.loadingPrice ?? 0) > 0 ? `(${Formatter.formatDeliveryPrice(deal.loadingPrice ?? 0)})`: ''}`}/>}
+        {(deal.requiresLoading && (deal.totalLoading ?? 0) > 0) && <DescField label={'Погрузка'} value={`${Formatter.formatPrice(deal.totalLoading ?? 0)} ${(deal.loadingPrice ?? 0) > 0 ? `(${Formatter.formatDeliveryPrice(deal.loadingPrice ?? 0)})`: ''}`}/>}
         {(deal.requiresLoading || deal.requiresDelivery) && <DescField label={'Сумма без доставки и погрузки'} value={Formatter.formatPrice(deal.subTotal ?? 0)}/>}
         {!!deal.total && <DescField label={'К оплате'} value={Formatter.formatPrice(deal.total)}/>}
         {deal?.acceptanceCertificate && <FileDownload href={ImageHelper.urlFromFile(deal?.acceptanceCertificate)} label='Приёмо-сдаточный акт' />}
