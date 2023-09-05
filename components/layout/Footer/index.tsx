@@ -7,6 +7,7 @@ import Button from '@/components/ui/Button'
 import { format } from 'date-fns'
 import VKSvg from '@/components/svg/VKSvg'
 import {Routes} from '@/types/routes'
+import LogoSvg from '@/components/svg/LogoSvg'
 
 interface Props {
 
@@ -33,9 +34,10 @@ export default function Footer(props: Props) {
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.top}>
-              <Link href={'/'} className={styles.logo}>
-                jumet
+              <Link href={'/'}>
+                <LogoSvg className={styles.logo} colorFirst={colors.yellow500} colorSecond={colors.white}/>
               </Link>
+
               <div className={styles.info}>
                 Онлайн-сервис продажи<br /> и покупки лома
               </div>

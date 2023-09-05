@@ -22,6 +22,7 @@ import {useNotificationContext} from '@/context/notifications_state'
 import {NotificationType} from '@/data/interfaces/INotification'
 import NotificationBadge from '@/components/ui/NotificationBadge'
 import GraphSvg from '@/components/svg/GraphSvg'
+import LogoSvg from '@/components/svg/LogoSvg'
 
 interface IMenuOption {link: string, label: string, badge?: number | null}
 interface Props {
@@ -91,8 +92,8 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
     <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})} id={'header'}>
       <div className={styles.container}>
         <div className={styles.left}>
-          <Link href={'/'} className={styles.logo}>
-            jumet
+          <Link href={'/'}>
+            <LogoSvg className={styles.logo} colorFirst={colors.yellow500} colorSecond={colors.white}/>
           </Link>
           <div className={styles.info}>
             Онлайн-сервис продажи<br/> и покупки лома
