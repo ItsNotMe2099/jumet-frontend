@@ -19,6 +19,7 @@ import EmptyStub from '@/components/ui/EmptyStub'
 import Button from '@/components/ui/Button'
 import { SaleRequestsFilterRef } from '@/components/for_pages/scrap-for-sale/Filter'
 import {useRouter} from 'next/router'
+import ReceivingPointSearchMap from '@/components/for_pages/MainPage/ReceivingPointSearchMap'
 
 const IndexWrapper = () => {
   const appContext = useAppContext()
@@ -36,7 +37,6 @@ const IndexWrapper = () => {
           Пункты приёма лома
         </div>
         <div className={styles.container}>
-
           <div className={classNames(styles.left)}>
             <Sticky enabled={appContext.isDesktop} top={120} bottomBoundary={437}>
               <MainFilter ref={filterRef} title={''} viewType={viewType} onSetViewType={setViewType} />
@@ -81,6 +81,9 @@ const IndexWrapper = () => {
 
           </div>
         </div>
+      </div>
+      <div className={styles.map}>
+    <ReceivingPointSearchMap/>
       </div>
     </Layout>
   )

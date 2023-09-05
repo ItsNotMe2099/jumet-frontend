@@ -16,6 +16,7 @@ export interface IReceivingPoint {
   name: string;
   status?: ReceivingPointStatus;
   company: ICompany;
+  companyName?: string
   companyId: number;
   location: ILocation;
   timezone?: string;

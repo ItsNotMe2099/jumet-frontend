@@ -14,7 +14,7 @@ interface Props {
 
 export default function ReceivingPointSearchCard(props: Props) {
 
-  const openingStatus = props.item.workNow  ? 'Открыто сейчас' : (props.item.nextWorkTime ? `Откроется в ${Formatter.formatDateRelative(props.item.nextWorkTime!)}` : '')
+  const openingStatus = props.item.workNow  ? 'Открыто сейчас' : (props.item.nextWorkTime ? `Откроется ${Formatter.formatDateRelative(props.item.nextWorkTime!)}` : '')
 
 
   // format the opening time to display in the UI
@@ -25,7 +25,7 @@ export default function ReceivingPointSearchCard(props: Props) {
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.title}>
-              {props.item.name}
+              {props.item.companyName}
             </div>
             {props.item.rating && <div className={styles.rating}>
               <StarSvg color={colors.yellow500} />
@@ -33,15 +33,15 @@ export default function ReceivingPointSearchCard(props: Props) {
             </div>}
           </div>
           {props.item.price && <div className={styles.price}>
-            До {props.item.price} ₽/тонна
+            До {Formatter.formatPrice(props.item.price, '₽/тонна')}
           </div>}
         </div>
         <div className={styles.middle}>
           {props.item.address?.address}
         </div>
         <div className={styles.bottom}>
-          <Badge active={props.item.hasDelivery} text='Есть доставка' />
-          <Badge active={props.item.hasLoading} text='Есть погрузка' />
+          <Badge active={props.item.hasDelivery} text={props.item.hasDelivery ? 'Есть доставка' : 'Нет доставки'} />
+          <Badge active={props.item.hasLoading} text={props.item.hasLoading ? 'Есть погрузка' : 'Нет погрузки'} />
           {openingStatus && <Badge
             active={props.item.workNow}
             text={openingStatus} />}

@@ -1,0 +1,69 @@
+@import "styles/index";
+.root{
+  position: relative;
+  background-color: $white;
+  border-radius: 12px;
+  box-shadow: 0px 0px 4px 0px #00000026;
+  padding: 24px 20px 20px 20px;
+
+}
+.wrapper{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+}
+.close{
+  position: absolute;
+  top: 0px;
+  right: 0px;
+}
+.top{
+  display: flex;
+  justify-content: flex-end;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  @include list(8px);
+}
+.name{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+}
+
+.number {
+  color: $dark500;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 20px;
+}
+
+.price{
+  font-weight: 700;
+  font-size: 16px;
+  color: $text;
+}
+.address{
+  font-weight: 400;
+  font-size: 16px;
+}
+.bottom {
+  display: flex;
+  @include list(12px, true);
+  @include mq($PhoneWidth, max) {
+    display: block;
+    @include clearfix;
+  }
+}
+
+.rating {
+  width: 57px;
+  height: 32px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: $StandartBorderRadius;
+  border: 1px solid $grey300;
+}

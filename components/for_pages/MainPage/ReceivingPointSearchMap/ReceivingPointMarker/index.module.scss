@@ -1,0 +1,8 @@
+@import "styles/index";
+.marker{
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  border: 1px solid $white;
+  background-color: $blue500;
+}
