@@ -5,12 +5,13 @@ import classNames from 'classnames'
 interface Props {
   text: string
   active?: boolean
+  className?: string
 }
 
 export default function Badge(props: Props) {
   return (
-    <div className={classNames(styles.root, {[styles.active]: props.active})}>
-      <div className={styles.text}>{props.text}</div>
+    <div className={classNames(styles.root, {[styles.active]: props.active}, props.className)}>
+      {props.text}
     </div>
   )
 }

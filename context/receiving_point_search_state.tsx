@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useRef, useState} from 'react'
-import {IPagination, Nullable} from 'types/types'
+import {IPagination, ListViewType, Nullable} from 'types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ReceivingPointRepository from '@/data/repositories/ReceivingPointRepository'
 import {IReceivingPointSearchRequest} from '@/data/interfaces/IReceivingPointSearchRequest'
@@ -10,10 +10,6 @@ import {useEffectOnce} from '@/components/hooks/useEffectOnce'
 import {useDataContext} from '@/context/data_state'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
-export enum ViewType {
-  List = 'list',
-  Map = 'map'
-}
 
 interface IReceivingPointFilter extends IReceivingPointSearchRequest {
   scrapMetalCategory?: Nullable<ScrapMetalCategory>;
@@ -29,8 +25,8 @@ interface IState {
   setSortOrder: (sort: SortOrder) => void,
   setPage: (page: number) => void
   setFilter: (data: IReceivingPointFilter) => void
-  viewType: ViewType,
-  setViewType: (view: ViewType) => void,
+  viewType: ListViewType,
+  setViewType: (view: ListViewType) => void,
   reFetch: () => void
   fetchMore: () => void
 }
@@ -50,8 +46,8 @@ const defaultValue: IState = {
   setSortOrder: (sort: SortOrder) => null,
   setPage: (page: number) => null,
   setFilter: (data: IReceivingPointFilter) => null,
-  viewType: ViewType.List,
-  setViewType: (view: ViewType) => null,
+  viewType: ListViewType.List,
+  setViewType: (view: ListViewType) => null,
   reFetch: () => null,
   fetchMore: () => null,
 }
@@ -71,7 +67,7 @@ export function ReceivingPointSearchWrapper(props: Props) {
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [filter, setFilter] = useState<IReceivingPointFilter>({...(props.initialFilter ?? {}), page: 1, limit: 10})
   const [page, setPage] = useState<number>(1)
-  const [viewType, setViewType] = useState<ViewType>(ViewType.List)
+  const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
   const filterRef = useRef<IReceivingPointFilter>(filter)
   const sortOrderRef = useRef<SortOrder>(sortOrder)

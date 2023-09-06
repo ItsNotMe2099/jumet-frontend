@@ -4,6 +4,27 @@
   @include container;
   margin-top: 32px;
   margin-bottom: 64px;
+  &.withMap{
+  .left{
+    position: fixed;
+    top: $headerDesktopHeight + 20px;
+    bottom: 20px;
+    left: 20px;
+    right: 0px;
+    z-index: 40;
+    background-color: $white;
+    width: 416px;
+    border-radius: 12px;
+    box-shadow: 0px 0px 4px 0px #00000026;
+  overflow: hidden;
+    display: flex;
+    flex-direction: column;
+
+  }
+    .stickyInner{
+      position: static !important;
+    }
+  }
 }
 
 .map{

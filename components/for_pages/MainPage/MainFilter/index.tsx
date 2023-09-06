@@ -9,7 +9,7 @@ import MapSvg from '@/components/svg/MapSvg'
 import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
-import { useReceivingPointSearchContext, ViewType } from '@/context/receiving_point_search_state'
+import { useReceivingPointSearchContext } from '@/context/receiving_point_search_state'
 import {ListViewType} from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import SwitchField from '@/components/fields/SwitchField'
@@ -42,8 +42,6 @@ interface IFormData extends IReceivingPointSearchRequest {
 
 interface Props {
   title: string
-  viewType: ListViewType
-  onSetViewType: (viewType: ListViewType) => void
 }
 const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, ref) => {
   const searchContext = useReceivingPointSearchContext()
@@ -112,20 +110,20 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     debouncedSetFilter(formik.values)
   }, [formik.values])
 
-  const viewTypeFilter = (<SwitchFilter<ViewType>
+  const viewTypeFilter = (<SwitchFilter<ListViewType>
     active={searchContext.viewType}
     onClick={searchContext.setViewType}
     className={styles.listMap}
     items={[
       {
         label: 'Списком',
-        value: ViewType.List,
-        icon: <ListSvg color={searchContext.viewType === ViewType.List ? colors.blue500 : colors.dark500} />
+        value: ListViewType.List,
+        icon: <ListSvg color={searchContext.viewType === ListViewType.List ? colors.blue500 : colors.dark500} />
       },
       {
         label: 'На карте',
-        value: ViewType.Map,
-        icon: <MapSvg color={searchContext.viewType === ViewType.Map ? colors.blue500 : colors.dark500} />
+        value: ListViewType.Map,
+        icon: <MapSvg color={searchContext.viewType === ListViewType.Map ? colors.blue500 : colors.dark500} />
       },
     ]}
   />)
@@ -145,7 +143,7 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
   return (
 
     <FormikProvider value={formik}>
-      <Form className={styles.root}>
+      <Form className={classNames(styles.root, {[styles.map]: searchContext.viewType === ListViewType.Map})}>
         <FormErrorScroll formik={formik} />
         <Button onClick={handleToggleMobileFilter} fluid className={styles.mobileOpenToggle} color='blue' styleType='small'>
           <FilterSvg color={colors.white} />
@@ -155,9 +153,10 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
         <RemoveScroll enabled={!!appContext.isMobile && isOpenMobileFilter}>
           <div className={classNames(styles.filters, { [styles.none]: !isOpenMobileFilter })}>
             {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500} /></div>}
+            {appContext.isDesktop && viewTypeFilter}
             <div className={styles.filtersWrapper}>
 
-              <FilterComponent title='Адрес расположения лома' preHeader={!appContext.isMobile ? viewTypeFilter : null}>
+              <FilterComponent title='Адрес расположения лома'  className={styles.filter}>
                 <AddressField
                   onChange={handleChangeAddress}
                   resettable={true}
@@ -166,26 +165,26 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
                 />
                 {(!!formik.values?.address || !!formik.values?.location) ?  <LocationSuggestionField label={'Координаты'} name={'location'} resettable onChange={handleChangeLocation}/> : <></>}
               </FilterComponent>
-              <FilterComponent title='Радиус поиска пунктов приёма'>
+              <FilterComponent title='Радиус поиска пунктов приёма' className={styles.filter}>
                 <RadiusField name={'radius'}/>
               </FilterComponent>
-              <FilterComponent title='Категория лома'>
+              <FilterComponent title='Категория лома' className={styles.filter}>
                 <SelectField<string> menuPosition={'bottom'} options={dataContext.scrapMetalCategories.map(i => ({ label: i.name, value: i.category }))}
                   name={'scrapMetalCategory'} />
               </FilterComponent>
-              <FilterComponent title='Вес лома'>
+              <FilterComponent title='Вес лома' className={styles.filter}>
                 <WeightWithUnitField
                   resettable={true}
                   placeholder='Вес'
                   name={'weight'} />
               </FilterComponent>
-              <FilterComponent title='Доставка и погрузка'>
+              <FilterComponent title='Доставка и погрузка' className={styles.filter}>
                 <div className={styles.switches}>
                   <SwitchField name={'hasDelivery'} label={'Есть доставка'} />
                   <SwitchField name={'hasLoading'} label={'Есть погрузка'} />
                 </div>
               </FilterComponent>
-              <FilterComponent title='Режим работы'>
+              <FilterComponent title='Режим работы' className={styles.filter}>
                 <TabsField<WorkTimeType> resettable={true} options={[{ label: 'Открыто сейчас', value: WorkTimeType.Now }, { label: 'Круглосуточно', value: WorkTimeType.DayAndNight }]}
                   name={'workTimeType'} />
               </FilterComponent>

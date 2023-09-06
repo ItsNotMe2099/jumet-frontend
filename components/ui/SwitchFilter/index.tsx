@@ -5,7 +5,6 @@ import {ISwitchFilterItem} from '@/types/types'
 interface Props<T> {
   className?: string
   active?: T
-  onSelect?: (item: T) => void
   items?: ISwitchFilterItem<T>[]
   onClick?: (value: T) => void
 }

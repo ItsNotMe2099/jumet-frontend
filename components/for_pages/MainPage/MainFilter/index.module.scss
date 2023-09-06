@@ -1,9 +1,24 @@
 @import "styles/index";
 
 .root {
+
+  &.map {
+    display: flex;
+    flex-direction: column;
+    .filtersWrapper{
+      @include list(0px);
+      flex: 1;
+      max-height: 100%;
+      height: auto;
+      overflow-y: auto;
+    }
+    .filter{
+      padding-top: 8px;
+      padding-bottom: 8px;
+    }
+
+  }
 }
-
-
 .filters {
   @include mq($PhoneWidth, max) {
     margin-top: 0px;
