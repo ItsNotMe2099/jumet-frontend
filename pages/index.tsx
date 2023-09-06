@@ -82,7 +82,7 @@ const IndexWrapper = () => {
           </div>
         </div>
       </div>
-      {searchContext.viewType === ListViewType.Map ?<RemoveScroll enabled={true} > <div className={styles.map}>
+      {searchContext.viewType === ListViewType.Map ?<RemoveScroll enabled={true} noIsolation={true}> <div className={styles.map}>
           <ReceivingPointSearchMap/>
       </div> </RemoveScroll>: <></>}
     </Layout>

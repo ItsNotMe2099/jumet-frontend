@@ -30,6 +30,10 @@ import {WorkTimeType} from '@/data/interfaces/WorkTimeType'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import {useRouter} from 'next/router'
+import { Scrollbars } from 'rc-scrollbars'
+
+
+
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -140,6 +144,8 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
     }
   }
 
+  const filtersRef = useRef<HTMLDivElement>(null!)
+
   return (
 
     <FormikProvider value={formik}>
@@ -150,11 +156,13 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
           <span>{isOpenMobileFilter ? <>Скрыть фильтр</> : <>Открыть фильтр</>}</span>
         </Button>
         {appContext.isMobile && viewTypeFilter}
-        <RemoveScroll enabled={!!appContext.isMobile && isOpenMobileFilter}>
+        {/* <RemoveScroll enabled={!!appContext.isMobile && isOpenMobileFilter}> */}
           <div className={classNames(styles.filters, { [styles.none]: !isOpenMobileFilter })}>
             {appContext.isMobile && <div className={styles.mobileHeader}><div className={styles.title}>Подбор пунктов приема</div><CloseModalBtn onClick={() => setIsOpenMobileFilter(false)} color={colors.grey500} /></div>}
-            {appContext.isDesktop && viewTypeFilter}
-            <div className={styles.filtersWrapper}>
+            {appContext.isDesktop && viewTypeFilter}        
+            <div className={styles.filtersWrapper} ref={filtersRef}>
+              <Scrollbars autoHide autoHideTimeout={1000} universal>
+          
 
               <FilterComponent title='Адрес расположения лома'  className={styles.filter}>
                 <AddressField
@@ -187,11 +195,13 @@ const ReceivingPointFilter = forwardRef<ReceivingPointFilterRef, Props>((props, 
               <FilterComponent title='Режим работы' className={styles.filter}>
                 <TabsField<WorkTimeType> resettable={true} options={[{ label: 'Открыто сейчас', value: WorkTimeType.Now }, { label: 'Круглосуточно', value: WorkTimeType.DayAndNight }]}
                   name={'workTimeType'} />
-              </FilterComponent>
+              </FilterComponent>     
 
-            </div>
+              </Scrollbars>   
+            </div>        
+         
           </div>
-        </RemoveScroll>
+        {/* </RemoveScroll> */}
       </Form>
     </FormikProvider>
   )
