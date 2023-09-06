@@ -1,4 +1,6 @@
-
+/* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 import {AnyObject, YMapsApi,} from '@pbe/react-yandex-maps/typings/util/typing'
 
 const DESCRIPTION_BLOCK_HEIGHT = 20
@@ -43,10 +45,10 @@ export const createBallonLayoutTemplateFactory: PinTemplateFactoryCreator = (yma
           this.constructor.superclass.build.call(this)
           console.log('El2323', this.getParentElement().querySelectorAll(['.ymap-popover']))
           this._$element = this.getParentElement().querySelectorAll(['.ymap-popover'])
-            //this._$element[0].querySelectorAll(['.ymap-popover-close'])[0].onclick = () => {
-           // this.onCloseClick()
-         // }
-              this.applyElementOffset()
+          //this._$element[0].querySelectorAll(['.ymap-popover-close'])[0].onclick = () => {
+          // this.onCloseClick()
+          // }
+          this.applyElementOffset()
 
         },
 

@@ -12,6 +12,7 @@ import {MapPortal} from '@/components/for_pages/MainPage/ReceivingPointSearchMap
 import ReceivingPointMarker from '@/components/for_pages/MainPage/ReceivingPointSearchMap/ReceivingPointMarker'
 import {YMapsApi} from '@pbe/react-yandex-maps/typings/util/typing'
 import {Balloon} from 'yandex-maps'
+import ContentLoader from '@/components/ui/ContentLoader'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -19,8 +20,8 @@ export interface ReceivingPointFilterRef {
 
 class CustomCluster {
 //     // Зададаем макет метки кластера
-  createCluster(ymaps) {
-    return ymaps.templateLayoutFactory.createClass(
+  createCluster(ymaps: YMapsApi | null) {
+    return ymaps?.templateLayoutFactory.createClass(
       '<div class="ymap-cluster-icon">{{ properties.geoObjects.length }}</div>',
     )
   }
@@ -55,7 +56,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
       console.log('balloonclose')
       setSelectedReceivingPoint(null)
     }
-    const onBallonOpen = (e) => {
+    const onBallonOpen = (e: any) => {
       console.log('onBallonOpen', e)
       setTimeout(() => {
 
@@ -86,6 +87,9 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
   const handleOpenPortal = () => {
     setTimeout(() => {
       const el = document.getElementById('receiving-point-ballon')
+      if(!el || !map){
+        return
+      }
       const offsetLeft = window.innerWidth - (el.getBoundingClientRect().left + el.offsetWidth) - 20
       const offsetTop = window.innerHeight - (el.getBoundingClientRect().top + el.offsetHeight) - 68
       if (offsetLeft < 0 || offsetTop < 0) {
@@ -204,9 +208,8 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
           }}
         >
           {ymaps && searchContext.isLoaded && searchContext.data.total > 0 && searchContext.data.data.filter(i => !!i.location).map((item, index) => (
-            <ReceivingPointMarker id={item.id} mapInstanceRef={ymaps} key={item.id} location={item.location}
-
-                                  onClick={(ref) => {
+            <ReceivingPointMarker isActive={selectedReceivingPoint?.id === item.id} id={item.id} mapInstanceRef={ymaps} key={item.id} location={item.location}
+                                  onClick={() => {
 
                                     setTimeout(() => {
                                       setSelectedReceivingPoint(item)
@@ -220,6 +223,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
           <ReceivingPointMapPopup receivingPoint={selectedReceivingPoint} onClose={handleCloseBallon}
                                   style={{}}/>
         </MapPortal>}
+      <ContentLoader isOpen={!ymaps} style={'fullscreen'}/>
     </YMaps>
   )
 })

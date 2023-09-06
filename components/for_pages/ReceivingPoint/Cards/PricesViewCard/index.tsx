@@ -76,7 +76,7 @@ export default function PricesViewCard(props: Props) {
           ]}}  data={[{
           cells: [
             {value: Formatter.formatDeliveryPrice(switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents) : price.price)},
-            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id]  ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents)  : price.price) + (deliveryAreaMap[a.value!]?.deliveryPricePerTon ?? 0))})),
+            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id]  ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents)  : (price.price ?? 0)) + (((deliveryAreaMap[a.value!]?.deliveryPricePerTon) ?? 0)))})),
           ]}]
         }/>}
     </div>)}

@@ -37,17 +37,17 @@ const IndexWrapper = () => {
           Пункты приёма лома
         </div>
         <div className={styles.container}>
-          <div className={classNames(styles.left)}>
+          <div className={classNames(styles.left, {[styles.desktop]: appContext.isDesktop})}>
             <Sticky enabled={appContext.isDesktop && searchContext.viewType !== ListViewType.Map} top={120} bottomBoundary={437} innerClass={styles.stickyInner}>
               <MainFilter ref={filterRef} title={''} />
             </Sticky>
           </div>
           <div className={styles.right}>
-            <Banner className={styles.nonePhone} />
+            {appContext.isDesktop && <Banner />}
             <div className={styles.top}>
-              <div className={classNames(styles.total, styles.nonePhone)}>
+              {appContext.isDesktop && <div className={classNames(styles.total)}>
                 {searchContext.data?.total ?? 0} {Formatter.pluralize(searchContext.data?.total ?? 0, 'пункт', 'пункта', 'пунктов')} приема
-              </div>
+              </div>}
               <div className={styles.btns}>
                 {filterRef.current?.modified && searchContext.data.total > 0 && <Button onClick={handleClearFilter} styleType='small' color='blue'>
                   Очистить фильтр
@@ -57,6 +57,8 @@ const IndexWrapper = () => {
                 }} />
               </div>
             </div>
+            {appContext.isMobile && (!searchContext.isLoaded || (searchContext.isLoaded && searchContext.data.total == 0)) && <Banner />}
+
             {!searchContext.isLoaded && <ContentLoader isOpen style={'block'} />}
             {searchContext.isLoaded && searchContext.data.total == 0 &&
               <EmptyStub title={'Ничего не найдено'} text={'Мы не смогли найти пункты приема удолетворяющие условиям поиска. Попробуйте изменить условия'} actions={filterRef.current?.modified ? <Button onClick={handleClearFilter} styleType='large' color='blue'>
@@ -71,7 +73,7 @@ const IndexWrapper = () => {
               hasMore={searchContext.data.total > searchContext.data.data.length}
               scrollThreshold={0.6}>
               <div className={styles.list}>
-                {searchContext.data.data.map((i, index) => <ReceivingPointSearchCard item={i} key={index} />)}
+                {searchContext.data.data.map((i, index) => <><ReceivingPointSearchCard item={i} key={index} />{index === 0 && appContext.isMobile && <Banner/>}</>)}
                 <VisibleXs>
                   <Banner />
                 </VisibleXs>

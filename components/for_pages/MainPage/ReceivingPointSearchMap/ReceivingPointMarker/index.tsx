@@ -5,15 +5,15 @@ import {YMapsApi} from '@pbe/react-yandex-maps/typings/util/typing'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {createPinTemplateFactory} from '@/components/for_pages/MainPage/ReceivingPointSearchMap/YaMapCustomPinStyles'
 import {createBallonLayoutTemplateFactory} from '@/components/for_pages/MainPage/YaMapCustomBallonLayout'
-interface MarkerWithPopupProps {
+interface Props {
   onClick: () => void;
   location: ILocation
-  mapInstanceRef: YMapsApi | null;
+  mapInstanceRef: YMapsApi ;
   isActive: boolean
   id: number
 }
 const ReceivingPointMarker = React.memo(
-  ({id, mapInstanceRef, onClick, isActive, location}) => {
+  ({id, mapInstanceRef, onClick, isActive, location}: Props) => {
     // Тут я достаю все данные для моего пина из редакса
     const [isViewed, setViewed] = useState(false)
     useEffect(() => {

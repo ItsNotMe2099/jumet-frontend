@@ -6,7 +6,10 @@
     padding: 20px;
     display: flex;
     flex-direction: column;
-    gap: 16px;
+    @include list(16px);
+  @include mq($PhoneWidth, max) {
+    padding: 16px;
+  }
 }
 
 .title {

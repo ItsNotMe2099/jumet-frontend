@@ -1,4 +1,6 @@
-
+/* tslint:disable */
+/* eslint-disable */
+// @ts-nocheck
 import {AnyObject, YMapsApi,} from '@pbe/react-yandex-maps/typings/util/typing'
 
 const DESCRIPTION_BLOCK_HEIGHT = 20
@@ -8,7 +10,7 @@ const PIN_LEFT_MARGIN = 10
 const PIN_SIZE = 12
 const PIN_EXPANDED_INSET = 3
 type Description = {
-  isHidden: boolean
+  title?: string
 }
 type PinLayoutGetterParams = {
   onClick: (map: YMapsApi) => void;
@@ -30,7 +32,7 @@ type PinTemplateFactoryCreator = (ymaps: YMapsApi) => any;
 // eslint-disable-next-line max-lines-per-function
 export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
   // eslint-disable-next-line max-lines-per-function
-  return ({ onClick, description = { title: '' }, isActive, isViewed }) => {
+  return ({ onClick, description = { title: '' }, isActive, isViewed }: PinLayoutGetterParams) => {
     const layout = ymaps.templateLayoutFactory.createClass(
       `<div class="pin-container">
             <div class="placemark-description">
@@ -65,7 +67,7 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
           const pinSize = isActive ? PIN_SIZE + PIN_EXPANDED_INSET : PIN_SIZE
           const elementHeight =
             pinSize + DESCRIPTION_BLOCK_HEIGHT + PIN_TOP_MARGIN
-          const isDescriptionHidden = description?.isHidden
+          const isDescriptionHidden = !description?.title
 
           const inset = isActive ? -PIN_EXPANDED_INSET : 0
           // if placemark is already in active state at initial render, set active styles
