@@ -44,7 +44,7 @@ const SaleRequestOwnerCardInner = (props: Props) => {
   const saleRequestOwnerContext = useSaleRequestOwnerContext()
   const item = saleRequestOwnerContext.saleRequest!
   const options: IOption<string>[] = [
-    {label: 'Примерный вес', value: `${WeightUtils.formatWeight(item.weight)}`},
+    {label: 'Примерный вес', value: `${(item.weight ?? 0) > 0 ? WeightUtils.formatWeight(item.weight) : 'Не указан'}`},
     {label: 'Цена', value: item.price ? Formatter.formatPrice(item.price) : 'Не указана'},
     {label: 'Категория лома', value: item.scrapMetalCategory ?? '-'},
     {label: 'Доставка', value: item.requiresDelivery ? 'Нужна доставка' : '-'},

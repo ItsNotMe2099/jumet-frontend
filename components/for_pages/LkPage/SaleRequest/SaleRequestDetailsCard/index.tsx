@@ -41,7 +41,7 @@ export default function SaleRequestDetailsCard(props: Props) {
   const [opened, setOpened] = useState<boolean>(false)
   const fields: IOption<string | ReactElement>[] = [
     {label: 'Адрес расположения лома' , value: saleRequest.address?.address ?? ''},
-    {label: 'Примерный вес' , value: WeightUtils.formatWeight(saleRequest.weight)},
+    {label: 'Примерный вес' , value: (saleRequest.weight ?? 0) > 0 ? WeightUtils.formatWeight(saleRequest.weight) : 'Не указан'},
     {label: 'Цена' , value: Formatter.formatDeliveryPrice(saleRequest.price)},
     {label: 'Категория лома' , value: saleRequest.scrapMetalCategory},
     ...(saleRequest.requiresDelivery ? [{label: 'Доставка' , value: 'Нужна доставка' }] : []),
