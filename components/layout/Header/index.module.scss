@@ -21,20 +21,16 @@
 }
 
 .logo {
-  max-width: 200px;
+  max-width: 237px;
+  height: 28px;
+  display: block;
 }
 
 .info {
-  height: 48px;
-  background-color: $dark400;
-  display: flex;
-  align-items: center;
   font-weight: 400;
   font-size: 12px;
   line-height: 16px;
   color: $white;
-  padding: 0 12px;
-  border-radius: 12px;
 
   @include mq($SmDesktopWidth, max) {
     display: none;
@@ -54,8 +50,8 @@
 
 .left {
   display: flex;
+  flex-direction: column;
   align-items: center;
-  @include list(12px, true)
 }
 
 .middle {
