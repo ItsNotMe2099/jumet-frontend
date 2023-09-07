@@ -68,5 +68,5 @@ services:
       environment:
         API_HOST: http://lommarket-api-nginx
         ADMIN_HOST: http://lommarket-admin
-        VIRTUAL_HOST: lommarket.com,
+        VIRTUAL_HOST: lommarket.com
         VIRTUAL_PORT: 80
