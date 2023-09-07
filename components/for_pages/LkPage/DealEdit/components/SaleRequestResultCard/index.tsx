@@ -31,7 +31,7 @@ export default function SaleRequestResultCard(props: Props) {
         <DescField label={'Доставка'} value={saleRequest.requiresDelivery ? 'Нужна доставка' : 'Не нужна'}/>
         <DescField label={'Погрузка'} value={saleRequest.requiresLoading ? 'Нужна погрузка' : 'Не нужна'}/>
         <DescField label={'Покупатель'} value={deal.receivingPoint?.company?.name}/>
-        <DescField label={'Адрес пункта приёма'} value={deal.receivingPoint?.address?.address}/>
+        <DescField label={'Адрес расположения лома'} value={deal.receivingPoint?.address?.address}/>
       </div>
     </DealStepResultCardLayout>
 

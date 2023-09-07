@@ -208,8 +208,15 @@ const SetupStepFormInner = (props: Props) => {
                          label={`Отправляя форму, я даю своё согласие с [Политикой обработки персональных данных](${Routes.personalDataPolitics})`} />}
 
           <div>
-            <Button type='submit' spinner={loading} color='blue' styleType='large'>Оформить
-              сделку</Button>
+
+             <div className={styles.buttons}>
+               <Button type='submit' spinner={loading} color='blue' styleType='large'>Оформить
+                 сделку</Button>
+              <Button disabled={dealContext.editLoading} spinner={dealContext.terminateLoading} onClick={() => dealContext.terminateBySeller()} styleType='large' color='greyRed'>
+                Расторгнуть сделку
+              </Button>
+            </div>
+
           </div>
         </Form>
       </FormikProvider>
