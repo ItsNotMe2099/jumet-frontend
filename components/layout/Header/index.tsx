@@ -96,7 +96,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
             <LogoSvg className={styles.logo} colorFirst={colors.yellow500} colorSecond={colors.white}/>
           </Link>
           <div className={styles.info}>
-            Онлайн-сервис продажи<br/> и покупки лома
+            Онлайн-сервис продажи и покупки лома
           </div>
         </div>
         <div className={styles.middle}>

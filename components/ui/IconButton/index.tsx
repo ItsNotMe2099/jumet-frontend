@@ -40,6 +40,7 @@ export default function IconButton(props: Props) {
       className={classNames([styles.root, props.className], props.bgColor && styles[props.bgColor], styles[props.size ?? 'normal'])}
       type={props.type ?? 'button'}
       form={props.form}
+      disabled={props.disabled}
       onClick={(e) => props.onClick?.(e)}
     >
       <span className={classNames({

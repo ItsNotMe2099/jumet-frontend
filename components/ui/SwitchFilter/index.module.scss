@@ -23,6 +23,11 @@
             color: $blue500;
         }
     }
+
+  @include mq($PhoneWidth, max) {
+    height: 40px;
+    padding: 0 9px;
+  }
 }
 
 .label {

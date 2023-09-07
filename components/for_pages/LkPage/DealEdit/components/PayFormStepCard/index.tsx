@@ -32,6 +32,7 @@ export default function PayFormStepCard(props: Props) {
         title: 'Отправить подтверждение оплаты?',
         text: 'Вы не прикрепили Квитанцию об оплате. Точно отправляем?',
         onConfirm: async () => {
+          appContext.hideModal()
           submit(data)
         }
       } as ConfirmModalArguments)

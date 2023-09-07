@@ -15,7 +15,7 @@ export default class WeightUtils {
 
   static formatWeight(weight: number): string {
     const unit = this.getUnitByValue(weight)
-    return `${unit === UnitWeight.Ton ? weight / 1000: weight} ${unit === UnitWeight.Ton ? Formatter.pluralize(weight / 1000, 'тонны', 'тонн', 'тонн') : Formatter.pluralize(weight, 'кг', 'кг', 'кг')}`
+    return `${unit === UnitWeight.Ton ? weight / 1000: weight} ${unit === UnitWeight.Ton ? Formatter.pluralize(weight / 1000, 'тонна', 'тонн', 'тонн') : Formatter.pluralize(weight, 'кг', 'кг', 'кг')}`
   }
   static formatWeightWithoutSuffix(weight: number): string {
     const unit = this.getUnitByValue(weight)

@@ -5,8 +5,6 @@ export default class MapUtils {
   static getBboxByCoordinates (
     coordinates: number[][]
   ): GenericBounds<number>[]  {
-    if (coordinates.length === 0) return
-
     let minLongitude = coordinates[0][0]
     let minLatitude = coordinates[0][1]
     let maxLongitude = coordinates[0][0]

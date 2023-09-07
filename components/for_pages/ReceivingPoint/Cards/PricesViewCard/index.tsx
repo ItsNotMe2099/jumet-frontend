@@ -40,12 +40,12 @@ export default function PricesViewCard(props: Props) {
   }, [receivingPoint.prices])
 
 
-  const deliveryAreaMap = useMemo<any>(() => receivingPoint.deliveryAreas.reduce((ac, a) => ({
+  const deliveryAreaMap = useMemo<{[key: number]: IDeliveryArea}>(() => receivingPoint.deliveryAreas.reduce((ac, a) => ({
       ...ac,
       [a.id!]: a
     }), {} as OptionsMap)
     , [receivingPoint.deliveryAreas])
-
+  console.log('deliveryAreaMap', deliveryAreaMap)
   return (
     <ReceivingPointViewCard title='Стоимость приема лома'>
       <div className={styles.root}>
@@ -67,7 +67,7 @@ export default function PricesViewCard(props: Props) {
           cells: [
             {value: ReceivingPointUtils.formatWeightRange(i)},
             {value: Formatter.formatDeliveryPrice(switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(i.price, price.rubbishInPercents) : i.price)},
-            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(i.price, price.rubbishInPercents) : i.price) + (deliveryAreaMap[a.value!]?.price ?? 0))})),
+            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(i.price, price.rubbishInPercents) : i.price) + (deliveryAreaMap[a.value!]?.deliveryPricePerTon ?? 0))})),
           ]
         })) ?? []}/>}
         {!price.priceDependsOnWeight  && deliveryAreaNames.length > 0  && <PricingTable headerRow={{cells: [
@@ -76,7 +76,7 @@ export default function PricesViewCard(props: Props) {
           ]}}  data={[{
           cells: [
             {value: Formatter.formatDeliveryPrice(switchRubbishMap[price.id] ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents) : price.price)},
-            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice(switchRubbishMap[price.id]  ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents) : price.price + (deliveryAreaMap[a.value!]?.price ?? 0))})),
+            ...deliveryAreaNames?.map(a => ({value: Formatter.formatDeliveryPrice((switchRubbishMap[price.id]  ? ReceivingPointUtils.getPriceWithRubbish(price.price, price.rubbishInPercents)  : (price.price ?? 0)) + (((deliveryAreaMap[a.value!]?.deliveryPricePerTon) ?? 0)))})),
           ]}]
         }/>}
     </div>)}

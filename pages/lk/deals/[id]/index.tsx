@@ -20,7 +20,7 @@ const LkDealPageInner = () => {
           <div className={styles.colLeft}>
             <DealEdit/>
           </div>
-          <ChatOnPage title={appContext.aboutMe?.role === UserRole.Seller ? 'Чат с пунктом приема' : 'Чат с покупателем'} sellerId={dealContext.deal!.sellerId!} receivingPointId={dealContext.deal!.receivingPointId!}/>
+          <ChatOnPage title={appContext.aboutMe?.role === UserRole.Seller ? 'Чат с пунктом приема' : 'Чат с продавцом'} sellerId={dealContext.deal!.sellerId!} receivingPointId={dealContext.deal!.receivingPointId!}/>
         </>}
       </div>
   )

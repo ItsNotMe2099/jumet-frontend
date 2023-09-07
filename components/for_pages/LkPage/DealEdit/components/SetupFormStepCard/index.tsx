@@ -30,7 +30,7 @@ import TimeField from '@/components/fields/TimeField'
 import {updatedDiff} from 'deep-object-diff'
 import CurrentUserRepository from '@/data/repositories/CurrentUserRepository'
 import {omit} from '@/utils/omit'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import CheckBoxField from '@/components/fields/CheckBoxField'
 import {Routes} from '@/types/routes'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
@@ -136,6 +136,11 @@ const SetupStepFormInner = (props: Props) => {
       formik.setFieldValue('location', address.location)
     }
   }
+  useEffect(() => {
+    if(!formik.values.requiresDelivery) {
+      formik.setFieldValue('requiresLoading', false)
+    }
+  }, [formik.values.requiresDelivery])
 
   return (
     <DealStepFormCardLayout title={'Оформить сделку'}>
@@ -165,9 +170,10 @@ const SetupStepFormInner = (props: Props) => {
           }
 
           <SwitchField name={'requiresDelivery'} label={'Нужна доставка лома на пункт приёма'}/>
-          <SwitchField name={'requiresLoading'} label={'Нужна погрзука'}/>
 
           {formik.values.requiresDelivery && <>
+            <SwitchField name={'requiresLoading'} label={'Нужна погрузка'}/>
+
             <AddressField name='address' label='Адрес расположения лома*' onChange={handleChangeAddress} resettable={true}
                           validate={Validator.required}/>
             <FormFieldset title={'Удобное время доставки'}>
@@ -202,8 +208,15 @@ const SetupStepFormInner = (props: Props) => {
                          label={`Отправляя форму, я даю своё согласие с [Политикой обработки персональных данных](${Routes.personalDataPolitics})`} />}
 
           <div>
-            <Button type='submit' spinner={loading} color='blue' styleType='large'>Оформить
-              сделку</Button>
+
+             <div className={styles.buttons}>
+               <Button type='submit' spinner={loading} color='blue' styleType='large'>Оформить
+                 сделку</Button>
+              <Button disabled={dealContext.editLoading} spinner={dealContext.terminateLoading} onClick={() => dealContext.terminateBySeller()} styleType='large' color='greyRed'>
+                Расторгнуть сделку
+              </Button>
+            </div>
+
           </div>
         </Form>
       </FormikProvider>

@@ -9,7 +9,6 @@ import MapSvg from '@/components/svg/MapSvg'
 import classNames from 'classnames'
 import FilterComponent from '@/components/for_pages/MainPage/MainFilterSectionLayout'
 import { Form, FormikProvider, useFormik } from 'formik'
-import { ViewType } from '@/context/receiving_point_search_state'
 import { IOption, ListViewType } from '@/types/types'
 import { useDataContext } from '@/context/data_state'
 import SwitchField from '@/components/fields/SwitchField'
@@ -91,20 +90,20 @@ const SaleRequestsFilter = forwardRef<SaleRequestsFilterRef, Props>((props, ref)
     }
     debouncedSetFilter(formik.values)
   }, [formik.values])
-  const viewTypeFilter = (<SwitchFilter<ViewType>
+  const viewTypeFilter = (<SwitchFilter<ListViewType>
     active={searchContext.viewType}
     onClick={searchContext.setViewType}
     className={styles.listMap}
     items={[
       {
         label: 'Списком',
-        value: ViewType.List,
-        icon: <ListSvg color={searchContext.viewType === ViewType.List ? colors.blue500 : colors.dark500} />
+        value: ListViewType.List,
+        icon: <ListSvg color={searchContext.viewType === ListViewType.List ? colors.blue500 : colors.dark500} />
       },
       {
         label: 'На карте',
-        value: ViewType.Map,
-        icon: <MapSvg color={searchContext.viewType === ViewType.Map ? colors.blue500 : colors.dark500} />
+        value: ListViewType.Map,
+        icon: <MapSvg color={searchContext.viewType === ListViewType.Map ? colors.blue500 : colors.dark500} />
       },
     ]}
   />)

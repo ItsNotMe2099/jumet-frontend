@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useRef, useState} from 'react'
-import {IPagination} from 'types/types'
+import {IPagination, ListViewType} from 'types/types'
 import {ISaleRequestSearchRequest} from '@/data/interfaces/ISaleRequestSearchRequest'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import SaleRequestRepository from '@/data/repositories/SaleRequestRepository'
@@ -27,8 +27,8 @@ interface IState {
   sortOrder: SortOrder,
   setSortOrder: (sort: SortOrder) => void,
   setFilter: (data: ISaleRequestFilter) => void
-  viewType: ViewType,
-  setViewType: (view: ViewType) => void,
+  viewType: ListViewType,
+  setViewType: (view: ListViewType) => void,
   reFetch: () => void
   fetchMore: () => void
 }
@@ -43,8 +43,8 @@ const defaultValue: IState = {
   sortOrder: SortOrder.Desc,
   setSortOrder: (sort: SortOrder) => null,
   setFilter: (data: ISaleRequestFilter) => null,
-  viewType: ViewType.List,
-  setViewType: (view: ViewType) => null,
+  viewType: ListViewType.List,
+  setViewType: (view: ListViewType) => null,
   reFetch: () => null,
   fetchMore: () => null,
 }
@@ -63,7 +63,7 @@ export function SaleRequestSearchWrapper(props: Props) {
   const [filter, setFilter] = useState<ISaleRequestFilter>({page: 1, limit: 10})
   const [sortOrder, setSortOrder] = useState<SortOrder>(SortOrder.Desc)
   const [page, setPage] = useState<number>(1)
-  const [viewType, setViewType] = useState<ViewType>(ViewType.List)
+  const [viewType, setViewType] = useState<ListViewType>(ListViewType.List)
   const filterRef = useRef<ISaleRequestFilter>(filter)
   const sortOrderRef = useRef<SortOrder>(sortOrder)
   const abortControllerRef = useRef<AbortController | null>(null)

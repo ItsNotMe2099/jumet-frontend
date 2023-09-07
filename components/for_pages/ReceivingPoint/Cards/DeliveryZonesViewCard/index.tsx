@@ -28,15 +28,17 @@ export default function DeliveryZonesViewCard(props: Props) {
     , [receivingPoint.deliveryAreas])
   const [filterRadius, setFilterRadius] = useState<number>(options.length > 0 ? (options[0].value ?? 0) : 0)
   console.log('receivingPoint', receivingPoint.deliveryAreas)
-
+  if(!receivingPoint.hasDelivery){
+    return null
+  }
     return (
       <ReceivingPointViewCard title={receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance  ? 'Зоны доставки' : 'Доставка'}>
         <div className={styles.root}>
-          {receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>}
-          {receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}</div>}/>}
-          {receivingPoint.deliveryPriceType === DeliveryPriceType.Fixed && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(receivingPoint.deliveryPriceFixed)}</div>}/>}
-          {receivingPoint.hasLoading && <DescField label={'Стоимость погрузки'} value={<div className={styles.price}>{Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}</div>}/>}
-            </div>
+          {receivingPoint.hasDelivery && receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <Tabs<number> options={options} value={filterRadius} onClick={setFilterRadius}/>}
+          {receivingPoint.hasDelivery && receivingPoint.deliveryPriceType === DeliveryPriceType.ByDistance && receivingPoint.deliveryAreas.length > 0 && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{deliveryAreaMap[filterRadius].deliveryPricePerTon === 0 ? 'бесплатно' : Formatter.formatDeliveryPrice(deliveryAreaMap[filterRadius].deliveryPricePerTon)}</div>}/>}
+          {receivingPoint.hasDelivery && receivingPoint.deliveryPriceType === DeliveryPriceType.Fixed && <DescField label={'Стоимость доставки'} value={<div className={styles.price}>{receivingPoint.deliveryPriceFixed === 0 ? 'бесплатно' : Formatter.formatDeliveryPrice(receivingPoint.deliveryPriceFixed)}</div>}/>}
+          {receivingPoint.hasDelivery && receivingPoint.hasLoading && <DescField label={'Стоимость погрузки'} value={<div className={styles.price}>{receivingPoint.loadingPrice === 0 ? 'бесплатно' : Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}</div>}/>}
+          </div>
       </ReceivingPointViewCard>
     )
 }

@@ -69,6 +69,9 @@ export default function ProfileMenu(props: Props) {
       case ActionType.ReceivingPoints:
         router.push(Routes.lkReceivingPoints)
         break
+      case ActionType.Crm:
+        router.push(Routes.lkCrmMain)
+        break
       case ActionType.Logout:
         setTimeout(() => appContext.logout(), 100)
         router.push(Routes.index)

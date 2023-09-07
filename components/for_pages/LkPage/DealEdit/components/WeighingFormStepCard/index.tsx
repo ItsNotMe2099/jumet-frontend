@@ -52,6 +52,7 @@ export default function WeighingFormStepCard(props: Props) {
         title: 'Отправить результаты?',
         text: `Вы не прикрепили ${labels.join(' и ')}. Точно отправляем?`,
         onConfirm: async () => {
+          appContext.hideModal()
           submit(data)
         }
       } as ConfirmModalArguments)

@@ -89,7 +89,7 @@ export default function DealOfferForm(props: Props) {
       <Form className={styles.form}>
         <FormErrorScroll formik={formik} />
         <SelectField<number | null> validate={Validator.required} name='receivingPointId' options={receivingPointOptions} label='Пункт приёма' />
-        <PriceField name='price' label='Цена за тонну лома без учета доставки' suffix={'₽'} />
+        <PriceField name='price' label='Цена за тонну лома без учета доставки' suffix={'₽'} validate={Validator.required} />
         <PriceField name='deliveryPrice' label='Стоимость доставки' suffix={'₽'} />
         <PriceField name='loadingPrice' label='Стоимость погрузки' suffix={'₽'} />
         <PercentField name='rubbishInPercents' suffix={'%'} label='Процент засора (предварительный)' />

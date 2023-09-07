@@ -111,7 +111,7 @@ export default class DealUtils {
           } : {
             shortName: noDeliveryName,
             name: noDeliveryName,
-            description: `Сроки доставки: ${deliveryTime}`,
+            description: '',
           }),
           color: 'yellow'
         }
@@ -124,7 +124,7 @@ export default class DealUtils {
           } : {
             shortName: noDeliveryName,
             name: noDeliveryName,
-            description: `После доставки лома, укажите результат взвешивания и отправьте приемо-сдаточный акт. Сроки доставки: ${deliveryTime}`,
+            description: 'После доставки лома, укажите результат взвешивания и отправьте приемо-сдаточный акт.',
           }),
           color: 'yellow'
         }
