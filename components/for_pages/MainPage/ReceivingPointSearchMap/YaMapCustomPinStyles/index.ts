@@ -40,6 +40,7 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
             </div>
             <div class="pin-container__pin">
                 <div class="placemark__background"></div>
+                <div class="placemark__line"></div>
             </div>
       </div>`,
       {
@@ -51,6 +52,9 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
 
           const pinContainer =
             this.getParentElement().getElementsByClassName('pin-container')[0]
+
+          const pin =
+            this.getParentElement().getElementsByClassName('pin-container__pin')[0]
 
           const backgroundElement =
             this.getParentElement().getElementsByClassName(
@@ -71,13 +75,13 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
 
           const inset = isActive ? -PIN_EXPANDED_INSET : 0
           // if placemark is already in active state at initial render, set active styles
-          backgroundElement.style.top = inset + 'px'
-          backgroundElement.style.bottom = inset + 'px'
-          backgroundElement.style.left = inset + 'px'
-          backgroundElement.style.right = inset + 'px'
+          //backgroundElement.style.top = inset + 'px'
+          //backgroundElement.style.bottom = inset + 'px'
+          //backgroundElement.style.left = inset + 'px'
+         // backgroundElement.style.right = inset + 'px'
 
           descriptionElement.style.transform = `translateY(${inset}px)`
-          if (!isDescriptionHidden || isActive) {
+          if (!isDescriptionHidden) {
             descriptionElement.classList.add('placemark-description_visible')
           }
 
@@ -92,6 +96,8 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
             // description active state layout
             descriptionElement.classList.add('placemark-description_active')
 
+            pin.classList.add('pin-container__pin_active')
+
             // ACTIVE STATE ANIMATION
 
             // add extraTranslateTop to initial translate
@@ -102,7 +108,7 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
               pinContainer.style.transform = `translate(-${translateLeft}px, -${translateTop}px)`
 
               // make tailed pin from the round one
-              backgroundElement.style.borderRadius = '50% 50% 1px 50%'
+           //   backgroundElement.style.borderRadius = '50% 50% 1px 50%'
             })
           }
 
@@ -111,6 +117,9 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
           this.getData().geoObject.events.add(
             'mouseenter',
             () => {
+              if(isActive){
+                return
+              }
               backgroundElement.style.top = `-${PIN_EXPANDED_INSET}px`
               backgroundElement.style.bottom = `-${PIN_EXPANDED_INSET}px`
               backgroundElement.style.left = `-${PIN_EXPANDED_INSET}px`
@@ -118,7 +127,7 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
 
               descriptionElement.style.transform = `translateY(-${PIN_EXPANDED_INSET}px)`
               if (isDescriptionHidden) {
-                descriptionElement.style.opacity = 1
+                //descriptionElement.style.opacity = 1
               }
             },
             this
@@ -127,6 +136,7 @@ export const createPinTemplateFactory: PinTemplateFactoryCreator = (ymaps) => {
           this.getData().geoObject.events.add(
             'mouseleave',
             () => {
+
               // if placemark is active leave hover layout unaffected
               if (!isActive) {
                 backgroundElement.style.top = '0px'

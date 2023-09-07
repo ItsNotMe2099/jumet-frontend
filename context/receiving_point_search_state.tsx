@@ -11,7 +11,7 @@ import {useDataContext} from '@/context/data_state'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
 
-interface IReceivingPointFilter extends IReceivingPointSearchRequest {
+export interface IReceivingPointFilter extends IReceivingPointSearchRequest {
   scrapMetalCategory?: Nullable<ScrapMetalCategory>;
 }
 

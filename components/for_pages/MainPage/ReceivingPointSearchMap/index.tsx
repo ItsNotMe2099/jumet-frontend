@@ -1,6 +1,6 @@
 import {forwardRef, useCallback, useEffect, useMemo, useRef, useState} from 'react'
 import styles from './index.module.scss'
-import {useReceivingPointSearchContext} from '@/context/receiving_point_search_state'
+import {IReceivingPointFilter, useReceivingPointSearchContext} from '@/context/receiving_point_search_state'
 import {useDataContext} from '@/context/data_state'
 import {useAppContext} from '@/context/state'
 import {runtimeConfig} from '@/config/runtimeConfig'
@@ -13,6 +13,7 @@ import ReceivingPointMarker from '@/components/for_pages/MainPage/ReceivingPoint
 import {YMapsApi} from '@pbe/react-yandex-maps/typings/util/typing'
 import {Balloon} from 'yandex-maps'
 import ContentLoader from '@/components/ui/ContentLoader'
+import Formatter from '@/utils/formatter'
 
 export interface ReceivingPointFilterRef {
   clear(): void
@@ -46,8 +47,12 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
   const appContext = useAppContext()
   const mapRef = useRef<ymaps.Map | null>(null)
   const [ymaps, setYmaps] = useState<YMapsApi | null>(null)
+  const ymapsRef = useRef<YMapsApi | null>(null)
   const [map, setMap] = useState<ymaps.Map | null>(null)
   const ballonRef = useRef<Balloon | null>(null)
+  const [selectedReceivingPoint, setSelectedReceivingPoint] = useState<Nullable<IReceivingPoint>>(null)
+  const filterRef = useRef<IReceivingPointFilter | null>(null)
+  const initFilter = useRef<boolean>(false)
   useEffect(() => {
     if (!map) {
       return
@@ -70,11 +75,38 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
       map.events.remove('balloonclose', onBallonClose)
     }
   }, [map])
-  const [selectedReceivingPoint, setSelectedReceivingPoint] = useState<Nullable<IReceivingPoint>>(null)
 
+  const getBoundsWithOffset = (bounds: number[][]) => {
+    const size = map!.container.getSize(),
+      map_bounds = map!.getBounds()
+    const offsets = appContext.isDesktop ? [50, 600, 50, 50] : [100, 16, 16, 16]
+    const x = (map_bounds[1][1] - map_bounds[0][1]) / size[0]
+    const y = (map_bounds[1][0] - map_bounds[0][0]) / size[1]
+    return [[bounds[0][0] - offsets[0] * y, bounds[0][1] - offsets[1] * x], [bounds[1][0] + offsets[2] * y, bounds[1][1] + offsets[3] * x]]
+  }
+  useEffect(() => {
+    filterRef.current = searchContext.filter
+  }, [searchContext.filter])
+  useEffect(() => {
+    console.log('Total5656', searchContext.data.total)
+    if (searchContext.data.total > 0 && !initFilter.current) {
+      initFilter.current = true
+      return
+    }
+    if (!searchContext.data.total) {
+      return
+    }
+    console.log('FromPoints', searchContext.data.data.map(i => [i.location.lng, i.location.lat]))
+    const bounds = ymapsRef.current?.util.bounds.fromPoints(searchContext.data.data.map(i => [i.location.lat, i.location.lng]))
+    console.log('Bounds1212', bounds)
+    if (bounds) {
+      map?.setBounds(getBoundsWithOffset(bounds), {preciseZoom: false})
+    }
+  }, [searchContext.data])
   const onMapLoaded = useCallback(
     (ymaps: YMapsApi) => {
       setYmaps(ymaps)
+      ymapsRef.current = ymaps
       console.log('mapRef', mapRef.current)
     },
     [setYmaps]
@@ -87,7 +119,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
   const handleOpenPortal = () => {
     setTimeout(() => {
       const el = document.getElementById('receiving-point-ballon')
-      if(!el || !map){
+      if (!el || !map) {
         return
       }
       const offsetLeft = window.innerWidth - (el.getBoundingClientRect().left + el.offsetWidth) - 20
@@ -118,7 +150,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
             }}
             modules={
               ['Balloon',
-               'Clusterer',
+                'Clusterer',
                 'clusterer.addon.balloon',
                 'clusterer.addon.hint',
                 'ClusterPlacemark',
@@ -157,8 +189,8 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
                 'layer.storage',
                 'LayerCollection',
                 'layout.templateBased.Base',
-               'Map',
-               'map.addon.balloon',
+                'Map',
+                'map.addon.balloon',
                 'map.addon.hint',
                 'map.Balloon',
                 'map.behavior.Manager',
@@ -173,7 +205,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
                 'MapEvent',
                 'MapType',
                 'mapType.storage',
-                 'ObjectManager',
+                'ObjectManager',
                 'objectManager.addon.clustersBalloon',
                 'objectManager.addon.clustersHint',
                 'objectManager.addon.objectsBalloon',
@@ -194,7 +226,7 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
                 'templateLayoutFactory',
                 'util.bounds',
 
-              ]  }
+              ]}
             options={{
               suppressMapOpenBlock: true
             }}
@@ -208,9 +240,13 @@ const ReceivingPointSearchMap = forwardRef<ReceivingPointFilterRef, Props>((prop
           }}
         >
           {ymaps && searchContext.isLoaded && searchContext.data.total > 0 && searchContext.data.data.filter(i => !!i.location).map((item, index) => (
-            <ReceivingPointMarker isActive={selectedReceivingPoint?.id === item.id} id={item.id} mapInstanceRef={ymaps} key={item.id} location={item.location}
+            <ReceivingPointMarker title={item.price ? `до ${Formatter.formatPrice(item.price, '₽/т')}` : ''}
+                                  isActive={selectedReceivingPoint?.id === item.id} id={item.id} mapInstanceRef={ymaps}
+                                  key={item.id} location={item.location}
                                   onClick={() => {
-
+                                    if (item.id === selectedReceivingPoint?.id) {
+                                      return
+                                    }
                                     setTimeout(() => {
                                       setSelectedReceivingPoint(item)
                                     }, 10)

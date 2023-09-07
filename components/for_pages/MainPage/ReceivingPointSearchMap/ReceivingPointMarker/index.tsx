@@ -11,9 +11,10 @@ interface Props {
   mapInstanceRef: YMapsApi ;
   isActive: boolean
   id: number
+  title?: string | null
 }
 const ReceivingPointMarker = React.memo(
-  ({id, mapInstanceRef, onClick, isActive, location}: Props) => {
+  ({id, mapInstanceRef, onClick, isActive, location, title}: Props) => {
     // Тут я достаю все данные для моего пина из редакса
     const [isViewed, setViewed] = useState(false)
     useEffect(() => {
@@ -23,12 +24,14 @@ const ReceivingPointMarker = React.memo(
     const template = createPinTemplateFactory(mapInstanceRef)({
       onClick: onClick,
       isActive,
-      isViewed,
+      isViewed: false,
+      description: {
+        title,
+      }
 
     })
 
     const ballonLayoutTemplate = useMemo(() => createBallonLayoutTemplateFactory(mapInstanceRef)({
-
 
     }), [])
 

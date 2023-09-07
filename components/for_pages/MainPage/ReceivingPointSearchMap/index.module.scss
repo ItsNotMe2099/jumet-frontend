@@ -13,7 +13,6 @@
     left: 0;
     right: 0;
     border-radius: 50%;
-    transform: rotate(45deg);
     transition-timing-function: ease-in-out;
     transition-duration: 200ms;
     z-index: 1;
@@ -41,8 +40,39 @@
 
     transition-timing-function: ease-in-out;
     transition-duration: 200ms;
+    &_active{
+      .placemark__line{
+        opacity: 1;
+      }
+      .placemark__background{
+        background-color: white;
+        border-color: $blue500;
+        &:after{
+          content: '';
+          position: absolute;
+          top: 50%;
+          left: 50%;
+          width: 16px;
+          height: 16px;
+          transform: translate(-50%, -50%);
+          background-color: $blue500;
+          border-radius: 100%;
+        }
+      }
+    }
   }
-
+  :global .placemark__line{
+    width: 2px;
+    height: 12px;
+    background-color: $blue500;
+    left: 50%;
+    position: absolute;
+    transition: transform .3s ease;
+    top: 0px;
+    margin-left: -1px;
+  opacity: 0;
+    transform: translateY(24px);
+  }
   :global .placemark-description {
     display: flex;
     background-color: white;
@@ -63,9 +93,8 @@
   }
 
   :global .placemark-description_active {
-    background-color: black;
-    color: white;
-    border: 1px solid black;
+    background-color: $white;
+    border: 2px solid $blue500;
   }
 
   :global .placemark-description__title {
@@ -73,8 +102,6 @@
     overflow: hidden;
     text-overflow: ellipsis;
 
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica,
-    Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';
     font-style: normal;
     font-weight: 500;
     font-size: 12px;
