@@ -6,12 +6,31 @@
   align-items: center;
    @include list(8px);
 
-  flex:1;
+  // flex:1;
+  
   text-align: center;
 }
-.text{
-  max-width: 120px;
+
+.rootAlt {
+  flex-direction: row;
+  align-items: center;
+  column-gap: 10px;
+  background-color: white;
+  padding: 0px 6px;
+  text-align: center;
 }
+
+.text{
+  // max-width: 140px;
+  // white-space: nowrap;
+  color: $grey500;
+}
+
+.textAlt {
+  margin: unset;
+}
+
+
 .col,
 .check {
     align-self: center;
@@ -21,4 +40,10 @@
 
 .onBack {
     cursor: pointer;
+}
+
+.active {
+  color: $black;
+  font-weight: 500;
+  
 }

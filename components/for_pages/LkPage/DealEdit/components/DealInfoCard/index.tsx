@@ -9,6 +9,8 @@ import {DealStatus} from '@/data/enum/DealStatus'
 import Alert, {AlertType} from '@/components/ui/Alert'
 import DealUtils, {IDealStateDetails} from '@/utils/DealUtils'
 import {useAppContext} from '@/context/state'
+import { Sticky, StickyContainer } from 'react-sticky'
+import VisibleMd from '@/components/visibility/VisibleMd'
 
 
 
@@ -82,11 +84,36 @@ export default function DealInfoCard(props: Props) {
         return 'danger'
     }
 }
+
+// isSticky?{transform: `translateY(${Math.abs(distanceFromTop)}px)`, height: 'auto'
   return (
     <CardLayout title={`Сделка № ${dealContext.dealId}`} titleClassName={styles.title}>
       <div className={styles.root}>
-      <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options}  />
       {dealStateDetails && <Alert type={getAlertType(dealStateDetails)} title={dealStateDetails.name}  text={dealStateDetails.description}/> }
+      <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options}  />
+      <VisibleMd>
+      <StickyContainer >
+        <Sticky  topOffset={84}>{({style, distanceFromTop, isSticky}) => <div style={
+          {...style, 
+          width: '100%', 
+          display: 'flex', 
+          flexDirection: 'column',
+          alignItems: 'center', 
+          transform: `translateY(${distanceFromTop<0?Math.abs(distanceFromTop)+84:0}px)`}
+          }>
+          {distanceFromTop<0 &&
+          <div className={styles.sticky} >
+            <p className={styles.lineTitle}>Сделка № {dealContext.dealId}</p>
+            <div className={styles.lineSpacer}></div>
+            <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options} alternate/>
+          </div>
+          }
+         
+        </div>}
+        </Sticky>
+      </StickyContainer>
+      </VisibleMd>
+     
       </div>
     </CardLayout>
   )

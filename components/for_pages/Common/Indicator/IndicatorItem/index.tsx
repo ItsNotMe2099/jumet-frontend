@@ -10,6 +10,7 @@ interface Props {
   label: string
   index: number
   onBack?: () => void
+  alternate?: boolean
 }
 
 
@@ -22,11 +23,12 @@ export default function IndicatorItem(props: Props) {
   }
 
   return (
-    <div className={classNames(styles.root, {[styles.onBack]: props.index === props.step - 1})} onClick={handleBack}>
+    <div className={classNames(styles.root, {[styles.onBack]: props.index === props.step - 1}, props.alternate&&styles.rootAlt)} onClick={handleBack}>
       {props.step > props.index ? <CheckSvg className={styles.check} color={colors.blue500} />
-        :
-        <ColSvg className={styles.col} step={props.step} index={props.index} />}
-      <div className={classNames(styles.text, { [styles.active]: props.step === props.index })}>
+        :       
+        <ColSvg className={styles.col} step={props.step} index={props.index} />
+      }
+      <div className={classNames(styles.text, { [styles.active]: props.step === props.index }, props.alternate&&styles.textAlt)}>
         {props.label}
       </div>
     </div>

@@ -5,6 +5,7 @@
     border-radius: 12px;
     display: flex;
     @include list(12px, true);
+    margin-top: 24px;
 
   &.attention{
     background-color: $yellow300;

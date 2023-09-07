@@ -10,7 +10,7 @@
 
 .indicator {
     margin: 0 !important;
-    margin-top: 24px !important;
+    margin-top: 16px !important;
 }
 
 .info {
@@ -19,4 +19,38 @@
 
 .line {
 
+}
+
+.lineTitle {
+    font-weight: 700;
+    font-size: 16px;
+    margin: unset;
+    margin-top: 4px;
+}
+
+.lineSpacer {
+    height: 60%;
+    width: 2px !important;
+    background-color: $grey400;
+}
+
+
+.sticky {   
+    background-color: white;
+    z-index: 200;
+    width: calc(100% + 40px);
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+    padding: 0px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    height: 48px;
+    box-shadow: 0px 10px 10px -10px $grey500;
+
+    >div {
+        margin: unset !important;
+        width: 80%;
+
+    }
 }
