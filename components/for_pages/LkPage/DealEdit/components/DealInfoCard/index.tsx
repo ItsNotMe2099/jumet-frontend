@@ -1,16 +1,15 @@
 import CardLayout from '@/components/for_pages/Common/CardLayout'
 import styles from './index.module.scss'
 import Indicator from '@/components/for_pages/Common/Indicator'
-
 import {IFormStep, IOption} from '@/types/types'
 import {useDealContext} from '@/context/deal_state'
-import {useMemo} from 'react'
+import {useEffect, useMemo, useRef, useState} from 'react'
 import {DealStatus} from '@/data/enum/DealStatus'
 import Alert, {AlertType} from '@/components/ui/Alert'
 import DealUtils, {IDealStateDetails} from '@/utils/DealUtils'
 import {useAppContext} from '@/context/state'
-import { Sticky, StickyContainer } from 'react-sticky'
 import { useResize } from '@/components/hooks/useResize'
+import classnames from 'classnames'
 
 
 
@@ -86,35 +85,38 @@ export default function DealInfoCard(props: Props) {
     }
 }
 
+const [isStick, setIsStick] = useState<boolean>()
+const stickyRef= useRef<HTMLDivElement>(null!)
+useEffect(()=>{
+  let fn = () => {
+    if(isTabletWidth) {return}
+    if(stickyRef.current?.getBoundingClientRect().top < 140) {
+      setIsStick(true)
+    }
+    else {
+      setIsStick(false)
+    }
+  }
+  window.addEventListener('scroll', fn)
+
+  return ()=>{window.removeEventListener('scroll', fn)}
+}, [stickyRef.current])
+
   return (
     <CardLayout title={`Сделка № ${dealContext.dealId}`} titleClassName={styles.title}>
       <div className={styles.root}>
       {dealStateDetails && <Alert type={getAlertType(dealStateDetails)} title={dealStateDetails.name}  text={dealStateDetails.description}/> }
       <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options}  />
-      {!isTabletWidth &&
-        <StickyContainer >
-          <Sticky  topOffset={84}>{({style, distanceFromTop, isSticky}) => <div style={
-            {...style, 
-            width: '100%', 
-            display: 'flex', 
-            flexDirection: 'column',
-            alignItems: 'center', 
-            transform: `translateY(${distanceFromTop<0?Math.abs(distanceFromTop)+84:0}px)`}
-            }>
-            {distanceFromTop<0 &&
-            <div className={styles.sticky} >
-              <p className={styles.lineTitle}>Сделка № {dealContext.dealId}</p>
-              <div className={styles.lineSpacer}></div>
-              <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options} alternate/>
-            </div>
-            }
-           
-          </div>}
-          </Sticky>
-        </StickyContainer>
+
+      {!isTabletWidth&& 
+        <div className={styles.stickywrapper} ref={stickyRef}>
+          <div className={classnames(styles.sticky, isStick&&styles.sticky_active)} style={{width: stickyRef.current?.offsetWidth + 40}}>
+            <p className={styles.lineTitle}>Сделка № {dealContext.dealId}</p>
+            <div className={styles.lineSpacer}></div>
+            <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options} alternate/>
+          </div>
+        </div>
       }
-    
-     
       </div>
     </CardLayout>
   )

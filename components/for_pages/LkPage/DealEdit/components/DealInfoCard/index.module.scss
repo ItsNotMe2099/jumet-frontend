@@ -38,15 +38,35 @@
 .sticky {   
     background-color: white;
     z-index: 200;
-    width: calc(100% + 40px);
+    // width: calc(100% + 40px);
     border-bottom-left-radius: 10px;
     border-bottom-right-radius: 10px;
     padding: 0px 20px;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    height: 48px;
+    flex-shrink: 0;
     box-shadow: 0px 10px 10px -10px $grey500;
+    position: fixed;
+    top: 84px;
+    height: 48px;
+    transition: .3s ease-in-out;
+    opacity: 0;
+ 
+    transform-origin: top;
+
+
+
+    transform: rotateX(90deg) translateX(-20px);
+    
+
+    &_active {
+        // top: 84px;
+        opacity: 1;
+        transform: rotateX(0deg) translateX(-20px);
+        
+    }
+    
 
     >div {
         margin: unset !important;
