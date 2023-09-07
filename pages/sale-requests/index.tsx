@@ -28,7 +28,7 @@ const SaleRequestsPageWrapper = (props: Props) => {
   const filterRef = useRef<SaleRequestsFilterRef | null>(null)
 
   const sortToggle = ( <SortToggleButton fluid={appContext.isMobile} value={searchContext.sortOrder} onSelect={searchContext.setSortOrder} labels={{
-    [SortOrder.Desc]: 'Вначале с большей ценой', [SortOrder.Asc] : 'Вначале с меньшей ценой'
+    [SortOrder.Desc]: 'Вначале с большим весом', [SortOrder.Asc] : 'Вначале с меньшим весом'
   }}/>)
   const handleClearFilter = () => {
     filterRef.current?.clear()
