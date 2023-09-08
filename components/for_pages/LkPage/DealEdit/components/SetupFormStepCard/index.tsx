@@ -97,7 +97,14 @@ const SetupStepFormInner = (props: Props) => {
       appContext.updateAboutMe(res)
       setTimeout(() => setLoadingInner(false), 50)
     }
-    await dealContext.submitStepSetup(omit(data, ['firstName', 'lastName', 'patronymic', 'passport']) as IDealSetUpStepRequest)
+    await dealContext.submitStepSetup(omit({
+      ...data,
+      ...(!data.requiresDelivery ? {
+        address: null,
+        location: null,
+        requiresLoading: false,
+      }: {}),
+    }, ['firstName', 'lastName', 'patronymic', 'passport']) as IDealSetUpStepRequest)
     console.log('userUpdated', passportUpdated, data)
   }
 

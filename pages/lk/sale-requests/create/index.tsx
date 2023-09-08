@@ -12,6 +12,7 @@ import {DeepPartial} from '@/types/types'
 import {useAppContext} from '@/context/state'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {LkPageBaseLayout} from '@/pages/lk'
+import * as Scroll from 'react-scroll'
 
 interface Props {
 
@@ -27,6 +28,10 @@ const LkSaleRequestCreatePage = (props: Props) => {
     try {
       await SaleRequestOwnerRepository.create(data)
       setIsSuccess(true)
+      setTimeout(() => {
+        Scroll.animateScroll.scrollToTop()
+      }, 100)
+
     }
     catch (error: any) {
       let errorMessage = error.toString()

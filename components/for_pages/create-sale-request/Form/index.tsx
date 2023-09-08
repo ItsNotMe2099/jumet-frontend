@@ -55,6 +55,11 @@ export default function CreateSalesRequestForm(props: Props) {
     }
     props.submit({...data,
       photosIds: data.photos.map(i => i.id),
+      ...(!data.requiresDelivery ? {
+        address: null,
+        location: null,
+        requiresLoading: false,
+      }: {}),
       ...(data.scrapMetalCategory === ScrapMetalCategory.None ? {scrapMetalCategory: null} : {})} as DeepPartial<ISaleRequest>)
   }
 
@@ -114,16 +119,16 @@ export default function CreateSalesRequestForm(props: Props) {
             Доставка и погрузка
           </div>
           <SwitchField name='requiresDelivery' label='Нужна доставка'/>
-          <SwitchField name='requiresLoading' label='Нужна погрузка'/>
+          {formik.values.requiresDelivery &&   <SwitchField name='requiresLoading' label='Нужна погрузка'/>}
         </div>
-        <div className={styles.section}>
+        {formik.values.requiresDelivery && <div className={styles.section}>
           <div className={styles.label}>
             Адрес расположения лома
           </div>
           <AddressField name={'address'} resettable={true} placeholder={'Введите адрес'} validate={Validator.required}
                         onChange={handleChangeAddress}/>
           {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
-        </div>
+        </div>}
         <div className={styles.section}>
           <div className={styles.label}>
             Цена лома
