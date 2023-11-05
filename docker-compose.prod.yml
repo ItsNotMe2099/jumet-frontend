@@ -22,7 +22,7 @@ services:
     nginx:
         build:
           context: .
-          dockerfile: docker/nginx_prod/Dockerfile
+          dockerfile: docker/nginx/Dockerfile
           args:
             - APP_IMAGE=${APP_IMAGE}
         image: ${NGINX_IMAGE}
