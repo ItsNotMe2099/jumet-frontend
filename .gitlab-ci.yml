@@ -58,6 +58,7 @@ deploy_dev:
     - kubectl config set-credentials admin --token=${KUBE_TOKEN}
     - kubectl config set-context default --cluster=k8s --user=admin
     - kubectl config use-context default
+    - echo $IMAGE_TAG_DEV_APP
     - kubectl set image deployment/frontend -n=default frontend=${IMAGE_TAG_DEV_APP}
   only:
     - yandex-cloud
