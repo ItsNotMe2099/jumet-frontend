@@ -1,8 +1,3 @@
-image: gitlab.glob-com.ru:4567/glob-com/ci/docker-ansible:latest
-
-before_script:
-  - git submodule sync --recursive
-  - git submodule update --init --recursive
 
 
 variables:
@@ -18,6 +13,10 @@ stages:
   - deploy
 
 build_dev_image:
+  image: gitlab.glob-com.ru:4567/glob-com/ci/docker-ansible:latest
+  before_script:
+    - git submodule sync --recursive
+    - git submodule update --init --recursive
   stage: build-docker
   tags:
     - docker
@@ -29,7 +28,7 @@ build_dev_image:
     - docker-compose -f docker-compose.dev.yml push app
 #    - docker-compose -f docker-compose.dev.yml build --pull nginx
 #    - docker-compose -f docker-compose.dev.yml push nginx
-  #  when: manual
+  when: manual
   only:
     - yandex-cloud
 
