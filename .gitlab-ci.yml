@@ -1,8 +1,5 @@
 image: gitlab.glob-com.ru:4567/glob-com/ci/docker-ansible:latest
 
-
-
-
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
   IMAGE_TAG_DEV: $CI_REGISTRY_IMAGE:latestdev
@@ -51,7 +48,7 @@ build_prod_image:
     - docker-compose -f docker-compose.prod.yml push nginx
   #  when: manual
   only:
-    - yandex-cloud
+    - master
 
 deploy_dev:
   stage: deploy
@@ -79,4 +76,4 @@ deploy_prod:
     - kubectl set image deployment/frontend -n=default frontend=${IMAGE_TAG_APP}
     - kubectl set image daemonset/front-nginx -n=default front-nginx=${IMAGE_TAG_NGINX}
   only:
-    - yandex-cloud
+    - master
