@@ -1,6 +1,5 @@
 @mixin htmlText {
   font-size: 18px;
-  @include fontLato();
   font-weight: 400;
   line-height: 27px;
   color: #1B2224;
@@ -12,7 +11,6 @@
     p{
       margin: 0;
       strong{
-        @include fontLato();
         font-style: normal;
         font-weight: 600;
         font-size: 24px;

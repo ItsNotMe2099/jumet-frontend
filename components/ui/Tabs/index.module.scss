@@ -1,0 +1,68 @@
+@import "styles/index";
+.root {
+
+  &.fluid{
+    .tab{
+      flex: 1;
+    }
+  }
+
+  &.default{
+    display: flex;
+    @include list(8px, true);
+    @include mq($SmDesktopWidth, max) {
+      display: block;
+      @include list(0px, true);
+      margin: -4px;
+    }
+    .tab{
+      padding: 0px 16px;
+      @include mq($SmDesktopWidth, max) {
+        display: inline-flex;
+        margin: 4px;
+      }
+    }
+  }
+  &.filter{
+    display: flex;
+    background-color: $grey200;
+    border-radius: $StandartBorderRadius;
+    padding: 4px;
+  }
+  &.outlined{
+    position: relative;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    @include list(20px, true);
+    &:after{
+      content: ' ';
+      position: absolute;
+      left: 0px;
+      right: 0px;
+      bottom: 0px;
+      height: 1px;
+      background-color: $grey400;
+    }
+    @include mq($PhoneWidth, max) {
+      flex-direction: row;
+      overflow-x: scroll;
+      background-color: transparent;
+      padding: 0;
+      border-radius: 0;
+      @include scroll_hide;
+      @include list(20px, true);
+      margin-bottom: 10px;
+      width: 100%;
+    }
+    .separator{
+      transform: translateY(-2px);
+    }
+  }
+}
+
+.separator{
+  height: 12px;
+  width: 1px;
+  background: $grey400;
+}

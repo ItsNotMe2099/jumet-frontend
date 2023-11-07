@@ -1,0 +1,23 @@
+@import "styles/index";
+.root{
+  color: $red500;
+  font-size: 12px;
+  font-weight: 500;
+  margin: 15px 0px;
+  text-align: center;
+    display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+  justify-content: center;
+  img{
+    margin-right: 6px;
+  }
+}
+.list{
+  display: flex;
+  flex-direction: column;
+  @include list(8px);
+}
+.item{
+
+}

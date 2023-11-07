@@ -1,0 +1,27 @@
+@import "styles/index";
+
+.root {
+  @include card;
+  display: flex;
+  flex-direction: column;
+
+  @include list(24px);
+}
+.fields{
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+}
+.link{
+  cursor: pointer;
+  color: $blue500;
+  &:hover{
+    text-decoration: underline;
+  }
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}

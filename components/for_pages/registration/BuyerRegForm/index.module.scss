@@ -1,0 +1,18 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+.btn {
+    max-width: 206px;
+
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}

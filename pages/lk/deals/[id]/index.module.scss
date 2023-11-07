@@ -1,0 +1,27 @@
+@import "../../../../styles/index";
+
+.root {
+    @include pageContainer;
+    position: relative;
+    display: flex;
+
+    @include mq(820px, max) {
+        padding: 0;
+        background-color: $white;
+    }
+}
+
+.colLeft {
+    flex: 1;
+    padding-right: 32px;
+    @include list(12px);
+
+    @media (min-width: $md-min) and (max-width: $md-max) {
+        padding-right: 30px;
+    }
+
+    @media (max-width: $xs-max) {
+        flex: auto;
+        padding-right: 0;
+    }
+}

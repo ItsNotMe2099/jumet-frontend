@@ -1,0 +1,58 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+  &.fluid{
+    width: 100%;
+  }
+}
+
+.valueWrapper{
+  display: flex;
+  align-items: center;
+  flex-direction: row;
+  flex: 1;
+  cursor: pointer;
+  @include list(12px, true)
+
+}
+.value{
+
+}
+.chevron{
+  @include dropDownChevron;
+  width: 24px;
+  height: 24px;
+}
+.dropDown{
+  @include  dropDown;
+}
+
+
+.dropDownTrigger {
+}
+.active{
+flex: 1;
+}
+
+.option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+  padding: 8px 16px;
+  font-weight: 400;
+  font-size: 16px;
+
+  &.optionActive{
+    &:before{
+      content: '';
+      position: absolute;
+      left: 0px;
+      top: 0px;
+      bottom: 0px;
+      background-color: $yellow500;
+      width: 4px;
+    }
+  }
+}

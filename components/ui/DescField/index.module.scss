@@ -1,0 +1,16 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(4px, false);
+  .label {
+    color: $grey500;
+    @include secondaryText;
+  }
+
+  .value {
+    color: $dark500;
+    @include btnText;
+  }
+}

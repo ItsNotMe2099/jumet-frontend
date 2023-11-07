@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {
+  flex-basis: 356px;
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  grid-gap: 5px;
+  align-items: center;
+  @include list(12px, true);
+  @include mq($PhoneWidth, max) {
+    flex-basis: auto;
+  }
+  > div{
+    flex: 1;
+  }
+
+
+}
+
+.timeItemSeparator {
+  position: relative;
+  width: 10px;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 50%;
+    margin-top: -1px;
+    height: 1px;
+    width: 100%;
+    background: black;
+  }
+}

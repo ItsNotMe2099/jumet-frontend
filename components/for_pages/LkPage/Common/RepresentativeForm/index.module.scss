@@ -1,0 +1,16 @@
+@import "styles/index";
+.root{
+
+}
+.success{
+  display: flex;
+  flex-direction: column;
+  @include list(24px);
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  @include mq($PhoneWidth, max) {
+    max-width: 100%;
+  }
+}

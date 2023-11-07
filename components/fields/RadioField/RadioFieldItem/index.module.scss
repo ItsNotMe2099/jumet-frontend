@@ -1,0 +1,80 @@
+@import "styles/index";
+
+
+.root {
+  position: relative;
+  cursor: pointer;
+  display: flex;
+  align-items: flex-start;
+  margin-bottom: 12px;
+
+  &.styleTiles {
+    background: grey;
+    border-radius: 5px;
+    padding: 13px 15px;
+    margin-bottom: 0px;
+
+    .label {
+      color: $dark500;
+    }
+
+    &.active {
+      background: $blue500;
+
+      .label {
+        color: $white;
+      }
+    }
+  }
+
+  &.disabled {
+    .radio {
+      opacity: 0.5;
+    }
+
+    .label {
+      opacity: 0.5;
+    }
+  }
+}
+
+.label {
+  @include mainText;
+  color: $dark500;
+  line-height: 20px;
+}
+.description{
+  @include secondaryText;
+  color: $grey500;
+  margin-top: 4px;
+}
+.infoWrapper{
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  margin-left: 8px;
+}
+.radio {
+  position: relative;
+  border-radius: 100%;
+  border: 1px solid $grey400;
+  width: 16px;
+  height: 16px;
+  &.active {
+    border: 1px solid $yellow500;
+    background: $yellow500;
+
+    &:before {
+      content: '';
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 8px;
+      height: 8px;
+      border-radius: 100%;
+      background-color: $dark500;
+    }
+  }
+
+}

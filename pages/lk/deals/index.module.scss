@@ -1,0 +1,24 @@
+@import "styles/index";
+
+.root {
+  @include container;
+  margin-top: 32px;
+  margin-bottom: 64px;
+}
+
+.title {
+  @include h1;
+  color: $dark500;
+  margin-bottom: 32px;
+  @include mq($PhoneWidth, max) {
+    margin-bottom: 16px;
+  }
+}
+
+
+.list {
+  margin-top: 24px;
+  display: flex;
+  flex-direction: column;
+  @include list(12px, false);
+}

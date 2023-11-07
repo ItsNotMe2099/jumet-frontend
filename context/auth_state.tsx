@@ -1,13 +1,13 @@
 import { createContext, useContext } from 'react'
 import { useAppContext } from 'context/state'
-
+import { useRouter } from 'next/router'
 
 interface IState {
-  
+
 }
 
 const defaultValue: IState = {
-  
+
 }
 
 const AuthContext = createContext<IState>(defaultValue)
@@ -20,8 +20,12 @@ export function AuthWrapper(props: Props) {
 
   const appContext = useAppContext()
 
+  const router = useRouter()
+
+
   const value: IState = {
     ...defaultValue,
+
   }
 
   return (

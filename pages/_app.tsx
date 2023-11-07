@@ -1,14 +1,34 @@
 import 'normalize.css'
 import 'styles/globals.scss'
-import type { AppProps as NextAppProps } from 'next/app'
-import App, { AppContext } from 'next/app'
-import { useEffect } from 'react'
-import { AppWrapper } from 'context/state'
-import { getSelectorsByUserAgent } from 'react-device-detect'
+import 'react-dadata/dist/react-dadata.css'
+import 'react-datepicker/dist/react-datepicker.css'
+import 'rc-time-picker/assets/index.css'
+import '@wojtekmaj/react-daterange-picker/dist/DateRangePicker.css'
+import 'react-calendar/dist/Calendar.css'
+import type {AppProps as NextAppProps} from 'next/app'
+import App, {AppContext} from 'next/app'
+import {ReactElement, ReactNode, useEffect} from 'react'
+import {AppWrapper} from 'context/state'
+import {getSelectorsByUserAgent} from 'react-device-detect'
 import ModalContainer from 'components/layout/ModalContainer'
 import Snackbar from 'components/layout/Snackbar'
 import Head from 'next/head'
-import { AuthWrapper } from 'context/auth_state'
+import {AuthWrapper} from 'context/auth_state'
+import {getToken} from '@/utils/auth'
+import 'swiper/css'
+import 'swiper/css/zoom'
+import {DataWrapper} from '@/context/data_state'
+import {FavoriteWrapper} from '@/context/favorite_state'
+import {NextPage} from 'next'
+import {NotificationWrapper} from '@/context/notifications_state'
+import {ReceivingPointListWrapper} from '@/context/receiving_point_list_state'
+import {YMInitializer} from '@appigram/react-yandex-metrika'
+import {runtimeConfig} from '@/config/runtimeConfig'
+import ClientOnly from '@/components/visibility/ClientOnly'
+
+export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
+  getLayout?: (page: ReactElement) => ReactNode
+}
 
 export interface AppProps extends NextAppProps {
   pageProps: {
@@ -16,33 +36,59 @@ export interface AppProps extends NextAppProps {
   }
 }
 
-function MyApp({ Component, pageProps }: AppProps) {
+type AppPropsWithLayout = AppProps & {
+  Component: NextPageWithLayout
+}
+
+function MyApp({Component, pageProps}: AppPropsWithLayout) {
 
   useEffect(() => {
-    if (pageProps.isMobile) {
-      document.body.classList.add('mobile-ua')
-      document.documentElement.className = 'mobile-ua'
-    }
-  },
+      if (pageProps.isMobile) {
+        document.body.classList.add('mobile-ua')
+        document.documentElement.className = 'mobile-ua'
+      }
+    },
     [])
-
+  const getLayout = Component.getLayout ?? ((page) => page)
   return (
-    <AppWrapper isMobile={pageProps.isMobile}>
+    <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
+      <ClientOnly>
+      <YMInitializer
+        accounts={[runtimeConfig.YA_METRIKA_ID]}
+        version="2"
+        options={{
+          clickmap: true,
+          trackLinks: true,
+          accurateTrackBounce: true,
+          webvisor: true,
+          trackHash: true,
+        }} />
+      </ClientOnly>
       <AuthWrapper>
-        <Head>
-          <link rel="preconnect" href="https://fonts.googleapis.com" />
-          <link rel="preconnect" href="https://fonts.gstatic.com" />
-          <link href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap" rel="stylesheet" />
-          <meta
-            name="viewport"
-            content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
-          />
-        </Head>
-        <Component {...pageProps} />
-        <ModalContainer />
-        <Snackbar />
+        <DataWrapper scrapMetalCategories={[]}>
+          <ReceivingPointListWrapper>
+            <NotificationWrapper>
+              <FavoriteWrapper>
+                <Head>
+                  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                  <link rel="preconnect" href="https://fonts.gstatic.com"/>
+                  <link
+                    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
+                    rel="stylesheet"/>
+                  <meta
+                    name="viewport"
+                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
+                  />
+                </Head>
+                {getLayout(<Component {...pageProps as any} />)}
+                <ModalContainer/>
+                <Snackbar/>
+              </FavoriteWrapper>
+            </NotificationWrapper>
+          </ReceivingPointListWrapper>
+        </DataWrapper>
       </AuthWrapper>
-    </AppWrapper >
+    </AppWrapper>
   )
 }
 
@@ -50,7 +96,7 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   const props = await App.getInitialProps(appContext)
   const ua = appContext.ctx.req ? appContext.ctx.req?.headers['user-agent'] : navigator.userAgent
   if (ua) {
-    const { isMobile, isTablet } = getSelectorsByUserAgent(ua)
+    const {isMobile, isTablet} = getSelectorsByUserAgent(ua)
     const data = getSelectorsByUserAgent(ua)
     if (isTablet && typeof window !== 'undefined' && window.screen.width >= 768) {
 

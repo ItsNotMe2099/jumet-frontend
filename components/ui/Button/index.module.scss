@@ -4,12 +4,14 @@
   padding: 0 24px;
   cursor: pointer;
   font-weight: 500;
+  font-size: 16px;
   display: inline-flex;
   position: relative;
   justify-content: center;
   align-items: center;
   border-radius: 12px;
   border: 0;
+  gap: 8px;
 
   &.disabled {}
 
@@ -26,11 +28,16 @@
 
 .large {
   height: 48px;
+  @include mq($PhoneWidth, max) {
+    height: 40px;
+  }
+  @include btnText;
 }
 
 //font
 .normal15 {
   font-size: 15px;
+  font-weight: 500;
 }
 
 .normal16 {
@@ -41,8 +48,19 @@
 
 .blue {
   background: $blue500;
+  color: $white;
 
   &:hover {
+    box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
+  }
+}
+
+.lightBlue {
+  background: $lightBlue;
+  color: $white;
+
+  &:hover {
+    background: $blue500;
     box-shadow: 1px 4px 23px rgba(69, 118, 222, 0.44);
   }
 }
@@ -53,6 +71,18 @@
 
 .white {
   background: $white;
+}
+.transparent{
+  background: transparent;
+}
+.grey {
+  background: $grey300;
+  color: $blue500;
+}
+
+.greyRed {
+  background: $grey300;
+  color: $red500;
 }
 
 .spinner {
@@ -69,4 +99,31 @@
 
 .spinnerVisible {
   visibility: visible;
+}
+
+.withIcon {
+
+  .text {
+    display: flex;
+    align-items: center;
+    grid-gap: 8px;
+  }
+}
+
+.text {
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.textHidden {
+  visibility: hidden;
+}
+
+.reverse{
+  display: flex;
+  flex-direction: row-reverse;
+  align-items: center;
 }

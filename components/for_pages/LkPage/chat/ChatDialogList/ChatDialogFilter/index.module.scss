@@ -1,0 +1,37 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  &.filterOpened{
+    .header{
+
+    }
+  }
+  padding-top: 8px;
+  border-bottom: 1px solid $grey300;
+}
+
+.top{
+  display: flex;
+  flex-direction: column;
+  @include list(12px);
+  padding: 12px 20px 12px 20px;
+  border-bottom: 1px solid $grey300;
+}
+.center{
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true);
+  padding: 12px 20px 12px 20px;
+}
+
+.bottom{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+  padding: 12px 20px 12px 20px;
+}
+
+.searchField{
+  flex: 1;
+}

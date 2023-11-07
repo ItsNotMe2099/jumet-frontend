@@ -9,6 +9,10 @@ $MPhoneWidth: 375px;
 $SmPhoneWidth: 320px;
 
 $StandartBorderRadius: 12px;
+$StandartHeight: 48px;
+$StandartHeightPhone: 40px;
+
+$stepFormWidth: 632px;
 
 $xs-max: 768px;
 $xs-max: 768px;
@@ -25,14 +29,30 @@ $white: #FFFFFF;
 $black: #000000;
 $dark500: #151B29;
 $dark400: #232D45;
+$blue300: #9AB2E7;
 $blue500: #4371D6;
+$lightBlue: #A1B8EA;
+$green600: #76BB2D;
 $green500: #548124;
-$green400: #DCEDCA;
+$green300: #DCEDCA;
+$green400: #76BB2D;
 $grey500: #6C7894;
 $grey400: #C8D0E7;
 $grey300: #E9EBF2;
 $grey200: #F3F5FA;
 $grey100: #F2F4F9;
-$yellow: #F3CE7B;
+$yellow300: #FCF1DA;
+$yellow500: #F3CE7B;
+$red300: #FDD0CD;
 $red500: #DA342A;
 $text: #1D2030;
+
+//ZIndex
+$zIndexTop: 100;
+$zIndexDropDown: 100;
+$zIndexModal: 110;
+
+//sizes
+$headerMobHeight: 64px;
+$headerDesktopHeight: 84px;
+$maxFormWidth: 484px;

@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {}
+
+.trigger {
+    display: flex;
+    @include list(8px, true);
+    height: 24px;
+    margin: 12px 0;
+    margin-left: 20px;
+
+    @include mq($PhoneWidth, max) {
+        margin: 0;
+    }
+}
+
+.icon {
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
+}
+
+.rotate {
+    transform: rotate(180deg);
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
+}

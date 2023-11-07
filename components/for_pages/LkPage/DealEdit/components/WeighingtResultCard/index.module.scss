@@ -1,0 +1,21 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+}
+
+.image {
+  cursor: pointer;
+  position: relative;
+  border-radius: 12px;
+  max-height: 185px;
+  max-width: 258px;
+}
+
+.buttons {
+  display: flex;
+  @include list(12px, true);
+}
+

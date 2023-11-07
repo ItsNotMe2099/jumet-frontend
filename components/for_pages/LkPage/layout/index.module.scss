@@ -1,0 +1,142 @@
+@import "styles/index";
+
+.root {
+    @include container;
+    margin-top: 32px;
+    margin-bottom: 64px;
+}
+
+.title {
+    @include h1;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.container {
+    display: flex;
+    margin-top: 32px;
+    @include list(32px, true);
+    align-items: flex-start;
+
+    @include mq($SmDesktopWidth, max) {
+        flex-direction: column;
+    }
+
+    @include mq($PhoneWidth, max) {
+      @include list(0px, true);
+      @include list(12px, false);
+    }
+}
+
+.content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+  @media (max-width: $xs-max) {
+    flex: auto;
+
+  }
+}
+
+
+.menu {
+  flex: 0 0 416px;
+
+  @media (min-width: $md-min) and (max-width: $md-max) {
+    flex: 0 0 380px;
+  }
+  @media (min-width: $md-min) and (max-width: $md-medium) {
+    flex: 0 0 360px;
+  }
+  @media (max-width: $xs-max) {
+    flex: auto;
+  }
+    @include mq($PhoneWidth, max) {
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+.option {
+    padding: 12px 0px 12px 20px;
+    cursor: pointer;
+    @include btnText;
+    display: flex;
+    @include list(12px, true);
+    align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        flex-shrink: 0;
+        padding: 0;
+    }
+}
+
+.active {
+    border-left: 4px solid $yellow500;
+    background: $yellow300;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        border: 0;
+        border-bottom: 2px solid $dark400;
+    }
+}
+
+.btn,
+.btnMobile {
+    color: $white;
+    @include h3;
+    font-weight: normal;
+
+}
+
+.btn {
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
+}
+
+.btnMobile {
+    @include mq($PhoneWidth, min) {
+        display: none;
+    }
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+    }
+}
+
+.receiving {
+    background-color: #fff;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+    }
+}
+
+.item {
+    padding: 12px 0px 12px 40px;
+}
+
+.activeItem {
+    background: $yellow300;
+    padding: 12px 0px 12px 40px;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        border: 0;
+        border-bottom: 2px solid $dark400;
+    }
+}
+
+.accordion {
+    padding: 0;
+
+    :global {
+        .Collapsible {
+            width: 100%;
+        }
+    }
+}

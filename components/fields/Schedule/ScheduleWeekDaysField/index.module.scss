@@ -1,0 +1,35 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+
+.label {
+  margin-bottom: 5px;
+}
+
+.schedule {
+  @include list(12px);
+}
+
+.scheduleItem {
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true);
+  @include mq($PhoneWidth, max) {
+    flex-direction: column-reverse;
+    @include list(0px, true);
+  .intervals{
+    margin-top: 12px;
+  }
+
+  }
+
+  .day {
+    padding-top: 10px;
+    width: 30px;
+    line-height: 32px;
+  }
+}

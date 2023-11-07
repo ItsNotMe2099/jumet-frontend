@@ -1,0 +1,35 @@
+@import "styles/index";
+
+.root {
+    background-color: $grey200;
+    border-radius: $StandartBorderRadius;
+    display: flex;
+    padding: 4px;
+}
+
+.item {
+    display: flex;
+    align-items: center;
+    border-radius: $StandartBorderRadius;
+    gap: 8px;
+    justify-content: center;
+    height: $StandartHeight;
+    width: 50%;
+    cursor: pointer;
+
+    &.active {
+        background-color: $white;
+        .label {
+            color: $blue500;
+        }
+    }
+
+  @include mq($PhoneWidth, max) {
+    height: 40px;
+    padding: 0 9px;
+  }
+}
+
+.label {
+    @include btnText;
+}

@@ -1,0 +1,46 @@
+@import "../../../../styles/index";
+
+.root {
+    @include container;
+    position: relative;
+    margin-top: 38px;
+    margin-bottom: 64px;
+}
+
+.container {
+    display: flex;
+    @include list(32px, true);
+    margin-top: 24px;
+
+    @include mq(1064px, max) {
+        flex-direction: column-reverse;
+    }
+}
+
+.title {
+    @include h1;
+    color: $dark500;
+  margin-bottom: 32px;
+  @include mq($PhoneWidth, max) {
+    margin-bottom: 16px;
+  }
+}
+
+.list {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.colLeft{
+  flex: 1;
+}
+
+.colRight {
+    flex-basis: 416px;
+    @include mq(1064px, max) {
+      flex-basis: auto;
+        margin-left: 0;
+        margin-bottom: 16px;
+    }
+}

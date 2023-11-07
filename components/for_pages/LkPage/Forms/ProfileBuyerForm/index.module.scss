@@ -1,0 +1,21 @@
+@import "styles/index";
+@import "styles/index";
+.root{
+ @include card;
+  display: flex;
+  flex-direction: row;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+  flex-basis: $maxFormWidth;
+}
+
+.changePassword{
+  align-self: flex-start;
+}
+.btn {
+  align-self: flex-start;
+}

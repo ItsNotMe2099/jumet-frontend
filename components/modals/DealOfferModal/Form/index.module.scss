@@ -1,0 +1,16 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+}
+
+
+.suggest {
+    max-width: 202px;
+
+    @include mq($PhoneWidth, max) {
+        max-width: 100%;
+    }
+}

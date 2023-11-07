@@ -1,0 +1,46 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  @include list(8px);
+}
+.label{
+  @include label;
+  margin-bottom: 5px;
+}
+.value{
+  text-overflow: ellipsis;
+
+  overflow: hidden;
+}
+.body{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include inputWrapper;
+  @include list(12px, true);
+  height: $StandartHeight;
+  padding: 0px 16px;
+  &.withClear{
+    padding-right: 0px;
+  }
+}
+.empty{
+
+}
+.map{
+position: relative;
+  display: flex;
+}
+
+.clear{
+  align-items: flex-end;
+  cursor: pointer;
+  padding-right: 16px;
+  padding-left: 12px;
+  display: flex;
+
+  .clearIcon{
+
+  }
+}

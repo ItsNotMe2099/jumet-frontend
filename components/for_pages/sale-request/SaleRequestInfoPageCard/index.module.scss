@@ -1,0 +1,87 @@
+@import "../../../../styles/index";
+
+.root {}
+
+.card {
+    padding-top: 32px;
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+
+    @include mq($SmDesktopWidth, max) {
+        @include list(12px, false);
+    }
+}
+
+.top,
+.bottom {
+    display: flex;
+    @include list(24px, true);
+
+    @include mq($SmDesktopWidth, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    @include list(4px, false);
+
+    .top {
+        @include secondaryText;
+        color: $grey500;
+    }
+
+    .bottom {
+        @include h2;
+        color: $dark500;
+    }
+}
+
+.bottom {
+    .item {
+        .bottom {
+            @include btnText;
+            color: $dark500;
+        }
+    }
+}
+
+.controls {
+    display: flex;
+    align-items: center;
+    @include list(12px, true);
+    margin-top: 24px;
+}
+
+.btn {
+    padding: 0 20px;
+    width: 40px;
+    height: 40px;
+}
+
+.suggest {
+    @include mq($PhoneWidth, max) {
+        padding: 0 16px;
+        height: 40px;
+        font-size: 15px;
+        flex: 1;
+    }
+}
+
+.title {
+    max-width: 100%;
+
+    @include mq($PhoneWidth, max) {
+        @include h1;
+    }
+}

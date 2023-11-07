@@ -1,0 +1,35 @@
+@import "styles/index";
+
+.root {
+    padding: 0;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+    display: flex;
+    flex-direction: column;
+    @include list(24px);
+    align-items: center;
+    justify-content: center;
+}
+
+.check {
+    width: 71px;
+    height: 71px;
+}
+
+.title {
+    @include h1;
+  text-align: center;
+}
+
+.text{
+    @include mainText;
+    text-align: center;
+}
+
+.actions {
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true);
+  align-items: center;
+  justify-content: center;
+}

@@ -1,0 +1,19 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+}
+
+
+.address {
+  @include btnText;
+}
+
+.map {
+  height: 328px;
+  @include mq($PhoneWidth, max) {
+    height: 210px;
+  }
+}

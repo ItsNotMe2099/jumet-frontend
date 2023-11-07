@@ -1,0 +1,50 @@
+@import "styles/index";
+
+.root {
+  border: none;
+  background-color: transparent;
+  padding: 0px;
+  cursor: pointer;
+  text-transform: uppercase;
+  display: inline-flex;
+  position: relative;
+  justify-content: center;
+  align-items: center;
+
+  width: 40px;
+  height: 40px;
+  &.disabled {
+    .text{
+      opacity: .5;
+    }
+    border-color: transparent;
+  }
+
+}
+.text {
+  visibility: visible;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  pointer-events: none;
+}
+
+.textHidden {
+  visibility: hidden;
+}
+
+.spinner {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerVisible {
+  visibility: visible;
+}

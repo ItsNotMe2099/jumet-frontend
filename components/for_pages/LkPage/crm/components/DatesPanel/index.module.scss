@@ -1,0 +1,17 @@
+@import "styles/index";
+
+.root {
+    padding: 12px 20px;
+    border-radius: 12px;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        padding: 0;
+    }
+}
+.tabsWrapper{
+  flex: 1;
+}

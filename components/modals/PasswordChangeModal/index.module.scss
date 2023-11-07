@@ -1,0 +1,10 @@
+@import "styles/index";
+
+.modalLayout {
+  background: $white;
+  width: 416px !important;
+}
+
+.form{
+  @include list(24px);
+}

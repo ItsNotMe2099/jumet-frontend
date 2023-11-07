@@ -1,0 +1,34 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(12px)
+}
+.label{
+  @include label;
+}
+.fields {
+  display: flex;
+  flex-direction: column;
+  @include list(24px)
+}
+.field{
+  display: flex;
+  flex-direction: column;
+  @include list(12px)
+}
+.fieldWrapper{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true)
+}
+.input{
+  flex: 1;
+}
+.add {
+  color: $blue500;
+  @include btnText;
+  max-width: 303px;
+}

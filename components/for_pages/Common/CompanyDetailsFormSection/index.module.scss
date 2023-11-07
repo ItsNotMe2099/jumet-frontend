@@ -1,0 +1,24 @@
+@import "../../../../styles/index";
+.root{
+  @include list(12px);
+}
+.row{
+  display: flex;
+  justify-content: stretch;
+  @include list(12px, true);
+}
+.info{
+  @include list(12px);
+}
+.infoField{
+  @include list(4px);
+}
+.infoLabel{
+  @include infoLabel;
+}
+.infoValue{
+  @include infoValue;
+}
+.form{
+  @include list(16px);
+}

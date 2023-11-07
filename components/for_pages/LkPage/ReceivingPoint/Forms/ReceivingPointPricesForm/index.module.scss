@@ -1,0 +1,10 @@
+@import "../../../../../../styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+  @include list(48px)
+}
+.categories{
+  @include list(48px)
+}

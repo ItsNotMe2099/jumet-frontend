@@ -1,0 +1,152 @@
+@import "../../../../../styles/index";
+
+.root {
+    padding: 20px;
+    border-radius: 12px;
+    background-color: $white;
+    display: flex;
+    justify-content: space-between;
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        padding: 16px;
+        @include list(12px, false);
+    }
+}
+
+.left {
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+}
+
+.leftTop {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+}
+.date{
+  color: $grey500;
+  font-size: 14px;
+  font-weight: 400;
+}
+.right {
+    background-color: $grey300;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 12px;
+    position: relative;
+    width: 212px;
+    height: 152px;
+
+    img {
+        border-radius: 12px;
+    }
+
+    @include mq($PhoneWidth, max) {
+        width: 100%;
+        height: 158px;
+    }
+}
+
+.title {
+    @include h2;
+    color: $text;
+}
+
+.info {
+    display: flex;
+    @include list(40px, true);
+
+    .item {
+        display: flex;
+        flex-direction: column;
+        @include list(4px, false);
+    }
+
+    @include mq(1150px, max) {
+        @include list(16px, true);
+    }
+
+    @include mq(1024px, max) {
+        @include list(28px, true);
+    }
+}
+
+.top {
+    color: $dark500;
+    @include btnText;
+}
+
+.bottom {
+    color: $grey500;
+    @include secondaryText;
+}
+
+.controls {
+    display: flex;
+  align-items: center;
+    @include list(12px, true);
+
+    @include mq(1024px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+
+    @include mq($PhoneWidth, max) {
+        margin-bottom: 12px !important;
+        margin-top: 0 !important;
+    }
+}
+.controlsSeparator{
+  width: 1px;
+  height: 24px;
+  background: $grey400;
+}
+
+.btn {
+    color: $blue500;
+}
+
+.plus {
+    background-color: $white;
+    border-radius: 100%;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    @include btnText;
+    color: $blue500;
+}
+
+.middle {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column-reverse;
+    }
+}
+
+.first,
+.second {
+    display: flex;
+    @include list(40px, true);
+
+    @include mq(1150px, max) {
+        @include list(16px, true);
+    }
+
+    @include mq(1024px, max) {
+        flex-direction: column;
+        @include list(16px, false);
+    }
+}
+.notificationBadge{
+  margin-left: 10px;
+
+}

@@ -1,0 +1,62 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+.switches{
+  display: flex;
+  flex-direction: column;
+  @include list(12px);
+}
+.items {
+    display: flex;
+    flex-direction: column;
+    gap: 48px;
+}
+
+.item {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.number {
+  font-weight: 500;
+  font-size: 16px;
+}
+
+.add {
+ 
+}
+
+.separator {
+    height: 1px;
+    width: 100%;
+    background-color: $grey400;
+}
+
+.distance {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.from {
+    display: flex;
+    gap: 12px;
+    justify-content: space-between;
+}
+
+.label {
+  color: $dark500;
+  @include btnText;
+}
+.title{
+  @include h2;
+}
+.line{
+  height: 1px;
+  background: $grey400;
+}

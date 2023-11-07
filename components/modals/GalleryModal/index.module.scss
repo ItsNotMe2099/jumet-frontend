@@ -1,0 +1,169 @@
+@import "styles/index";
+
+$rowSize: 490px;
+$rowSizeMd: 350px;
+$rowSizeXs: 200px;
+
+.root{
+  flex: 1;
+  width: 100%;
+  height: 100%;
+  background: #fff;
+  padding-top: 50px;
+  padding-bottom: 50px;
+  overflow: auto;
+
+
+  @media (max-width: $xs-max) {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+  &.withSlider{
+    overflow: hidden;
+    max-height: 100vh;
+  }
+}
+
+.header{
+  margin-bottom: 50px;
+  @media (max-width: $xs-max) {
+    margin-bottom: 20px;
+  }
+}
+
+.gallery{
+  width: 100%;
+  display: grid;
+  grid-gap: 17px;
+  margin-bottom: 17px;
+  @media (max-width: $xs-max) {
+    grid-gap: 10px;
+    margin-bottom: 10px;
+  }
+  &.count7{
+    height: $rowSize * 3;
+    grid-template-areas: "a b b"
+                         "a c d"
+                         "e f g";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 3;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 5;
+      grid-template-areas: "a a"
+                           "b c"
+                           "d d"
+                           "e f"
+                           "e g";
+    }
+  }
+  &.count6{
+    height: $rowSize * 3;
+    grid-template-areas: "a b b"
+                         "a c d"
+                         "e e f";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 3;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 4;
+      grid-template-areas: "a a"
+                           "b c"
+                           "d d"
+                           "e f";
+    }
+  }
+  &.count5{
+    height: $rowSize * 3;
+    grid-template-areas: "a b b"
+                         "a c d"
+                         "e e e";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 3;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 3;
+      grid-template-areas: "a a"
+                           "b c"
+                           "d e";
+    }
+  }
+  &.count4{
+    height: $rowSize * 2;
+    grid-template-areas: "a b b"
+                         "a c d";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 2;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 3;
+      grid-template-areas: "a a"
+                           "b c"
+                           "d d";
+    }
+  }
+  &.count3{
+    height: $rowSize * 2;
+    grid-template-areas: "a b b"
+                         "a c c";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 2;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 2;
+      grid-template-areas: "a a"
+                           "b c";
+    }
+  }
+  &.count2{
+    height: $rowSize * 2;
+    grid-template-areas: "a b b"
+                         "a b b";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd * 2;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs * 2;
+      grid-template-areas: "a a"
+                           "b b";
+    }
+  }
+  &.count1{
+    height: $rowSize;
+    grid-template-areas: "a";
+    @media (min-width: $md-min) and (max-width: $md-max) {
+      height: $rowSizeMd;
+    }
+    @media (max-width: $xs-max) {
+      height: $rowSizeXs;
+    }
+  }
+}
+
+.image{
+  background-position: center;
+  background-size: cover;
+  background-color: $grey400;
+  cursor: pointer;
+  &.image0{
+    grid-area: a;
+  }
+  &.image1{
+    grid-area: b;
+  }
+  &.image2{
+    grid-area: c;
+  }
+  &.image3{
+    grid-area: d;
+  }
+  &.image4{
+    grid-area: e;
+  }
+  &.image5{
+    grid-area: f;
+  }
+  &.image6{
+    grid-area: g;
+  }
+}

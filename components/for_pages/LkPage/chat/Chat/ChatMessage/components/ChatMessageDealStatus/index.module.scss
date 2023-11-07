@@ -1,0 +1,13 @@
+@import "styles/index";
+.root{
+  display: flex;
+  flex-direction: column;
+  @include list(2px);
+}
+
+.title{
+  font-weight: 700;
+}
+.desc{
+
+}

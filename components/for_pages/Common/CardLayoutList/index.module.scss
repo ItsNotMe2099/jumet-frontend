@@ -1,0 +1,11 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(12px);
+  @media (max-width: $xs-max) {
+    @include list(8px);
+    background: $white;
+  }
+}

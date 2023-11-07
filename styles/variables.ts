@@ -8,6 +8,10 @@ export const breakpoints = {
   MPhoneWidth: 375,
   SmPhoneWidth: 320,
 
+  StandartBorderRadius: 12,
+  StandartHeight: 48,
+  StandartHeightPhone: 40,
+
 
   xsMax: 768,
   mdMin: 769,
@@ -25,7 +29,10 @@ export const colors = {
   black: '#000000',
   dark500: '#151B29',
   dark400: '#232D45',
+  blue300: '#9AB2E7',
   blue500: '#4371D6',
+  lightBlue: '#A1B8EA',
+  green600: '#76BB2D',
   green500: '#548124',
   green400: '#DCEDCA',
   grey500: '#6C7894',
@@ -33,7 +40,9 @@ export const colors = {
   grey300: '#E9EBF2',
   grey200: '#F3F5FA',
   grey100: '#F2F4F9',
-  yellow: '#F3CE7B',
+  yellow300: '#FCF1DA',
+  yellow500: '#F3CE7B',
+  $red300: '#FDD0CD',
   red500: '#DA342A',
   text: '#1D2030'
 }

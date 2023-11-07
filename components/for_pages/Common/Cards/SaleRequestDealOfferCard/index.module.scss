@@ -1,0 +1,113 @@
+@import "../../../../../styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(16px, false);
+}
+
+.address {
+    @include btnText;
+    color: $dark500;
+}
+
+.info {
+    display: flex;
+    @include list(8px, true);
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: column;
+        @include list(8px, false);
+    }
+}
+
+.badge {
+    padding: 12px;
+    background-color: $grey200;
+    border-radius: 12px;
+
+    @include mq($PhoneWidth, max) {
+        align-self: flex-start;
+    }
+}
+
+.desc {
+    @include mainText;
+    color: $dark500;
+    width: 50%;
+  white-space: pre-line;
+    @include mq(704px, max) {
+        width: 100%;
+    }
+}
+
+.controls {
+    display: flex;
+    justify-content: space-between;
+
+    @include mq(704px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+}
+
+.right {
+    display: flex;
+    @include list(12px, true);
+
+    @include mq(704px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+
+    button {
+        height: 40px;
+    }
+}
+
+.left {
+    .btn {
+        width: 100%;
+        height: 40px;
+    }
+
+    @include mq(704px, max) {
+        margin: 20px 0 0 0;
+    }
+}
+
+.btn {
+    color: $blue500;
+}
+
+.additional {
+    display: flex;
+    justify-content: flex-end;
+    flex: 1;
+}
+
+.inner {
+    display: flex;
+    @include list(12px, true);
+    align-items: center;
+}
+
+.date {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.new {
+    padding: 3px 12px;
+    background-color: $blue500;
+    color: $white;
+    @include secondaryText;
+    border-radius: 24px;
+}
+
+.top {
+    @include mq($PhoneWidth, max) {
+        flex-direction: column-reverse;
+        align-items: flex-start;
+    }
+}

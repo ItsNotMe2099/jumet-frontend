@@ -1,0 +1,50 @@
+@import "styles/index";
+
+.root{
+  display: flex;
+  flex-direction: column;
+  border-radius: $StandartBorderRadius;
+  background-color: $white;
+  padding: 12px 0px 0px 0px;
+  @media screen and (max-width: $xs-max){
+    padding: 0px;
+    background: transparent;
+    border-radius: 0px;
+  }
+}
+.active{
+  position: relative;
+  &:before{
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: $yellow500;
+    width: 4px;
+  }
+}
+.menuHeader, .menuItem{
+  padding-left: 40px !important;
+}
+.content{
+  .menuHeader{
+    padding-left: 60px !important;
+  }
+  .menuItem{
+    padding-left: 60px !important;
+  }
+  .content{
+    .menuHeader{
+      padding-left: 80px !important;
+    }
+    .menuItem{
+      padding-left: 80px !important;
+    }
+    .content{
+      .menuItem{
+        padding-left: 100px !important;
+      }
+    }
+  }
+}

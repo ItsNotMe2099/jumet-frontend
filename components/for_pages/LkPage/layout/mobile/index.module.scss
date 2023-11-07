@@ -1,0 +1,84 @@
+@import "styles/index";
+
+.root {
+    @include mq($PhoneWidth, min) {
+        display: none;
+    }
+
+    @include mq($PhoneWidth, max) {
+        display: flex;
+    }
+
+    flex-direction: column;
+    @include list(16px, false);
+    padding: 0 15px;
+    padding-top: 23px;
+    background-color: $white;
+    padding-bottom: 48px;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    border-radius: $StandartBorderRadius;
+    background-color: $white;
+    padding: 12px 0px 0px 0px;
+    width: 416px;
+
+    @include mq($PhoneWidth, max) {
+        flex-direction: row;
+        overflow-x: scroll;
+        background-color: transparent;
+        padding: 0;
+        border-radius: 0;
+        @include scroll_hide;
+        @include list(20px, true);
+        margin-bottom: 10px;
+        width: 100%;
+    }
+}
+
+.option {
+    padding: 12px 0px 12px 20px;
+    cursor: pointer;
+    @include btnText;
+    display: flex;
+    @include list(12px, true);
+    align-items: center;
+
+    @include mq($PhoneWidth, max) {
+        flex-shrink: 0;
+        padding: 0;
+    }
+}
+
+.active {
+    border-left: 4px solid $yellow500;
+    background: $yellow300;
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        border: 0;
+        border-bottom: 2px solid $dark400;
+    }
+}
+
+.back {
+    display: flex;
+    @include list(8px, true);
+}
+
+.text {
+    @include secondaryText;
+    color: $grey500;
+}
+
+.address {
+    @include h1;
+}
+
+.content {
+    display: flex;
+    flex-direction: column;
+    @include list(48px, false);
+}

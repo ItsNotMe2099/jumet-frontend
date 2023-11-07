@@ -1,0 +1,46 @@
+@import "../../../../../../../styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+ @include list(12px);
+}
+.title{
+  @include h2;
+}
+.label{
+  @include label;
+  white-space: nowrap;
+}
+.row{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  @include list(16px, true);
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    @include list(16px, false);
+
+    @include list(8px, false);
+  }
+}
+.rowFields{
+  display: flex;
+  flex-direction: row;
+  justify-content: stretch;
+  align-items: center;
+  @include list(16px, true)
+}
+.weightSection{
+  @include list(24px);
+}
+.weightField{
+  display: flex;
+  flex-direction: column;
+  border-bottom: 1px solid $grey400;
+  padding-bottom: 24px;
+  @include list(12px);
+}

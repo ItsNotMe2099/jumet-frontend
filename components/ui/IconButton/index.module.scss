@@ -1,6 +1,7 @@
 @import "styles/index";
 
 .root {
+  position: relative;
   background: transparent;
   border: none;
   display: flex;
@@ -8,24 +9,69 @@
   align-items: center;
   cursor: pointer;
   padding: 0;
-  border-radius: 100%;
+  border-radius: 12px;
+
 
   &.normal {
-    width: 24px;
-    height: 24px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
   }
 
   &.medium {
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
+    min-width: 40px;
   }
 
   &.large {
     width: 48px;
     height: 48px;
+    min-width: 48px;
   }
 }
 
 .white {
   background: $white;
+}
+.grey400{
+  background: $grey400;
+}
+.grey300{
+  background: $grey300;
+}
+.dark400{
+  background: $dark400;
+}
+
+.blue500{
+  background: $blue500;
+}
+
+
+.spinner {
+  visibility: hidden;
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.spinnerVisible {
+  visibility: visible;
+}
+
+.text {
+  display: flex;
+  @include list(11px, true);
+  align-items: center;
+  white-space: nowrap;
+}
+
+.textHidden {
+  visibility: hidden;
 }

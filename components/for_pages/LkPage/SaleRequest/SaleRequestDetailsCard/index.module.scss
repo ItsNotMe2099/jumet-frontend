@@ -1,0 +1,80 @@
+@import "../../../../../styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.info {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+
+    .field {
+        display: flex;
+        flex-direction: column;
+        @include list(4px, false);
+    }
+
+    @include mq(704px, max) {
+        display: none;
+    }
+}
+
+.fieldValue {
+    color: $dark500;
+    @include btnText;
+}
+
+.fieldLabel {
+    color: $grey500;
+    @include secondaryText;
+}
+.photos{
+  @include clearfix;
+  margin: -6px -6px 0px -6px;
+ .image{
+   cursor: pointer;
+   border-radius: 8px;
+   float: left;
+   margin: 6px;
+   max-height: 48px;
+ }
+}
+
+.btn {
+    color: $blue500;
+
+    @include mq($PhoneWidth, max) {
+        font-size: 15px;
+    }
+}
+
+.infoMobile {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+
+    .item {
+        display: flex;
+        flex-direction: column-reverse;
+        @include list(4px, false);
+    }
+
+    @include mq(704px, min) {
+        display: none;
+    }
+}
+
+.show {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    .text {
+        @include btnText;
+        color: $blue500;
+    }
+}

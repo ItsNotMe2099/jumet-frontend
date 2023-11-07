@@ -1,0 +1,18 @@
+@import "styles/index";
+
+.root {
+    margin-top: 38px;
+    margin-bottom: 64px;
+}
+.container {
+    @include container;
+    background-color: $white;
+    border-radius: $StandartBorderRadius;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.wrapper{
+    max-width: 682px;
+    padding:  32px;
+}

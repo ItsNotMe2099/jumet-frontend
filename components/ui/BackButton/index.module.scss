@@ -1,0 +1,14 @@
+@import "styles/index";
+
+.root {
+  cursor: pointer;
+  display: flex;
+  @include list(8px, true);
+  align-items: center;
+
+  .text {
+    color: $grey500;
+    align-self: center;
+  }
+}
+

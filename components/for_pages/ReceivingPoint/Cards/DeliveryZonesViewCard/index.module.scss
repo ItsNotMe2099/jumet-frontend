@@ -1,0 +1,17 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  flex-direction: column;
+  @include list(24px, false);
+}
+.price{
+  font-size: 24px;
+  font-weight: 700;
+  line-height: 32px;
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    font-weight: 500;
+    line-height: 22px;
+  }
+}

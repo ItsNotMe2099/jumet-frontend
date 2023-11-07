@@ -1,0 +1,44 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+    display: flex;
+
+    flex-direction: column;
+    align-items: center;
+  margin: 0px -10px 0px -30px;
+  @include mq($PhoneWidth, max) {
+    margin: 0px -12px 0px -20px;
+  }
+}
+
+.line {
+  position: absolute;
+  height: 2px;
+  background: $grey400;
+  left: 60px;
+  right: 30px;
+  top: 7px;
+  z-index: 0;
+  @include mq($PhoneWidth, max) {
+    left: 55px;
+    right: 30px;
+  }
+}
+
+.lineAlt {
+  top: 9px;
+}
+
+.texts {
+    display: flex;
+    column-gap: 10px;
+    width: 100%;
+  z-index: 1;
+  justify-content: space-between;
+  @include mq($PhoneWidth, max) {
+    font-size: 15px;
+    font-weight: 500;
+  }
+
+}

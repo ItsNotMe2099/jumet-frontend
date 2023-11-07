@@ -6,6 +6,8 @@ import { CONTACTS, LINKS } from '@/types/constants'
 import Button from '@/components/ui/Button'
 import { format } from 'date-fns'
 import VKSvg from '@/components/svg/VKSvg'
+import {Routes} from '@/types/routes'
+import LogoSvg from '@/components/svg/LogoSvg'
 
 interface Props {
 
@@ -27,14 +29,15 @@ export default function Footer(props: Props) {
   ]
 
   return (
-    <div className={styles.root}>
+    <div className={styles.root} id={'footer'}>
       <div className={styles.container}>
         <div className={styles.top}>
           <div className={styles.right}>
             <div className={styles.top}>
-              <div className={styles.logo}>
-                jumet
-              </div>
+              <Link href={'/'}>
+                <LogoSvg className={styles.logo} colorFirst={colors.yellow500} colorSecond={colors.white}/>
+              </Link>
+
               <div className={styles.info}>
                 Онлайн-сервис продажи<br /> и покупки лома
               </div>
@@ -46,7 +49,7 @@ export default function Footer(props: Props) {
                 <Link href={CONTACTS.tel}>{CONTACTS.tel}</Link>
               </div>
             </div>
-            <Button className={styles.btn} styleType='large' color='white'>
+            <Button className={styles.btn} styleType='large' color='white' href={Routes.lkSaleRequestCreate}>
               Продать лом
             </Button>
           </div>

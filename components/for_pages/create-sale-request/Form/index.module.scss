@@ -1,0 +1,27 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(24px, false);
+}
+
+.section {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+
+    .label {
+        @include btnText;
+        color: $dark500;
+    }
+}
+
+.switches {
+    display: flex;
+    @include list(12px, true);
+    align-items: center;
+
+}
+
+

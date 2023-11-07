@@ -1,0 +1,39 @@
+@import "styles/index";
+
+.root {
+  display: flex;
+  position: relative;
+}
+
+
+
+.dropDown {
+  font-size: 12px;
+  padding: 16px;
+  white-space: pre-line;
+  visibility: hidden;
+  border-radius: 3px;
+  background: #EBEBEB;
+  max-width: 200px;
+}
+
+.inner {
+  display: flex;
+  cursor: pointer;
+  position: relative;
+  border-radius: 100%;
+  padding: 1px 8px;
+  background-color: $grey300;
+  display: flex;
+}
+
+.opened {
+  visibility: visible;
+  top: -60% !important;
+  margin: 0 0 0 20px;
+}
+
+.question {
+  align-self: center;
+  @include secondaryText;
+}

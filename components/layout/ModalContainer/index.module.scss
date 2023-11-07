@@ -2,6 +2,7 @@
 
 .modal {
   outline: none;
+  height: 100%;
 }
 
 .overlay {
@@ -19,9 +20,14 @@
   overflow-x: hidden;
   overscroll-behavior: none;
   padding: 10px;
-  z-index: 2;
+  z-index: $zIndexModal;
 
   &.mobileMenu {
     overflow-y: hidden;
   }
 }
+
+.none {
+  display: none;
+}
+

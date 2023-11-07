@@ -13,7 +13,7 @@ interface Props {
 const TabBarInner = forwardRef<HTMLDivElement, Props & { style?: any }>((props, ref) => {
 
   return (
-    <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})}>
+    <div className={styles.root} ref={ref} style={props.style} >
       <Button className={styles.btn} styleType='small' color='dark'>
         <UserSvg color={colors.white} />
         <div>Войти</div>

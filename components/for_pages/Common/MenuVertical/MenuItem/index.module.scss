@@ -1,0 +1,35 @@
+@import "../../../../../styles/index";
+.root{
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 28px;
+  color: $dark500;
+  position: relative;
+  padding: 8px 20px;
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  svg{
+    width: 12px;
+  }
+  &:hover{
+    background-color: $yellow300;
+  }
+}
+.active{
+  background-color: $yellow300;
+  &:before{
+    content: '';
+    position: absolute;
+    left: 0px;
+    top: 0px;
+    bottom: 0px;
+    background-color: $yellow500;
+    width: 4px;
+  }
+}
+.title{
+ flex: 1;
+}

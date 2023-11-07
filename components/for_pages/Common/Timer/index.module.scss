@@ -1,0 +1,22 @@
+@import "styles/index";
+
+.root {
+  display: inline;
+  align-items: center;
+  svg{
+    margin-right: 8px;
+    width: 20px !important;
+  }
+}
+
+.seconds {
+  display: inline;
+  @include secondaryText;
+}
+
+.timer{
+  fill: #fff;
+  @include mq($PhoneWidth, max){
+    fill: #000;
+  }
+}

@@ -1,0 +1,37 @@
+@import "styles/index";
+
+.form {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    @include list(24px)
+}
+
+.btn {
+
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}
+
+.bottom {
+    @include secondaryText;
+}
+
+.checkbox {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.forget {
+    @include btnText;
+    color: $blue500;
+}
+
+.alreadyBtn {
+    width: 40% !important;
+}

@@ -8,19 +8,20 @@ interface Props {
   color?: string
   secondaryColor?: string
   center?: boolean
+  thickness?: number
 }
 
 export default function Spinner(props: Props) {
   return (
     <div className={classNames({
       [styles.root]: true,
-      [styles.center]: props.center,
+      [styles.center]: typeof props.center === 'undefined' ? true : props.center,
     })}>
       <SpinnerCircular
         size={props.size}
-        color={props.color ?? colors.red500}
-        secondaryColor={props.secondaryColor ?? colors.red500}
-        thickness={150}
+        color={props.color ?? colors.blue500}
+        secondaryColor={props.secondaryColor ?? colors.lightBlue}
+        thickness={props.thickness ?? 150}
       />
     </div>
   )

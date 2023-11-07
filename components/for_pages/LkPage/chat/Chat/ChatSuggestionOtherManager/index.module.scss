@@ -1,0 +1,39 @@
+@import "../../../../../../styles/index";
+
+.root {
+    padding: 12px;
+    border-radius: 12px;
+    background: #FFF;
+    box-shadow: 0px 2px 12px 0px rgba(108, 120, 148, 0.27);
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+
+.text {
+    @include btnText;
+    text-align: center;
+}
+
+.btns {
+    display: flex;
+    @include list(12px, true);
+
+    @include mq(360px, max) {
+        flex-direction: column;
+        @include list(12px, false);
+    }
+}
+
+.signIn {
+    color: $blue500;
+}
+
+.signUp {
+    flex: 1;
+    padding: 0 16px;
+
+    @include mq(360px, max) {
+        padding: 16px;
+    }
+}

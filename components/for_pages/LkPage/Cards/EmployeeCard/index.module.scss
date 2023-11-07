@@ -1,0 +1,91 @@
+@import "styles/index";
+
+.root {
+  padding: 0px;
+  border-radius: $StandartBorderRadius;
+  background-color: $white;
+  display: flex;
+  flex-direction: column;
+  @include list(16px, false);
+}
+
+
+.top {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(12px, false);
+    align-items: flex-start;
+  }
+}
+.topLeft{
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  flex: 1;
+  padding-right: 12px;
+  @include list(12px, true);
+  @include mq($PhoneWidth, max) {
+    flex-direction: column;
+    @include list(0px, true);
+    @include list(12px, false);
+    align-items: flex-start;
+  }
+}
+
+.name {
+  font-size: 16px;
+  font-weight: 700;
+  color: $dark500;
+  @include mq($PhoneWidth, max) {
+    flex: auto;
+  }
+  &.large{
+    @include h2;
+  }
+}
+
+.email {
+  color: $dark500;
+  @include h3;
+  font-weight: normal;
+}
+
+.field {
+  margin-top: 16px;
+  @include h3;
+  color: $dark500;
+  font-weight: normal;
+
+  .label {
+    @include infoLabel;
+  }
+  .label {
+    @include infoValue;
+  }
+}
+
+
+
+.controls {
+  display: flex;
+  align-items: center;
+  @include list(12px, true);
+
+  @include mq(1024px, max) {
+    flex-direction: column;
+    @include list(12px, false);
+  }
+
+  @include mq($PhoneWidth, max) {
+    margin-bottom: 12px !important;
+    margin-top: 0 !important;
+  }
+}
+.controlsSeparator{
+  width: 1px;
+  height: 24px;
+  background: $grey400;
+}

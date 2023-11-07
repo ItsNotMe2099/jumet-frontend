@@ -1,0 +1,21 @@
+@import "styles/index";
+
+.root{
+  position: relative;
+  @include list(8px);
+
+}
+.label{
+  color: $dark500;
+  @include label;
+}
+.input{
+  @include input;
+  @include inputWrapper;
+}
+.highlight{
+  color: $blue500;
+}
+.active{
+
+}

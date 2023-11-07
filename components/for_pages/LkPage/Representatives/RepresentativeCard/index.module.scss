@@ -1,0 +1,57 @@
+@import "styles/index";
+.root{
+
+}
+.header{
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  @include list(12px, true);
+  .left{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    @include list(12px, true)
+  }
+}
+.chevron{
+  transform: translateY(2px);
+  @include dropDownChevron;
+}
+
+.title {
+  @include h3;
+}
+
+.content{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+  margin-top: 16px;
+}
+
+.image {
+  cursor: pointer;
+  max-height: 212px;
+  max-width: 258px;
+}
+.buttons{
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true);
+  @media (max-width: $xs-max) {
+    flex-direction: column;
+    @include list(0px, true);
+    @include list(12px);
+  }
+}
+.link{
+  font-size: 14px;
+  cursor: pointer;
+  color: $blue500;
+  &:hover{
+    text-decoration: underline;
+  }
+}
