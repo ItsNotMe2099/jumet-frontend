@@ -1,5 +1,6 @@
 import {IPaginationRequest} from '@/data/interfaces/IPaginationRequest'
 
-export interface IReceivingPointUserListRequest extends IPaginationRequest {
+export interface IEmployeeListRequest extends IPaginationRequest {
   receivingPointId?: number
+  search?: string
 }

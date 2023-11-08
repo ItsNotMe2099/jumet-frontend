@@ -1,21 +1,21 @@
 import {createContext, useContext, useEffect, useRef, useState} from 'react'
 import {IPagination} from 'types/types'
 import {useAppContext} from '@/context/state'
-import {IReceivingPointUserListRequest} from '@/data/interfaces/IReceivingPointUserListRequest'
-import ReceivingPointUserRepository from '@/data/repositories/ReceivingPointUserRepository'
-import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
+import EmployeeRepository from '@/data/repositories/EmployeeRepository'
+import IEmployee from '@/data/interfaces/IEmployee'
+import {IEmployeeListRequest} from '@/data/interfaces/IEmployeeListRequest'
 
-export interface IReceivingPointUserFilter extends IReceivingPointUserListRequest {
+export interface IEmployeeFilter extends IEmployeeListRequest {
 }
 
 interface IState {
-  data: IPagination<IReceivingPointUser>
+  data: IPagination<IEmployee>
   isLoaded: boolean
   isLoading: boolean
   page: number
   setPage: (page: number) => void
-  filter: IReceivingPointUserFilter
-  setFilter: (data: IReceivingPointUserFilter) => void
+  filter: IEmployeeFilter
+  setFilter: (data: IEmployeeFilter) => void
   reFetch: () => void
   fetchMore: () => void
 }
@@ -27,12 +27,12 @@ const defaultValue: IState = {
   page: 1,
   setPage: (page: number) => null,
   filter: {page: 1, limit: 10},
-  setFilter: (data: IReceivingPointUserFilter) => null,
+  setFilter: (data: IEmployeeFilter) => null,
   reFetch: () => null,
   fetchMore: () => null
 }
 
-const UserListOwnerContext = createContext<IState>(defaultValue)
+const EmployeeListOwnerContext = createContext<IState>(defaultValue)
 
 interface Props {
   children: React.ReactNode
@@ -40,35 +40,39 @@ interface Props {
   receivingPointId?: number
 }
 
-export function UserListOwnerWrapper(props: Props) {
+export function EmployeeListOwnerWrapper(props: Props) {
   const appContext = useAppContext()
-  const [data, setData] = useState<IPagination<IReceivingPointUser>>({data: [], total: 0})
+  const [data, setData] = useState<IPagination<IEmployee>>({data: [], total: 0})
   const [isLoading, setIsLoading] = useState<boolean>(false)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const [page, setPage] = useState<number>(1)
-  const [filter, setFilter] = useState<IReceivingPointUserFilter>({page: 1, limit: 10})
-  const filterRef = useRef<IReceivingPointUserFilter>(filter)
+  const [filter, setFilter] = useState<IEmployeeFilter>({page: 1, limit: 10})
+  const filterRef = useRef<IEmployeeFilter>(filter)
   const limit = props.limit ?? 20
   const init = async () => {
     await Promise.all([fetch()])
     setIsLoaded(true)
   }
   useEffect(() => {
-    const subscriptionDelete = appContext.receivingPointUserDeleteState$.subscribe((user) => {
+    const subscriptionCreate = appContext.employeeCreateState$.subscribe((representative) => {
+      reFetch()
+    })
+    const subscriptionDelete = appContext.employeeDeleteState$.subscribe((user) => {
       if(data.data.find(i => i.id === user.id))
       setData(i => ({ ...i, data: i.data.filter(i => i.id !== user.id), total: i.total - 1 }))
     })
-    const subscriptionUpdate = appContext.receivingPointUserUpdateState$.subscribe((dealOffer) => {
+    const subscriptionUpdate = appContext.employeeUpdateState$.subscribe((dealOffer) => {
       setData(i => ({ ...i, data: i.data.map(i => i.id == dealOffer.id ? ({ ...i, ...dealOffer }) : i) }))
     })
 
     return () => {
+      subscriptionCreate.unsubscribe()
       subscriptionDelete.unsubscribe()
       subscriptionUpdate.unsubscribe()
     }
   }, [data])
   const fetch = async ({page}: { page: number } = {page: 1}) => {
-    const res = await ReceivingPointUserRepository.fetch({
+    const res = await EmployeeRepository.fetch({
       ...filterRef.current,
       ...(props.receivingPointId ? {receivingPointId: props.receivingPointId} : {}),
       limit: filterRef.current.limit ?? limit,
@@ -112,12 +116,12 @@ export function UserListOwnerWrapper(props: Props) {
 
 
   return (
-    <UserListOwnerContext.Provider value={value}>
+    <EmployeeListOwnerContext.Provider value={value}>
       {props.children}
-    </UserListOwnerContext.Provider>
+    </EmployeeListOwnerContext.Provider>
   )
 }
 
-export function useUserListOwnerContext() {
-  return useContext(UserListOwnerContext)
+export function useEmployeeListOwnerContext() {
+  return useContext(EmployeeListOwnerContext)
 }

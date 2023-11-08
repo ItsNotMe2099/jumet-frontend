@@ -5,7 +5,7 @@ import {LkReceivingPageLayout} from '@/pages/lk'
 import EmployeeCard from '@/components/for_pages/LkPage/Cards/EmployeeCard'
 import {useReceivingPointOwnerContext} from '@/context/receiving_point_owner_state'
 import ContentLoader from '@/components/ui/ContentLoader'
-import {UserListOwnerWrapper, useUserListOwnerContext} from '@/context/user_list_owner_state'
+import {EmployeeListOwnerWrapper, useEmployeeListOwnerContext} from '@/context/employee_list_owner_state'
 import {DeepPartial} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import {LkLayoutActionsData} from '@/context/lk_layout_content'
@@ -24,7 +24,7 @@ interface Props {
 const ReceivingPointEmployeesPageInner = (props: Props) => {
   const appContext = useAppContext()
   const receivingPointContext = useReceivingPointOwnerContext()
-  const userListOwnerContext = useUserListOwnerContext()
+  const userListOwnerContext = useEmployeeListOwnerContext()
   const [loading, setLoading] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
@@ -59,7 +59,7 @@ const ReceivingPointEmployeesPageInner = (props: Props) => {
         <CardLayoutList>
           {userListOwnerContext.data.data.map((i, index) =>
             <CardLayout key={i.id}>
-            <EmployeeCard isLargeName user={i} key={index} receivingPoint={receivingPointContext.receivingPoint}/>
+            <EmployeeCard isLargeName employee={i} key={i.id} receivingPoint={receivingPointContext.receivingPoint}/>
             </CardLayout>
           )}
         </CardLayoutList>
@@ -73,9 +73,9 @@ const ReceivingPointEmployeesPageInner = (props: Props) => {
 
 const ReceivingPointEmployeesPage = (props: Props) => {
   const receivingPointContext = useReceivingPointOwnerContext()
-  return (<UserListOwnerWrapper receivingPointId={receivingPointContext.receivingPointId}>
+  return (<EmployeeListOwnerWrapper receivingPointId={receivingPointContext.receivingPointId}>
     <ReceivingPointEmployeesPageInner/>
-  </UserListOwnerWrapper>)
+  </EmployeeListOwnerWrapper>)
 }
 
 

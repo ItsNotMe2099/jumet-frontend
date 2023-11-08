@@ -1,4 +1,4 @@
-//import styles from './index.module.scss'
+import styles from './index.module.scss'
 import {useAppContext} from '@/context/state'
 import {UserRole} from '@/data/enum/UserRole'
 import ProfileSellerForm from '@/components/for_pages/LkPage/Forms/ProfileSellerForm'
@@ -13,11 +13,11 @@ interface Props {
 
 const ProfileSettingsPage = (props: Props) => {
   const appContext = useAppContext()
-  return <>
+  return <div className={styles.root}>
     <LkLayoutTitleData title={'Настройка профиля'}/>
     {appContext.aboutMe?.role === UserRole.Seller && <ProfileSellerForm/>}
     {appContext.aboutMe?.role === UserRole.Buyer && <ProfileBuyerForm/>}
-  </>
+  </div>
 }
 ProfileSettingsPage.getLayout = LkPageLayout
 export default ProfileSettingsPage

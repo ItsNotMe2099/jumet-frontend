@@ -13,7 +13,7 @@ interface Props extends IField<number | null> {
 const ReceivingPointFieldInner = (props: Props) => {
   const receivingPointListContext = useReceivingPointListContext()
   const options: IOption<number | null>[] = receivingPointListContext.items.map(i => ({label: i.name, value: i.id}))
-  console.log('ReceivingPointList', options)
+
   return (
     <SelectField<number| null> {...props as any} options={options} onChange={props.onChange} selectProps={props.selectProps}/>
   )

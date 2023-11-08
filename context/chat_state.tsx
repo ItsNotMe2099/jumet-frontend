@@ -70,7 +70,7 @@ export function ChatWrapper(props: Props) {
       ...(filterRef.current?.search ? {search: filterRef.current.search} : {}),
       ...(filterRef.current?.receivingPointId ? {receivingPointId: filterRef.current.receivingPointId,}: {}),
       ...(filterRef.current?.dealId ? {receivingPointId: filterRef.current.dealId}: {}),
-      ...(filterRef.current?.userId ? {receivingPointId: filterRef.current.userId}: {}),
+      ...(filterRef.current?.userId ? {userId: filterRef.current.userId}: {}),
     }
   }
   const checkIsFilterEmpty = (): boolean => {

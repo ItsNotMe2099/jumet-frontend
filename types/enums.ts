@@ -9,7 +9,7 @@ export enum ModalType {
   SaleRequestOffer = 'saleRequestOffer',
   Success = 'success',
   SaleRequestForm = 'saleRequestForm',
-  UserForm = 'userForm',
+  EmployeeForm = 'employeeForm',
   Gallery = 'gallery',
   DealTerminateForm = 'dealTerminateForm',
   RepresentativeForm = 'representativeForm',

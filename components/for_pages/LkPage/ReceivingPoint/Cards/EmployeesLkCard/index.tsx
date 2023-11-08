@@ -6,7 +6,7 @@ import ContentLoader from '@/components/ui/ContentLoader'
 import ReceivingPointInfoEditCard from '@/components/for_pages/LkPage/ReceivingPoint/ReceivingPointInfoEditCard'
 import FormFooter from '@/components/ui/FormFooter'
 import ReceivingPointUsersForm from '@/components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointUsersForm'
-import {UserListOwnerWrapper, useUserListOwnerContext} from '@/context/user_list_owner_state'
+import {EmployeeListOwnerWrapper, useEmployeeListOwnerContext} from '@/context/employee_list_owner_state'
 import {DeepPartial} from '@/types/types'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import CreateButton from '@/components/ui/Buttons/CreateButton'
@@ -17,7 +17,7 @@ interface Props{
 
 const EmployeesLkCardInner = (props: Props) => {
   const receivingPointContext = useReceivingPointOwnerContext()
-  const userListOwnerContext = useUserListOwnerContext()
+  const userListOwnerContext = useEmployeeListOwnerContext()
   const [loading, setLoading] = useState<boolean>( false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
   const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
@@ -42,7 +42,7 @@ const EmployeesLkCardInner = (props: Props) => {
       <div className={styles.root}>
         {userListOwnerContext.isLoading && <ContentLoader style={'block'}/>}
         {userListOwnerContext.data.data.map((i, index) =>
-          <EmployeeCard user={i} key={index} receivingPoint={receivingPointContext.receivingPoint} />
+          <EmployeeCard employee={i} key={i.id} receivingPoint={receivingPointContext.receivingPoint} />
         )}
       </div>
 
@@ -53,7 +53,7 @@ const EmployeesLkCardInner = (props: Props) => {
 
 export default function EmployeesLkCard(props: Props) {
   const receivingPointContext = useReceivingPointOwnerContext()
-  return (<UserListOwnerWrapper receivingPointId={receivingPointContext.receivingPointId}>
+  return (<EmployeeListOwnerWrapper receivingPointId={receivingPointContext.receivingPointId}>
     <EmployeesLkCardInner/>
-  </UserListOwnerWrapper>)
+  </EmployeeListOwnerWrapper>)
 }

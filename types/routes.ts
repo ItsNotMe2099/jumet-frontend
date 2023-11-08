@@ -85,7 +85,7 @@ export class Routes {
   }
 
   static get lkEmployees() {
-    return '/lk/sales-applications'
+    return '/lk/employees'
   }
   static get lkReceivingPoints() {
     return '/lk/receiving-points'
