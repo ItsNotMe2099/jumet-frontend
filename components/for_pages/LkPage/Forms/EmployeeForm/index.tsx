@@ -10,6 +10,7 @@ import {EmployeeOwnerWrapper, useEmployeeOwnerContext} from '@/context/employee_
 import IEmployee from '@/data/interfaces/IEmployee'
 import FormFooter from '@/components/ui/FormFooter'
 import ReceivingPointMultiField from '@/components/fields/ReceivingPointMultiField'
+import {IEmployeeCreateRequest} from "@/data/interfaces/IEmployeeCreateRequest";
 
 interface IFormData {
   name: Nullable<string>
