@@ -9,7 +9,6 @@ import FormErrorScroll from '@/components/ui/FormErrorScroll'
 import {EmployeeOwnerWrapper, useEmployeeOwnerContext} from '@/context/employee_owner_state'
 import IEmployee from '@/data/interfaces/IEmployee'
 import FormFooter from '@/components/ui/FormFooter'
-import {IEmployeeCreateRequest} from '@/data/interfaces/IEmployeeCreateRequest'
 import ReceivingPointMultiField from '@/components/fields/ReceivingPointMultiField'
 
 interface IFormData {
@@ -33,15 +32,15 @@ const EmployeeFormInner = (props: Props) => {
         await employeeOwnerContext.update(newData as IEmployeeCreateRequest)
       }else{
         await employeeOwnerContext.create(newData as IEmployeeCreateRequest)
-
       }
+      props.onBack?.()
   }
 
   const initialValues: IFormData = {
     name: employeeOwnerContext.employee?.name ?? '',
     email: employeeOwnerContext.employee?.email ?? '',
     employeeRole: employeeOwnerContext.employee?.employeeRole ?? null,
-    receivingPointIds: employeeOwnerContext.employee?.receivingPointUsers.map(i => i.receivingPointId) ?? []
+    receivingPointIds: employeeOwnerContext.employee?.receivingPointUsers?.map(i => i.receivingPointId) ?? []
 
   }
 
@@ -81,7 +80,7 @@ const EmployeeFormInner = (props: Props) => {
 }
 
 export default function EmployeeForm(props: Props) {
-  return (<EmployeeOwnerWrapper employee={props.employee} employeeId={props.employee?.id}>
-    <EmployeeFormInner/>
+  return (<EmployeeOwnerWrapper  employee={props.employee} employeeId={props.employee?.id}>
+    <EmployeeFormInner {...props}/>
   </EmployeeOwnerWrapper>)
 }

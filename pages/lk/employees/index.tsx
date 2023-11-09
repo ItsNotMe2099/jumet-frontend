@@ -4,8 +4,6 @@ import {LkLayoutActionsData} from '@/context/lk_layout_content'
 import CreateButton from '@/components/ui/Buttons/CreateButton'
 import {useReceivingPointOwnerContext} from '@/context/receiving_point_owner_state'
 import {EmployeeListOwnerWrapper, useEmployeeListOwnerContext} from '@/context/employee_list_owner_state'
-import {DeepPartial} from '@/types/types'
-import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import ContentLoader from '@/components/ui/ContentLoader'
 import CardLayout from '@/components/for_pages/Common/CardLayout'
 import InfiniteScroll from 'react-infinite-scroll-component'
@@ -24,15 +22,8 @@ const EmployeesPageInner = (props: Props) => {
   const appContext = useAppContext()
   const receivingPointContext = useReceivingPointOwnerContext()
   const userListOwnerContext = useEmployeeListOwnerContext()
-  const [loading, setLoading] = useState<boolean>(false)
   const [isEdit, setIsEdit] = useState<boolean>(false)
-  const handleSubmit = async (data: DeepPartial<IReceivingPoint>) => {
-    setLoading(true)
-    await receivingPointContext.editRequest(data)
-    await userListOwnerContext.reFetch()
-    setIsEdit(false)
-    setLoading(false)
-  }
+
 
   useEffect(() => {
     userListOwnerContext.reFetch()
@@ -47,7 +38,7 @@ const EmployeesPageInner = (props: Props) => {
       ]}/>
       {userListOwnerContext.isLoading && <ContentLoader style={'block'}/>}
       {isEdit && <CardLayout>
-        <EmployeeForm/>
+        <EmployeeForm onBack={() => setIsEdit(false)}/>
       </CardLayout>}
       {!isEdit && <InfiniteScroll
         dataLength={userListOwnerContext.data.data.length}
