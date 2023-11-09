@@ -13,9 +13,8 @@ import InfiniteScroll from 'react-infinite-scroll-component'
 import CardLayoutList from '@/components/for_pages/Common/CardLayoutList'
 import CreateButton from '@/components/ui/Buttons/CreateButton'
 import {useAppContext} from '@/context/state'
-import FormFooter from '@/components/ui/FormFooter'
-import ReceivingPointUsersForm from '@/components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointUsersForm'
 import CardLayout from '@/components/for_pages/Common/CardLayout'
+import EmployeeForm from '@/components/for_pages/LkPage/Forms/EmployeeForm'
 
 interface Props {
 
@@ -47,7 +46,7 @@ const ReceivingPointEmployeesPageInner = (props: Props) => {
       </CreateButton>
       ]}/>
       {userListOwnerContext.isLoading && <ContentLoader style={'block'}/>}
-      {isEdit && <CardLayout><ReceivingPointUsersForm footer={<FormFooter hasBack onBack={() => setIsEdit(false)} spinner={loading} />} receivingPoint={receivingPointContext.receivingPoint}  onSubmit={handleSubmit}/></CardLayout>}
+      {isEdit && <CardLayout><EmployeeForm  onBack={() => setIsEdit(false)} receivingPoint={receivingPointContext.receivingPoint} /></CardLayout>}
     {!isEdit && <InfiniteScroll
         dataLength={userListOwnerContext.data.data.length}
         next={handleScrollNext}

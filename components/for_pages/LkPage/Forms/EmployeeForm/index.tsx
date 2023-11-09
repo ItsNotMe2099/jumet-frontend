@@ -11,6 +11,7 @@ import IEmployee from '@/data/interfaces/IEmployee'
 import FormFooter from '@/components/ui/FormFooter'
 import ReceivingPointMultiField from '@/components/fields/ReceivingPointMultiField'
 import {IEmployeeCreateRequest} from '@/data/interfaces/IEmployeeCreateRequest'
+import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 
 interface IFormData {
   name: Nullable<string>
@@ -23,6 +24,7 @@ interface Props {
   employee?: Nullable<IEmployee>
   hasBack?: boolean
   onBack?: (() => void) | null | undefined
+  receivingPoint?: Nullable<IReceivingPoint>;
 }
 
 const EmployeeFormInner = (props: Props) => {
@@ -42,7 +44,7 @@ const EmployeeFormInner = (props: Props) => {
     name: employeeOwnerContext.employee?.name ?? '',
     email: employeeOwnerContext.employee?.email ?? '',
     employeeRole: employeeOwnerContext.employee?.employeeRole ?? null,
-    receivingPointIds: employeeOwnerContext.employee?.receivingPointUsers?.map(i => i.receivingPointId) ?? []
+    receivingPointIds: !employeeOwnerContext.employee && props.receivingPoint ? [props.receivingPoint.id] : employeeOwnerContext.employee?.receivingPointUsers?.map(i => i.receivingPointId) ?? []
 
   }
 
