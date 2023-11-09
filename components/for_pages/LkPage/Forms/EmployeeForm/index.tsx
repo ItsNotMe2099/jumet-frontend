@@ -1,7 +1,7 @@
 import styles from 'components/for_pages/LkPage/ReceivingPoint/Forms/ReceivingPointAddressForm/index.module.scss'
 import {Form, FormikProvider, useFormik} from 'formik'
 import Validator from '@/utils/validator'
-import { Nullable} from '@/types/types'
+import {Nullable} from '@/types/types'
 import InputField from '@/components/fields/InputField'
 import SelectField from '@/components/fields/SelectField'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
@@ -28,11 +28,12 @@ interface Props {
 const EmployeeFormInner = (props: Props) => {
   const employeeOwnerContext = useEmployeeOwnerContext()
   const handleSubmit = async (data: IFormData) => {
-
+      const newData: IFormData = {...data, receivingPointIds: data.employeeRole !== EmployeeRole.Admin ? data.receivingPointIds : [] }
       if(props.employee) {
-        await employeeOwnerContext.create(data as IEmployeeCreateRequest)
+        await employeeOwnerContext.update(newData as IEmployeeCreateRequest)
       }else{
-        await employeeOwnerContext.update(data as IEmployeeCreateRequest)
+        await employeeOwnerContext.create(newData as IEmployeeCreateRequest)
+
       }
   }
 
@@ -72,7 +73,7 @@ const EmployeeFormInner = (props: Props) => {
           label={'Роль сотрудника'}
           name={'employeeRole'}
         />
-        <ReceivingPointMultiField name={'receivingPointIds'} label={'Пункты приема'} placeholder={'Добавить пункт приема'}/>
+        {formik.values.employeeRole !== EmployeeRole.Admin && <ReceivingPointMultiField name={'receivingPointIds'} label={'Пункты приема'} placeholder={'Добавить пункт приема'}/>}
         <FormFooter hasBack={props.hasBack ?? false} onBack={props.onBack ?? null} spinner={employeeOwnerContext.editLoading}/>
       </Form>
     </FormikProvider>
