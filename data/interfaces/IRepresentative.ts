@@ -4,6 +4,7 @@ import IUser from '@/data/interfaces/IUser'
 
 export interface IRepresentative{
   id: number | string;
+  name?: string
   firstName: Nullable<string | null>,
   lastName: Nullable<string | null>,
   patronymic: Nullable<string | null>,

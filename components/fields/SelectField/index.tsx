@@ -21,9 +21,10 @@ export interface SelectFieldProps<T> extends IField<T> {
   initialAsyncData?: any
   resettable?: boolean
   menuPosition?: string
+  selectKey?: string
 }
 
-export default function SelectField<T>(props: SelectFieldProps<T>) {
+export default function  SelectField<T>(props: SelectFieldProps<T>) {
 
   const [field, meta, helpers] = useField(props as any)
   const showError = meta.touched && !!meta.error
@@ -40,8 +41,7 @@ export default function SelectField<T>(props: SelectFieldProps<T>) {
   }
 
    // Generate a unique key based on Formik field name and value
-   const uniqueKey = `${props.name}_${field.value}`
-
+  const uniqueKey = props.selectKey ?? `${props.name}`
   return (
     <div className={classNames(styles.root, props.className)} data-field={props.name}>
       {props.async ? <SelectAsync<T>

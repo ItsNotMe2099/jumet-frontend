@@ -14,7 +14,7 @@ import FormErrorScroll from '@/components/ui/FormErrorScroll'
 
 interface IFormData {
 
-  users: { name: string | null, email: string | null, initialRole: EmployeeRole }[]
+  users: { firstName: string | null, lastName: string | null, patronymic: string | null, email: string | null, employeeRole: EmployeeRole }[]
 }
 
 interface Props {
@@ -30,7 +30,7 @@ export default function ReceivingPointUsersForm(props: Props) {
 
   const initialValues: IFormData = {
     users: [
-      {name: null, email: null, initialRole: EmployeeRole.ReceivingPointManager}
+      {firstName: null, lastName: null, patronymic: null, email: null, employeeRole: EmployeeRole.ReceivingPointManager}
     ]
   }
 
@@ -49,8 +49,16 @@ export default function ReceivingPointUsersForm(props: Props) {
               {formik.values.users.map((item, index) => (
                 <>
                   <InputField
-                    label={'Имя и фамилия сотрудника'}
-                    name={`users[${index}].name`}
+                    label={'Фамилия'}
+                    name={`users[${index}].lastName`}
+                  />
+                  <InputField
+                    label={'Имя'}
+                    name={`users[${index}].firstName`}
+                  />
+                  <InputField
+                    label={'Отчество'}
+                    name={`users[${index}].patronymic`}
                   />
                   <InputField
                     label={'Email сотрудника'}
@@ -59,11 +67,12 @@ export default function ReceivingPointUsersForm(props: Props) {
                   />
                   <SelectField<EmployeeRole>
                     options={[
+                      {label: 'Администратор', value: EmployeeRole.Admin},
                       {label: 'Администратор пункта приема', value: EmployeeRole.ReceivingPointAdmin},
                       {label: 'Менеджер пункта приема', value: EmployeeRole.ReceivingPointManager}
                     ]}
                     label={'Роль сотрудника'}
-                    name={`users[${index}].initialRole`}
+                    name={`users[${index}].employeeRole`}
                   />
                 </>))}
               <Button onClick={() => arrayHelpers.push({name: null, email: null, initialRole: EmployeeRole.ReceivingPointManager})} type='button' className={styles.add}

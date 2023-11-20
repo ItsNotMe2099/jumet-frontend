@@ -5,7 +5,7 @@ import {useAppContext} from '@/context/state'
 
 interface Props {
   spinner?: boolean | undefined,
-  onBack?: () => void | null | undefined
+  onBack?: (() => void) | null | undefined
   hasBack?: boolean
   backName?: string
   nextName?: string

@@ -14,7 +14,7 @@ interface Props extends ChatMessageProps{
   side: 'my' | 'other'
 }
 
-export default function ChatMessage(props: Props) {
+export default function ChatMessageInner(props: Props) {
   switch (props.message.type){
     case ChatMessageType.Text:
       return <ChatMessageText {...props}/>

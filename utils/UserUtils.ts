@@ -5,11 +5,15 @@ import {Nullable} from '@/types/types'
 
 export default class UserUtils {
   static getName(user: IUser | null | IRepresentative | {
+    name?: Nullable<string>
     firstName?: Nullable<string>
     lastName?: Nullable<string>
     patronymic?: Nullable<string>}): string {
     if (!user) {
       return ''
+    }
+    if(!user.firstName && !user?.lastName && !user.patronymic && user?.name){
+      return user.name ?? ''
     }
     return  `${ (user?.firstName || user?.lastName) ? ` ${user?.lastName || ''}${user?.firstName ? ` ${user?.firstName }` : ''}${user?.patronymic ? ` ${user?.patronymic }` : ''}` : ''}`
 

@@ -13,6 +13,7 @@ export default interface IUser {
   lastName: string;
   patronymic: string;
   companyName: string;
+  name: string
   isRegistered: boolean;
   email: string;
   birthday?: Date;
@@ -22,5 +23,4 @@ export default interface IUser {
   readedNotifications: Notification[];
   passport?: Nullable<IPassportData>
   isConfirmedPi: boolean
-//  companies?: Company[];
 }

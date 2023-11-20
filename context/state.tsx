@@ -17,6 +17,7 @@ import {IReceivingPointUser} from '@/data/interfaces/IReceivingPointUser'
 import {IDeal} from '@/data/interfaces/IDeal'
 import IReview from '@/data/interfaces/IReview'
 import {IRepresentative} from '@/data/interfaces/IRepresentative'
+import IEmployee from '@/data/interfaces/IEmployee'
 
 interface IState {
   isMobile: boolean
@@ -54,8 +55,9 @@ interface IState {
   userUpdateState$: Subject<IUser>
   userDeleteState$: Subject<IUser>
   receivingPointCreateState$: Subject<IReceivingPointUser>
-  receivingPointUserUpdateState$: Subject<IReceivingPointUser>
-  receivingPointUserDeleteState$: Subject<IReceivingPointUser>
+  employeeCreateState$: Subject<IEmployee>
+  employeeUpdateState$: Subject<IEmployee>
+  employeeDeleteState$: Subject<IEmployee>
   reviewCreateState$: Subject<IReview>
   reviewUpdateState$: Subject<IReview>
   representativeCreateState$: Subject<IRepresentative>
@@ -80,8 +82,9 @@ const userCreateState$ = new Subject<IUser>()
 const userUpdateState$ = new Subject<IUser>()
 const userDeleteState$ = new Subject<IUser>()
 const receivingPointCreateState$ = new Subject<IReceivingPointUser>()
-const receivingPointUserUpdateState$ = new Subject<IReceivingPointUser>()
-const receivingPointUserDeleteState$ = new Subject<IReceivingPointUser>()
+const employeeCreateState$ = new Subject<IEmployee>()
+const employeeUpdateState$ = new Subject<IEmployee>()
+const employeeDeleteState$ = new Subject<IEmployee>()
 const reviewCreateState$ = new Subject<IReview>()
 const reviewUpdateState$ = new Subject<IReview>()
 
@@ -117,8 +120,9 @@ const defaultValue: IState = {
   userUpdateState$,
   userDeleteState$,
   receivingPointCreateState$,
-  receivingPointUserUpdateState$,
-  receivingPointUserDeleteState$,
+  employeeCreateState$,
+  employeeUpdateState$,
+  employeeDeleteState$,
   reviewCreateState$,
   reviewUpdateState$,
   representativeCreateState$,

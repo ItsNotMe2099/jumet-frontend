@@ -5,6 +5,6 @@ export interface IChatListRequest extends IPaginationRequest{
   search?: Nullable<string>,
   receivingPointId?: Nullable<number>,
   dealId?: Nullable<number>,
-  userId?: Nullable<number>,
+  userId?: Nullable<string>,
 
 }
