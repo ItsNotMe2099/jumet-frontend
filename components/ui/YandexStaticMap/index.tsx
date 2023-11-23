@@ -21,7 +21,7 @@ export default function YandexStaticMap(props: Props) {
   return (
     <div style={{display: 'flex'}}>
    <div className={classNames(styles.root, props.className)} onClick={props.onClick}>
-        <img className={styles.image} src={`https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=${props.center?.lng},${props.center?.lat}&z=16&size=632,328&l=map&apikey=${runtimeConfig.MAP_KEY}`}/>
+        <img className={styles.image} src={`https://static-maps.yandex.ru/1.x/?lang=ru_RU&ll=${props.center?.lng},${props.center?.lat}&z=16&size=632,328&l=map&apikey=${runtimeConfig.MAP_STATIC_KEY}`}/>
         <div className={styles.placemark}><MarkerSvg color={colors.blue500}/></div>
       </div>
     </div>

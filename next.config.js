@@ -11,6 +11,7 @@ module.exports = {
     DEV: process.env.NODE_ENV === 'development',
     PROD: process.env.NODE_ENV !== 'development',
     MAP_KEY: process.env.MAP_KEY,
+    MAP_STATIC_KEY: process.env.MAP_STATIC_KEY,
     DADATA_KEY:  process.env.DADATA_KEY,
     YA_METRIKA_ID: Number.parseInt(process.env.YA_METRIKA_ID ?? '0'),
   },

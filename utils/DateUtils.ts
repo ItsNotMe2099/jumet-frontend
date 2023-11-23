@@ -157,6 +157,7 @@ export default class DateUtils {
     const date = utcToZonedTime(typeof _date === 'string' ? new Date(_date) : _date, 'UTC')
     return this.formatDateRelative(date, {showTime: true})
   }
+
   static formatDateRelative(date: string | Date,{showTime, shortMonth}: {showTime?: boolean, shortMonth?: boolean} = {shortMonth: false, showTime: false}){
     const formatRelativeLocale: {[key: string] : string} = {
       yesterday: 'Вчера в HH:mm',
