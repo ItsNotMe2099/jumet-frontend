@@ -70,7 +70,7 @@ export interface RepresentativeSuccessModalArguments {
 export interface GalleryModalArguments {
   images: IFile[]
   title: string
-  selectedId: number
+  selectedSource: string
 }
 
 export interface DealTerminateFormModalArguments {

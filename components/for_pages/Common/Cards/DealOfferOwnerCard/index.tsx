@@ -64,7 +64,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
 
           </div>
           <div className={styles.middle}>
-            {saleRequest.address.address}
+            {saleRequest.address?.address}
           </div>
           {(saleRequest.scrapMetalCategory ||saleRequest.price > 0) && <div className={styles.bottom}>
             {saleRequest.scrapMetalCategory && <Badge active text={saleRequest.scrapMetalCategory} />}

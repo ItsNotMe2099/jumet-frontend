@@ -21,7 +21,7 @@ export default function ChatMessagePhotos(props: Props) {
         appContext.showModal(ModalType.Gallery, {
           title: 'Фото сообщения',
           images: props.message.assets,
-          selectedId: i.id,
+          selectedSource: i.source,
         } as GalleryModalArguments)
       }} className={styles.image} preset={Preset.xsResize} key={i.id} file={i} />)}
     </div>

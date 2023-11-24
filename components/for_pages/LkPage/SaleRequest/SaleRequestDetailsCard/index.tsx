@@ -53,7 +53,7 @@ export default function SaleRequestDetailsCard(props: Props) {
           appContext.showModal(ModalType.Gallery, {
             title: `Фото заявки № ${saleRequest.id}`,
             images: saleRequest.photos,
-            selectedId: i.id,
+            selectedSource: i.source,
           } as GalleryModalArguments)
         }} className={styles.image} preset={Preset.xsResize} key={i.id} file={i} />
       )}

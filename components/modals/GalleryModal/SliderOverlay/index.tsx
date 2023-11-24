@@ -20,19 +20,18 @@ import { Zoom } from 'swiper/modules'
 interface Props {
   title: string
   images: IFile[]
-  selectedId: number
+  selectedSource: string | null
   onRequestClose: () => void
 }
 
 export default function SliderOverlay(props: Props) {
   const appContext = useAppContext()
-  const initIndex = props.images.findIndex((item) => item.id === props.selectedId)
-  const [index, setIndex] = useState(initIndex)
+  const initIndex = props.images.findIndex((item) => item.source === props.selectedSource)
+  const [index, setIndex] = useState(initIndex ?? 0)
   const [loaded, setLoaded] = useState(false)
   const [visible, setVisible] = useState(false)
   const activeImage = props.images[index]
   const swiperRef = useRef<SwiperClass | null>(null)
-
   const isClient = useClient()
   const preset = appContext.isMobile ? Preset.mdResize : Preset.lgResize
   const preloadImages = async () => {
@@ -75,6 +74,7 @@ export default function SliderOverlay(props: Props) {
           onBeforeInit={(swiper) => {
             swiperRef.current = swiper
           }}
+          initialSlide={initIndex}
           modules={[Zoom]}
           zoom={{
             maxRatio: 2,

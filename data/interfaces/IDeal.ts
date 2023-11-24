@@ -31,7 +31,7 @@ export interface IDeal {
   ownerId?: string
   requiresDelivery: boolean
   requiresLoading: boolean
-  address: IAddress
+  address: IAddress | null
   location: ILocation
   deliveryDate: string
   deliveryTimeFrom: string

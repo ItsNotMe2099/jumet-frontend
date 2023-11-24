@@ -51,7 +51,7 @@ export default function WeighningResultCard(props: Props) {
         {(deal.requiresLoading || deal.requiresDelivery) && <DescField label={'Сумма без доставки и погрузки'} value={Formatter.formatPrice(deal.subTotal ?? 0)}/>}
         {!!deal.total && <DescField label={'К оплате'} value={Formatter.formatPrice(deal.total)}/>}
         {deal?.acceptanceCertificate && <FileDownload href={ImageHelper.urlFromFile(deal?.acceptanceCertificate)} label='Приёмо-сдаточный акт' />}
-        {deal.weighingPhoto && <div><ImageFile preset={Preset.mdResize} onClick={() => appContext.showModal(ModalType.Gallery, {title: 'Фото подтверждения взвешивания лома', images: [deal.weighingPhoto], selectedId: deal.weighingPhoto.id} as GalleryModalArguments)} className={styles.image} file={deal.weighingPhoto} /></div>}
+        {deal.weighingPhoto && <div><ImageFile preset={Preset.mdResize} onClick={() => appContext.showModal(ModalType.Gallery, {title: 'Фото подтверждения взвешивания лома', images: [deal.weighingPhoto], selectedSource: deal.weighingPhoto.source} as GalleryModalArguments)} className={styles.image} file={deal.weighingPhoto} /></div>}
         {props.hasActions && <div className={styles.buttons}>
           <Button spinner={dealContext.editLoading} disabled={dealContext.terminateLoading} styleType='large' color='blue' onClick={() => dealContext.submitStepWeighingAccept()}>
             Подтвердить

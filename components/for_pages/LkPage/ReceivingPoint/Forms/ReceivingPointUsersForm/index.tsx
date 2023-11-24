@@ -49,16 +49,8 @@ export default function ReceivingPointUsersForm(props: Props) {
               {formik.values.users.map((item, index) => (
                 <>
                   <InputField
-                    label={'Фамилия'}
-                    name={`users[${index}].lastName`}
-                  />
-                  <InputField
-                    label={'Имя'}
-                    name={`users[${index}].firstName`}
-                  />
-                  <InputField
-                    label={'Отчество'}
-                    name={`users[${index}].patronymic`}
+                    label={'Имя и фамилия сотрудника'}
+                    name={`users[${index}].name`}
                   />
                   <InputField
                     label={'Email сотрудника'}

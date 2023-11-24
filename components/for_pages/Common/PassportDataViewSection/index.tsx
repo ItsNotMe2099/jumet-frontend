@@ -22,7 +22,7 @@ export default function PassportDataViewSection(props: Props) {
       {passportData.scan && <DescField label={'Скан паспорта'} value={<ImageFile preset={Preset.mdResize} onClick={() => appContext.showModal(ModalType.Gallery, {
         title: props.scanModalTitle,
         images: [passportData?.scan],
-        selectedId: passportData?.scan!.id
+        selectedSource: passportData?.scan!.source
       } as GalleryModalArguments)} className={styles.image} file={passportData.scan}/>}/>}
       <DescField label={'Адрес регистрации'} value={passportData?.address}/>
       <DescField label={'Серия паспорта'} value={passportData?.series}/>

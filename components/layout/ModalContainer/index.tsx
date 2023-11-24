@@ -22,7 +22,13 @@ interface Props { }
 export default function ModalContainer(props: Props) {
   const appContext = useAppContext()
   const commonSettings: IModalProps = {
-    onRequestClose: appContext.hideModal,
+    onRequestClose: () => {
+      if(appContext.modalOnTop){
+        appContext.hideModalOnTop()
+      }else{
+        appContext.hideModal()
+      }
+    },
   }
 
   return (
@@ -36,9 +42,6 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.PasswordChange} {...commonSettings}>
           {appContext.modal === ModalType.PasswordChange && <PasswordChangeModal onRequestClose={commonSettings.onRequestClose!} />}
-        </Modal>
-        <Modal isOpen={appContext.modal === ModalType.MapSelector} {...commonSettings}>
-          {appContext.modal === ModalType.MapSelector && <MapSelectorModal isBottomSheet={false} />}
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.DealOffer} {...commonSettings}>
           {appContext.modal === ModalType.DealOffer && <DealOfferModal onRequestClose={commonSettings.onRequestClose!} />}
@@ -69,6 +72,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.RepresentativeSuccess} {...commonSettings}>
           {appContext.modal === ModalType.RepresentativeSuccess && <RepresentativeSuccessModal />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.MapSelector || appContext.modalOnTop === ModalType.MapSelector} {...commonSettings}>
+          {(appContext.modal === ModalType.MapSelector || appContext.modalOnTop === ModalType.MapSelector) && <MapSelectorModal isBottomSheet={false} />}
         </Modal>
       </div>
     </RemoveScroll>

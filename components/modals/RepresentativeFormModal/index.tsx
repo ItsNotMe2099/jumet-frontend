@@ -16,7 +16,7 @@ export default function RepresentativeFormModal(props: Props) {
     <ModalLayout fixed size={'large'}>
       <ModalHeader title={args?.representative ? 'Редактировать представителя' : 'Добавить представителя'}/>
       <ModalBody fixed >
-        <RepresentativeForm/>
+        <RepresentativeForm representative={args.representative}/>
       </ModalBody>
     </ModalLayout>
   )
