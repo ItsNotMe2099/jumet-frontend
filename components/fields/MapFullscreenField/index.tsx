@@ -26,7 +26,7 @@ export default function MapFullscreenField(props: Props) {
      //appContext.hideModal()
       helpers.setValue(value)
     }}
-      appContext.showModal(
+      appContext.showModalOnTop(
         ModalType.MapSelector,
         data,
       )

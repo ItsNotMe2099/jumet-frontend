@@ -45,8 +45,8 @@ const RepresentativeContext = createContext<IState>(defaultValue)
 
 interface Props {
   children: React.ReactNode,
-  representativeId?: Nullable<string | number>,
-  representative?: Nullable<IRepresentative>,
+  representativeId?: Nullable<string | number> | undefined,
+  representative?: Nullable<IRepresentative> | undefined,
 }
 
 export function RepresentativeWrapper(props: Props) {

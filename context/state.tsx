@@ -28,12 +28,16 @@ interface IState {
   loginState$: Subject<boolean>
   modal: ModalType | null
   modalArguments: any
+  modalOnTop: ModalType | null
+  modalOnTopArguments: any
   bottomSheet: ModalType | null
   snackbar: SnackbarData | null
   aboutMe: IAboutMe | null
   showModal: (type: ModalType, args?: any) => void
+  showModalOnTop: (type: ModalType, args?: any) => void
   showBottomSheet: (type: ModalType, args?: any) => void
   hideModal: () => void
+  hideModalOnTop: () => void
   hideBottomSheet: () => void
   setToken: (token: string) => void
   showSnackbar: (text: string, type: SnackbarType) => void
@@ -103,6 +107,8 @@ const defaultValue: IState = {
   allLoaded: false,
   modal: null,
   modalArguments: null,
+  modalOnTop: null,
+  modalOnTopArguments: null,
   bottomSheet: null,
   snackbar: null,
   aboutMe: null,
@@ -130,8 +136,10 @@ const defaultValue: IState = {
   representativeDeleteState$,
   fileUploadingState$,
   showModal: (type) => null,
+  showModalOnTop: (type) => null,
   showBottomSheet: (type) => null,
   hideModal: () => null,
+  hideModalOnTop: () => null,
   hideBottomSheet: () => null,
   setToken: (token: string) => null,
   showSnackbar: (text, type) => null,
@@ -155,6 +163,8 @@ export function AppWrapper(props: Props) {
   //  const router = useRouter()
   const [modal, setModal] = useState<ModalType | null>(null)
   const [modalArguments, setModalArguments] = useState<any>(null)
+  const [modalOnTop, setModalOnTop] = useState<ModalType | null>(null)
+  const [modalOnTopArguments, setModalOnTopArguments] = useState<any>(null)
   const [bottomSheet, setBottomSheet] = useState<ModalType | null>(null)
   const [snackbar, setSnackbar] = useState<SnackbarData | null>(null)
   const [isMobile, setIsMobile] = useState<boolean>(props.isMobile)
@@ -233,12 +243,23 @@ export function AppWrapper(props: Props) {
   }
 
   const hideModal = () => {
+    setModalOnTop(null)
+    setModalOnTopArguments(null)
+  }
+
+  const showModalOnTop = (type: ModalType, args?: any) => {
+    ReactModal.setAppElement('body')
+    setModalOnTopArguments(args)
+    setModalOnTop(type)
+  }
+
+  const hideModalOnTop = () => {
     if (bottomSheet) {
       hideBottomSheet()
       return
     }
-    setModal(null)
-    setModalArguments(null)
+    setModalOnTop(null)
+    setModalOnTopArguments(null)
   }
 
   const showBottomSheet = (type: ModalType, props?: any) => {
@@ -267,14 +288,18 @@ export function AppWrapper(props: Props) {
     allLoaded,
     modal,
     modalArguments,
+    modalOnTop,
+    modalOnTopArguments,
     bottomSheet,
     snackbar,
     aboutMe,
     updateAboutMe,
     showModal,
+    showModalOnTop,
     showBottomSheet,
     showSnackbar,
     hideModal,
+    hideModalOnTop,
     token,
     setToken: (token: string) => {
       Cookies.set(CookiesType.accessToken, token, {

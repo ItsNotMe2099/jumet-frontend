@@ -23,14 +23,23 @@ export default function MapSelectorModal(props: Props) {
     }, 1500)
 
   }, [])
-  const args = (appContext.modalArguments) as MapSelectorModalArguments
+  const args = (appContext.modalOnTopArguments ?? appContext.modalArguments) as MapSelectorModalArguments
   const submit = (data: IFormData) => {
     console.log('ARGSMAP', args)
     args.onChange(data.location)
-    appContext.hideModal()
-  }
-  const handleClear = () => {
+    if(appContext.modalOnTop){
+      appContext.hideModalOnTop()
+    }else{
+      appContext.hideModal()
+    }
 
+  }
+  const handleBack = () => {
+    if(appContext.modalOnTop){
+      appContext.hideModalOnTop()
+    }else{
+      appContext.hideModal()
+    }
   }
   const result = (
     <Formik initialValues={{location: args.location ?? null}} onSubmit={submit}>
@@ -41,7 +50,7 @@ export default function MapSelectorModal(props: Props) {
           </div>
           <div className={styles.bottom}>
             <div className={styles.buttons}>
-              <Button color="grey" styleType='large'  fluid type="button" onClick={props.isBottomSheet ? appContext.hideBottomSheet : appContext.hideModal}>
+              <Button color="grey" styleType='large'  fluid type="button" onClick={handleBack}>
                 Назад
               </Button>
               <Button color={'blue'} styleType="large"  fluid type="submit">

@@ -42,7 +42,7 @@ export default function ReceivingPointDeliveryForm(props: Props) {
       deliveryPriceType: data.deliveryPriceType,
       ...(data.hasDelivery ? {
       ...(data.deliveryPriceType === DeliveryPriceType.Fixed ? {deliveryPriceFixed: data.deliveryPriceFixed, deliveryAreas: []} : {deliveryAreas: data.deliveryAreas, deliveryPriceFixed: null})
-      } : {}),
+      } : {deliveryAreas: [], deliveryPriceFixed: null}),
       ...(data.hasLoading ? {loadingPrice: data.loadingPrice} : {loadingPrice: null}),
     } as DeepPartial<IReceivingPoint>)
   }

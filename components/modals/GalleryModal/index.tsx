@@ -11,25 +11,20 @@ interface Props {}
 export default function GalleryModal(props: Props) {
   const appContext = useAppContext()
   const args = appContext.modalArguments as GalleryModalArguments
-  const sliderOnlyMode = args.images.length < 8
-  const [selectedId, setSelectedId] = useState(sliderOnlyMode ? args.selectedId : 0)
-
+  const [selectedSource, setSelectedSource] = useState<string | null>( args.selectedSource )
+  console.log('args.images', args.images)
   return (
     <div className={classNames({
       [styles.root]: true,
-      [styles.withSlider]: selectedId,
+      [styles.withSlider]: !!selectedSource,
     })}>
 
         <SliderOverlay
           title={args.title}
           images={args.images}
-          selectedId={selectedId ?? args.images[0]?.id}
+          selectedSource={selectedSource ?? args.images[0]?.source ?? null}
           onRequestClose={() => {
-            if (sliderOnlyMode) {
               appContext.hideModal()
-            } else {
-              setSelectedId(0)
-            }
           }}
         />
     </div>

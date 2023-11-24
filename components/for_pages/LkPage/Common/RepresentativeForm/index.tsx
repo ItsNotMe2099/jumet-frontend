@@ -10,6 +10,8 @@ import {RepresentativeWrapper, useRepresentativeContext} from '@/context/represe
 import {useState} from 'react'
 import RepresentativeCreateSuccess from '@/components/for_pages/LkPage/Representatives/RepresentativeCreateSuccess'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import {IRepresentative} from '@/data/interfaces/IRepresentative'
+import {Nullable} from '@/types/types'
 
 
 interface IFormData {
@@ -21,6 +23,7 @@ interface IFormData {
 
 interface Props {
   hasAddOtherButton?: boolean
+  representative?: Nullable<IRepresentative> | undefined
 }
 
 const RepresentativeFormInner = (props: Props) => {
@@ -37,10 +40,10 @@ const RepresentativeFormInner = (props: Props) => {
   }
 
   const initialValues: IFormData = {
-    firstName: null,
-    lastName: null,
-    patronymic: null,
-    phone: null
+    firstName: props.representative?.firstName ?? null,
+    lastName: props.representative?.lastName ?? null,
+    patronymic: props.representative?.patronymic ?? null,
+    phone: props.representative?.phone ?? null
   }
 
   const formik = useFormik({
@@ -83,6 +86,7 @@ const RepresentativeFormInner = (props: Props) => {
             <PhoneField
               name='phone'
               validate={Validator.required}
+              disabled={!!props.representative}
               label={'Телефон представителя*'}/>
             <Spacer basis={16}/>
             <div>
@@ -98,7 +102,7 @@ const RepresentativeFormInner = (props: Props) => {
 
 
 export default function RepresentativeForm(props: Props) {
-  return (<RepresentativeWrapper>
+  return (<RepresentativeWrapper representative={props.representative} representativeId={props.representative?.id}>
     <RepresentativeFormInner hasAddOtherButton={props.hasAddOtherButton ?? false}/>
   </RepresentativeWrapper>)
 }

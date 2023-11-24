@@ -39,7 +39,7 @@ export default function DeliveryZonesLkCard(props: Props) {
           </div>
         )}
         {receivingPoint?.hasDelivery && receivingPoint?.deliveryPriceType === DeliveryPriceType.Fixed && <DescField label={'Стоимость доставки'} value={Formatter.formatDeliveryPrice(receivingPoint.deliveryPriceFixed)}/>}
-        {receivingPoint?.hasDelivery &&receivingPoint?.hasLoading && <DescField label={'Стоимость погрузки'} value={Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}/>}
+        {receivingPoint?.hasLoading && <DescField label={'Стоимость погрузки'} value={Formatter.formatDeliveryPrice(receivingPoint.loadingPrice)}/>}
         {!receivingPoint?.hasDelivery  && <div>Нет доставки</div>}
 
       </div>

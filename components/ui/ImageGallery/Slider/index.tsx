@@ -95,7 +95,7 @@ export const ImageSlider = forwardRef<ImageSliderRef, Props>((props, ref) => {
                    appContext.showModal(ModalType.Gallery, {
                      title: props.modalTitle ?? '',
                      images: props.images,
-                     selectedId: item.id,
+                     selectedSource: item.source,
                    } as GalleryModalArguments)
                  }}
           />
