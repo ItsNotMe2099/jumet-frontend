@@ -243,8 +243,8 @@ export function AppWrapper(props: Props) {
   }
 
   const hideModal = () => {
-    setModalOnTop(null)
-    setModalOnTopArguments(null)
+    setModal(null)
+    setModalArguments(null)
   }
 
   const showModalOnTop = (type: ModalType, args?: any) => {
