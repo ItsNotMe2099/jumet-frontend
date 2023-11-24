@@ -17,7 +17,7 @@ interface Props {
   onClose: () => void
 }
 
-const ReceivingPointMapPopupInner =  forwardRef<HTMLDivElement, Props>((props, ref) => {
+const ReceivingPointMapPopupInner =  forwardRef<HTMLAnchorElement, Props>((props, ref) => {
   const openingStatus = props.receivingPoint.workNow  ? 'Открыто сейчас' : (props.receivingPoint.nextWorkTime ? `Откроется ${Formatter.formatDateRelative(props.receivingPoint.nextWorkTime!)}` : '')
   const handleClose: MouseEventHandler = (e) => {
     e.preventDefault()
