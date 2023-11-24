@@ -31,6 +31,7 @@ export default function ModalContainer(props: Props) {
     },
   }
 
+  console.log('dsadsad', appContext.modal , appContext.modalOnTop)
   return (
     <RemoveScroll enabled={!!appContext.modal}>
       <div aria-hidden="true">

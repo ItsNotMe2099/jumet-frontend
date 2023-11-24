@@ -25,11 +25,12 @@ export default function MapSelectorModal(props: Props) {
   }, [])
   const args = (appContext.modalOnTopArguments ?? appContext.modalArguments) as MapSelectorModalArguments
   const submit = (data: IFormData) => {
-    console.log('ARGSMAP', args)
+    console.log('ARGSMAP', appContext.modalOnTop)
     args.onChange(data.location)
     if(appContext.modalOnTop){
       appContext.hideModalOnTop()
     }else{
+      console.log('HideModal')
       appContext.hideModal()
     }
 

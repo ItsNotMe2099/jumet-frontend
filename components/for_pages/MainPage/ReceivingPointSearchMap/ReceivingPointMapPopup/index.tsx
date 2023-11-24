@@ -1,6 +1,6 @@
 'use client'
 
-import React, {CSSProperties, forwardRef} from 'react'
+import React, {CSSProperties, forwardRef, MouseEventHandler} from 'react'
 import {IReceivingPoint} from '@/data/interfaces/IReceivingPoint'
 import styles from './index.module.scss'
 import Formatter from '@/utils/formatter'
@@ -9,6 +9,8 @@ import StarSvg from '@/components/svg/StarSvg'
 import {colors} from '@/styles/variables'
 import CloseModalBtn from '@/components/ui/CloseModalBtn'
 import classNames from 'classnames'
+import Link from 'next/link'
+import {Routes} from '@/types/routes'
 interface Props {
   receivingPoint: IReceivingPoint;
   style: CSSProperties
@@ -17,10 +19,14 @@ interface Props {
 
 const ReceivingPointMapPopupInner =  forwardRef<HTMLDivElement, Props>((props, ref) => {
   const openingStatus = props.receivingPoint.workNow  ? 'Открыто сейчас' : (props.receivingPoint.nextWorkTime ? `Откроется ${Formatter.formatDateRelative(props.receivingPoint.nextWorkTime!)}` : '')
-
+  const handleClose: MouseEventHandler = (e) => {
+    e.preventDefault()
+    e.stopPropagation()
+    props.onClose()
+  }
   return (
-    <div className={styles.root} ref={ref} id={'receiving-point-ballon'}>
-        <CloseModalBtn className={classNames(styles.close, 'ymap-popover-close')} onClick={props.onClose}/>
+    <Link href={Routes.receivingPoint(props.receivingPoint.id)} target={'_blank'} className={styles.root} ref={ref} id={'receiving-point-ballon'}>
+        <CloseModalBtn className={classNames(styles.close, 'ymap-popover-close')} onClick={handleClose}/>
       <div className={styles.wrapper}>
       <div className={styles.header}>
         <div className={styles.name}>{props.receivingPoint.companyName}</div>
@@ -41,7 +47,7 @@ const ReceivingPointMapPopupInner =  forwardRef<HTMLDivElement, Props>((props, r
           text={openingStatus} className={styles.badge}/>}
       </div>
       </div>
-    </div>
+    </Link>
   )
 })
 export default ReceivingPointMapPopupInner
