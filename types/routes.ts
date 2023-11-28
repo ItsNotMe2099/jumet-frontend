@@ -13,11 +13,11 @@ export class Routes {
     return '/auth/registration'
   }
 
-  static get passwordForgot() {
-    return '/auth/password-forgot'
+  static passwordForgot(type?: 'buyer' | 'seller') {
+    return `/auth/password-forgot${type ? `?type=${type}` : ''}`
   }
   static passwordReset(data: { login: string, code?: string }) {
-    return `/auth/password-reset?login=${data.login}${data.code ? `&code=${data.code}` : ''}`
+    return `/auth/password-reset?login=${encodeURIComponent(data.login)}${data.code ? `&code=${data.code}` : ''}`
   }
 
   static get registrationComplete() {

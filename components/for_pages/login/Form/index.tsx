@@ -89,7 +89,7 @@ export default function LoginForm(props: Props) {
           label='Пароль'
           validate={Validator.required} />
         <div className={styles.checkbox}>
-          <Link href={Routes.passwordForgot} className={styles.forget}>
+          <Link href={Routes.passwordForgot(props.mode)} className={styles.forget}>
             Забыли пароль?
           </Link>
         </div>
