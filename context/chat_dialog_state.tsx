@@ -85,6 +85,7 @@ export function ChatDialogWrapper(props: Props) {
   const chatIdRef = useRef<number | null>(null)
   const receivingPointIdRef = useRef<number | null | undefined>(props.receivingPointId)
   const chatRef = useRef<Nullable<IChat>>(null)
+  const initInProgressRef = useRef<boolean>(false)
   const limit = 30
 
   useEffect(() => {
@@ -112,43 +113,54 @@ export function ChatDialogWrapper(props: Props) {
   }, [chat, appContext.aboutMe])
   const init = async () => {
    let _chat: IChat | null = null
+    if(initInProgressRef.current){
+      return
+    }
+    initInProgressRef.current = true
 
     if (!props.chatId) {
-      console.log('Init0')
-      if (appContext.aboutMe && props.receivingPointId && props.sellerId && (chat?.receivingPointId !== props.receivingPointId || chat?.sellerId !== props.sellerId)) {
-
-        console.log('Init1')
-        setLoading(true)
-        const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({
-          receivingPointId: props.receivingPointId!,
-          sellerId: props.sellerId!
-        })
-        setChat(_chat)
-        if(_chat) {
-          console.log('SetCurrentChatId', _chat.id)
-          chatContext.setCurrentChatId(_chat.id)
-        }
-        if (_chat?.messages) {
-          processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total, true)
-        } else if (_chat) {
-          await loadMessages()
+      try {
+        if (appContext.aboutMe && props.receivingPointId && props.sellerId && (chat?.receivingPointId !== props.receivingPointId || chat?.sellerId !== props.sellerId)) {
+          setLoading(true)
+          const _chat = await ChatRepository.fetchChatBySellerIdAndReceivingPointId({
+            receivingPointId: props.receivingPointId!,
+            sellerId: props.sellerId!
+          })
+          setChat(_chat)
+          chatRef.current = _chat
+          if (_chat) {
+            console.log('SetCurrentChatId', _chat.id)
+            chatContext.setCurrentChatId(_chat.id)
+          }
+          if (_chat?.messages) {
+            processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total, true)
+          } else if (_chat) {
+            await loadMessages()
+          } else {
+            processLoadedMessages([], 0, true)
+          }
+          setLoading(false)
         } else {
-          processLoadedMessages([], 0, true)
+          setChat(null)
+          setLoading(false)
+          setMessages([])
+          setTotalMessages(0)
         }
-        setLoading(false)
-      } else {
-        setChat(null)
-        setLoading(false)
-        setMessages([])
-        setTotalMessages(0)
+      }catch (e) {
+        initInProgressRef.current = false
       }
-
+      initInProgressRef.current = false
       return
     }
     setLoading(true)
     if (!chat || chat.id !== props.chatId) {
-      _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
-      setChat(_chat)
+      try {
+        _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
+        setChat(_chat)
+        chatRef.current = _chat
+      }catch (e) {
+        initInProgressRef.current = false
+      }
     }
 
     setMessages([])
@@ -156,7 +168,11 @@ export function ChatDialogWrapper(props: Props) {
     if (_chat?.messages) {
       processLoadedMessages(_chat!.messages!.data, _chat!.messages!.total)
     } else {
-      await loadMessages()
+      try {
+        await loadMessages()
+      }catch (e) {
+        initInProgressRef.current = false
+      }
     }
     setLoading(false)
   }
@@ -185,13 +201,10 @@ export function ChatDialogWrapper(props: Props) {
     setMessages(i => fromInit ? data : [...i, ...data])
   }
   const loadMessages = async (lastCreatedAt?: string) => {
-    const data = await ChatMessageRepository.fetchAll(props.chatId!, lastCreatedAt, limit)
+    const data = await ChatMessageRepository.fetchAll(chatRef.current!.id, lastCreatedAt, limit)
     processLoadedMessages(data.data, data.total)
   }
   const fetchMore = async () => {
-    if (!props.chatId) {
-      return
-    }
     await loadMessages(messages[messages.length - 1]?.createdAt)
     setPage(page + 1)
   }
