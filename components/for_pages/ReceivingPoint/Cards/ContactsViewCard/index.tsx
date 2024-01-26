@@ -97,7 +97,7 @@ export default function ContactsViewCard(props: Props) {
         </div>
       </div>
       <div className={styles.bottom}>
-        {!appContext.isLogged || appContext?.aboutMe?.role === UserRole.Seller && <Button onClick={handleCreateOffer} className={styles.suggest} styleType='large' color='blue'>
+        {(!appContext.isLogged || appContext?.aboutMe?.role === UserRole.Seller) && <Button onClick={handleCreateOffer} className={styles.suggest} styleType='large' color='blue'>
           Предложить сделку
         </Button>}
         <FavoriteBtn entityType={LikeEntityType.receivingPoint} id={props.receivingPoint.id}/>

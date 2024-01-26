@@ -61,7 +61,7 @@ export default function SaleRequestInfoPageCard({ item }: Props) {
         </div>
       </div>
       <div className={styles.controls}>
-        {!appContext.isLogged || appContext?.aboutMe?.role === UserRole.Buyer && <Button onClick={handleCreateOffer} className={styles.suggest} styleType='large' color='blue'>
+        {(!appContext.isLogged || appContext?.aboutMe?.role === UserRole.Buyer) && <Button onClick={handleCreateOffer} className={styles.suggest} styleType='large' color='blue'>
           Предложить сделку
         </Button>}
       <ShareLinkButton shareLink={Routes.saleRequest(item.id)}/>
