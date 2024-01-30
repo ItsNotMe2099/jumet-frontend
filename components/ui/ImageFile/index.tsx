@@ -13,7 +13,7 @@ interface Props {
 }
 
 export default function ImageFile(props: Props) {
-  const aspectRatio = ImageHelper.needCrop(props.preset) ? '1/1' : `${props.file.metadata.width}/${props.file.metadata.height}`
+  const aspectRatio = (ImageHelper.needCrop(props.preset) || !props.file.metadata) ? '1/1' : `${props.file.metadata.width}/${props.file.metadata.height}`
   return (
     <img
       className={props.className}
