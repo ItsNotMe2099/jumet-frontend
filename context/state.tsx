@@ -1,5 +1,5 @@
 import {createContext, useContext, useEffect, useState} from 'react'
-import {RequestError, SnackbarData} from 'types/types'
+import {Nullable, RequestError, SnackbarData} from 'types/types'
 import {CookiesType, ModalType, SnackbarType} from 'types/enums'
 import ReactModal from 'react-modal'
 import {getIsMobile} from 'utils/mobile'
@@ -18,7 +18,17 @@ import {IDeal} from '@/data/interfaces/IDeal'
 import IReview from '@/data/interfaces/IReview'
 import {IRepresentative} from '@/data/interfaces/IRepresentative'
 import IEmployee from '@/data/interfaces/IEmployee'
+import { jwtDecode } from 'jwt-decode'
+import {UserRole} from '@/data/enum/UserRole'
+import {EmployeeRole} from '@/data/enum/EmployeeRole'
 
+interface ITokenData{
+  impersonate: boolean
+  phone: string,
+  email: string,
+  role: UserRole,
+  employeeRole: EmployeeRole
+}
 interface IState {
   isMobile: boolean
   isDesktop: boolean
@@ -45,6 +55,7 @@ interface IState {
   setModalNonSkippable: (val: boolean) => void
   logout: () => void,
   token: string | null
+  tokenData: Nullable<ITokenData>
 
   receivingPointUpdateState$: Subject<IReceivingPoint>
   receivingPointDeleteState$: Subject<IReceivingPoint>
@@ -147,6 +158,7 @@ const defaultValue: IState = {
   setModalNonSkippable: (val) => null,
   logout: () => null,
   token: null,
+  tokenData: null,
   setIsFilesUploading: (value) => null,
   isFilesUploading: false
 }
@@ -175,10 +187,17 @@ export function AppWrapper(props: Props) {
   const [isLogged, setIsLogged] = useState<boolean>(false)
   const [allLoaded, setAllLoaded] = useState<boolean>(false)
   const [isFilesUploading, setIsFilesUploading] = useState<boolean>(false)
+  const [tokenData, setTokenData] = useState<Nullable<ITokenData>>(null)
   useEffect(() => {
     if (props.token) {
       setIsLogged(true)
+      try {
+        setTokenData(jwtDecode(props.token))
+      }catch (e) {
+
+      }
     } else {
+      setTokenData(null)
       setIsLogged(false)
     }
   }, [props.token])
@@ -301,12 +320,19 @@ export function AppWrapper(props: Props) {
     hideModal,
     hideModalOnTop,
     token,
+    tokenData,
     setToken: (token: string) => {
       Cookies.set(CookiesType.accessToken, token, {
         expires: CookiesLifeTime.accessToken,
       })
+      try {
+        setTokenData(jwtDecode(token))
+      }catch (e) {
+
+      }
       setIsLogged(true)
       loginState$.next(true)
+
 
     },
 

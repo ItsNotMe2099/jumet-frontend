@@ -20,6 +20,7 @@ export const getServerSideProps = async (context: any) => {
       maxAge: CookiesLifeTime.accessToken,
       path: '/'
     })
+    console.log('res1', res)
     return {
       props: {},
       redirect: {
@@ -28,6 +29,7 @@ export const getServerSideProps = async (context: any) => {
       },
     }
   } catch (e) {
+    console.error(e)
     return {
       props: {error: (e as any)?.message ?? e as string}
     }

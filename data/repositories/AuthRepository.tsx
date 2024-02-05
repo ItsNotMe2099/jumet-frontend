@@ -125,7 +125,7 @@ export default class AuthRepository {
 
   static async impersonate(token: string): Promise<IAuthResponse> {
     const res = await request<IAuthResponse>({
-        method: 'get',
+        method: 'post',
         url: '/api/auth/impersonate',
         data: {
           token

@@ -6,7 +6,16 @@
   position: relative;
   z-index: 12;
 }
-
+.impersonate{
+  font-size: 11px;
+  background-color: $yellow500;
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  color: $black;
+  text-align: center;
+}
 .container {
   @include container;
   display: flex;
