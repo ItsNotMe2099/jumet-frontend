@@ -122,4 +122,17 @@ export default class AuthRepository {
   static async fetchAboutMe(token?: string): Promise<IAboutMe> {
     return request({url: '/api/auth/currentUser', token})
   }
+
+  static async impersonate(token: string): Promise<IAuthResponse> {
+    const res = await request<IAuthResponse>({
+        method: 'get',
+        url: '/api/auth/impersonate',
+        data: {
+          token
+        }
+      }
+    )
+    return res
+  }
+
 }
