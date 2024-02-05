@@ -23,6 +23,8 @@ import {NotificationType} from '@/data/interfaces/INotification'
 import NotificationBadge from '@/components/ui/NotificationBadge'
 import GraphSvg from '@/components/svg/GraphSvg'
 import LogoSvg from '@/components/svg/LogoSvg'
+import UserUtils from '@/utils/UserUtils'
+import Formatter from '@/utils/formatter'
 
 interface IMenuOption {link: string, label: string, badge?: number | null}
 interface Props {
@@ -90,6 +92,9 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
 
   return (
     <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})} id={'header'}>
+      {appContext.tokenData?.impersonate && <div className={styles.impersonate}>
+        Вы вошли как {appContext.tokenData?.role === UserRole.Buyer ? `Покупатель ${UserUtils.getEmployeeRoleName(appContext.tokenData.employeeRole)} ${appContext.tokenData?.email}` : `Продавец ${Formatter.formatPhone(appContext.tokenData.phone)}`}
+      </div>}
       <div className={styles.container}>
         <div className={styles.left}>
           <Link href={'/'}>
