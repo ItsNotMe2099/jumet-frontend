@@ -1,0 +1,142 @@
+@import "styles/index";
+
+.root {
+    background-color: #151B29;
+    display: flex;
+    flex-direction: column;
+    @include list(50px, false);
+}
+
+.header {
+    @include container;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 84px;
+
+    @include mq($PhoneWidth, max) {
+        height: $headerMobHeight;
+        width: 100%;
+    }
+}
+
+.contacts {
+    @include container;
+    display: flex;
+    margin-top: 30px;
+}
+
+.socials {
+    display: flex;
+    flex-direction: column;
+    @include list(53px, false);
+}
+
+.phone {
+    color: $white;
+    font-family: 'Jost';
+    font-size: 30px;
+    font-weight: 600;
+    line-height: 43px;
+    letter-spacing: 0em;
+    text-align: left;
+}
+
+.icons {
+    display: flex;
+    @include list(32px, true);
+}
+
+.logo {
+    max-width: 237px;
+    height: 28px;
+    display: block;
+}
+
+.info {
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 16px;
+    color: $white;
+
+    @include mq($SmDesktopWidth, max) {
+        display: none;
+    }
+
+    @include mq($TabletWidth, max) {
+        display: flex;
+    }
+
+    @include mq($PhoneWidth, max) {
+        background-color: transparent;
+        font-size: 10px;
+        padding: 0;
+        display: none;
+    }
+}
+
+.left {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.middle {
+    display: flex;
+    gap: 32px;
+
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
+}
+
+.btn {
+    span {
+        gap: 12px;
+        display: flex;
+        align-items: center;
+        color: $white;
+    }
+}
+
+.link {
+    position: relative;
+    @include btnText;
+    color: $white;
+    transition: color 0.2s;
+
+    &.active {
+        color: $yellow500;
+    }
+}
+
+.footer {
+    display: flex;
+    @include container;
+    margin-top: 30px;
+    margin-bottom: 30px;
+    justify-content: space-between;
+}
+
+.copyright {
+    font-family: 'Jost';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 23px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #687B95;
+}
+
+.up {
+    display: flex;
+    align-items: center;
+    font-family: 'Jost';
+    font-size: 16px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0px;
+    text-align: left;
+    color: #687B95;
+    @include list(8px, true);
+}

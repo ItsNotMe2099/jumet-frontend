@@ -1,0 +1,50 @@
+@import "styles/index";
+
+.root {
+  background: #2f80ed;
+  color: #fff;
+  margin: -176px 0 0;
+  box-shadow: 0px 5px 10px rgba(85, 95, 134, 0.1);
+  border-radius: 20px;
+  padding: 50px 45px 5px 45px;
+  position: relative;
+
+  @include mq($PhoneWidth, max) {
+    padding: 30px 20px 5px 20px;
+  }
+}
+
+.container {
+  @include landingContainer();
+}
+
+.item {
+  margin-bottom: 50px;
+
+  @include mq($PhoneWidth, max) {
+    padding-left: 70px;
+    position: relative;
+
+    svg {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      left: 0;
+      zoom: .8;
+    }
+
+    p {
+      margin-top: 0;
+    }
+  }
+
+  p {
+    margin-top: 25px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+.row {
+  @include rowLanding();
+}

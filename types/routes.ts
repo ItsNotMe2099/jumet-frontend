@@ -29,6 +29,10 @@ export class Routes {
     return '/'
   }
 
+  static get landing() {
+    return '/landing'
+  }
+
   static get receivingPoints() {
     return '/'
   }

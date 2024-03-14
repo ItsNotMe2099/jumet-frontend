@@ -4,7 +4,10 @@ export const CONTACTS = {
 }
 
 export const LINKS = {
-  vk: ''
+  vk: '',
+  fb: '',
+  instagram: '',
+  youtube: ''
 }
 
 export const SITE_NAME = 'Лом маркет'
