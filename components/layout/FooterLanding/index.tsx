@@ -2,7 +2,6 @@ import Link from 'next/link'
 import styles from './index.module.scss'
 import LogoSvg from '@/components/svg/LogoSvg'
 import { colors } from '@/styles/variables'
-import { useRouter } from 'next/router'
 import useIsActiveLink from '@/components/hooks/useIsActiveLink'
 import classNames from 'classnames'
 import NotificationBadge from '@/components/ui/NotificationBadge'
@@ -32,8 +31,6 @@ export default function FooterLanding(props: Props) {
       {(props.badge ?? 0) > 0 && <NotificationBadge color={'blue'} total={props.badge!} />}
     </Link>)
   }
-
-  const router = useRouter()
 
   const menuLanding: IMenuOption[] = [
     { link: '/landing/#how-it-works', label: 'Как работает' },
@@ -71,18 +68,18 @@ export default function FooterLanding(props: Props) {
             {CONTACTS.tel}
           </div>
           <div className={styles.icons}>
-            <Link href={LINKS.vk}>
+            <a href={LINKS.vk}>
               <VKSvg />
-            </Link>
-            <Link href={LINKS.fb}>
+            </a>
+            <a href={LINKS.fb}>
               <FBSvg />
-            </Link>
-            <Link href={LINKS.instagram}>
+            </a>
+            <a href={LINKS.instagram}>
               <InstagramSvg />
-            </Link>
-            <Link href={LINKS.youtube}>
+            </a>
+            <a href={LINKS.youtube}>
               <YoutubeSvg />
-            </Link>
+            </a>
           </div>
         </div>
       </div>
