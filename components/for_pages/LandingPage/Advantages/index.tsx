@@ -4,6 +4,7 @@ import Button from '@/components/ui/Button'
 import Advantages2Svg from '@/components/svg/landing/advantages/Advantages2Svg'
 import ExchangeSvg from '@/components/svg/landing/advantages/ExchangeSvg'
 import AvatarSvg from '@/components/svg/landing/advantages/AvatarSvg'
+import Avatar2Svg from '@/components/svg/landing/advantages/Avatar2Svg'
 
 interface Props {
 
@@ -36,7 +37,7 @@ export default function Advantages(props: Props) {
                 <li>в течение 5 мин</li>
                 <li>с выгодой до 10%</li>
               </ul>
-              <Button className={styles.btn} styleType='large' color='blue'>
+              <Button href={'/landing/for-sellers'} className={styles.btn} styleType='large' color='blue'>
                 Смотреть приемущества
               </Button>
             </div>
@@ -50,10 +51,10 @@ export default function Advantages(props: Props) {
                 <Advantages2Svg />
               </div>
               <div className={styles.name}>
-                <AvatarSvg />
-                <span>Преимущества для
-                  продавцов лома,</span><br />
-                ломосдатчиков
+                <Avatar2Svg />
+                <span>Преимущества для покупателей лома,
+                </span><br />
+                ломозаготовителей
               </div>
               <ul>
                 <li>Продал 2500 кг лома вида 5А,12 А </li>
@@ -61,7 +62,7 @@ export default function Advantages(props: Props) {
                 <li>в течение 5 мин</li>
                 <li>с выгодой до 10%</li>
               </ul>
-              <Button className={styles.btn} styleType='large' color='blue'>
+              <Button href={'/landing/for-buyers'} className={styles.btn} styleType='large' color='blue'>
                 Смотреть приемущества
               </Button>
             </div>

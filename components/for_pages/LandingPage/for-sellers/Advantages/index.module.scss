@@ -1,0 +1,77 @@
+@import "styles/index";
+
+.wrapper {
+  padding: 20px 0 152px;
+  background: #D8E4FF;
+}
+
+.root {
+  padding: 85px 50% 85px 0;
+  margin-bottom: 20px;
+  position: relative;
+
+  div {
+    display: table-cell;
+    vertical-align: middle;
+    font-weight: 300;
+    font-size: 36px;
+    line-height: 52px;
+  }
+
+  div span {
+    font-weight: 600;
+  }
+
+  div svg {
+    max-width: 100000px;
+    margin-right: 60px;
+  }
+
+  @include mq($MdDesktopWidth, max) {
+    div {
+      font-size: 30px;
+      line-height: 40px;
+    }
+  }
+
+  @include mq($SmDesktopWidth, max) {
+    padding-right: 40%;
+  }
+
+  @include mq($TabletWidth, max) {
+    padding: 0 0 50px 0;
+  }
+
+  @include mq($PhoneWidth, max) {
+    div {
+      display: block;
+      text-align: center;
+    }
+
+    div svg {
+      margin: 0 0 20px 0;
+    }
+  }
+}
+
+.container {
+  @include landingContainer();
+}
+
+.image {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  right: 0;
+  margin-top: 20px;
+  max-width: 50%;
+  z-index: 1;
+
+  @include mq($SmDesktopWidth, max) {
+    max-width: 38%;
+  }
+
+  @include mq($TabletWidth, max) {
+    display: none;
+  }
+}

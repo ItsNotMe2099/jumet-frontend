@@ -15,6 +15,7 @@ import InstagramSvg from '@/components/svg/landing/footer/InstagramSvg'
 import YoutubeSvg from '@/components/svg/landing/footer/YoutubeSvg'
 import { format } from 'date-fns'
 import UpSvg from '@/components/svg/landing/footer/UpSvg'
+import { useRouter } from 'next/router'
 
 interface Props {
 
@@ -32,6 +33,8 @@ export default function FooterLanding(props: Props) {
     </Link>)
   }
 
+  const router = useRouter()
+
   const menuLanding: IMenuOption[] = [
     { link: '/landing/#how-it-works', label: 'Как работает' },
     { link: '/landing/#benefits', label: 'Выгоды' },
@@ -40,6 +43,8 @@ export default function FooterLanding(props: Props) {
     { link: '/landing/#roadmap', label: 'Roadmap' },
     { link: '/landing/#contacts', label: 'Контакты' },
   ]
+
+  console.log(router)
 
   return (
     <div className={styles.root} id={'footer'}>
@@ -87,7 +92,7 @@ export default function FooterLanding(props: Props) {
         <div className={styles.copyright}>
           © {format(new Date(), 'yyyy')} г. Все права защищены
         </div>
-        <Link href={'/landing/#top'}>
+        <Link href={`${router.pathname}/#top`}>
           <div className={styles.up}>
             <div>Наверх</div>
             <UpSvg />

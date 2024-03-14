@@ -2,6 +2,7 @@ import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import AvatarSvg from '@/components/svg/landing/advantages/AvatarSvg'
 import Image from 'next/image'
+import Avatar2Svg from '@/components/svg/landing/advantages/Avatar2Svg'
 
 interface Props {
 
@@ -42,7 +43,7 @@ export default function HowItWorks(props: Props) {
           <div className={styles.row}>
             <div className={styles.column}>
               <div className={styles.name}>
-                <div><AvatarSvg /></div>
+                <div><Avatar2Svg /></div>
                 <div><span>Покупатель, ломозаготовитель</span></div>
               </div>
               <ol>
