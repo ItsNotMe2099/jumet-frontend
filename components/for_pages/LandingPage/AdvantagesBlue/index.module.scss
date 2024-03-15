@@ -11,11 +11,17 @@
 
   @include mq($PhoneWidth, max) {
     padding: 30px 20px 5px 20px;
+    margin: 0;
+    border-radius: 0;
   }
 }
 
 .container {
   @include landingContainer();
+
+  @include mq($PhoneWidth, max) {
+    padding: 0;
+  }
 }
 
 .item {

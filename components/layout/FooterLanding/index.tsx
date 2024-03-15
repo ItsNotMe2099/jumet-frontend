@@ -47,7 +47,7 @@ export default function FooterLanding(props: Props) {
   console.log(router)
 
   return (
-    <div className={styles.root} id={'footer'}>
+    <div className={styles.root} id={'contacts'}>
       <div className={styles.header}>
         <div className={styles.left}>
           <Link href={'/'}>
@@ -67,7 +67,7 @@ export default function FooterLanding(props: Props) {
         </Button>
       </div>
       <div className={styles.contacts}>
-        <FooterSvg />
+        <FooterSvg className={styles.illustration} />
         <div className={styles.socials}>
           <div className={styles.phone}>
             {CONTACTS.tel}

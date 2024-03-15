@@ -26,6 +26,7 @@ import LogoSvg from '@/components/svg/LogoSvg'
 import UserUtils from '@/utils/UserUtils'
 import Formatter from '@/utils/formatter'
 import { useRouter } from 'next/router'
+import { useResize } from '@/components/hooks/useResize'
 
 interface IMenuOption { link: string, label: string, badge?: number | null }
 interface Props {
@@ -101,12 +102,15 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
     appContext.hideModal()
   }
 
+  const { isSmDesktopWidth, isTabletWidth, isPhoneWidth } = useResize()
+
   return (
     <div className={styles.root} ref={ref} style={props.style} {...(props.restProps ?? {})} id={'header'}>
       {appContext.tokenData?.impersonate && <div className={styles.impersonate}>
         Вы вошли как {appContext.tokenData?.role === UserRole.Buyer ? `Покупатель ${UserUtils.getEmployeeRoleName(appContext.tokenData.employeeRole)} ${appContext.tokenData?.email}` : `Продавец ${Formatter.formatPhone(appContext.tokenData.phone)}`}
       </div>}
-      <div className={styles.container}>
+      <div className={classNames(styles.container,
+        { [styles.landingContainer]: isSmDesktopWidth && router.asPath.includes(Routes.landing) && !isPhoneWidth })}>
         <div className={styles.left}>
           <Link href={'/'}>
             <LogoSvg className={styles.logo} colorFirst={colors.yellow500} colorSecond={colors.white} />
@@ -115,7 +119,8 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
             Онлайн-сервис продажи и покупки лома
           </div>
         </div>
-        <div className={styles.middle}>
+        <div className={classNames(styles.middle,
+          { [styles.landingMiddle]: isTabletWidth && router.asPath.includes(Routes.landing) })}>
           {(!router.asPath.includes(Routes.landing)
             ? (appContext.isLogged ? menuAuth : menuNotAuth) : menuLanding).map((i, index) =>
               <MenuItem key={index} link={i.link} label={i.label} badge={i.badge ?? 0} />
@@ -149,7 +154,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
               </>}
             </div>}
             {router.asPath.includes(Routes.landing) &&
-              <Button href={Routes.registration} className={styles.btn} styleType='large' color='blue'>
+              <Button href={Routes.registration} className={styles.landingBtn} styleType='large' color='blue'>
                 Купить/Продать лом
               </Button>
             }

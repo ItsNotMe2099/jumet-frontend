@@ -81,6 +81,10 @@
     color: #2F80ED;
     font-weight: 300;
 
+    @include mq($MPhoneWidth, max) {
+      font-size: 18px;
+    }
+
     svg {
       margin-right: 30px;
     }

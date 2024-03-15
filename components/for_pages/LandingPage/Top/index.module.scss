@@ -29,6 +29,10 @@
   align-items: flex-end;
   padding-left: 50px;
   margin-top: -140px;
+
+  @include mq($PhoneWidth, max) {
+    display: none;
+  }
 }
 
 .middle {

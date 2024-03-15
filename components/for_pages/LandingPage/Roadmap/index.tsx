@@ -58,7 +58,7 @@ export default function Roadmap(props: Props) {
           </div>
           <div className={styles.column}>
             <div>
-              <RoadMapSvg />
+              <RoadMapSvg className={styles.illustration} />
             </div>
           </div>
         </div>

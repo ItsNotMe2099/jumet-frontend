@@ -67,3 +67,9 @@
     }
   }
 }
+
+.illustration {
+  @include mq($MdDesktopWidth, max) {
+    max-width: 100%;
+  }
+}

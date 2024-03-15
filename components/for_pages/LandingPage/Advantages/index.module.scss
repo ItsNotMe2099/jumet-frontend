@@ -31,9 +31,18 @@
   padding-left: 15px;
   margin-bottom: 30px;
 
-  @include mq($PhoneWidth, min) {
+  @include mq($MdDesktopWidth, min) {
     flex: 0 0 33%;
     max-width: 33%;
+  }
+
+  @include mq($SmDesktopWidth, max) {
+    padding: 0;
+  }
+
+  @include mq($TabletWidth, max) {
+    padding-right: 15px;
+    padding-left: 15px;
   }
 }
 
@@ -74,6 +83,10 @@
       letter-spacing: 0em;
       text-align: left;
       white-space: nowrap;
+
+      @include mq($MPhoneWidth, max) {
+        white-space: break-spaces;
+      }
     }
   }
 }
@@ -84,6 +97,10 @@
   svg {
     box-shadow: 0px 5px 10px rgba(85, 95, 134, 0.1);
     border-radius: 10px;
+
+    @include mq($MPhoneWidth, max) {
+      max-width: 100%;
+    }
   }
 }
 
@@ -98,6 +115,11 @@
   padding-left: 100px;
   font-family: 'Jost';
 
+  @include mq($MPhoneWidth, max) {
+    padding: 0;
+    width: 100%;
+  }
+
   span {
     font-weight: 600;
   }
@@ -106,6 +128,10 @@
     position: absolute;
     left: 0;
     top: 10px;
+
+    @include mq($MPhoneWidth, max) {
+      display: none;
+    }
   }
 
   p {
@@ -118,6 +144,10 @@
 .row {
   @include rowLanding();
   flex-wrap: nowrap;
+
+  @include mq($TabletWidth, max) {
+    flex-direction: column;
+  }
 }
 
 .exchange {
@@ -126,4 +156,8 @@
   width: 100%;
   padding-right: 15px;
   padding-left: 15px;
+
+  @include mq($MdDesktopWidth + 1, max) {
+    display: none;
+  }
 }

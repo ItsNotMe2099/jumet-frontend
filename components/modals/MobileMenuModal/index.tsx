@@ -130,6 +130,16 @@ const MobileMenuModalInner = (props: Props) => {
     {link: Routes.registration, label: 'Зарегистрироваться', icon: MenuIcon.Users}
   ]
 
+
+  const menuLanding: IMenuOption[] = [
+    { link: '/landing/#how-it-works', label: 'Как работает' },
+    { link: '/landing/#benefits', label: 'Выгоды' },
+    { link: '/landing/#advantages', label: 'Приемущества' },
+    { link: '/landing/#how-to-connects', label: 'Как подключиться' },
+    { link: '/landing/#roadmap', label: 'Roadmap' },
+    { link: '/landing/#contacts', label: 'Контакты' },
+  ]
+
   const menuMainAuth: IMenuOption[] = [...(appContext.aboutMe?.role === UserRole.Seller ? [
     {link: Routes.receivingPoints, label: 'Пункты приёма лома', icon: MenuIcon.Map},
     {link: Routes.lkSaleRequests, label: 'Мои заявки на продажу', icon: MenuIcon.Sale, badge: badgeSaleRequests},
@@ -167,7 +177,8 @@ const MobileMenuModalInner = (props: Props) => {
     appContext.hideModal()
   }
 
-  const menuGroups = appContext.isLogged ? [menuMainAuth, menuProfile, menuLogout] : [menuNotAuth]
+  const menuGroups = !router.asPath.includes(Routes.landing) ? 
+  (appContext.isLogged ? [menuMainAuth, menuProfile, menuLogout] : [menuNotAuth]) : [menuLanding]
 
   return (
     <ModalLayout className={styles.modalLayout}>

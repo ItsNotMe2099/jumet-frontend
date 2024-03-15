@@ -15,8 +15,11 @@
     height: 84px;
 
     @include mq($PhoneWidth, max) {
-        height: $headerMobHeight;
+        height: 100%;
         width: 100%;
+        flex-direction: column;
+        padding: 15px;
+        @include list(15px, false);
     }
 }
 
@@ -24,12 +27,20 @@
     @include container;
     display: flex;
     margin-top: 30px;
+
+    @include mq($MPhoneWidth, max) {
+        justify-content: center;
+    }
 }
 
 .socials {
     display: flex;
     flex-direction: column;
     @include list(53px, false);
+
+    @include mq($MPhoneWidth, max) {
+        align-items: center;
+    }
 }
 
 .phone {
@@ -45,6 +56,10 @@
 .icons {
     display: flex;
     @include list(32px, true);
+
+    @include mq($MPhoneWidth, max) {
+        @include list(10px, true);
+    }
 }
 
 .logo {
@@ -85,7 +100,7 @@
     display: flex;
     gap: 32px;
 
-    @include mq($PhoneWidth, max) {
+    @include mq($MdDesktopWidth, max) {
         display: none;
     }
 }
@@ -116,6 +131,7 @@
     margin-top: 30px;
     margin-bottom: 30px;
     justify-content: space-between;
+    align-items: center;
 }
 
 .copyright {
@@ -139,4 +155,10 @@
     text-align: left;
     color: #687B95;
     @include list(8px, true);
+}
+
+.illustration {
+    @include mq($PhoneWidth, max) {
+        display: none;
+    }
 }
