@@ -325,7 +325,7 @@ export function ChatDialogWrapper(props: Props) {
       setDisabledType(ChatDisabledType.Auth)
       setLoading(false)
     }
-  }, [props.receivingPointId, props.sellerId, appContext.aboutMeLoaded, props.chatId])
+  }, [props.receivingPointId, props.sellerId, appContext.aboutMeLoaded, appContext.aboutMe, props.chatId])
   useEffect(() => {
 
     const subscription = chatSocket.messageState$.subscribe((message) => {
