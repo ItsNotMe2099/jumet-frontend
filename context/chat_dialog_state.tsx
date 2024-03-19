@@ -129,7 +129,6 @@ export function ChatDialogWrapper(props: Props) {
           setChat(_chat)
           chatRef.current = _chat
           if (_chat) {
-            console.log('SetCurrentChatId', _chat.id)
             chatContext.setCurrentChatId(_chat.id)
           }
           if (_chat?.messages) {
@@ -158,6 +157,7 @@ export function ChatDialogWrapper(props: Props) {
         _chat = props.chatId ? await ChatRepository.fetchChatById(props.chatId) : null
         setChat(_chat)
         chatRef.current = _chat
+        initInProgressRef.current = false
       }catch (e) {
         initInProgressRef.current = false
       }
@@ -189,7 +189,6 @@ export function ChatDialogWrapper(props: Props) {
     debouncedMarkRead()
   }
   const processLoadedMessages = (data: IChatMessage[], total: number | null, fromInit: boolean = false) => {
-    console.log('processLoadedMessages', total)
     if (total === 0) {
       setTotalMessages(messages.length)
     }

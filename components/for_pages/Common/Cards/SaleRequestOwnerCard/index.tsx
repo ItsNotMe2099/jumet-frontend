@@ -4,7 +4,7 @@ import {format} from 'date-fns'
 import Button from '@/components/ui/Button'
 import EditSvg from '@/components/svg/EditSvg'
 import {colors} from '@/styles/variables'
-import JumetSvg from '@/components/svg/JumetSvg'
+import LommarketSvg from '@/components/svg/LommarketSvg'
 import Formatter from '@/utils/formatter'
 import {Routes} from '@/types/routes'
 import Link from 'next/link'
@@ -115,7 +115,7 @@ const SaleRequestOwnerCardInner = (props: Props) => {
       {(item.photos?.length ?? 0) > 0 ?
         <Image src={ImageHelper.urlFromFile(item.photos[0], Preset.mdCrop)} alt='' fill unoptimized/>
         :
-        <JumetSvg color={colors.white}/>
+        <LommarketSvg color={colors.white}/>
       }
     </div>
   </Link>)

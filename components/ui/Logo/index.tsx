@@ -9,7 +9,7 @@ interface Props {
 export default function Logo(props: Props) {
   return (
     <div className={classNames(styles.root)} style={{...(props.color ? {color: props.color} : {})}}>
-      jumet
+      Ломмаркет
     </div>
   )
 }
