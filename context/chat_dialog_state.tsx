@@ -310,7 +310,6 @@ export function ChatDialogWrapper(props: Props) {
     if (props.chatId) {
       chatContext.setCurrentChatId(props.chatId)
     }
-    console.log('useEffect11', appContext.aboutMeLoaded, appContext.aboutMe)
     if (appContext.aboutMeLoaded && appContext.aboutMe) {
       init()
       if(!props.chatId && !props.receivingPointId && appContext.aboutMe?.role === UserRole.Buyer){
