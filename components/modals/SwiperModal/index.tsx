@@ -58,7 +58,7 @@ export default function SwiperModal(props: Props) {
           </div>
           <div className={styles.right}>
             <div className={styles.step}>
-              <div><span>ШАГ {index + 1}</span> / {appContext.modalArguments.length}</div>
+              <div><span>ШАГ {index + 1}</span> / {args.length}</div>
               <NewCloseSvg className={styles.close} onClick={appContext.hideModal} />
             </div>
             <div className={styles.name}>
