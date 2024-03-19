@@ -1,5 +1,5 @@
 import styles from 'components/for_pages/Common/Cards/DealOfferOwnerCard/index.module.scss'
-import JumetSvg from '@/components/svg/JumetSvg'
+import LommarketSvg from '@/components/svg/LommarketSvg'
 import { colors } from '@/styles/variables'
 import { ISaleRequest } from '@/data/interfaces/ISaleRequest'
 import { IDealOffer } from '@/data/interfaces/IDealOffer'
@@ -81,7 +81,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
           {(saleRequest.photos?.length ?? 0) > 0 ?
             <Image src={ImageHelper.urlFromFile(saleRequest.photos[0], Preset.smCrop)} alt='' fill unoptimized />
             :
-            <JumetSvg color={colors.white} />
+            <LommarketSvg color={colors.white} />
           }
         </div>
         {dealOffer && <div className={styles.offerMobile} onClick={() => setShowOffer(!showOffer)}>
