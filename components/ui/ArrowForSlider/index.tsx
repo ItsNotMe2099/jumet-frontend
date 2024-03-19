@@ -6,7 +6,8 @@ import IconButton from 'components/ui/IconButton'
 import { RefObject } from 'react'
 import usePressAndHover from 'components/hooks/usePressAndHover'
 import useStopPropagation from 'components/hooks/useStopPropagation'
-import {Swiper as SwiperClass} from 'swiper/types'
+import { Swiper as SwiperClass } from 'swiper/types'
+import NewButtonArrowSvg from '@/components/svg/NewButtonArrowSvg'
 
 interface Props {
   direction: 'next' | 'prev'
@@ -16,6 +17,7 @@ interface Props {
   color?: string
   hint?: string
   onClick?: () => void
+  newBtn?: boolean
 }
 
 export default function ArrowForSlider(props: Props) {
@@ -35,15 +37,18 @@ export default function ArrowForSlider(props: Props) {
         } else {
           props.sliderRef.current?.slidePrev()
         }
-        if(props.onClick){
+        if (props.onClick) {
           props.onClick()
         }
       }}
     >
-      <ButtonArrowSvg
+      {!props.newBtn ? <ButtonArrowSvg
         color={color}
         className={classNames([styles.icon, props.classNameIcon, styles[props.direction]])}
-      />
+      /> : <NewButtonArrowSvg
+        color={color}
+        className={classNames([styles.icon, props.classNameIcon, styles[props.direction]])}
+      />}
       {props.hint && hover && (
         <div className={classNames([styles.hint, styles[props.direction]])}>
           {props.hint}

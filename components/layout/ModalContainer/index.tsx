@@ -16,6 +16,7 @@ import GalleryModal from '@/components/modals/GalleryModal'
 import {DealTerminateFormModal} from '@/components/modals/DealTerminateFormModal'
 import RepresentativeFormModal from '@/components/modals/RepresentativeFormModal'
 import RepresentativeSuccessModal from '@/components/modals/RepresentativeSuccessModal'
+import SwiperModal from '@/components/modals/SwiperModal'
 
 interface Props { }
 
@@ -36,6 +37,9 @@ export default function ModalContainer(props: Props) {
       <div aria-hidden="true">
         <Modal isOpen={appContext.modal === ModalType.MobileMenu} {...commonSettings}>
           {appContext.modal === ModalType.MobileMenu && <MobileMenuModal />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.SwiperModal} {...commonSettings}>
+          {appContext.modal === ModalType.SwiperModal && <SwiperModal />}
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.OtpCode} {...commonSettings}>
           {appContext.modal === ModalType.OtpCode && <OtpCodeModal onRequestClose={commonSettings.onRequestClose!} />}

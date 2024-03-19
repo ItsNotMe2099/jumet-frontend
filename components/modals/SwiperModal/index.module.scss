@@ -1,0 +1,157 @@
+@import "styles/index";
+
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: #4B526E;
+  display: flex;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 95%;
+  top: 50px;
+  bottom: 50px;
+  font-family: 'Jost';
+
+  :global .swiper {
+    height: 100%;
+    max-height: 100% !important;
+    max-width: 100%;
+
+    @media screen and (max-width: $xs-max) {
+      height: auto;
+      max-height: initial !important;
+    }
+
+    .swiper-pagination {
+      width: 340px;
+      right: 0;
+      left: inherit !important;
+      top: 91%;
+      margin-right: 80px;
+
+      .swiper-pagination-bullet {
+        width: 24px !important;
+        height: 24px !important;
+        margin: 0 10px !important;
+        background: url('../../../public/img/landing/dot.svg') no-repeat center;
+      }
+
+      .swiper-pagination-bullet-active {
+        background: url('../../../public/img/landing/dot2.svg') no-repeat center;
+      }
+    }
+  }
+}
+
+.slide {
+  display: flex;
+}
+
+.right {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  right: 0;
+  top: 0;
+  color: #fff;
+  width: 500px;
+  padding: 30px 30px;
+
+  p {
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+
+  ul {
+    padding: 0;
+  }
+
+  li {
+    list-style-type: none;
+    list-style-position: inside;
+    position: relative;
+    padding-left: 30px;
+    font-size: 16px;
+    line-height: 20px;
+    margin-bottom: 16px;
+
+    &::before {
+      content: "";
+      width: 10px;
+      height: 10px;
+      display: block;
+      float: left;
+      background-color: #FFCA1C;
+      position: absolute;
+      top: 6px;
+      left: 0;
+      border-radius: 50%;
+    }
+  }
+}
+
+.left {
+  width: 100%;
+  height: 100%;
+
+  img {
+    position: relative !important;
+    padding-right: 500px;
+    object-fit: cover;
+  }
+}
+
+.step {
+  margin-bottom: 20px;
+  font-weight: 300;
+  font-size: 48px;
+  line-height: 69px;
+  color: #C6C5D7;
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-family: 'Jost';
+
+  span {
+    font-weight: 600;
+    color: #fff;
+  }
+}
+
+.close {
+  cursor: pointer;
+}
+
+.name {
+  display: flex;
+  margin-bottom: 20px;
+  @include list(25px, true);
+}
+
+.role {
+  font-weight: 300;
+  font-size: 24px;
+  line-height: 35px;
+  color: #FFF;
+  font-family: 'Jost';
+
+  span {
+    font-weight: 600;
+  }
+}
+
+.arrows {
+  display: flex;
+  width: 500px;
+  position: absolute;
+  right: 0;
+  justify-content: space-between;
+  padding: 0 40px;
+  top: 90%;
+  z-index: 1;
+}
