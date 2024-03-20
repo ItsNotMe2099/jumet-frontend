@@ -1,6 +1,5 @@
 import AdvantagesBlue from '@/components/for_pages/LandingPage/AdvantagesBlue'
 import Advantages from '@/components/for_pages/LandingPage/for-sellers/Advantages'
-import Layout from '@/components/layout/Layout'
 import Icon1Svg from '@/components/svg/landing/advantages-blue/Icon1Svg'
 import Icon3Svg from '@/components/svg/landing/advantages-blue/Icon3Svg'
 import Icon6Svg from '@/components/svg/landing/advantages-blue/Icon6Svg'
@@ -13,6 +12,7 @@ import Icon2Svg from '@/components/svg/landing/advantages-blue/Icon2Svg'
 import Icon9Svg from '@/components/svg/landing/advantages-blue/Icon9Svg'
 import Icon10Svg from '@/components/svg/landing/advantages-blue/Icon10Svg'
 import Icon11Svg from '@/components/svg/landing/advantages-blue/Icon11Svg'
+import LayoutLanding from '@/components/layout/LayoutLanding'
 
 export default function ForBuyersPage() {
 
@@ -66,12 +66,12 @@ export default function ForBuyersPage() {
   ]
 
   return (
-    <Layout landingPage>
+    <LayoutLanding>
       <Advantages image={<Image2Svg className={styles.image} />}
         text={<><span style={{ display: 'inline-block' }}> Преимущества для покупателей лома,</span>
           ломозаготовителей</>} avatar={<Avatar4Svg />} />
       <AdvantagesBlue className={styles.blue} items={items} />
       <Deals items={deals} />
-    </Layout>
+    </LayoutLanding>
   )
 }

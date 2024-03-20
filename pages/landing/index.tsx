@@ -4,7 +4,7 @@ import HowItWorks from '@/components/for_pages/LandingPage/HowItWorks'
 import HowToConnects from '@/components/for_pages/LandingPage/HowToConnects'
 import Roadmap from '@/components/for_pages/LandingPage/Roadmap'
 import Top from '@/components/for_pages/LandingPage/Top'
-import Layout from '@/components/layout/Layout'
+import LayoutLanding from '@/components/layout/LayoutLanding'
 import Icon1Svg from '@/components/svg/landing/advantages-blue/Icon1Svg'
 import Icon2Svg from '@/components/svg/landing/advantages-blue/Icon2Svg'
 import Icon3Svg from '@/components/svg/landing/advantages-blue/Icon3Svg'
@@ -29,13 +29,13 @@ export default function LandingPage() {
   ]
 
   return (
-    <Layout landingPage>
+    <LayoutLanding>
       <Top />
       <AdvantagesBlue items={items} />
       <HowItWorks />
       <Advantages />
       <HowToConnects />
       <Roadmap />
-    </Layout>
+    </LayoutLanding>
   )
 }
