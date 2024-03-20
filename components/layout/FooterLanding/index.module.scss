@@ -60,6 +60,14 @@
     @include mq($MPhoneWidth, max) {
         @include list(10px, true);
     }
+
+    svg {
+        fill: #F3CE7B;
+
+        &:hover {
+            fill: #fbe3b0;
+        }
+    }
 }
 
 .logo {

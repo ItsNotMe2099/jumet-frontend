@@ -2,17 +2,13 @@
 
 .root {
   position: fixed;
+  width: 120%;
+  height: 100%;
+  left: -10%;
   top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background: #4B526E;
-  display: flex;
-  left: 50%;
-  transform: translateX(-50%);
-  width: 95%;
-  top: 50px;
-  bottom: 50px;
+  overflow-y: scroll;
+  background: rgba(1, 1, 1, 0.7);
+  z-index: 13;
   font-family: 'Jost';
 
   :global .swiper {
@@ -26,17 +22,26 @@
     }
 
     .swiper-pagination {
-      width: 340px;
+      position: absolute;
+      width: 500px;
+      bottom: 0px;
       right: 0;
       left: inherit !important;
-      top: 91%;
-      margin-right: 80px;
+      z-index: 1 !important;
+
+      @include mq($MdDesktopWidth, max) {
+        width: 100%;
+      }
 
       .swiper-pagination-bullet {
         width: 24px !important;
         height: 24px !important;
         margin: 0 10px !important;
         background: url('../../../public/img/landing/dot.svg') no-repeat center;
+
+        @include mq($PhoneWidth, max) {
+          margin: 0 3px !important;
+        }
       }
 
       .swiper-pagination-bullet-active {
@@ -46,8 +51,28 @@
   }
 }
 
+.wrapper {
+  width: 80%;
+  margin-left: 0.5%;
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50px;
+
+  @include mq($MdDesktopWidth, max) {
+    top: 70px;
+  }
+}
+
 .slide {
-  display: flex;
+  padding-right: 500px;
+  background: #4B526E;
+  height: auto !important;
+
+  @include mq($MdDesktopWidth, max) {
+    padding-right: 0;
+    height: 100% !important;
+  }
 }
 
 .right {
@@ -59,15 +84,19 @@
   color: #fff;
   width: 500px;
   padding: 30px 30px;
+  height: 100%;
 
   p {
     margin-bottom: 30px;
     font-size: 18px;
     line-height: 26px;
+    margin-top: 0;
   }
 
   ul {
     padding: 0;
+    margin: 0;
+    overflow-y: scroll;
   }
 
   li {
@@ -92,16 +121,23 @@
       border-radius: 50%;
     }
   }
+
+  @include mq($MdDesktopWidth, max) {
+    position: relative;
+    top: auto;
+    bottom: auto;
+    left: auto;
+    right: auto;
+    width: auto;
+    padding: 30px 30px 100px 30px;
+  }
 }
 
 .left {
-  width: 100%;
-  height: 100%;
+  position: relative !important;
 
-  img {
-    position: relative !important;
-    padding-right: 500px;
-    object-fit: cover;
+  @include mq($MdDesktopWidth, max) {
+    height: auto !important;
   }
 }
 
@@ -125,12 +161,28 @@
 
 .close {
   cursor: pointer;
+  fill: #C6C5D7;
+
+  &:hover {
+    fill: #D2D4DB;
+  }
+
+  position: absolute;
+  top: 44px;
+  right: 40px;
+  z-index: 4;
+
+  @include mq($MdDesktopWidth, max) {
+    top: -50px;
+    right: 0;
+  }
 }
 
 .name {
   display: flex;
   margin-bottom: 20px;
   @include list(25px, true);
+  align-items: center;
 }
 
 .role {
@@ -145,13 +197,38 @@
   }
 }
 
-.arrows {
-  display: flex;
-  width: 500px;
+.prev,
+.next {
   position: absolute;
-  right: 0;
-  justify-content: space-between;
-  padding: 0 40px;
-  top: 90%;
-  z-index: 1;
+  padding: 0;
+  font-size: 0;
+  z-index: 2;
+  width: 40px;
+  height: 40px;
+  bottom: 0px;
+}
+
+.prev {
+  right: 417px;
+
+  @include mq($MdDesktopWidth, max) {
+    right: auto;
+    left: 30px;
+  }
+
+  @include mq($PhoneWidth, max) {
+    left: 20px;
+  }
+}
+
+.next {
+  right: 43px;
+
+  @include mq($MdDesktopWidth, max) {
+    right: 30px;
+  }
+
+  @include mq($PhoneWidth, max) {
+    right: 20px;
+  }
 }

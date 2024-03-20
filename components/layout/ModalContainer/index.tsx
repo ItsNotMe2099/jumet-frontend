@@ -6,17 +6,16 @@ import OtpCodeModal from '@/components/modals/OtpCodeModal'
 import PasswordChangeModal from '@/components/modals/PasswordChangeModal'
 import MapSelectorModal from '@/components/modals/MapSelectorModal'
 import DealOfferModal from '@/components/modals/DealOfferModal'
-import {ConfirmModal} from '@/components/modals/ConfirmModal'
-import Modal, {IModalProps} from '@/components/ui/Modal'
+import { ConfirmModal } from '@/components/modals/ConfirmModal'
+import Modal, { IModalProps } from '@/components/ui/Modal'
 import SaleRequestOfferModal from '@/components/modals/SaleRequestOfferModal'
-import {SuccessModal} from '@/components/modals/SuccessModal'
+import { SuccessModal } from '@/components/modals/SuccessModal'
 import SaleRequestFormModal from '@/components/modals/SaleRequestFormModal'
 import EmployeeFormModal from '@/components/modals/EmployeeFormModal'
 import GalleryModal from '@/components/modals/GalleryModal'
-import {DealTerminateFormModal} from '@/components/modals/DealTerminateFormModal'
+import { DealTerminateFormModal } from '@/components/modals/DealTerminateFormModal'
 import RepresentativeFormModal from '@/components/modals/RepresentativeFormModal'
 import RepresentativeSuccessModal from '@/components/modals/RepresentativeSuccessModal'
-import SwiperModal from '@/components/modals/SwiperModal'
 
 interface Props { }
 
@@ -24,22 +23,19 @@ export default function ModalContainer(props: Props) {
   const appContext = useAppContext()
   const commonSettings: IModalProps = {
     onRequestClose: () => {
-      if(appContext.modalOnTop){
+      if (appContext.modalOnTop) {
         appContext.hideModalOnTop()
-      }else{
+      } else {
         appContext.hideModal()
       }
     },
   }
 
   return (
-    <RemoveScroll enabled={!!appContext.modal}>
+    <RemoveScroll enabled={!!appContext.modal && appContext.modal !== ModalType.SwiperModal}>
       <div aria-hidden="true">
         <Modal isOpen={appContext.modal === ModalType.MobileMenu} {...commonSettings}>
           {appContext.modal === ModalType.MobileMenu && <MobileMenuModal />}
-        </Modal>
-        <Modal isOpen={appContext.modal === ModalType.SwiperModal} {...commonSettings}>
-          {appContext.modal === ModalType.SwiperModal && <SwiperModal />}
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.OtpCode} {...commonSettings}>
           {appContext.modal === ModalType.OtpCode && <OtpCodeModal onRequestClose={commonSettings.onRequestClose!} />}

@@ -17,7 +17,7 @@ export default function HowItWorks(props: Props) {
 
   const stepsSeller = [
     {
-      image: '/img/landing/prodavec/sdelka/01.jpg', name: 'Создание заявки на продажу.',
+      image: '/img/landing/prodavec/sdelka/01.jpg',
       desc:
         <><p>Создание заявки на продажу.</p>
           <p>Продавец создаёт заявку на продажу лома:</p>
@@ -33,9 +33,10 @@ export default function HowItWorks(props: Props) {
       role: UserRole.Seller
     },
     {
-      image: '/img/landing/prodavec/sdelka/02.jpg', name: 'Просмотр предложений по заявке.',
+      image: '/img/landing/prodavec/sdelka/02.jpg',
       desc:
-        <><p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
+        <><p>Просмотр предложений по заявке.</p>
+          <p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
           <ul>
             <li>Расстояние  до покупателя</li>
             <li>Доставка/самовывоз</li>
@@ -47,60 +48,129 @@ export default function HowItWorks(props: Props) {
       role: UserRole.Seller
     },
     {
-      image: '/img/landing/prodavec/sdelka/02.jpg', name: 'Просмотр предложений по заявке.',
+      image: '/img/landing/prodavec/sdelka/03.jpg',
       desc:
-        <><p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
+        <><p>Фильтрация результатов поиска.</p>
+          <p>Продавец при помощи фильтров выбирает наиболее интересные предложения по следующим параметрам:</p>
           <ul>
+            <li>Цена  покупки с доставкой/самовывозом</li>
             <li>Расстояние  до покупателя</li>
-            <li>Доставка/самовывоз</li>
-            <li>Форма  оплаты (показываются оба варианта оплаты)</li>
-            <li>Количество  лома</li>
-            <li>Вид лома</li>
+            <li>Форма  оплаты</li>
           </ul>
         </>,
       role: UserRole.Seller
     },
     {
-      image: '/img/landing/prodavec/sdelka/02.jpg', name: 'Просмотр предложений по заявке.',
+      image: '/img/landing/prodavec/sdelka/04.jpg',
       desc:
-        <><p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
+        <><p>Чат с выбранным продавцом.</p>
+          <p>Продавец при необходимости связывается через чат с потенциальным  покупателем для уточнения дополнительных деталей сделки:</p>
           <ul>
-            <li>Расстояние  до покупателя</li>
-            <li>Доставка/самовывоз</li>
-            <li>Форма  оплаты (показываются оба варианта оплаты)</li>
-            <li>Количество  лома</li>
-            <li>Вид лома</li>
+            <li>времени  проведения сделки</li>
+            <li>вариант  взвешивания</li>
           </ul>
         </>,
       role: UserRole.Seller
     },
     {
-      image: '/img/landing/prodavec/sdelka/02.jpg', name: 'Просмотр предложений по заявке.',
+      image: '/img/landing/prodavec/sdelka/05.jpg',
       desc:
-        <><p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
+        <><p>Сделка:</p>
           <ul>
-            <li>Расстояние  до покупателя</li>
-            <li>Доставка/самовывоз</li>
-            <li>Форма  оплаты (показываются оба варианта оплаты)</li>
-            <li>Количество  лома</li>
-            <li>Вид лома</li>
+            <li>Продавец подтверждает выбор определенного  покупателя</li>
+            <li>Формирует ему окончательное предложение</li>
+            <li>Ожидает  подтверждение покупателя</li>
           </ul>
         </>,
       role: UserRole.Seller
     },
     {
-      image: '/img/landing/prodavec/sdelka/02.jpg', name: 'Просмотр предложений по заявке.',
+      image: '/img/landing/prodavec/sdelka/06.jpg',
       desc:
-        <><p>Продавец получает предложения по покупке от сервиса по введённым в заявке параметрам (учитывается):</p>
+        <p>Оценка и закрытие сделки. </p>,
+      role: UserRole.Seller
+    },
+  ]
+
+  const stepsBuyer = [
+    {
+      image: '/img/landing/pokupatel/sdelka/01.jpg',
+      desc:
+        <p>Регистрация покупателя, добавление пункта приема. </p>,
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/02.jpg',
+      desc:
+        <><p>База предложений лома.</p>
+          <p>Покупатель видит заявки на продажу от продавцов:</p>
           <ul>
-            <li>Расстояние  до покупателя</li>
-            <li>Доставка/самовывоз</li>
-            <li>Форма  оплаты (показываются оба варианта оплаты)</li>
-            <li>Количество  лома</li>
-            <li>Вид лома</li>
+            <li>количество  лома</li>
+            <li>вид лома</li>
+            <li>расстояние  до продавца</li>
+            <li>желаемая  форма оплаты</li>
+            <li>условия  доставки</li>
           </ul>
         </>,
-      role: UserRole.Seller
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/03.jpg',
+      desc:
+        <><p>Выбор предложений по фильтрам.</p>
+          <p>Покупатель выбирает наиболее интересные предложения при помощи фильтров.</p>
+        </>,
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/04.jpg',
+      desc:
+        <><p>Формирование предложения по покупке лома. </p>
+          <p>Покупатель формирует предложения по закупке лома:</p>
+          <ul>
+            <li>вводит стоимость,  по которой готов купить лом (2 варианта / с самовывозом и без)</li>
+            <li>предлагает  вариант оплаты (на карту или безнал)</li>
+          </ul>
+        </>,
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/05.jpg',
+      desc:
+        <>
+          <p>Чат, обсуждение условий сделки.</p>
+          <p>Покупатель при необходимости связывается через чат с потенциальным продавцом для уточнения сделки:</p>
+          <ul>
+            <li>времени  проведения сделки</li>
+            <li>вариантов  взвешивания лома</li>
+          </ul>
+        </>,
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/06.jpg',
+      desc:
+        <>
+          <p>Сделка:</p>
+          <ul>
+            <li>Покупатель подтверждает выбор определенного  продавца</li>
+            <li>Формирует ему окончательное предложение</li>
+            <li>Ожидает подтверждение продавца</li>
+          </ul>
+        </>,
+      role: UserRole.Buyer
+    },
+    {
+      image: '/img/landing/pokupatel/sdelka/07.jpg',
+      desc:
+        <>
+          <p>Закрывает сделку:</p>
+          <ul>
+            <li>Оценивает продавца</li>
+            <li>Получает документы для отчетности</li>
+          </ul>
+        </>,
+      role: UserRole.Buyer
     },
   ]
 
@@ -127,7 +197,8 @@ export default function HowItWorks(props: Props) {
                 <li>Предлагает продать лом, напрямую покупателю или через аукцион</li>
                 <li>Заключает сделку в режиме онлайн</li>
               </ol>
-              <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsSeller)} className={styles.btn} styleType='large' color='blue'>
+              <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsSeller)}
+                className={styles.btn} styleType='large' color='blue'>
                 Смотреть подробнее
               </Button>
             </div>
@@ -147,7 +218,8 @@ export default function HowItWorks(props: Props) {
                 <li>Покупает лом на аукционе или по прямым<br /> предложениям от продавцов</li>
                 <li>Заключает сделку в режиме онлайн</li>
               </ol>
-              <Button className={styles.btn} styleType='large' color='blue'>
+              <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsBuyer)}
+                className={styles.btn} styleType='large' color='blue'>
                 Смотреть подробнее
               </Button>
             </div>
