@@ -31,21 +31,21 @@ export default function ForSellersPage() {
           <p>Покупатели найдут Вас с помощью умного поиска, а также на основе рекомендаций, которые сделает сервис JUMET автоматически.</p></>,
       steps: [
         {
-          image: '/img/landing/prodavec/reg/05.jpg',
+          image: '/img/landing/prodavec/vnutr/lot1.jpg',
           desc:
-            <p>Зарегистрироваться в личном кабинете.</p>,
+            <p>Продавец может перевести любую свою заявку в лот для размещения на аукционе для получения дополнительной прибыли.</p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/06.jpg',
+          image: '/img/landing/prodavec/vnutr/lot2.jpg',
           desc:
-            <p> Разместить ваши предложения о продаже лома.</p>,
+            <p>Покупатели кроме заявок продавцов видят еще и лоты аукциона, что позволяет повысить эффективность закупок. </p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/07.jpg',
+          image: '/img/landing/prodavec/vnutr/chat2.jpg',
           desc:
-            <p>Сдавать лом на лучших для вас условиях!</p>,
+            <p>В процессе аукциона ведутся торги за лот среди участников, это позволяет договориться о наиболее выгодных условиях по проведению сделки</p>,
           role: UserRole.Seller
         },
       ]
@@ -59,21 +59,21 @@ export default function ForSellersPage() {
         </>,
       steps: [
         {
-          image: '/img/landing/prodavec/reg/05.jpg',
+          image: '/img/landing/prodavec/vnutr/sdelki.jpg',
           desc:
-            <p>Зарегистрироваться в личном кабинете.</p>,
+            <p>Проводите сделки в режиме реального времени.</p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/06.jpg',
+          image: '/img/landing/prodavec/vnutr/sdelki2.jpg',
           desc:
-            <p> Разместить ваши предложения о продаже лома.</p>,
+            <p>Договаривайтесь об условиях и способах вывоза лома. Оценивайте покупателя, оставляйте отзывы.</p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/07.jpg',
+          image: '/img/landing/prodavec/vnutr/sdelki3.jpg',
           desc:
-            <p>Сдавать лом на лучших для вас условиях!</p>,
+            <p>Получайте деньги на счет, банковскую карту или наличными за успешные сделки.</p>,
           role: UserRole.Seller
         },
       ]
@@ -86,21 +86,15 @@ export default function ForSellersPage() {
         </>,
       steps: [
         {
-          image: '/img/landing/prodavec/reg/05.jpg',
+          image: '/img/landing/prodavec/vnutr/chat.jpg',
           desc:
-            <p>Зарегистрироваться в личном кабинете.</p>,
+            <p>Обсуждайте условия сделок прямо в интерактивном мульте-чате с разными покупателями.</p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/06.jpg',
+          image: '/img/landing/prodavec/vnutr/chat2.jpg',
           desc:
-            <p> Разместить ваши предложения о продаже лома.</p>,
-          role: UserRole.Seller
-        },
-        {
-          image: '/img/landing/prodavec/reg/07.jpg',
-          desc:
-            <p>Сдавать лом на лучших для вас условиях!</p>,
+            <p>Договаривайтесь об условиях покупки и продажи лома, торгуйтесь, выбирайте кому выгодно продать лом.</p>,
           role: UserRole.Seller
         },
       ]
@@ -113,21 +107,15 @@ export default function ForSellersPage() {
         </>,
       steps: [
         {
-          image: '/img/landing/prodavec/reg/05.jpg',
+          image: '/img/landing/prodavec/vnutr/poiskpok.jpg',
           desc:
-            <p>Зарегистрироваться в личном кабинете.</p>,
+            <p>Используйте умный поиск, находите покупателей на интерактивной карте, отправляйте запросы на покупку Ваших предложений в режиме реального времени.</p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/06.jpg',
+          image: '/img/landing/prodavec/vnutr/poiskpok2.jpg',
           desc:
-            <p> Разместить ваши предложения о продаже лома.</p>,
-          role: UserRole.Seller
-        },
-        {
-          image: '/img/landing/prodavec/reg/07.jpg',
-          desc:
-            <p>Сдавать лом на лучших для вас условиях!</p>,
+            <p>Получайте уведомления сервиса Jumet о подходящих покупателей для Ваших предложений.</p>,
           role: UserRole.Seller
         },
       ]
@@ -140,21 +128,15 @@ export default function ForSellersPage() {
         </>,
       steps: [
         {
-          image: '/img/landing/prodavec/reg/05.jpg',
+          image: '/img/landing/prodavec/vnutr/price1.jpg',
           desc:
-            <p>Зарегистрироваться в личном кабинете.</p>,
+            <p>Находите и анализируйте покупателей. </p>,
           role: UserRole.Seller
         },
         {
-          image: '/img/landing/prodavec/reg/06.jpg',
+          image: '/img/landing/prodavec/vnutr/price2.jpg',
           desc:
-            <p> Разместить ваши предложения о продаже лома.</p>,
-          role: UserRole.Seller
-        },
-        {
-          image: '/img/landing/prodavec/reg/07.jpg',
-          desc:
-            <p>Сдавать лом на лучших для вас условиях!</p>,
+            <p>Изучайте прайс-листы покупки лома пунктов приема, чтобы выгодно продать Ваш лом.</p>,
           role: UserRole.Seller
         },
       ]

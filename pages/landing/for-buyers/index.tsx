@@ -13,6 +13,7 @@ import Icon9Svg from '@/components/svg/landing/advantages-blue/Icon9Svg'
 import Icon10Svg from '@/components/svg/landing/advantages-blue/Icon10Svg'
 import Icon11Svg from '@/components/svg/landing/advantages-blue/Icon11Svg'
 import LayoutLanding from '@/components/layout/LayoutLanding'
+import { UserRole } from '@/data/enum/UserRole'
 
 export default function ForBuyersPage() {
 
@@ -34,7 +35,18 @@ export default function ForBuyersPage() {
         <><p>Находите самые выгодные лоты на аукционе Jumet.</p>
           <p>Отправляйте запросы на покупку лотов не ограниченному количеству продавцов.</p></>,
       steps: [
-
+        {
+          image: '/img/landing/pokupatel/vnutr/lot.jpg',
+          desc:
+            <p>Находите самые выгодные лоты на аукционе Jumet.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/lot2.jpg',
+          desc:
+            <p>Отправляйте запросы на покупку лотов не ограниченному количеству продавцов.</p>,
+          role: UserRole.Buyer
+        },
       ]
     },
     {
@@ -45,7 +57,24 @@ export default function ForBuyersPage() {
           <p>В спорных сделках Jumet выступит арбитражем между покупателем и продавцом.</p>
         </>,
       steps: [
-
+        {
+          image: '/img/landing/pokupatel/vnutr/sdelki.jpg',
+          desc:
+            <p>Проводите сделки на согласованных условиях, в сервисе Jumet.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/sdelki2.jpg',
+          desc:
+            <p>Рассчитывайтесь по Вашим сделкам быстро и безопасно.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/sdelki3.jpg',
+          desc:
+            <p>В спорных сделках Jumet выступит арбитражем между покупателем и продавцом.</p>,
+          role: UserRole.Buyer
+        },
       ]
     },
     {
@@ -55,7 +84,18 @@ export default function ForBuyersPage() {
           <p>Договаривайтесь об условиях покупки и продажи лома в режиме онлайн.</p>
         </>,
       steps: [
-
+        {
+          image: '/img/landing/pokupatel/vnutr/chat.jpg',
+          desc:
+            <p>Обсуждайте условия сделок прямо в интерактивном мульти-чате.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/chat2.jpg',
+          desc:
+            <p>Договаривайтесь об условиях покупки и продажи лома в режиме онлайн.</p>,
+          role: UserRole.Buyer
+        },
       ]
     },
     {
@@ -65,7 +105,18 @@ export default function ForBuyersPage() {
           <p>Управляйте прайс-листами покупки лома в соответствии с зонами и способами вывоза лома.</p>
         </>,
       steps: [
-
+        {
+          image: '/img/landing/pokupatel/vnutr/price1.jpg',
+          desc:
+            <p>Добавляйте неограниченное кол-во пунктов приема, регулируйте суточные лимиты потребностей в объемах лома.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/price2.jpg',
+          desc:
+            <p>Управляйте прайс-листами покупки лома в соответствии с зонами и способами вывоза лома.</p>,
+          role: UserRole.Buyer
+        },
       ]
     },
     {
@@ -75,7 +126,18 @@ export default function ForBuyersPage() {
           <p>Получайте неограниченную аналитику по всем процессам Вашего бизнеса ежедневно.</p>
         </>,
       steps: [
-
+        {
+          image: '/img/landing/pokupatel/vnutr/othodi.jpg',
+          desc:
+            <p>Анализируйте стоимость покупки лома у конкурентов.</p>,
+          role: UserRole.Buyer
+        },
+        {
+          image: '/img/landing/pokupatel/vnutr/othodi2.jpg',
+          desc:
+            <p>Получайте неограниченную аналитику по всем процессам Вашего бизнеса ежедневно.</p>,
+          role: UserRole.Buyer
+        },
       ]
     },
   ]
