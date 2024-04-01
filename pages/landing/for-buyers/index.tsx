@@ -145,8 +145,8 @@ export default function ForBuyersPage() {
   return (
     <LayoutLanding>
       <Advantages image={<Image2Svg className={styles.image} />}
-        text={<><span style={{ display: 'inline-block' }}> Преимущества для покупателей лома,</span>
-          ломозаготовителей</>} avatar={<Avatar4Svg />} />
+                  text={<><span style={{ display: 'inline-block' }}> Преимущества для покупателей лома,</span>
+                    ломозаготовителей</>} avatar={<Avatar4Svg />} />
       <AdvantagesBlue className={styles.blue} items={items} />
       <Deals items={deals} />
     </LayoutLanding>

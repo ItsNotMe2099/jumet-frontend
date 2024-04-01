@@ -1,6 +1,6 @@
 
 export const CONTACTS = {
-  tel: '+7 (999) 888-77-66'
+  tel: '8 (800) 222-02-58'
 }
 
 export const LINKS = {

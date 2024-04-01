@@ -66,7 +66,7 @@ export default function HowToConnects(props: Props) {
     <div className={styles.root} id='how-to-connects'>
       <div className={styles.container}>
         <div className={styles.title}>
-          Как подключиться к сервису JUMET
+          Как подключиться к сервису Ломмаркет
         </div>
         <div className={styles.row}>
           <div className={styles.column}>

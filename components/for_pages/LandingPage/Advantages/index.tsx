@@ -17,7 +17,7 @@ export default function Advantages(props: Props) {
       <div className={styles.container}>
         <div className={styles.title}>
           Преимущества покупки и продажи лома
-          в cервисе JUMET
+          в cервисе Ломмаркет
         </div>
         <div className={styles.row}>
           <div className={styles.column}>

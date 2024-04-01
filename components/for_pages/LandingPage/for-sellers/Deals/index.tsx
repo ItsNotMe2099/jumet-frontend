@@ -26,7 +26,7 @@ export default function Deals({ items }: Props) {
     <div className={styles.root}>
       <div className={styles.container}>
         <div className={styles.title}>
-          Самые выгодные, быстрые, удобные и безопасные сделки с помощью сервиса JUMET
+          Самые выгодные, быстрые, удобные и безопасные сделки с помощью сервиса Ломмаркет
         </div>
         <div className={styles.row}>
           {items.map((i, index) =>
