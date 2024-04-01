@@ -46,7 +46,7 @@ export default function Footer(props: Props) {
               <div className={styles.tel}>Телефон в Москве</div>
               <div className={styles.phone}>
                 <ContactPhoneSvg color={colors.white} />
-                <a href={`tel:${CONTACTS.tel}`}>{CONTACTS.tel}</Link>
+                <a href={`tel:${CONTACTS.tel}`}>{CONTACTS.tel}</a>
               </div>
             </div>
             <Button className={styles.btn} styleType='large' color='white' href={Routes.lkSaleRequestCreate}>
