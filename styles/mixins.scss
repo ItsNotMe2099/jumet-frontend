@@ -86,9 +86,8 @@
   padding: 0px 15px;
   margin: 0 auto;
 
-  @include mq($DesktopWidth, max) {
+  @include mq($DesktopWidth, max) {}
 
-  }
   @include mq($lg-medium, min) {
     //max-width: 1620px !important;
   }
@@ -100,13 +99,14 @@
   padding: 32px 0px 64px 0px;
 }
 
-@mixin filterContainer{
+@mixin filterContainer {
   background-color: $white;
   border-radius: $StandartBorderRadius;
   padding: 16px 20px;
   display: flex;
   flex-direction: column;
   @include list(12px);
+
   @include mq($PhoneWidth, max) {
     padding: 0px;
   }
@@ -121,12 +121,14 @@
 }
 
 @mixin list($gap, $row: false) {
-  @if $row == true {
-    & > * + * {
+  @if $row ==true {
+    &>*+* {
       margin: 0 0 0 $gap;
     }
-  } @else {
-    & > * + * {
+  }
+
+  @else {
+    &>*+* {
       margin: $gap 0 0 0;
     }
   }
@@ -134,8 +136,11 @@
 
 
 @mixin scroll_hide {
-  -ms-overflow-style: none; /* IE и Edge */
-  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none;
+  /* IE и Edge */
+  scrollbar-width: none;
+
+  /* Firefox */
   &::-webkit-scrollbar {
     display: none;
   }
@@ -180,17 +185,18 @@
   width: $size;
 }
 
-@mixin label(){
+@mixin label() {
   font-size: 16px;
   font-weight: 500;
   color: $dark500;
+
   @include mq($PhoneWidth, max) {
     font-size: 15px;
     line-height: 22px;
   }
 }
 
-@mixin input(){
+@mixin input() {
   height: $StandartHeight;
   border-radius: $StandartBorderRadius;
   width: 100%;
@@ -200,43 +206,52 @@
   -webkit-appearance: none;
   font-size: 16px;
   color: $dark500;
-  &:-webkit-autofill{
+
+  &:-webkit-autofill {
     -wкebkit-text-fill-color: $grey500 !important;
   }
+
   &::placeholder {
     @include mainText;
     color: $grey500;
   }
-  &.withSuffix{
+
+  &.withSuffix {
     padding-right: 8px;
   }
-  &.withPrefix{
+
+  &.withPrefix {
     padding-left: 8px;
   }
-  &.withClear{
+
+  &.withClear {
     padding-right: 0px;
   }
-  &.inputError{
+
+  &.inputError {
     color: $red500;
   }
-  &.inputFocused{
 
-  }
+  &.inputFocused {}
 }
 
 
-@mixin inputWrapper(){
+@mixin inputWrapper() {
   border: 1px solid $grey400;
   border-radius: $StandartBorderRadius;
-  &.withPrefix, &.withSuffix{
+
+  &.withPrefix,
+  &.withSuffix {
     display: flex;
     flex-direction: row;
     align-items: center;
   }
-  &.inputError{
+
+  &.inputError {
     border-color: $red500;
   }
-  &.inputFocused{
+
+  &.inputFocused {
     border-color: $dark400;
   }
 }
@@ -253,6 +268,7 @@
   transform: translateY(-20px);
   transition: opacity 0.25s ease, transform 0.25s ease, visibility 0.25s;
   padding: 6px 0px;
+
   &.opened {
     opacity: 1;
     visibility: visible;
@@ -275,12 +291,14 @@
   font-size: 14px;
   font-weight: 400;
 }
+
 @mixin infoValue() {
   color: $dark500;
   font-size: 14px;
   font-weight: 400;
 }
-@mixin card(){
+
+@mixin card() {
   padding: 20px;
   background-color: $white;
   border-radius: $StandartBorderRadius;
@@ -296,4 +314,58 @@
   display: -webkit-box;
   -webkit-line-clamp: $count;
   -webkit-box-orient: vertical;
+}
+
+@mixin landingContainer() {
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-right: auto;
+  margin-left: auto;
+
+  @media (min-width: 576px) {
+    max-width: 540px;
+  }
+
+  @media (min-width: 768px) {
+    max-width: 720px;
+  }
+
+  @media (min-width: 992px) {
+    max-width: 960px;
+  }
+
+  @media (min-width: 1200px) {
+    max-width: 1140px;
+  }
+}
+
+@mixin rowLanding() {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -15px;
+  margin-left: -15px;
+}
+
+@mixin columnLanding() {
+
+  @media (min-width: 576px) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  @media (min-width: 768px) {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+
+  @media (min-width: 992px) {
+    flex: 0 0 25%;
+    max-width: 25%;
+  }
+
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
 }

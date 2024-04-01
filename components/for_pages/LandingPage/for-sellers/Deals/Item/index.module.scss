@@ -1,0 +1,56 @@
+@import "styles/index";
+
+.root {
+  position: relative;
+  width: 100%;
+  padding-right: 15px;
+  padding-left: 15px;
+  margin-bottom: 30px;
+  margin-bottom: 90px;
+
+  @include mq($PhoneWidth, min) {
+    flex: 0 0 50%;
+    max-width: 50%;
+  }
+
+  @include mq($TabletWidth, min) {
+    flex: 0 0 33.333333%;
+    max-width: 33.333333%;
+  }
+}
+
+.item {
+  height: 100%;
+  position: relative;
+  padding-bottom: 60px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+
+  a {
+    cursor: pointer;
+  }
+
+  img {
+    margin-bottom: 40px;
+    filter: drop-shadow(0px 5px 10px rgba(85, 95, 134, 0.1));
+    border-radius: 10px;
+    position: relative !important;
+    height: auto !important;
+    vertical-align: middle;
+  }
+
+  p {
+    margin-bottom: 30px;
+    font-size: 18px;
+    line-height: 26px;
+  }
+}
+
+.name {
+  height: 100px;
+  font-weight: 600;
+  font-size: 24px;
+  line-height: 35px;
+  color: #2F80ED;
+}

@@ -14,7 +14,8 @@ export enum ModalType {
   DealTerminateForm = 'dealTerminateForm',
   RepresentativeForm = 'representativeForm',
   RepresentativeSuccess = 'representativeSuccess',
-  ChatFileUpload = 'chatFileUpload'
+  ChatFileUpload = 'chatFileUpload',
+  SwiperModal = 'swiperModal'
 }
 
 export enum ProfileMenuSettings {

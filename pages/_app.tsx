@@ -25,6 +25,8 @@ import {ReceivingPointListWrapper} from '@/context/receiving_point_list_state'
 import {YMInitializer} from '@appigram/react-yandex-metrika'
 import {runtimeConfig} from '@/config/runtimeConfig'
 import ClientOnly from '@/components/visibility/ClientOnly'
+import 'swiper/css/effect-fade'
+import 'swiper/css/pagination'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
