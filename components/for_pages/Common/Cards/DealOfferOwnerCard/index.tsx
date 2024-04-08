@@ -30,7 +30,7 @@ const DealOfferOwnerCardInner = ({ saleRequest, dealOffer, active }: Props) => {
   const [showOffer, setShowOffer] = useState<boolean>(false)
 
   const createdAt = Formatter.formatDateRelative(dealOffer?.createdAt ?? saleRequest.createdAt)
-  const link = dealOffer?.deal ? Routes.lkDeal(dealOffer.deal.id) : (saleRequest.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : Routes.saleRequest(saleRequest.id))
+  const link = dealOffer?.deal ? Routes.lkDeal(dealOffer.deal.id) : (saleRequest?.receivingPointId ? Routes.saleRequestPrivate(saleRequest.id) : saleRequest ? Routes.saleRequest(saleRequest.id) : '')
   const handleShowOffer: MouseEventHandler = (e) => {
     e.preventDefault()
     e.stopPropagation()
