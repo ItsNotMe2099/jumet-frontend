@@ -2,7 +2,6 @@ import AuthRepository from '@/data/repositories/AuthRepository'
 import {CookiesType} from '@/types/enums'
 import {CookiesLifeTime} from '@/types/constants'
 import {setCookie} from 'nookies'
-import {Routes} from '@/types/routes'
 
 interface Props {
   error: string
