@@ -24,7 +24,7 @@ export const getServerSideProps = async (context: any) => {
     return {
       props: {},
       redirect: {
-        destination: Routes.lk,
+        destination: '/',
         permanent: false,
       },
     }
