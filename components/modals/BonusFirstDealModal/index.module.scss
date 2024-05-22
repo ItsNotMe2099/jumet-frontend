@@ -1,0 +1,42 @@
+@import "styles/index";
+
+.modalBody {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  @include list(24px);
+}
+
+.header{
+  position: relative;
+  background-color: $grey200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 12px;
+  padding-top: 12px;
+}
+.close{
+  position: absolute;
+  right: 16px;
+  top: 12px;
+}
+.title {
+@include h2;
+  text-align: center;
+
+}
+
+.text {
+  font-weight: 500;
+  font-size: 16px;
+  text-align: center;
+  line-height: 24px;
+}
+
+.buttons {
+  display: flex;
+  flex-direction: row;
+  @include list(12px, true)
+}

@@ -11,6 +11,9 @@
   }
   &.block{
     min-height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
   }
   &.infiniteScroll{
     padding: 16px 0px;

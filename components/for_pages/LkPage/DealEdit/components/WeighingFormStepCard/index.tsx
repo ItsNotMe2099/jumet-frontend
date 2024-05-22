@@ -3,7 +3,7 @@ import {Form, FormikProvider, useFormik} from 'formik'
 import Button from '@/components/ui/Button'
 import {useDealContext} from '@/context/deal_state'
 import {IDealWeighingStepRequest} from '@/data/interfaces/IDealStepRequest'
-import {Nullable} from '@/types/types'
+import {IOption, Nullable} from '@/types/types'
 import {useRepresentativeListContext} from '@/context/representative_list_state'
 import IFile from '@/data/interfaces/IFile'
 import PercentField from '@/components/fields/PercentField'
@@ -21,6 +21,9 @@ import DealCalculationResult
 import {useEffect, useRef} from 'react'
 import {debounce} from 'debounce'
 import {IDealCalculateRequest} from '@/data/interfaces/IDealCalculateRequest'
+import RadioField from '@/components/fields/RadioField'
+import {useDataContext} from '@/context/data_state'
+import {omit} from '@/utils/omit'
 
 interface IFormData extends IDealWeighingStepRequest {
   acceptanceCertificate: Nullable<IFile>
@@ -35,12 +38,13 @@ interface Props {
 export default function WeighingFormStepCard(props: Props) {
   const dealContext = useDealContext()
   const appContext = useAppContext()
+  const dataContext = useDataContext()
   const representativeContext = useRepresentativeListContext()
   const loading = dealContext.editLoading
   const initRef = useRef<boolean>(false)
   const submit = async (data: IFormData) => {
     await dealContext.submitStepWeighing({
-      ...data,
+      ...omit(data, ['weighingPhoto', 'acceptanceCertificate']),
       weighingPhotoId: data.weighingPhoto?.id,
       acceptanceCertificateId: data.acceptanceCertificate?.id
     })
@@ -69,7 +73,8 @@ export default function WeighingFormStepCard(props: Props) {
     weighingPhoto: null,
     price: null,
     deliveryPrice: null,
-    loadingPrice: null
+    loadingPrice: null,
+    scrapMetalCategory: dealContext.deal!.scrapMetalCategory,
   }
 
   const formik = useFormik({
@@ -86,7 +91,7 @@ export default function WeighingFormStepCard(props: Props) {
       return
     }
 
-    if(!formik.values.actualWeight || !formik.values.actualRubbishInPercents){
+    if(!formik.values.actualWeight){
       return
     }
     debouncedCalculate({
@@ -94,9 +99,10 @@ export default function WeighingFormStepCard(props: Props) {
       deliveryPrice: formik.values.deliveryPrice,
       loadingPrice: formik.values.loadingPrice,
       actualWeight: formik.values.actualWeight,
-      actualRubbishInPercents: formik.values.actualRubbishInPercents
+      actualRubbishInPercents: formik.values.actualRubbishInPercents ?? 0,
+      scrapMetalCategory: formik.values.scrapMetalCategory
     })
-  }, [formik.values.actualWeight, formik.values.actualRubbishInPercents, formik.values.price, formik.values.deliveryPrice, formik.values.loadingPrice])
+  }, [formik.values.actualWeight, formik.values.actualRubbishInPercents, formik.values.price, formik.values.deliveryPrice, formik.values.loadingPrice, formik.values.scrapMetalCategory])
 
   const handleSetManualPrice = (value: boolean) => {
     dealContext.setCalculateIsManual(value)
@@ -113,12 +119,22 @@ export default function WeighingFormStepCard(props: Props) {
         }
       }, 100)
   }
+  const scrapMetalCategories: IOption<string>[] = [
+    ...dataContext.scrapMetalCategories.map(i => ({label: i.name, value: i.category, description: i.description})),
+  ]
   return (
     <DealStepFormCardLayout title={'Результат взвешивания'} contentClassName={styles.cardContent}>
       <FormikProvider value={formik}>
         <Form className={styles.root}>
           <FormErrorScroll formik={formik}/>
           <div className={styles.left}>
+            <RadioField<string>
+              label='Категория лома'
+              name='scrapMetalCategory'
+              options={scrapMetalCategories}
+              styleType='default'
+              validate={Validator.required}
+            />
             <WeightWithUnitField name='actualWeight' label={'Вес лома'} validate={Validator.required}/>
             <PercentField name='actualRubbishInPercents' label={'Засор'} suffix={'%'} validate={Validator.required}/>
             <TextAreaField name='weighingComment' label={'Комментарий'}/>
@@ -128,6 +144,8 @@ export default function WeighingFormStepCard(props: Props) {
             <FileField name={'acceptanceCertificate'} label={'Приёмо-сдаточный акт'}
                        text={<>Перетащите сюда или <span>выберите файл</span><br/>
                          приёмо-сдаточный акт</>}/>
+            <DealCalculationResult onSetManualPrice={handleSetManualPrice} actualWeight={formik.values.actualWeight} actualRubbishInPercents={formik.values.actualRubbishInPercents}/>
+
             <div className={styles.buttons}>
               <Button type='submit' spinner={loading} disabled={loading || dealContext.terminateLoading} color='blue'
                       styleType='large'>Отправить</Button>
@@ -136,10 +154,7 @@ export default function WeighingFormStepCard(props: Props) {
                 сделку</Button>
             </div>
           </div>
-          <div className={styles.right}>
 
-            <DealCalculationResult onSetManualPrice={handleSetManualPrice} actualWeight={formik.values.actualWeight} actualRubbishInPercents={formik.values.actualRubbishInPercents}/>
-          </div>
         </Form>
       </FormikProvider>
     </DealStepFormCardLayout>

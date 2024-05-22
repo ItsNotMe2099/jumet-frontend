@@ -1,0 +1,15 @@
+@import "styles/index";
+.root{
+  display: flex;
+  flex-direction: column;
+  @include list(16px);
+}
+.heading{
+  @include h2;
+}
+.address {
+  max-width: 150px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}

@@ -133,5 +133,6 @@ export interface ChatMessageProps{
 }
 export enum ChatNameType{
   ReceivingPoint = 'receivingPoint',
-  Seller = 'seller'
+  Seller = 'seller',
+  System = 'system'
 }

@@ -1,0 +1,29 @@
+@import "styles/index";
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  column-gap: 8px;
+  padding: unset;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 12px;
+  background: $grey200;
+  margin: unset;
+  cursor: pointer;
+  font-weight: 500;
+  font-size: 16px;
+  color: $dark500;
+  &_active {
+    opacity: 1;
+    background: $yellow500;
+    color: $dark500;
+  }
+}

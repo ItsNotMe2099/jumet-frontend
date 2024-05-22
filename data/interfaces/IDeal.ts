@@ -11,6 +11,7 @@ import IReview from '@/data/interfaces/IReview'
 import {Nullable} from '@/types/types'
 import {ILocation} from '@/data/interfaces/ILocation'
 import {IRepresentative} from '@/data/interfaces/IRepresentative'
+import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
 export interface IDeal {
   id: number
@@ -55,6 +56,8 @@ export interface IDeal {
   review?: IReview
   paidAt: Nullable<string>;
   createdAt?: string
+  bonus: Nullable<number>
+  scrapMetalCategory: Nullable<ScrapMetalCategory>
   price: Nullable<number>
   total: Nullable<number>
   totalDelivery: Nullable<number>

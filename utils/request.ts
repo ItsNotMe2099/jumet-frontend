@@ -3,7 +3,7 @@ import { runtimeConfig, serverRuntimeConfig } from 'config/runtimeConfig'
 import Cookies from 'js-cookie'
 import { CookiesType } from 'types/enums'
 import NodeCache from 'node-cache'
-import { isClient, isServer } from 'utils/media'
+import { isServer } from 'utils/media'
 import { RequestError } from 'types/types'
 import queryString from 'query-string'
 interface Options {
@@ -16,11 +16,11 @@ interface Options {
   config?: AxiosRequestConfig
 }
 
-export const nodeCache = new NodeCache( { stdTTL: 60 * 60 * runtimeConfig.CACHE_TIME_HOURS } )
+export const nodeCache = new NodeCache( { stdTTL: 60 * runtimeConfig.CACHE_TIME_MINUTES } )
 
 async function request<T = any>(options: string | Options): Promise<T> {
   const { HOST_INNER } = serverRuntimeConfig
-  const { HOST, CACHE_TIME_HOURS } = runtimeConfig
+  const { HOST, CACHE_TIME_MINUTES } = runtimeConfig
   const optionsIsString = typeof options === 'string'
   const accessToken = (!optionsIsString && options.token) ? options.token : Cookies.get(CookiesType.accessToken)
   let url = ''
@@ -41,7 +41,7 @@ async function request<T = any>(options: string | Options): Promise<T> {
   }
 
   const correctUrl = `${HOST_INNER || HOST}${url}${(method === 'get' && data) ? `?${queryParams(data)}` : ''}`
-  const needCache = !disableCache && CACHE_TIME_HOURS > 0 && isServer && method === 'get'
+  const needCache = !disableCache && CACHE_TIME_MINUTES > 0 && isServer && method === 'get'
 
   if (needCache) {
     const cachedData = nodeCache.get<T>(correctUrl)
@@ -73,10 +73,7 @@ async function request<T = any>(options: string | Options): Promise<T> {
   })
 
   if (res.status === 401) {
-    Cookies.remove(CookiesType.accessToken)
-    if (isClient) {
-      window.location.replace('/')
-    }
+
   }
 
   const jsonData =  res.data

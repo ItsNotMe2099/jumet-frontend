@@ -22,7 +22,7 @@ export interface IReceivingPoint {
   timezone?: string;
   deliveryAreas: IDeliveryArea[];
   photos: IFile[];
-  photosIds: number[];
+  photosIds: string[];
   scheduleType?: ScheduleType;
   deliveryPriceType?: DeliveryPriceType;
   workTimes: IReceivingPointWorkTime[];

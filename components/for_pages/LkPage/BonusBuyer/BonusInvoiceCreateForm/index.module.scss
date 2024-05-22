@@ -1,0 +1,26 @@
+@import "styles/index";
+.form{
+  display: flex;
+  flex-direction: column;
+  @include list(24px);
+}
+.heading{
+  @include h2;
+}
+.loader{
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.list{
+  @include mainText;
+  padding-left: 20px;
+  margin: 0;
+  li{
+    list-style-type: disc;
+  }
+}
+.btn{
+  align-self: flex-start;
+}

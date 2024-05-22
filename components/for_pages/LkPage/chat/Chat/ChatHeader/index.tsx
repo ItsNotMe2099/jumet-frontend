@@ -24,7 +24,7 @@ export default function ChatHeader(props: Props) {
   const user = appContext.aboutMe?.id !== props.chat?.sellerId ? props.chat?.seller : ((props.chat?.users?.length ?? 0) > 0 ? props.chat?.users[0] : null)
   const profileName = (user?.firstName || user?.lastName) ? UserUtils.getName(user) : (user?.phone ? Formatter.formatPhone(user.phone) : '')
   const chatName = props.title || appContext.aboutMe?.role === UserRole.Seller ? props.chat?.receivingPoint?.address?.address : profileName
-  const chatNameType = props.title ? null : (appContext.aboutMe?.role === UserRole.Seller ? ChatNameType.ReceivingPoint : ChatNameType.Seller)
+  const chatNameType = props.chat?.isSystem ? ChatNameType.System : props.title ? null : (appContext.aboutMe?.role === UserRole.Seller ? ChatNameType.ReceivingPoint : ChatNameType.Seller)
 
   const getChatNameType = (type: Nullable<ChatNameType>) => {
     switch (type) {
@@ -49,11 +49,18 @@ export default function ChatHeader(props: Props) {
         const chatName = profileName
         return <span className={styles.value}>{chatName}</span>
       }
+      case ChatNameType.System:
+        return 'Администрация Ломмаркет'
       default:
         return props.title
     }
   }
   const renderChatNameType = (type: ChatNameType) => {
+    if(chatNameType === ChatNameType.System){
+      return <div className={styles.name}>
+        <span className={styles.label}>Администрация Ломмаркет</span>
+      </div>
+    }
     return <div className={styles.name}>
       <span className={styles.label}>{getChatNameType(type)}: </span>
       {getChatName(type)}

@@ -27,6 +27,10 @@ import {runtimeConfig} from '@/config/runtimeConfig'
 import ClientOnly from '@/components/visibility/ClientOnly'
 import 'swiper/css/effect-fade'
 import 'swiper/css/pagination'
+import {BonusTariffWrapper} from '@/context/bonus_tariff_state'
+import {BonusSellerStateWrapper} from '@/context/bonus_seller_state_state'
+import BonusTariffRepository from '@/data/repositories/BonusTariffRepository'
+import IBonusTariff from '@/data/interfaces/IBonusTariff'
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode
@@ -35,6 +39,7 @@ export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
 export interface AppProps extends NextAppProps {
   pageProps: {
     isMobile: boolean
+    initialTariffs: IBonusTariff[]
   }
 }
 
@@ -53,44 +58,51 @@ function MyApp({Component, pageProps}: AppPropsWithLayout) {
     [])
   const getLayout = Component.getLayout ?? ((page) => page)
   return (
-    <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
+    <>
       <ClientOnly>
-      <YMInitializer
-        accounts={[runtimeConfig.YA_METRIKA_ID]}
-        version="2"
-        options={{
-          clickmap: true,
-          trackLinks: true,
-          accurateTrackBounce: true,
-          webvisor: true,
-          trackHash: true,
-        }} />
+        <YMInitializer
+          accounts={[runtimeConfig.YA_METRIKA_ID]}
+          version="2"
+          options={{
+            clickmap: true,
+            trackLinks: true,
+            accurateTrackBounce: true,
+            webvisor: true,
+            trackHash: true,
+          }} />
       </ClientOnly>
-      <AuthWrapper>
-        <DataWrapper scrapMetalCategories={[]}>
-          <ReceivingPointListWrapper>
-            <NotificationWrapper>
-              <FavoriteWrapper>
-                <Head>
-                  <link rel="preconnect" href="https://fonts.googleapis.com"/>
-                  <link rel="preconnect" href="https://fonts.gstatic.com"/>
-                  <link
-                    href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
-                    rel="stylesheet"/>
-                  <meta
-                    name="viewport"
-                    content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
-                  />
-                </Head>
-                {getLayout(<Component {...pageProps as any} />)}
-                <ModalContainer/>
-                <Snackbar/>
-              </FavoriteWrapper>
-            </NotificationWrapper>
-          </ReceivingPointListWrapper>
-        </DataWrapper>
-      </AuthWrapper>
-    </AppWrapper>
+      <AppWrapper isMobile={pageProps.isMobile} token={getToken()}>
+        <BonusTariffWrapper initialTariffs={pageProps.initialTariffs ?? []}>
+          <BonusSellerStateWrapper>
+            <AuthWrapper>
+              <DataWrapper scrapMetalCategories={[]}>
+                <ReceivingPointListWrapper>
+                  <NotificationWrapper>
+                    <FavoriteWrapper>
+                      <Head>
+                        <link rel="preconnect" href="https://fonts.googleapis.com"/>
+                        <link rel="preconnect" href="https://fonts.gstatic.com"/>
+                        <link
+                          href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;1,100;1,200;1,300;1,400;1,500;1,600&display=swap"
+                          rel="stylesheet"/>
+                        <meta
+                          name="viewport"
+                          content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=0, viewport-fit=cover"
+                        />
+                      </Head>
+                      {getLayout(<Component {...pageProps as any} />)}
+                      <ModalContainer/>
+                      <Snackbar/>
+                    </FavoriteWrapper>
+                  </NotificationWrapper>
+                </ReceivingPointListWrapper>
+              </DataWrapper>
+            </AuthWrapper>
+          </BonusSellerStateWrapper>
+        </BonusTariffWrapper>
+      </AppWrapper>
+    </>
+
   )
 }
 
@@ -100,6 +112,12 @@ MyApp.getInitialProps = async (appContext: AppContext) => {
   if (ua) {
     const {isMobile, isTablet} = getSelectorsByUserAgent(ua)
     const data = getSelectorsByUserAgent(ua)
+    try {
+      props.pageProps.initialTariffs = await BonusTariffRepository.fetch()
+      console.log('Tariffs2',   props.pageProps.initialTariffs )
+    }catch (e) {
+      console.error(e)
+    }
     if (isTablet && typeof window !== 'undefined' && window.screen.width >= 768) {
 
       props.pageProps.isMobile = false

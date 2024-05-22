@@ -290,17 +290,23 @@ export function DealWrapper(props: Props) {
       setCalculationData(null)
       return null
     }
-    if(isCalculateManual){
-      return calculateManual(data)
+    if(isCalculateManual && !data.price){
+      setCalculationData(null)
+      return null
     }
+
     try {
       if (calculateAbortControllerRef.current) {
         calculateAbortControllerRef.current?.abort()
         calculateAbortControllerRef.current = null
       }
       setCalculateLoading(true)
-      const res = await DealRepository.calculate(props.dealId, data, {signal: fetchAbortControllerRef.current?.signal!})
-      setCalculationData(res)
+      const res = await DealRepository.calculate(props.dealId, {...data, actualRubbishInPercents: data.actualRubbishInPercents ?? 0}, {signal: fetchAbortControllerRef.current?.signal!})
+      if(isCalculateManual){
+         setCalculationData({...res, ...getCalculationManual(data)})
+      }else {
+        setCalculationData(res)
+      }
       setCalculateLoading(false)
       return res
     } catch (e) {
@@ -313,13 +319,10 @@ export function DealWrapper(props: Props) {
     setCalculateLoading(false)
     return null
   }
-  const calculateManual = (dto: IDealCalculateRequest): Nullable<IDealCalculateResult> => {
-    if(!dto.price || !dto.actualWeight){
-      setCalculationData(null)
-      return null
-    }
+  const getCalculationManual = (dto: IDealCalculateRequest): IDealCalculateResult => {
+
     const actualWeightWithoutRubbish =
-      (dto.actualWeight *
+      ((dto.actualWeight ?? 0) *
         ((100 -
             (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) /
           100)) /
@@ -331,8 +334,8 @@ export function DealWrapper(props: Props) {
     const loadingPrice = deal!.requiresLoading
       ? dto.loadingPrice ?? 0
       : 0
-    const totalDelivery = (dto.actualWeight / 1000) * deliveryPrice
-    const totalLoading = (dto.actualWeight / 1000) * loadingPrice
+    const totalDelivery = ((dto.actualWeight ?? 0)/ 1000) * deliveryPrice
+    const totalLoading = ((dto.actualWeight ?? 0) / 1000) * loadingPrice
     const price =
       dto.price ?? 0
     const subTotal = actualWeightWithoutRubbish * price
@@ -346,7 +349,6 @@ export function DealWrapper(props: Props) {
       totalDelivery,
       totalLoading,
     }
-    setCalculationData( res)
     return res
   }
   const value: IState = {

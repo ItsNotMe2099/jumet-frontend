@@ -3,6 +3,7 @@ import {TerminateReasonType} from '@/data/enum/TerminateReasonType'
 import {IAddress} from '@/data/interfaces/IAddress'
 import {Nullable} from '@/types/types'
 import {ILocation} from '@/data/interfaces/ILocation'
+import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 
 export interface IDealSetUpStepRequest{
   representativeId: Nullable<number>,
@@ -20,11 +21,12 @@ export interface IDealWeighingStepRequest{
   actualWeight: Nullable<number>,
   actualRubbishInPercents: Nullable<number>,
   weighingComment: Nullable<string>,
-  weighingPhotoId?: Nullable<number>,
-  acceptanceCertificateId?: Nullable<number>
+  weighingPhotoId?: Nullable<string> | undefined,
+  acceptanceCertificateId?: Nullable<string> | undefined,
   price: Nullable<number>,
   deliveryPrice: Nullable<number>,
   loadingPrice: Nullable<number>,
+  scrapMetalCategory: Nullable<ScrapMetalCategory>
 }
 export interface IDealTermByBuyerStepRequest{
   terminateReasonType: TerminateReasonType
@@ -36,5 +38,5 @@ export interface IDealWeighingAcceptStepRequest{
 
 }
 export interface IDealPayStepRequest{
-  paymentReceiptId?: number | null
+  paymentReceiptId?: string | null
 }

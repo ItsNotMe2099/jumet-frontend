@@ -31,7 +31,7 @@ const SaleRequestOfferModalInner = (props: Props) => {
       <ModalLayout fixed size={'large'} >
         <ModalHeader title={'Предложение сделки'}/>
 
-        <ModalBody fixed>
+        <ModalBody fixed className={styles.modalBody}>
           <SaleRequestOfferForm receivingPointId={(appContext.modalArguments as SaleRequestOfferModalArguments)?.receivingPointId!} />
         </ModalBody>
       </ModalLayout>

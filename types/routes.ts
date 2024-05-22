@@ -159,6 +159,18 @@ export class Routes {
   static get lkCrmClients() {
     return '/lk/crm/clients'
   }
+
+  static get lkBonusesSeller() {
+    return '/lk/bonuses-seller'
+  }
+
+  static get lkBonusesBuyer() {
+    return '/lk/bonuses-buyer'
+  }
+  static get lkBonusInvoiceCreate() {
+    return '/lk/bonuses-buyer/invoice-create'
+  }
+
   static get representativeRegistration() {
     return '/representative-registration'
   }

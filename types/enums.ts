@@ -15,7 +15,8 @@ export enum ModalType {
   RepresentativeForm = 'representativeForm',
   RepresentativeSuccess = 'representativeSuccess',
   ChatFileUpload = 'chatFileUpload',
-  SwiperModal = 'swiperModal'
+  SwiperModal = 'swiperModal',
+  BonusFirstDeal = 'bonusFirstDeal'
 }
 
 export enum ProfileMenuSettings {
@@ -52,6 +53,7 @@ export enum FileUploadAcceptType {
 
 export enum CookiesType {
   accessToken = 'accessToken',
+  bonusFirstDealModal = 'bonusFirstDealModal'
 }
 
 export enum WeekDays {

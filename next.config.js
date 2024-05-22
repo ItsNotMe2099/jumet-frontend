@@ -6,7 +6,7 @@ module.exports = {
   // i18n,
   publicRuntimeConfig: {
     HOST: process.env.HOST,
-    CACHE_TIME_HOURS: Number.parseInt(process.env.CACHE_TIME_HOURS ?? '0'),
+    CACHE_TIME_MINUTES: Number.parseInt(process.env.CACHE_TIME_MINUTES ?? '0'),
     NODE_ENV: process.env.NODE_ENV || 'development',
     DEV: process.env.NODE_ENV === 'development',
     PROD: process.env.NODE_ENV !== 'development',

@@ -105,10 +105,10 @@ useEffect(()=>{
   return (
     <CardLayout title={`Сделка № ${dealContext.dealId}`} titleClassName={styles.title}>
       <div className={styles.root}>
-      {dealStateDetails && <Alert type={getAlertType(dealStateDetails)} title={dealStateDetails.name}  text={dealStateDetails.description}/> }
+      {dealStateDetails && <Alert  className={styles.alert} type={getAlertType(dealStateDetails)} title={dealStateDetails.name}  text={dealStateDetails.description}/> }
       <Indicator<number> lineClass={styles.line} className={styles.indicator} step={currentStepIndex} options={options}  />
 
-      {!isTabletWidth&& 
+      {!isTabletWidth&&
         <div className={styles.stickywrapper} ref={stickyRef}>
           <div className={classnames(styles.sticky, isStick&&styles.sticky_active)} style={{width: stickyRef.current?.offsetWidth + 40}}>
             <p className={styles.lineTitle}>Сделка № {dealContext.dealId}</p>

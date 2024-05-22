@@ -8,7 +8,7 @@ interface IRuntimeConfig {
   PROD: boolean
   MAP_KEY: string
   MAP_STATIC_KEY: string
-  CACHE_TIME_HOURS: number
+  CACHE_TIME_MINUTES: number
   DADATA_KEY: string
   YA_METRIKA_ID: number
 }

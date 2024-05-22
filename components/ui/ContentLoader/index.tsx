@@ -5,7 +5,7 @@ import Spinner from 'components/ui/Spinner'
 
 interface Props {
   className?: string
-  style?: 'fullscreen' | 'block' | 'infiniteScroll' | 'page'
+  style?: 'fullscreen' | 'block' | 'infiniteScroll' | 'page' | 'spinner'
   isOpen?: boolean
 }
 

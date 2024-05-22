@@ -1,0 +1,44 @@
+@import "styles/index";
+
+.root {
+    display: flex;
+    flex-direction: column;
+    @include list(12px, false);
+}
+.heading{
+  @include h2;
+  flex: 1;
+}
+.header{
+  display: flex;
+  flex-direction: row;
+  @include list(24px, true);
+}
+.right{
+  display: flex;
+  flex-direction: column;
+  .label{
+    font-size: 16px;
+    font-weight: 500;
+    line-height: 24px;
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+  }
+  .balance{
+    font-size: 24px;
+    font-weight: 700;
+    line-height: 32px;
+    margin-left: 8px;
+  }
+  .available{
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 20px;
+  }
+  .btn{
+    margin-top: 12px;
+    align-self: flex-end;
+  }
+}
+

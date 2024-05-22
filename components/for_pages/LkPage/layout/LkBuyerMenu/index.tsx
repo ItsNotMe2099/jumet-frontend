@@ -54,7 +54,7 @@ const LkBuyerMenuInner = (props: Props)  => {
     {name: 'Статистика', link: Routes.lkCrmMain},
     {name: `Оплата сервиса ${SITE_NAME}`, link: Routes.lkPayment},
     {name: 'API', link: Routes.lkApiSettings},
-
+    {name: 'Возмещение бонусов', link: Routes.lkBonusesBuyer},
     {name: 'Выход', key: MenuItemType.Exit, icon: <LogoutSvg color={colors.dark500}/>},
   ]} excludeFromMobileNested={[MenuItemType.ReceivingPoints]}/>)
 }

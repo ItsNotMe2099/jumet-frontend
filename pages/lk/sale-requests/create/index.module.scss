@@ -6,7 +6,7 @@
     margin-top: 38px;
     margin-bottom: 64px;
     background-color: $white;
-
+      border-radius: 12px;
     @include mq($SmDesktopWidth, max) {
         margin: 0;
     }
@@ -15,9 +15,9 @@
 .container {
     display: flex;
     flex-direction: column;
+  align-items: center;
     @include list(24px, false);
     @include container;
-    width: 50%;
     padding: 32px 20px;
 
     @include mq($SmDesktopWidth, max) {
@@ -26,6 +26,13 @@
         padding-top: 24px;
         padding-bottom: 48px;
     }
+}
+
+.formWrapper{
+  max-width: 632px;
+  display: flex;
+  flex-direction: column;
+  @include list(24px);
 }
 .title {
   @include h1;

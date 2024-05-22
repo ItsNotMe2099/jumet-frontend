@@ -13,6 +13,7 @@ export default interface IChat {
   managerId: number | string
   receivingPoint: IReceivingPoint
   receivingPointId: number
+  isSystem: boolean
   last: IChatMessage
   isGroup: boolean;
   lastMessage: string

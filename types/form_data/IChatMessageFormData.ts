@@ -7,7 +7,7 @@ export interface IChatMessageFormData{
   chatId?: number
   message?: Nullable<string>
   type?: ChatMessageType
-  assetsIds?: number[]
+  assetsIds?: string[]
   assets?: IFile[]
   userId?: string
 }

@@ -66,9 +66,9 @@ const ChatInner = (props: Props) => {
         </InfiniteScroll>}
         {!loading && renderChatSuggestion()}
       </div>
-      <div className={styles.bottom}>
+      {!chatContext.chat?.isSystem && <div className={styles.bottom}>
         <ChatMessageForm/>
-      </div>
+      </div>}
     </div>
   )
 }

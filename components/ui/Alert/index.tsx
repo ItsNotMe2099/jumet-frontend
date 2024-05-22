@@ -2,12 +2,13 @@ import AlertSvg from '@/components/svg/AlertSvg'
 import styles from './index.module.scss'
 import { colors } from '@/styles/variables'
 import classNames from 'classnames'
+import {ReactElement} from 'react'
 
 
 export type AlertType = 'attention' | 'danger' | 'success'
 interface Props {
   title?: string
-  text?: string
+  text?: string | ReactElement
   type: AlertType
   className?: string
 }

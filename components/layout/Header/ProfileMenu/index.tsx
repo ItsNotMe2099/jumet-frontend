@@ -11,11 +11,11 @@ import { UserRole } from '@/data/enum/UserRole'
 import SettingsSvg from '@/components/svg/SettingsSvg'
 import MapsSvg from '@/components/svg/MapsSvg'
 import UsersSvg from '@/components/svg/UsersSvg'
-import CashSvg from '@/components/svg/CashSvg'
 import LogoutSvg from '@/components/svg/LogoutSvg'
 import {Routes} from '@/types/routes'
-import {SITE_NAME} from '@/types/constants'
 import GraphSvg from '@/components/svg/GraphSvg'
+import GiftSvg from '@/components/svg/GiftSvg'
+import PassportSvg from '@/components/svg/PassportSvg'
 
 interface Option {
   label: string
@@ -31,6 +31,10 @@ enum ActionType {
   Payment,
   ReceivingPoints,
   Crm,
+  Passport,
+  Representatives,
+  BonusesSeller,
+  BonusesBuyer,
   Logout
 }
 
@@ -43,14 +47,18 @@ export default function ProfileMenu(props: Props) {
 
   const options = appContext.aboutMe?.role === UserRole.Seller ? [
     { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
-    { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
+      { icon: <PassportSvg color={colors.white} />, label: 'Паспортные данные', key: ActionType.Passport },
+      { icon: <UsersSvg color={colors.white} />, label: 'Мои представители', key: ActionType.Representatives },
+      { icon: <GiftSvg color={colors.white} />, label: 'Бонусный счет', key: ActionType.BonusesSeller },
+      { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
   ] :
     [
       { icon: <SettingsSvg color={colors.white} />, label: 'Настройки профиля', key: ActionType.Profile },
       { icon: <MapsSvg color={colors.white} />, label: 'Мои пункты приема', key: ActionType.ReceivingPoints },
       { icon: <GraphSvg color={colors.white} />, label: 'Статистика', key: ActionType.Crm },
       { icon: <UsersSvg color={colors.white} />, label: 'Сотрудники', key: ActionType.Employees },
-      { icon: <CashSvg color={colors.white} />, label: `Оплата сервиса ${SITE_NAME}`, key: ActionType.Payment },
+  //    { icon: <CashSvg color={colors.white} />, label: `Оплата сервиса ${SITE_NAME}`, key: ActionType.Payment },
+      { icon: <GiftSvg color={colors.white} />, label: 'Возмещение бонусов', key: ActionType.BonusesBuyer },
       { icon: <LogoutSvg color={colors.white} />, label: 'Выйти', key: ActionType.Logout },
     ]
 
@@ -71,6 +79,18 @@ export default function ProfileMenu(props: Props) {
         break
       case ActionType.Crm:
         router.push(Routes.lkCrmMain)
+        break
+      case ActionType.Representatives:
+        router.push(Routes.lkMyRepresentatives)
+        break
+      case ActionType.Passport:
+        router.push(Routes.lkMyPassportData)
+        break
+      case ActionType.BonusesSeller:
+        router.push(Routes.lkBonusesSeller)
+        break
+      case ActionType.BonusesBuyer:
+        router.push(Routes.lkBonusesBuyer)
         break
       case ActionType.Logout:
         setTimeout(() => appContext.logout(), 100)

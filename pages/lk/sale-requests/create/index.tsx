@@ -13,6 +13,7 @@ import {useAppContext} from '@/context/state'
 import {ISaleRequest} from '@/data/interfaces/ISaleRequest'
 import {LkPageBaseLayout} from '@/pages/lk'
 import * as Scroll from 'react-scroll'
+import BonusSellerAlert from '@/components/for_pages/Common/BonusSellerAlert'
 
 interface Props {
 
@@ -55,10 +56,11 @@ const LkSaleRequestCreatePage = (props: Props) => {
               </Button>
             }
           />}
-          {!isSuccess && <div>
+          {!isSuccess && <div className={styles.formWrapper}>
             <div className={styles.title}>
               Продать лом выгодно
             </div>
+            <BonusSellerAlert/>
             <CreateSaleRequestForm  loading={loading} submit={handleSubmit}/></div>}
         </div>
       </div>

@@ -1,6 +1,6 @@
 import { useAppContext } from 'context/state'
 import { RemoveScroll } from 'react-remove-scroll'
-import { ModalType } from '@/types/enums'
+import {CookiesType, ModalType} from '@/types/enums'
 import MobileMenuModal from '@/components/modals/MobileMenuModal'
 import OtpCodeModal from '@/components/modals/OtpCodeModal'
 import PasswordChangeModal from '@/components/modals/PasswordChangeModal'
@@ -16,6 +16,9 @@ import GalleryModal from '@/components/modals/GalleryModal'
 import { DealTerminateFormModal } from '@/components/modals/DealTerminateFormModal'
 import RepresentativeFormModal from '@/components/modals/RepresentativeFormModal'
 import RepresentativeSuccessModal from '@/components/modals/RepresentativeSuccessModal'
+import Cookies from 'js-cookie'
+import {CookiesLifeTime} from '@/types/constants'
+import {BonusFirstDealModal} from '@/components/modals/BonusFirstDealModal'
 
 interface Props { }
 
@@ -29,6 +32,12 @@ export default function ModalContainer(props: Props) {
         appContext.hideModal()
       }
     },
+  }
+  const handleCloseBonusBannerModal = () => {
+    Cookies.set(CookiesType.bonusFirstDealModal, '1', {
+      expires: CookiesLifeTime.bonusFirstDealModal,
+    })
+    appContext.hideModal()
   }
 
   return (
@@ -75,6 +84,9 @@ export default function ModalContainer(props: Props) {
         </Modal>
         <Modal isOpen={appContext.modal === ModalType.MapSelector || appContext.modalOnTop === ModalType.MapSelector} {...commonSettings}>
           {(appContext.modal === ModalType.MapSelector || appContext.modalOnTop === ModalType.MapSelector) && <MapSelectorModal isBottomSheet={false} />}
+        </Modal>
+        <Modal isOpen={appContext.modal === ModalType.BonusFirstDeal || appContext.modalOnTop === ModalType.BonusFirstDeal} {...commonSettings} onRequestClose={handleCloseBonusBannerModal}>
+          {(appContext.modal === ModalType.BonusFirstDeal || appContext.modalOnTop === ModalType.BonusFirstDeal) && <BonusFirstDealModal isBottomSheet={false} onRequestClose={handleCloseBonusBannerModal} />}
         </Modal>
       </div>
     </RemoveScroll>

@@ -5,7 +5,7 @@ export interface IFocalPoint{
 }
 
 export default interface IFile {
-  id: number
+  id: string
   name: string
   source: string
   type: 'IMAGE' | 'BINARY'

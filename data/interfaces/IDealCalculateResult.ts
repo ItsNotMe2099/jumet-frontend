@@ -8,4 +8,5 @@ export interface IDealCalculateResult{
   deliveryPrice: Nullable<number>
   loadingPrice: Nullable<number>
   price: Nullable<number>
+  bonus?: Nullable<number>
 }

@@ -3,7 +3,7 @@
 .root {
     display: flex;
     flex-direction: column;
-    @include list(24px, false);
+    @include list(12px, false);
 }
 .title{
   @include h3;
@@ -19,4 +19,9 @@
   &:hover{
     text-decoration: underline;
   }
+}
+.total{
+  font-weight: 700;
+  font-size: 24px;
+  line-height: 32px;
 }

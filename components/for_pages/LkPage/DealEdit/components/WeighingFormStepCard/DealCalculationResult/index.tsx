@@ -18,7 +18,8 @@ export default function DealCalculationResult(props: Props) {
   const dealContext = useDealContext()
   const deal = dealContext.deal
   const loading = dealContext.calculateLoading
-  const isEmpty = !props.actualWeight || !props.actualRubbishInPercents
+  const isEmpty = !props.actualWeight
+  console.log('dealContext.calculationData', dealContext.calculationData)
   const emptyText = useMemo<Nullable<string>>(() => {
     if (isEmpty) {
       return null
@@ -39,12 +40,15 @@ export default function DealCalculationResult(props: Props) {
       </>}
       {isEmpty && <div className={styles.empty}>{emptyText}</div> }
       {!isEmpty && dealContext.calculationData &&  <>
-        {(!dealContext.isCalculateManual && (dealContext.calculationData?.price ?? 0) > 0) && <DescField label={'Цена за тонну'} value={Formatter.formatPrice(dealContext.calculationData?.price ?? 0)}/>}
-        {(!dealContext.isCalculateManual && deal?.requiresDelivery  && (dealContext.calculationData?.totalDelivery ?? 0) > 0) && <DescField label={'Доставка'} value={`${Formatter.formatPrice(dealContext.calculationData?.totalDelivery ?? 0)} (${Formatter.formatDeliveryPrice(dealContext.calculationData?.deliveryPrice ?? 0)})`}/>}
-        {(!dealContext.isCalculateManual && deal?.requiresLoading  && (dealContext.calculationData?.totalLoading ?? 0) > 0) && <DescField label={'Погрузка'} value={`${Formatter.formatPrice(dealContext.calculationData?.totalLoading ?? 0)} (${Formatter.formatDeliveryPrice(dealContext.calculationData?.loadingPrice ?? 0)})`}/>}
+        {(!dealContext.isCalculateManual && (dealContext.calculationData?.price ?? 0) > 0) && <DescField label={'Цена лома за тонну'} value={Formatter.formatPrice(dealContext.calculationData?.price ?? 0, '₽/т')} type={'row'}/>}
+        {!!dealContext?.calculationData?.subTotal && <DescField  label={'Стоимость лома с учетом засора'} value={Formatter.formatPrice(dealContext.calculationData?.subTotal)} type={'row'}/>}
+        {(!dealContext.isCalculateManual && deal?.requiresDelivery  && (dealContext.calculationData?.totalDelivery ?? 0) > 0) && <DescField label={'Стоимость доставки'} value={`${Formatter.formatPrice(dealContext.calculationData?.totalDelivery ?? 0)} (${Formatter.formatDeliveryPrice(dealContext.calculationData?.deliveryPrice ?? 0)})`} type={'row'}/>}
+        {(!dealContext.isCalculateManual && deal?.requiresLoading  && (dealContext.calculationData?.totalLoading ?? 0) > 0) && <DescField label={'Стоимость погрузки'} value={`${Formatter.formatPrice(dealContext.calculationData?.totalLoading ?? 0)} (${Formatter.formatDeliveryPrice(dealContext.calculationData?.loadingPrice ?? 0)})`} type={'row'}/>}
 
-        {(deal?.requiresLoading || deal?.requiresDelivery) && <DescField label={'Сумма без доставки и погрузки'} value={Formatter.formatPrice(dealContext.calculationData?.subTotal ?? 0)}/>}
-        {!!deal?.total && <DescField label={'К оплате'} value={Formatter.formatPrice(dealContext.calculationData?.total)}/>}
+        {(deal?.requiresLoading || deal?.requiresDelivery) && <DescField label={'Сумма без доставки и погрузки'} value={Formatter.formatPrice(dealContext.calculationData?.subTotal ?? 0)} type={'row'}/>}
+
+        <DescField label={'Бонус от Ломмаркет'} value={Formatter.formatPrice(dealContext.calculationData?.bonus ?? 0)} type={'row'}/>
+        {!!dealContext?.calculationData?.total && <DescField  label={'Итого к оплате'} value={<div className={styles.total}>{Formatter.formatPrice(dealContext.calculationData?.total)}</div>} type={'row'}/>}
        </>}
     </div>
   )

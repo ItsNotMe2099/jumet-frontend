@@ -12,7 +12,7 @@ export interface ISaleRequest {
   status: SaleRequestStatus
   location: ILocation
   photos: IFile[]
-  photosIds: number[]
+  photosIds: string[]
   scrapMetalCategory: ScrapMetalCategory
   requiresDelivery: boolean
   requiresLoading: boolean

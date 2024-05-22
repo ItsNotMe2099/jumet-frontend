@@ -13,7 +13,10 @@
   border: 0;
   gap: 8px;
 
-  &.disabled {}
+  &.disabled {
+    opacity: 0.8;
+    pointer-events: none;
+  }
 
   &.fluid {
     width: 100%;

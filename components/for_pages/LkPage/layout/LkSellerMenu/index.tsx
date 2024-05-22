@@ -15,6 +15,7 @@ export default function LkSellerMenu(props: Props) {
     {name: 'Настройки профиля',  link: Routes.lkProfileSettings},
     {name: 'Паспортные данные',  link: Routes.lkMyPassportData},
     {name: 'Мои представители',  link: Routes.lkMyRepresentatives},
+    {name: 'Бонусный счет',  link: Routes.lkBonusesSeller},
     {name: 'Выход', key: MenuItemType.Exit, icon: <LogoutSvg color={colors.dark500}/>},
   ]}/>)
 }

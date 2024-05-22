@@ -4,6 +4,7 @@
   flex-direction: column;
   @include list(12px)
 }
+
 .title {
     @include h1;
 }
@@ -35,7 +36,7 @@
 }
 
 
-.sticky {   
+.sticky {
     background-color: white;
     z-index: 200;
     // width: calc(100% + 40px);
@@ -52,21 +53,21 @@
     height: 48px;
     transition: .3s ease-in-out;
     opacity: 0;
- 
+
     transform-origin: top;
 
 
 
     transform: rotateX(90deg) translateX(-20px);
-    
+
 
     &_active {
         // top: 84px;
         opacity: 1;
         transform: rotateX(0deg) translateX(-20px);
-        
+
     }
-    
+
 
     >div {
         margin: unset !important;

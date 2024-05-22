@@ -10,6 +10,7 @@ import {UserRole} from '@/data/enum/UserRole'
 import ChatUserAvatar from '@/components/ui/ChatUserAvatar'
 import {forwardRef} from 'react'
 import Formatter from '@/utils/formatter'
+import LogoAvatarSvg from '@/components/svg/LogoAvatarSvg'
 
 interface Props {
   chat: IChat
@@ -23,14 +24,14 @@ const ChatDialogItem = forwardRef<HTMLDivElement, Props>((props, ref) => {
   const profileName = (user.firstName || user.lastName) ? UserUtils.getName(user) : Formatter.formatPhone(user.phone)
   const nameHighlighted = props.highlight && profileName ? props.highlight?.split(' ').some(i => profileName.toLowerCase().includes(i.toLowerCase())) : false
   const messageHighlighted = props.highlight && props.chat.searchMessage  ? props.highlight?.split(' ').some(i => props.chat.searchMessage!.toLowerCase().includes(i.toLowerCase())) : false
-  const chatName = appContext.aboutMe?.role === UserRole.Seller ? props.chat.receivingPoint?.address?.address : profileName
+  const chatName = props.chat.isSystem ? 'Ломмаркет' : appContext.aboutMe?.role === UserRole.Seller ? props.chat.receivingPoint?.address?.address : profileName
   const lastMessage = props.chat.searchMessage ?? props.chat.lastMessage
   const lastMessageAt = props.chat.searchMessageAt ?? props.chat.lastMessageAt
 
   const hasUnAssignedBadge = appContext.aboutMe?.role === UserRole.Buyer && !props.chat.managerId
   const hasNotificationBadge = !hasUnAssignedBadge && props.chat.totalUnread > 0
   return (<div ref={ref} className={classNames(styles.root, {[styles.active]: props.isActive})} onClick={props.onClick}>
-      <ChatUserAvatar type={appContext.aboutMe?.role === UserRole.Seller ? 'receivingPoint' : 'user'} user={user} receivingPoint={props.chat.receivingPoint} />
+      {props.chat.isSystem ? <LogoAvatarSvg/> : <ChatUserAvatar type={appContext.aboutMe?.role === UserRole.Seller ? 'receivingPoint' : 'user'} user={user} receivingPoint={props.chat.receivingPoint} />}
       <div className={styles.content}>
         <div className={styles.top}>
           <div className={classNames(styles.name, {[styles.highlighting]: nameHighlighted})}>

@@ -21,6 +21,7 @@ import IEmployee from '@/data/interfaces/IEmployee'
 import { jwtDecode } from 'jwt-decode'
 import {UserRole} from '@/data/enum/UserRole'
 import {EmployeeRole} from '@/data/enum/EmployeeRole'
+import IBonusInvoice from '@/data/interfaces/IBonusInvoice'
 
 interface ITokenData{
   impersonate: boolean
@@ -78,6 +79,7 @@ interface IState {
   representativeCreateState$: Subject<IRepresentative>
   representativeUpdateState$: Subject<IRepresentative>
   representativeDeleteState$: Subject<IRepresentative>
+  bonusInvoiceCreatedState$: Subject<IBonusInvoice>
   fileUploadingState$: Subject<boolean>
   setIsFilesUploading: (value: boolean) => void
   isFilesUploading: boolean
@@ -102,10 +104,10 @@ const employeeUpdateState$ = new Subject<IEmployee>()
 const employeeDeleteState$ = new Subject<IEmployee>()
 const reviewCreateState$ = new Subject<IReview>()
 const reviewUpdateState$ = new Subject<IReview>()
-
 const representativeCreateState$ = new Subject<IRepresentative>()
 const representativeUpdateState$ = new Subject<IRepresentative>()
 const representativeDeleteState$ = new Subject<IRepresentative>()
+const bonusInvoiceCreatedState$ = new Subject<IBonusInvoice>()
 const fileUploadingState$ = new Subject<boolean>()
 
 const ModalsBottomSheet: ModalType[] = []
@@ -145,6 +147,7 @@ const defaultValue: IState = {
   representativeCreateState$,
   representativeUpdateState$,
   representativeDeleteState$,
+  bonusInvoiceCreatedState$,
   fileUploadingState$,
   showModal: (type) => null,
   showModalOnTop: (type) => null,

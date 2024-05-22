@@ -2,15 +2,37 @@
 
 .root {
   display: flex;
-  flex-direction: column;
-  @include list(4px, false);
-  .label {
-    color: $grey500;
-    @include secondaryText;
-  }
 
-  .value {
-    color: $dark500;
-    @include btnText;
+
+
+
+  &.column{
+    flex-direction: column;
+    @include list(4px, false);
+    .label {
+      color: $grey500;
+      @include secondaryText;
+    }
+    .value {
+      color: $dark500;
+      @include btnText;
+    }
+  }
+  &.row{
+    flex-direction: row;
+    align-items: center;
+    @include list(4px, true);
+    .label {
+      flex: 1;
+      font-weight: 500;
+      font-size: 16px;
+      color: $black;
+    }
+    .value {
+      font-weight: 500;
+      font-size: 16px;
+      color: $black;
+      @include btnText;
+    }
   }
 }

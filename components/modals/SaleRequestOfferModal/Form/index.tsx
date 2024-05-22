@@ -11,7 +11,6 @@ import SaleRequestOwnerRepository from '@/data/repositories/SaleRequestOwnerRepo
 import {ILocation} from '@/data/interfaces/ILocation'
 import {ScrapMetalCategory} from '@/data/enum/ScrapMetalCategory'
 import Validator from '@/utils/validator'
-import RadiusField from '@/components/fields/RadiusField'
 import {useDataContext} from '@/context/data_state'
 import {IOption} from '@/types/types'
 import AddressField from '@/components/fields/AddressField'
@@ -25,6 +24,7 @@ import {format} from 'date-fns'
 import {SaleRequestStatus} from '@/data/enum/SaleRequestStatus'
 import {SuccessModalArguments} from '@/types/modal_arguments'
 import FormErrorScroll from '@/components/ui/FormErrorScroll'
+import BonusSellerAlert from '@/components/for_pages/Common/BonusSellerAlert'
 
 //import Select from '@/components/fields/Select'
 
@@ -36,7 +36,7 @@ interface Props {
 interface IFormData {
   scrapMetalCategory?: ScrapMetalCategory
   weight: number
-  photosIds: number[]
+  photosIds: string[]
   requeresDelivery: boolean
   requeresLoading: boolean
   address: {
@@ -138,6 +138,7 @@ export default function SaleRequestOfferForm(props: Props) {
   return (
     <FormikProvider value={formik}>
       <Form className={styles.form}>
+        <BonusSellerAlert/>
         <FormErrorScroll formik={formik} />
       {/*<Select label='Мои заявки на продажу лома' options={options} value={option} onChange={(value) => setOption(value)} />*/}
         <RadioField<string>
@@ -162,7 +163,7 @@ export default function SaleRequestOfferForm(props: Props) {
         </div>
         <div className={styles.section}>
           <div className={styles.label}>
-            Адрес расположения лома
+            Адрес расположения лома*
           </div>
           <AddressField name={'address'}  resettable={true} placeholder={'Введите адрес'} validate={Validator.required} onChange={handleChangeAddress} />
           {formik.values.address && <MapFullscreenField name={'location'} label={'Точка на карте'} helperText={'Вы можете уточнить координаты указанного вами адреса'} validate={Validator.required}/>}
@@ -175,12 +176,6 @@ export default function SaleRequestOfferForm(props: Props) {
             <SwitchField name={'hasCustomPrice'} label={'Указать желаемую цену за лом'} />
           </div>
           {formik.values.hasCustomPrice && <PriceField name='price' suffix={'₽/т'} placeholder='Моя цена за лом' validate={Validator.required} />}
-        </div>
-        <div className={styles.section}>
-          <div className={styles.label}>
-            Радиус поиска пунктов приёма
-          </div>
-          <RadiusField name={'radius'} validate={Validator.required} />
         </div>
         <PhoneField name='phone' label='Ваш телефон' />
         <Button spinner={loading} type='submit' className={styles.btn} styleType='large' color='blue'>
