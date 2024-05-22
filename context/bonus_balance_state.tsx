@@ -8,7 +8,6 @@ import IBonusBalance from '@/data/interfaces/IBonusBalance'
 
 interface IState {
   balance: Nullable<number>
-  agreementNumber: Nullable<string>
   isLoaded: boolean
   isLoading: boolean
   reFetch: () => Promise<Nullable<IBonusBalance>>
@@ -16,7 +15,6 @@ interface IState {
 
 const defaultValue: IState = {
   balance: null,
-  agreementNumber: null,
   isLoaded: false,
   isLoading: false,
   reFetch: async () => null,

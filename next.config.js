@@ -14,6 +14,7 @@ module.exports = {
     MAP_STATIC_KEY: process.env.MAP_STATIC_KEY,
     DADATA_KEY:  process.env.DADATA_KEY,
     YA_METRIKA_ID: Number.parseInt(process.env.YA_METRIKA_ID ?? '0'),
+
   },
   serverRuntimeConfig: {
     HOST_INNER: process.env.HOST_INNER,

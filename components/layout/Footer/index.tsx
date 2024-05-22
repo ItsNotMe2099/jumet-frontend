@@ -26,6 +26,7 @@ export default function Footer(props: Props) {
     { label: 'Как это работает?', link: '#' },
     { label: 'Политика конфиденциальности', link: '#' },
     { label: 'Связь с администрацией', link: '#' },
+    { label: 'Бонусная программа', link: '/bonus-program' },
   ]
 
   return (

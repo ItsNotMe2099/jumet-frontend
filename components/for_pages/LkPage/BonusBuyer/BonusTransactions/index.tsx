@@ -37,7 +37,7 @@ const BonusTransactionsInner = (props: Props) => {
         { value: 'Сумма бонуса' },
       ]
     }} data={data.data.map((i) => ({
-      cells: [{ value: `${i.dealId}` },
+      cells: [{ value: `${i.dealId ?? ''}` },
         { value: <div title={i.receivingPoint?.address.street as string} className={styles.address}>{i.receivingPoint?.address.street}</div> },
         { value: i.description },
         { value: Formatter.formatDateRelative(i.createdAt!) ?? '' },

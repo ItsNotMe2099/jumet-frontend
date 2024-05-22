@@ -18,6 +18,8 @@ import Alert from '@/components/ui/Alert'
 import Formatter from '@/utils/formatter'
 import ContentLoader from '@/components/ui/ContentLoader'
 import EmptyStub from '@/components/ui/EmptyStub'
+import {AgreementWrapper, useAgreementContext} from '@/context/agreement_state'
+import {AgreementType} from '@/data/enum/AgreementType'
 
 
 interface IFormData {
@@ -36,6 +38,8 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
   const aboutMeContext = useAboutMeContext()
   const bonusBalanceContext = useBonusBalanceContext()
   const [sending, setSending] = useState(false)
+  const [agreement, setAgreement] = useState()
+  const agreementContext = useAgreementContext()
   const handleSubmit = async (data: IFormData) => {
     try {
       setSending(true)
@@ -60,12 +64,18 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
     onSubmit: handleSubmit
   })
 
-  if (!bonusBalanceContext.isLoaded) {
+  if (!bonusBalanceContext.isLoaded || !agreementContext.isLoaded) {
     return <div className={styles.loader}><ContentLoader style={'block'} isOpen={true}/></div>
   }
   if (!bonusBalanceContext.balance) {
     return <EmptyStub title={'Пока вы не получили ни одного бонуса'}
                       text={'Как только будет оплачена первая сделка можно будет выставить счет на выплату бонусов'}
+                      actions={<Button color='blue' styleType='large' onClick={() => router.back()}>Назад
+                      </Button>}/>
+  }
+  if (!agreementContext.byTypes[AgreementType.General as any]) {
+    return <EmptyStub title={'Для выплаты бонусов необходимо заключить договор с Ломмаркет'}
+                      text={'Свяжитесь с вашим менеджером для заключения договора'}
                       actions={<Button color='blue' styleType='large' onClick={() => router.back()}>Назад
                       </Button>}/>
   }
@@ -75,14 +85,14 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
       <Form className={styles.form}>
         <div className={styles.heading}>Отправка счёта на возмещение бонусов</div>
         <Alert className={styles.alert} type={'attention'} text={<ul className={styles.list}>
-          <li>В назначении платежа укажите «Возмещение средств по бонусной программе за июнь 2024 года по
-            договору {bonusBalanceContext.agreementNumber}»
+          <li>В назначении платежа укажите «Возмещение средств по бонусной программе по
+            договору {agreementContext.byTypes[AgreementType.General as any]?.number}»
           </li>
           <li>Сумма в счёте должна равняться {Formatter.formatPrice(bonusBalanceContext.balance!)} </li>
         </ul>}/>
         <FormErrorScroll formik={formik}/>
         <FileField disabled={sending} label={'Добавьте скан счета'} name={'invoiceFile'}
-                   text={<>Перетащите сюда или <span>выберите фото</span><br/>
+                   text={<>Перетащите сюда или <span>выберите файл</span><br/>
                      счета на оплату об оплате</>} validate={Validator.required}/>
         <Button spinner={sending} type='submit' className={styles.btn} styleType='large'
                 color='blue'>
@@ -96,7 +106,9 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
 export default function BonusInvoiceCreateForm(props: Props) {
   return (
     <BonusBalanceWrapper>
+      <AgreementWrapper>
       <BonusInvoiceCreateFormInner/>
+      </AgreementWrapper>
     </BonusBalanceWrapper>
 
   )
