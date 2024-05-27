@@ -15,7 +15,7 @@ export default function BonusSellerAlert(props: Props) {
   useEffect(() => {
     bonusSellerState.reFetch()
   }, [])
-  if(bonusTariffContext.isLoaded && (
+  if(bonusTariffContext.isLoaded && !!bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType] && (
     (!bonusSellerState.byTypes[BonusType.FirstDeal as BonusType] as any) && !bonusSellerState.isLoading)){
     return (
       <Alert  type={'attention'}  text={`Получите бонус ${Formatter.formatPrice(bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType]?.amount)} за регистрацию и первую успешную сделку по продаже лома в сервисе Ломмаркет`}/>

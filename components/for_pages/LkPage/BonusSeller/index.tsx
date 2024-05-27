@@ -27,12 +27,12 @@ const BonusSellerInner = (props: Props) => {
     <div className={styles.root}>
       <div className={styles.heading}>Бонусы</div>
       {!bonusTransactionsContext.isLoaded && <ContentLoader isOpen style={'block'}/>}
-      {bonusTransactionsContext.isLoaded && bonusTransactionsContext.data.total == 0 &&
+      {bonusTransactionsContext.isLoaded && bonusTransactionsContext.data.total == 0 && bonusTariffContext.isLoaded && bonusTariffContext.tariffs.length  > 0 &&
         <div className={styles.empty}>
           <p>Здесь будет отображаться история бонусных начислений, после того как вы выполните одно из условий бонусной программы:</p>
           <ol>
-            <li>Завершите первую успешную сделку по продаже лома (бонус {Formatter.formatPrice(bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType]?.amount)})</li>
-            <li>Продайте лом весом свыше {WeightUtils.formatWeight(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.fromWeight ?? 0)} в рамках одной сделки (бонус {Formatter.formatPrice(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.amount)} за каждые {WeightUtils.formatWeight(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.perWeight ?? 0)}).</li>
+            {!!bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType] && <li>Завершите первую успешную сделку по продаже лома (бонус {Formatter.formatPrice(bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType]?.amount)})</li>}
+            {!!bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType] && <li>Продайте лом весом свыше {WeightUtils.formatWeight(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.fromWeight ?? 0)} в рамках одной сделки (бонус {Formatter.formatPrice(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.amount)} за каждые {WeightUtils.formatWeight(bonusTariffContext.byTypes[BonusType.DealFromWeight as BonusType]?.perWeight ?? 0)}).</li>}
           </ol>
         </div>}
       {bonusTransactionsContext.isLoaded && bonusTransactionsContext.data.total > 0 && <BonusSellerTransactionsTable headerRow={{
