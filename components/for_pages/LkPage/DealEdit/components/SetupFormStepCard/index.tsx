@@ -195,7 +195,6 @@ const SetupStepFormInner = (props: Props) => {
 
           </>}
           <RadioField<DealPaymentType> options={[
-            {label: DealUtils.getPaymentType(DealPaymentType.Cash), value: DealPaymentType.Cash},
             {label: DealUtils.getPaymentType(DealPaymentType.Card), value: DealPaymentType.Card},
             {label: DealUtils.getPaymentType(DealPaymentType.Cashless), value: DealPaymentType.Cashless},
           ]} name='paymentType' label='Предпочитаемый способ оплаты за лом' validate={Validator.required}/>

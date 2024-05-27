@@ -5,9 +5,10 @@ import IBonusSellerState from '@/data/interfaces/IBonusSellerState'
 import BonusSellerStateRepository from '@/data/repositories/BonusSellerStateRepository'
 import {BonusType} from '@/data/enum/BonusType'
 import {debounce} from 'lodash'
-import { Timers} from '@/types/constants'
+import {Timers} from '@/types/constants'
 import {CookiesType, ModalType} from '@/types/enums'
 import Cookies from 'js-cookie'
+
 type ByTypes = { [key: BonusType | string]: number | undefined }
 
 interface IState {
@@ -29,7 +30,7 @@ const defaultValue: IState = {
 }
 
 const BonusSellerStateContext = createContext<IState>(defaultValue)
-const tmpList: BonusType[] = []
+const tmpList: BonusType[] = [BonusType.FirstDeal]
 interface Props {
   children: React.ReactNode
   limit?: number

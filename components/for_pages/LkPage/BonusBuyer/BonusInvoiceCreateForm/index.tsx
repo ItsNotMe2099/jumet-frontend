@@ -20,6 +20,7 @@ import ContentLoader from '@/components/ui/ContentLoader'
 import EmptyStub from '@/components/ui/EmptyStub'
 import {AgreementWrapper, useAgreementContext} from '@/context/agreement_state'
 import {AgreementType} from '@/data/enum/AgreementType'
+import FormError from '@/components/ui/FormError'
 
 
 interface IFormData {
@@ -40,7 +41,9 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
   const [sending, setSending] = useState(false)
   const [agreement, setAgreement] = useState()
   const agreementContext = useAgreementContext()
+  const [error, setError] = useState<string | null>(null)
   const handleSubmit = async (data: IFormData) => {
+    setError(null)
     try {
       setSending(true)
       await BonusInvoiceRepository.create({invoiceFileId: data.invoiceFile!.id})
@@ -48,7 +51,7 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
       router.replace(Routes.lkBonusesBuyer)
     }catch (err) {
       if (err instanceof RequestError) {
-        appContext.showSnackbar(err.message, SnackbarType.error)
+        setError(err.message)
       }
     }
     setSending(false)
@@ -94,6 +97,7 @@ const BonusInvoiceCreateFormInner = (props: Props) => {
         <FileField disabled={sending} label={'Добавьте скан счета'} name={'invoiceFile'}
                    text={<>Перетащите сюда или <span>выберите файл</span><br/>
                      счета на оплату об оплате</>} validate={Validator.required}/>
+        <FormError error={error}/>
         <Button spinner={sending} type='submit' className={styles.btn} styleType='large'
                 color='blue'>
           Отправить
