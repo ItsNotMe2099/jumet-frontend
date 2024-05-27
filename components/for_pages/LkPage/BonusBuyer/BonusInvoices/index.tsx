@@ -37,7 +37,7 @@ const BonusInvoicesInner = (props: Props) => {
       cells: [{ value: `${i.id}` },
         { value: i.amount ? Formatter.formatPrice(i.amount) : '-'},
         { value: Dictionary.getBonusInvoiceStatus(i.status) ?? '' },
-        { value: Formatter.formatDateRelative(i.createdAt!) ?? '' },
+        { value: Formatter.formatDateRelative(i.paidAt!) ?? '' },
       ]
     }))}
     />}
