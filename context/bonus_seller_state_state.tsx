@@ -8,6 +8,9 @@ import {debounce} from 'lodash'
 import {Timers} from '@/types/constants'
 import {CookiesType, ModalType} from '@/types/enums'
 import Cookies from 'js-cookie'
+import {useBonusTariffContext} from '@/context/bonus_tariff_state'
+import IBonusTariff from '@/data/interfaces/IBonusTariff'
+import {Nullable} from '@/types/types'
 
 type ByTypes = { [key: BonusType | string]: number | undefined }
 
@@ -38,19 +41,26 @@ interface Props {
 
 export function BonusSellerStateWrapper(props: Props) {
   const appContext = useAppContext()
+  const bonusTariffContext =  useBonusTariffContext()
   const [states, setStates] = useState<IBonusSellerState[]>([])
   const [isLoading, setIsLoading] = useState<boolean>(true)
   const [isLoaded, setIsLoaded] = useState<boolean>(false)
   const abortControllerRef = useRef<AbortController | null>(null)
   const isLogged = appContext.isLogged
   const isLoggedRef = useRef<boolean>(isLogged)
-
+  const tariffRef = useRef<Nullable<IBonusTariff> | undefined>(bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType])
   const showModalBonus = () => {
     if(isLoggedRef.current || Cookies.get(CookiesType.bonusFirstDealModal)){
       return
     }
+    if(!tariffRef.current){
+      return
+    }
     appContext.showModal(ModalType.BonusFirstDeal)
   }
+  useEffect(() => {
+      tariffRef.current = bonusTariffContext.byTypes[BonusType.FirstDeal as BonusType]
+  }, [bonusTariffContext.byTypes])
   useEffect(() => {
     setTimeout(() => {
       showModalBonus()
