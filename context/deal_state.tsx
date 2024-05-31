@@ -322,10 +322,10 @@ export function DealWrapper(props: Props) {
       return null
     }
     const actualWeightWithoutRubbish =
-      Math.ceil(dto.actualWeight *
+      Math.round(dto.actualWeight *
         ((100 -
             (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) /
-          100)) / 1000
+          100));
 
     const deliveryPrice = deal!.requiresDelivery
       ? dto.deliveryPrice ?? 0
@@ -333,11 +333,11 @@ export function DealWrapper(props: Props) {
     const loadingPrice = deal!.requiresLoading
       ? dto.loadingPrice ?? 0
       : 0
-    const totalDelivery = (dto.actualWeight / 1000) * deliveryPrice
-    const totalLoading = (dto.actualWeight / 1000) * loadingPrice
+    const totalDelivery = parseFloat((dto.actualWeight * (deliveryPrice / 1000)).toFixed(2));
+    const totalLoading = parseFloat((dto.actualWeight * (loadingPrice / 1000)).toFixed(2));
     const price =
       dto.price ?? 0
-    const subTotal = actualWeightWithoutRubbish * price
+    const subTotal = parseFloat((actualWeightWithoutRubbish * (price / 1000)).toFixed(2));
     const total = subTotal - totalLoading - totalDelivery
     const res: IDealCalculateResult = {
       total: total < 0 ? 0 : total,
