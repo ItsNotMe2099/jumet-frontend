@@ -291,10 +291,12 @@ export function DealWrapper(props: Props) {
       calculateAbortControllerRef.current = null
     }
     if(!data.actualWeight){
+      setCalculateLoading(false)
       setCalculationData(null)
       return null
     }
     if(isCalculateManual){
+      setCalculateLoading(false)
       return calculateManual(data)
     }
     try {
@@ -320,11 +322,10 @@ export function DealWrapper(props: Props) {
       return null
     }
     const actualWeightWithoutRubbish =
-      (dto.actualWeight *
+      Math.ceil(dto.actualWeight *
         ((100 -
             (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) /
-          100)) /
-      1000
+          100)) / 1000
 
     const deliveryPrice = deal!.requiresDelivery
       ? dto.deliveryPrice ?? 0
