@@ -91,7 +91,7 @@ export default class Formatter {
     if (typeof price === 'undefined') {
       return ''
     }
-    return `${this.formatNumber(Math.ceil(price))} ${suffix ?? '₽'}`
+    return `${this.formatNumber(price)} ${suffix ?? '₽'}`
   }
   static formatDeliveryPrice(price?: number): string {
     if (!price) {
