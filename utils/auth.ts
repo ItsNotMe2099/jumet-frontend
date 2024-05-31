@@ -21,7 +21,11 @@ export  function getAuthServerSideProps<Props extends { [key: string]: any } = {
    try {
      user = token ? await AuthRepository.fetchAboutMe(token) : null
    } catch (e) {
+     console.log("errrorAuth", e);
    }
+
+   console.log("errrorAuth2", user);
+
    if (!token || !user) {
       return {
        redirect: {
