@@ -286,6 +286,11 @@ export function DealWrapper(props: Props) {
     return {...deal, ...res}
   }
   const calculate = async (data: IDealCalculateRequest): Promise<Nullable<IDealCalculateResult>> => {
+    if (calculateAbortControllerRef.current) {
+      calculateAbortControllerRef.current?.abort()
+      calculateAbortControllerRef.current = null
+    }
+
     if(!data.actualWeight){
       setCalculationData(null)
       return null
@@ -296,14 +301,11 @@ export function DealWrapper(props: Props) {
     }
 
     try {
-      if (calculateAbortControllerRef.current) {
-        calculateAbortControllerRef.current?.abort()
-        calculateAbortControllerRef.current = null
-      }
+      calculateAbortControllerRef.current = new AbortController()
       setCalculateLoading(true)
       const res = await DealRepository.calculate(props.dealId, {...data, actualRubbishInPercents: data.actualRubbishInPercents ?? 0}, {signal: fetchAbortControllerRef.current?.signal!})
       if(isCalculateManual){
-         setCalculationData({...res, ...getCalculationManual(data)})
+         setCalculationData({...res})
       }else {
         setCalculationData(res)
       }
