@@ -36,7 +36,10 @@ export  function getAuthServerSideProps<Props extends { [key: string]: any } = {
    }
    if (userRole && user.role !== userRole) {
      return {
-       notFound: true
+       redirect: {
+         permanent: false,
+         destination: '/',
+       },
      }
    }
 

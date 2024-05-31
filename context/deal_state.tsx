@@ -325,9 +325,7 @@ export function DealWrapper(props: Props) {
 
     const actualWeightWithoutRubbish =
       ((dto.actualWeight ?? 0) *
-        ((100 -
-            (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) /
-          100)) /
+        ((100 - (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) / 100)) /
       1000
 
     const deliveryPrice = deal!.requiresDelivery
