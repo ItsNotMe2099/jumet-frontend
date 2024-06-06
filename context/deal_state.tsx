@@ -292,10 +292,7 @@ export function DealWrapper(props: Props) {
     }
 
     if(!data.actualWeight){
-      setCalculationData(null)
-      return null
-    }
-    if(isCalculateManual && !data.price){
+      setCalculateLoading(false)
       setCalculationData(null)
       return null
     }
@@ -321,36 +318,7 @@ export function DealWrapper(props: Props) {
     setCalculateLoading(false)
     return null
   }
-  const getCalculationManual = (dto: IDealCalculateRequest): IDealCalculateResult => {
 
-    const actualWeightWithoutRubbish =
-      ((dto.actualWeight ?? 0) *
-        ((100 - (dto.actualRubbishInPercents ? dto.actualRubbishInPercents : 0)) / 100)) /
-      1000
-
-    const deliveryPrice = deal!.requiresDelivery
-      ? dto.deliveryPrice ?? 0
-      : 0
-    const loadingPrice = deal!.requiresLoading
-      ? dto.loadingPrice ?? 0
-      : 0
-    const totalDelivery = ((dto.actualWeight ?? 0)/ 1000) * deliveryPrice
-    const totalLoading = ((dto.actualWeight ?? 0) / 1000) * loadingPrice
-    const price =
-      dto.price ?? 0
-    const subTotal = actualWeightWithoutRubbish * price
-    const total = subTotal - totalLoading - totalDelivery
-    const res: IDealCalculateResult = {
-      total: total < 0 ? 0 : total,
-      subTotal: subTotal < 0 ? 0 : subTotal,
-      price,
-      loadingPrice,
-      deliveryPrice,
-      totalDelivery,
-      totalLoading,
-    }
-    return res
-  }
   const value: IState = {
     ...defaultValue,
     deal,

@@ -38,7 +38,7 @@ const RepresentativeFormInner = (props: Props) => {
 
     setIsSuccess(true)
   }
-
+  console.log('props.representative', props.representative)
   const initialValues: IFormData = {
     firstName: props.representative?.firstName ?? null,
     lastName: props.representative?.lastName ?? null,
@@ -103,6 +103,6 @@ const RepresentativeFormInner = (props: Props) => {
 
 export default function RepresentativeForm(props: Props) {
   return (<RepresentativeWrapper representative={props.representative} representativeId={props.representative?.id}>
-    <RepresentativeFormInner hasAddOtherButton={props.hasAddOtherButton ?? false}/>
+    <RepresentativeFormInner {...props} hasAddOtherButton={props.hasAddOtherButton ?? false}/>
   </RepresentativeWrapper>)
 }

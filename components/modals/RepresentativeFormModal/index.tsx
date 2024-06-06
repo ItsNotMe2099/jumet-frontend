@@ -11,12 +11,13 @@ interface Props {
 
 export default function RepresentativeFormModal(props: Props) {
   const appContext = useAppContext()
-  const args = appContext.modalArguments as RepresentativeFormModalArguments
+  const args = appContext.modalArguments as RepresentativeFormModalArguments | null
+  console.log('args?.representative', args?.representative)
   return (
     <ModalLayout fixed size={'large'}>
       <ModalHeader title={args?.representative ? 'Редактировать представителя' : 'Добавить представителя'}/>
       <ModalBody fixed >
-        <RepresentativeForm representative={args.representative}/>
+        <RepresentativeForm representative={args?.representative}/>
       </ModalBody>
     </ModalLayout>
   )

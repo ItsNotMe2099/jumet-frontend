@@ -136,7 +136,7 @@ export default function WeighingFormStepCard(props: Props) {
               validate={Validator.required}
             />
             <WeightWithUnitField name='actualWeight' label={'Вес лома'} validate={Validator.required}/>
-            <PercentField name='actualRubbishInPercents' label={'Засор'} suffix={'%'} validate={Validator.required}/>
+            <PercentField name='actualRubbishInPercents' label={'Засор'} suffix={'%'} />
             <TextAreaField name='weighingComment' label={'Комментарий'}/>
             <FileField name={'weighingPhoto'} label={'Фотоподтверждение лома'}
                        text={<>Перетащите сюда или <span>выберите фото</span><br/>

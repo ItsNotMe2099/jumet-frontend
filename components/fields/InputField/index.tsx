@@ -42,7 +42,7 @@ export interface InputFieldProps<T> extends IField<InputValueType<T>> {
 
 const defaultPhonePattern = '+0[00000000000000000000]'
 const defaultCardExpiryPattern = '00/00'
-const defaultCardPanPattern = '0000 0000 0000 0000000b gj'
+const defaultCardPanPattern = '0000 0000 0000 0000000'
 const defaultCardCvvPattern = '0000'
 const defaultPricePattern = '0 000'
 const getInitialPatternFromFormat = (format: FormatType | undefined) => {

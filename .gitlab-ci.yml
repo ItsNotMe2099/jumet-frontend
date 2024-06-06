@@ -1,10 +1,5 @@
 image: gitlab.glob-com.ru:4567/glob-com/ci/docker-ansible:latest
 
-before_script:
-  - git submodule sync --recursive
-  - git submodule update --init --recursive
-
-
 variables:
   IMAGE_TAG: $CI_REGISTRY_IMAGE:latest
   IMAGE_TAG_DEV: $CI_REGISTRY_IMAGE:latestdev
@@ -18,6 +13,9 @@ stages:
   - deploy
 
 build_dev_image:
+  before_script:
+   - git submodule sync --recursive
+   - git submodule update --init --recursive
   stage: build-docker
   tags:
     - docker
@@ -34,6 +32,9 @@ build_dev_image:
     - dev
 
 build_prod_image:
+  before_script:
+   - git submodule sync --recursive
+   - git submodule update --init --recursive
   stage: build-docker
   tags:
     - docker
@@ -45,9 +46,9 @@ build_prod_image:
     - docker-compose -f docker-compose.prod.yml push app
     - docker-compose -f docker-compose.prod.yml build  --pull nginx
     - docker-compose -f docker-compose.prod.yml push nginx
-  #  when: manual
+  #when: manual
   only:
-    - master
+    - main
 
 deploy_dev:
   stage: deploy
@@ -64,13 +65,17 @@ deploy_dev:
 
 deploy_prod:
   stage: deploy
+  image: bitnami/kubectl:latest
   tags:
-    - docker
+    - k8s-jumet
   script:
-    - eval $(ssh-agent -s)
-    - echo "$SSH_PRIVATE_KEY" | ssh-add -
-    - mkdir -p ~/.ssh
-    - '[[ -f /.dockerenv ]] && echo -e "Host *\n\tStrictHostKeyChecking no\n\n" > ~/.ssh/config'
-    - ansible-playbook deploy/deploy.yml -i deploy/production  -e CI_COMMIT_SHA="\"$CI_COMMIT_SHA\"" -e "CI_JOB_TOKEN=$CI_JOB_TOKEN" -e "CI_REGISTRY=$CI_REGISTRY" -e "APP_IMAGE=$IMAGE_TAG_APP" -e "NGINX_IMAGE=$IMAGE_TAG_NGINX" -e "branch=$CI_COMMIT_REF_NAME"
+    - kubectl config set-cluster k8s --server="$KUBE_URL" --insecure-skip-tls-verify=true
+    - kubectl config set-credentials admin --token=${KUBE_TOKEN}
+    - kubectl config set-context default --cluster=k8s --user=admin
+    - kubectl config use-context default
+    - kubectl set image deployment/front-app -n=default front-app=${IMAGE_TAG_APP}
+    - kubectl rollout restart deployment/front-app -n=default
+    - kubectl set image daemonset/front-nginx -n=default front-nginx=${IMAGE_TAG_NGINX}
+    - kubectl rollout restart daemonset/front-nginx -n=default
   only:
-    - master
+    - main
