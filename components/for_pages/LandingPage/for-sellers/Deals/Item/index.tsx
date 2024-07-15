@@ -39,7 +39,7 @@ export default function Item({ item }: Props) {
         </div>
         <div className={styles.bottom}>
           <Button onClick={() => appContext.showModal(ModalType.SwiperModal, item.steps)} className={styles.btn} styleType='large' color='blue'>
-            Смотреть подробнее
+            Подробней
           </Button>
         </div>
       </div>

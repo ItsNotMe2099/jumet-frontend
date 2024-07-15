@@ -40,7 +40,7 @@ export default function FooterLanding(props: Props) {
     { link: '/landing/#benefits', label: 'Выгоды' },
     { link: '/landing/#advantages', label: 'Приемущества' },
     { link: '/landing/#how-to-connects', label: 'Как подключиться' },
-    { link: '/landing/#roadmap', label: 'Roadmap' },
+    //{ link: '/landing/#roadmap', label: 'Roadmap' },
     { link: '/landing/#contacts', label: 'Контакты' },
   ]
 
@@ -90,7 +90,7 @@ export default function FooterLanding(props: Props) {
       </div>
       <div className={styles.footer}>
         <div className={styles.copyright}>
-          © {format(new Date(), 'yyyy')} г. Все права защищены
+          © {format(new Date(), 'yyyy')} г. Все права защищены | Ломмаркет
         </div>
         <Link href={`${router.pathname}/#top`}>
           <div className={styles.up}>

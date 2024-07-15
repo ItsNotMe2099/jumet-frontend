@@ -7,7 +7,7 @@ import { RefObject } from 'react'
 import usePressAndHover from 'components/hooks/usePressAndHover'
 import useStopPropagation from 'components/hooks/useStopPropagation'
 import { Swiper as SwiperClass } from 'swiper/types'
-import NewButtonArrowSvg from '@/components/svg/NewButtonArrowSvg'
+import ChevronRightSvg from '@/components/svg/ChevronRightSvg'
 
 interface Props {
   direction: 'next' | 'prev'
@@ -45,8 +45,8 @@ export default function ArrowForSlider(props: Props) {
       {!props.newBtn ? <ButtonArrowSvg
         color={color}
         className={classNames([styles.icon, props.classNameIcon, styles[props.direction]])}
-      /> : <NewButtonArrowSvg
-        color={color}
+      /> : <ChevronRightSvg
+        color={colors.dark500}
         className={classNames([styles.icon, props.classNameIcon, styles[props.direction]])}
       />}
       {props.hint && hover && (

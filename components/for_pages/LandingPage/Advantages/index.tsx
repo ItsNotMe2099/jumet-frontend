@@ -2,7 +2,7 @@ import Advantages1Svg from '@/components/svg/landing/advantages/Advantages1Svg'
 import styles from './index.module.scss'
 import Button from '@/components/ui/Button'
 import Advantages2Svg from '@/components/svg/landing/advantages/Advantages2Svg'
-import ExchangeSvg from '@/components/svg/landing/advantages/ExchangeSvg'
+//import ExchangeSvg from '@/components/svg/landing/advantages/ExchangeSvg'
 import AvatarSvg from '@/components/svg/landing/advantages/AvatarSvg'
 import Avatar2Svg from '@/components/svg/landing/advantages/Avatar2Svg'
 
@@ -32,19 +32,19 @@ export default function Advantages(props: Props) {
                 ломосдатчиков
               </div>
               <ul>
-                <li>Продал 2500 кг лома вида 5А,12 А </li>
-                <li>за 62 500 ₽</li>
-                <li>в течение 5 мин</li>
-                <li>с выгодой до 10%</li>
+                <li>Удобный поиск покупателей из вашего региона </li>
+                <li>Предложения лома от разных ломозаготовителей</li>
+                <li>Гарантия лучшей цены</li>
+                <li>Безопасные сделки по продаже лома, не выходя из дома</li>
               </ul>
               <Button href={'/landing/for-sellers'} className={styles.btn} styleType='large' color='blue'>
-                Смотреть приемущества
+                Показать все преимущества
               </Button>
             </div>
           </div>
-          <div className={styles.exchange}>
+          {/*<div className={styles.exchange}>
             <ExchangeSvg />
-          </div>
+          </div>*/}
           <div className={styles.column}>
             <div className={styles.item}>
               <div className={styles.image}>
@@ -57,13 +57,13 @@ export default function Advantages(props: Props) {
                 ломозаготовителей
               </div>
               <ul>
-                <li>Продал 2500 кг лома вида 5А,12 А </li>
-                <li>за 62 500 ₽</li>
-                <li>в течение 5 мин</li>
-                <li>с выгодой до 10%</li>
+                <li>Лом от разных продавцов в пределах зон доставки</li>
+                <li>Увеличение продаж</li>
+                <li>Электронный документооборот</li>
+                <li>Подробная аналитика сделок</li>
               </ul>
               <Button href={'/landing/for-buyers'} className={styles.btn} styleType='large' color='blue'>
-                Смотреть приемущества
+                Показать все преимущества
               </Button>
             </div>
           </div>

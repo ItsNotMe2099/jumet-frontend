@@ -184,22 +184,22 @@ export default function HowItWorks(props: Props) {
           <div className={styles.row}>
             <div className={styles.column}>
               <div className={styles.img}>
-                <Image src={'/img/landing/how-it-work.png'} alt='' fill />
+                <Image src={'/img/landing/how-it-work-new.png'} alt='' fill />
               </div>
             </div>
             <div className={styles.column}>
               <div className={styles.name}>
                 <div><AvatarSvg /></div>
-                <div><span>Продавец, ломосдатчик</span></div>
+                <div><span>Продавец,</span> ломосдатчик</div>
               </div>
               <ol>
                 <li>Создает предложение о продаже лома в сервисе Ломмаркет</li>
-                <li>Предлагает продать лом, напрямую покупателю или через аукцион</li>
+                <li>Предлагает продать лом напрямую покупателю или через аукцион</li>
                 <li>Заключает сделку в режиме онлайн</li>
               </ol>
               <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsSeller)}
                 className={styles.btn} styleType='large' color='blue'>
-                Смотреть подробнее
+                Подробней
               </Button>
             </div>
           </div>
@@ -209,7 +209,7 @@ export default function HowItWorks(props: Props) {
             <div className={styles.column}>
               <div className={styles.name}>
                 <div><Avatar2Svg /></div>
-                <div><span>Покупатель, ломозаготовитель</span></div>
+                <div><span>Покупатель,</span> ломозаготовитель</div>
               </div>
               <ol>
                 <li>Регистрация + Выбор региона</li>
@@ -220,12 +220,12 @@ export default function HowItWorks(props: Props) {
               </ol>
               <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsBuyer)}
                 className={styles.btn} styleType='large' color='blue'>
-                Смотреть подробнее
+                Подробней
               </Button>
             </div>
             <div className={styles.column}>
               <div className={styles.img}>
-                <Image src={'/img/landing/how-it-work2.png'} alt='' fill />
+                <Image src={'/img/landing/how-it-work2-new.png'} alt='' fill />
               </div>
             </div>
           </div>

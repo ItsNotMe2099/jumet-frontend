@@ -53,4 +53,5 @@
 
 .row {
   @include rowLanding();
+  justify-content: center;
 }

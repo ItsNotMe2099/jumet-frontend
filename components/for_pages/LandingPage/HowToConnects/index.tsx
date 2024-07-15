@@ -66,7 +66,7 @@ export default function HowToConnects(props: Props) {
     <div className={styles.root} id='how-to-connects'>
       <div className={styles.container}>
         <div className={styles.title}>
-          Как подключиться к сервису Ломмаркет
+          Как начать пользоваться сервисом Ломмаркет?
         </div>
         <div className={styles.row}>
           <div className={styles.column}>
@@ -80,11 +80,11 @@ export default function HowToConnects(props: Props) {
               <ol>
                 <li>Зарегистрироваться в личном кабинете</li>
                 <li>Разместить ваши предложения о продаже</li>
-                <li>Сдавать лом на лучших для вас условиях!</li>
+                <li>Продать лом на лучших для вас условиях!</li>
               </ol>
               <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsSeller)}
                 className={styles.btn} styleType='large' color='blue'>
-                Смотреть подробнее
+                Зарегистрироваться
               </Button>
             </div>
           </div>
@@ -106,7 +106,7 @@ export default function HowToConnects(props: Props) {
               </ol>
               <Button onClick={() => appContext.showModal(ModalType.SwiperModal, stepsBuyer)}
                 className={styles.btn} styleType='large' color='blue'>
-                Смотреть подробнее
+                Зарегистрироваться
               </Button>
             </div>
           </div>

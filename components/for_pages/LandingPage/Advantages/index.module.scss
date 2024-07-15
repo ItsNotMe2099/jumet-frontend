@@ -1,7 +1,7 @@
 @import "styles/index";
 
 .root {
-  background: #D8E4FF;
+  background: #d8e4ff;
   padding: 45px 0 38px;
 }
 
@@ -15,7 +15,7 @@
   font-weight: 600;
   font-size: 48px;
   line-height: 69px;
-  font-family: 'Jost';
+  font-family: "Aeonik Pro";
 
   @include mq($PhoneWidth, max) {
     font-size: 30px;
@@ -57,10 +57,10 @@
 
     li:before {
       margin-right: 10px;
-      content: url('../../../../public/img/landing/check.svg');
-      background: #F3CE7B;
+      content: url("../../../../public/img/landing/check.svg");
+      background: #f3ce7b;
       border-radius: 100%;
-      color: #151B29;
+      color: #151b29;
       width: 24px;
       height: 24px;
       padding: 8px;
@@ -75,14 +75,12 @@
     li {
       counter-increment: item;
       margin-bottom: 20px;
-      font-family: 'Jost';
-      font-family: Jost;
-      font-size: 18px;
-      font-weight: 700;
+      font-family: "Aeonik Pro";
+      font-size: 16px;
+      font-weight: 500;
       line-height: 40px;
       letter-spacing: 0em;
       text-align: left;
-      white-space: nowrap;
 
       @include mq($MPhoneWidth, max) {
         white-space: break-spaces;
@@ -109,11 +107,11 @@
   margin-bottom: 25px;
   font-size: 24px;
   line-height: 35px;
-  color: #2F80ED;
+  color: #2f80ed;
   width: 350px;
   position: relative;
   padding-left: 100px;
-  font-family: 'Jost';
+  font-family: "Aeonik Pro";
 
   @include mq($MPhoneWidth, max) {
     padding: 0;
@@ -144,6 +142,7 @@
 .row {
   @include rowLanding();
   flex-wrap: nowrap;
+  justify-content: space-between;
 
   @include mq($TabletWidth, max) {
     flex-direction: column;

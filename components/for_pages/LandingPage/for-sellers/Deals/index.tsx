@@ -18,15 +18,16 @@ interface IItem {
 
 interface Props {
   items: IItem[]
+  title: string | ReactElement
 }
 
-export default function Deals({ items }: Props) {
+export default function Deals({ items, title }: Props) {
 
   return (
     <div className={styles.root}>
       <div className={styles.container}>
         <div className={styles.title}>
-          Самые выгодные, быстрые, удобные и безопасные сделки с помощью сервиса Ломмаркет
+          {title}
         </div>
         <div className={styles.row}>
           {items.map((i, index) =>

@@ -1,8 +1,5 @@
 import AdvantagesBlue from '@/components/for_pages/LandingPage/AdvantagesBlue'
 import Advantages from '@/components/for_pages/LandingPage/for-sellers/Advantages'
-import Icon1Svg from '@/components/svg/landing/advantages-blue/Icon1Svg'
-import Icon3Svg from '@/components/svg/landing/advantages-blue/Icon3Svg'
-import Icon6Svg from '@/components/svg/landing/advantages-blue/Icon6Svg'
 import Icon7Svg from '@/components/svg/landing/advantages-blue/Icon7Svg'
 import styles from './index.module.scss'
 import Deals from '@/components/for_pages/LandingPage/for-sellers/Deals'
@@ -11,131 +8,131 @@ import Avatar4Svg from '@/components/svg/landing/for-buyers/Avatar4Svg'
 import Icon2Svg from '@/components/svg/landing/advantages-blue/Icon2Svg'
 import Icon9Svg from '@/components/svg/landing/advantages-blue/Icon9Svg'
 import Icon10Svg from '@/components/svg/landing/advantages-blue/Icon10Svg'
-import Icon11Svg from '@/components/svg/landing/advantages-blue/Icon11Svg'
 import LayoutLanding from '@/components/layout/LayoutLanding'
 import { UserRole } from '@/data/enum/UserRole'
+import Icon18Svg from '@/components/svg/landing/advantages-blue/Icon18Svg'
+import Icon19Svg from '@/components/svg/landing/advantages-blue/Icon19Svg'
+import Icon16Svg from '@/components/svg/landing/advantages-blue/Icon16Svg'
 
 export default function ForBuyersPage() {
 
   const items = [
-    { icon: <Icon1Svg />, text: 'Увеличит доходность бизнеса, минуя посредников' },
-    { icon: <Icon2Svg />, text: 'Организует доступ к вашим пунктам приема лома' },
-    { icon: <Icon3Svg />, text: 'Проинформирует об условиях приемки, ценах и способах вывоза лома ' },
-    { icon: <Icon7Svg />, text: 'Увеличит и автоматизирует клиентскую базу' },
-    { icon: <Icon6Svg />, text: 'Увеличит заготовку, приобретая лом на электронных торгах' },
-    { icon: <Icon9Svg />, text: 'Покажет цены закупки ваших конкурентов' },
-    { icon: <Icon10Svg />, text: 'Учтет все обращения клиентов и зафиксирует их оценку работы и сервиса' },
-    { icon: <Icon11Svg />, text: 'Упростит и автоматизирует документооборот с продавцами' },
+    { icon: <Icon18Svg />, text: 'Увеличение доходности бизнеса' },
+    { icon: <Icon2Svg />, text: 'Круглосуточный доступ клиентов к пункту приёма' },
+    { icon: <Icon19Svg />, text: 'Информация об условиях приемки лома, ценах, способах вывоза ' },
+    { icon: <Icon7Svg />, text: 'Рост лояльной клиентской базы' },
+    //{ icon: <Icon6Svg />, text: 'Увеличит заготовку, приобретая лом на электронных торгах' },
+    { icon: <Icon9Svg />, text: 'Доступ к ценам закупки лома ваших конкурентов' },
+    { icon: <Icon10Svg />, text: 'Учёт всех обращений клиентов ' },
+    { icon: <Icon16Svg />, text: 'Автоматизация документооборота' },
   ]
 
   const deals = [
     {
-      image: '/img/landing/for-buyers/deal6.png', name: 'Покупка лома на аукционе. Лоты.  ',
+      image: '/img/landing/for-buyers/deal6-new.png', name: 'Предложения на продажу лома из вашего региона ',
       desc:
-        <><p>Находите самые выгодные лоты на аукционе Jumet.</p>
-          <p>Отправляйте запросы на покупку лотов не ограниченному количеству продавцов.</p></>,
+        <><p>Находите самые выгодные лоты на продажу лома.
+          Отправляйте запросы на покупку лома не ограниченному количеству продавцов.</p></>,
       steps: [
         {
-          image: '/img/landing/pokupatel/vnutr/lot.jpg',
+          image: '/img/landing/pokupatel/vnutr/lot-new.png',
+          title: <>Предложения на продажу<br /> лома из вашего региона</>,
           desc:
-            <p>Находите самые выгодные лоты на аукционе Jumet.</p>,
+            <p>Находите самые выгодные лоты на продажу лома в вашем регионе.</p>,
           role: UserRole.Buyer
         },
         {
-          image: '/img/landing/pokupatel/vnutr/lot2.jpg',
+          image: '/img/landing/pokupatel/vnutr/lot2-new.png',
+          title: <>Предложения на продажу<br /> лома из вашего региона</>,
           desc:
-            <p>Отправляйте запросы на покупку лотов не ограниченному количеству продавцов.</p>,
+            <p>Отправляйте запросы на покупку лома неограниченному количеству продавцов.</p>,
           role: UserRole.Buyer
         },
       ]
     },
     {
-      image: '/img/landing/for-buyers/deal7.png', name: 'Сделки с продавцами',
+      image: '/img/landing/for-buyers/deal7-new.png', name: 'Сделки с продавцами',
       desc:
-        <><p>Проводите сделки на согласованных условиях, в сервисе Jumet.</p>
-          <p>Рассчитывайтесь по Вашим сделкам быстро и безопасно.</p>
-          <p>В спорных сделках Jumet выступит арбитражем между покупателем и продавцом.</p>
+        <><p>Проводите сделки на согласованных условиях, в сервисе Ломмаркет.
+        </p>
+          <p>Рассчитывайтесь по сделкам быстро и безопасно.</p>
         </>,
       steps: [
         {
-          image: '/img/landing/pokupatel/vnutr/sdelki.jpg',
+          image: '/img/landing/pokupatel/vnutr/sdelki-new.png',
+          title: <>Сделки с продавцами</>,
           desc:
-            <p>Проводите сделки на согласованных условиях, в сервисе Jumet.</p>,
+            <p>Проводите сделки на согласованных условиях в сервисе Ломмаркет.</p>,
           role: UserRole.Buyer
         },
         {
-          image: '/img/landing/pokupatel/vnutr/sdelki2.jpg',
+          image: '/img/landing/pokupatel/vnutr/sdelki2-new.png',
+          title: <>Сделки с продавцами</>,
           desc:
-            <p>Рассчитывайтесь по Вашим сделкам быстро и безопасно.</p>,
-          role: UserRole.Buyer
-        },
-        {
-          image: '/img/landing/pokupatel/vnutr/sdelki3.jpg',
-          desc:
-            <p>В спорных сделках Jumet выступит арбитражем между покупателем и продавцом.</p>,
+            <p>Рассчитывайтесь по сделкам быстро и безопасно.</p>,
           role: UserRole.Buyer
         },
       ]
     },
     {
-      image: '/img/landing/for-buyers/deal8.png', name: 'Обсуждение сделок. Чаты с продавцами. ',
+      image: '/img/landing/for-buyers/deal8-new.png', name: 'Чаты с продавцами. ',
       desc:
-        <><p>Обсуждайте условия сделок прямо в интерактивном мульти-чате.</p>
+        <><p>Обсуждайте условия сделок в чатах.
+        </p>
           <p>Договаривайтесь об условиях покупки и продажи лома в режиме онлайн.</p>
         </>,
       steps: [
         {
-          image: '/img/landing/pokupatel/vnutr/chat.jpg',
+          image: '/img/landing/pokupatel/vnutr/chat1-new.png',
+          title: <>Чаты с продавцами</>,
           desc:
-            <p>Обсуждайте условия сделок прямо в интерактивном мульти-чате.</p>,
+            <p>Обсуждайте условия сделок в чатах.</p>,
           role: UserRole.Buyer
         },
         {
-          image: '/img/landing/pokupatel/vnutr/chat2.jpg',
+          image: '/img/landing/pokupatel/vnutr/chat2-new.png',
+          title: <>Чаты с продавцами</>,
           desc:
-            <p>Договаривайтесь об условиях покупки и продажи лома в режиме онлайн.</p>,
+            <p>Договаривайтесь об условиях покупки лома в режиме онлайн.</p>,
           role: UserRole.Buyer
         },
       ]
     },
     {
-      image: '/img/landing/for-buyers/deal9.png', name: 'Пункты приема. Прайс-листы ',
+      image: '/img/landing/for-buyers/deal9-new.png', name: 'Информативные страницы ваших пунктов приёма',
       desc:
-        <><p>Добавляйте неограниченное кол-во пунктов приема, регулируйте суточные лимиты потребностей в объемах лома.</p>
+        <><p>Добавляйте неограниченное кол-во пунктов приема, регулируйте суточные лимиты потребностей в объемах лома.
+        </p>
           <p>Управляйте прайс-листами покупки лома в соответствии с зонами и способами вывоза лома.</p>
         </>,
       steps: [
         {
-          image: '/img/landing/pokupatel/vnutr/price1.jpg',
+          image: '/img/landing/pokupatel/vnutr/info1.png',
+          title: <>Информативные<br /> страницы ваших пунктов<br /> приёма</>,
           desc:
-            <p>Добавляйте неограниченное кол-во пунктов приема, регулируйте суточные лимиты потребностей в объемах лома.</p>,
+            <p>Добавляйте неограниченное количество пунктов приёма и сотрудников. </p>,
           role: UserRole.Buyer
         },
         {
-          image: '/img/landing/pokupatel/vnutr/price2.jpg',
+          image: '/img/landing/pokupatel/vnutr/info2.png',
+          title: <>Информативные<br /> страницы ваших пунктов<br /> приёма</>,
           desc:
-            <p>Управляйте прайс-листами покупки лома в соответствии с зонами и способами вывоза лома.</p>,
+            <p>Управляйте прайс-листами в соответствии с зонами доставки. Редактируйте и добавляйте новые типы лома.</p>,
           role: UserRole.Buyer
         },
       ]
     },
     {
-      image: '/img/landing/for-buyers/deal10.png', name: 'Стоимость отходов у конкурентов. Статистика. ',
+      image: '/img/landing/for-buyers/deal10-new.png', name: 'Подробная статистика и аналитика ',
       desc:
-        <><p>Анализируйте стоимость покупки лома у конкурентов.</p>
-          <p>Получайте неограниченную аналитику по всем процессам Вашего бизнеса ежедневно.</p>
+        <><p>Получайте и анализируйте аналитику по всем откликам и сделкам за выбранный период времени.</p>
         </>,
       steps: [
         {
-          image: '/img/landing/pokupatel/vnutr/othodi.jpg',
+          image: '/img/landing/pokupatel/vnutr/stats.png',
+          title: <>Подробная статистика и<br /> аналитика</>,
           desc:
-            <p>Анализируйте стоимость покупки лома у конкурентов.</p>,
-          role: UserRole.Buyer
-        },
-        {
-          image: '/img/landing/pokupatel/vnutr/othodi2.jpg',
-          desc:
-            <p>Получайте неограниченную аналитику по всем процессам Вашего бизнеса ежедневно.</p>,
+            <p>Получайте объективную аналитику по всем сделкам и откликам ваших пунктов приёма.</p>,
           role: UserRole.Buyer
         },
       ]
@@ -145,10 +142,10 @@ export default function ForBuyersPage() {
   return (
     <LayoutLanding>
       <Advantages image={<Image2Svg className={styles.image} />}
-                  text={<><span style={{ display: 'inline-block' }}> Преимущества для покупателей лома,</span>
-                    ломозаготовителей</>} avatar={<Avatar4Svg />} />
+        text={<><span style={{ display: 'inline-block' }}> Преимущества для покупателей лома,</span>
+          ломозаготовителей</>} avatar={<Avatar4Svg />} />
       <AdvantagesBlue className={styles.blue} items={items} />
-      <Deals items={deals} />
+      <Deals title={'Увеличьте прибыль и эффективность вашего бизнеса с помощью сервиса Ломмаркет'} items={deals} />
     </LayoutLanding>
   )
 }

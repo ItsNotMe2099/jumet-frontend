@@ -9,7 +9,6 @@
   overflow-y: scroll;
   background: rgba(1, 1, 1, 0.7);
   z-index: 13;
-  font-family: 'Jost';
 
   :global .swiper {
     height: 100%;
@@ -24,20 +23,32 @@
     .swiper-pagination {
       position: absolute;
       width: 500px;
-      bottom: 30px;
+      bottom: 25px;
       right: 0;
       left: inherit !important;
       z-index: 1 !important;
+      display: flex;
+      justify-content: center;
 
       @include mq($MdDesktopWidth, max) {
         width: 100%;
       }
 
+      .swiper-pagination-bullet:only-child {
+        visibility: hidden;
+      }
+
       .swiper-pagination-bullet {
-        width: 24px !important;
-        height: 24px !important;
-        margin: 0 10px !important;
-        background: url('../../../public/img/landing/dot.svg') no-repeat center;
+        width: 40px !important;
+        height: 40px !important;
+        margin: 0 4px !important;
+        border-radius: 12px !important;
+        background-color: white;
+        opacity: 1 !important;
+        display: flex !important;
+        justify-content: center !important;
+        align-items: center !important;
+        //background: url("../../../public/img/landing/dot.svg") no-repeat center;
 
         @include mq($PhoneWidth, max) {
           margin: 0 3px !important;
@@ -45,7 +56,8 @@
       }
 
       .swiper-pagination-bullet-active {
-        background: url('../../../public/img/landing/dot2.svg') no-repeat center;
+        //background: url("../../../public/img/landing/dot2.svg") no-repeat center;
+        background-color: $yellow500;
       }
     }
   }
@@ -58,38 +70,48 @@
   left: 50%;
   transform: translateX(-50%);
   top: 50px;
+  height: 700px;
 
   @include mq($MdDesktopWidth, max) {
     top: 70px;
   }
+
+  @include mq($SmDesktopWidth, max) {
+    height: 100%;
+  }
 }
 
 .slide {
-  padding-right: 500px;
-  background: #4B526E;
+  background: #6c7894;
   height: auto !important;
+  display: flex;
+  overflow: hidden;
 
   @include mq($MdDesktopWidth, max) {
     padding-right: 0;
     height: 100% !important;
+  }
+
+  @include mq($SmDesktopWidth, max) {
+    flex-direction: column;
+    overflow-y: scroll;
   }
 }
 
 .right {
   display: flex;
   flex-direction: column;
-  position: absolute;
-  right: 0;
-  top: 0;
   color: #fff;
   width: 500px;
   padding: 30px 30px;
   height: 100%;
+  position: relative;
 
   p {
     margin-bottom: 30px;
-    font-size: 18px;
-    line-height: 26px;
+    font-size: 16px;
+    line-height: 24px;
+    font-weight: 500;
     margin-top: 0;
   }
 
@@ -114,7 +136,7 @@
       height: 10px;
       display: block;
       float: left;
-      background-color: #FFCA1C;
+      background-color: #ffca1c;
       position: absolute;
       top: 6px;
       left: 0;
@@ -134,37 +156,67 @@
 }
 
 .left {
-  position: relative !important;
-
-  @include mq($MdDesktopWidth, max) {
+  background: #151b29;
+  width: 65%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  position: relative;
+  img {
+    position: relative !important;
+    width: auto !important;
     height: auto !important;
+
+    @include mq($MdDesktopWidth, max) {
+      height: auto !important;
+    }
+  }
+
+  @include mq($SmDesktopWidth, max) {
+    width: 100%;
+  }
+}
+
+.imgContainer {
+  position: relative;
+  top: 40px;
+
+  @include mq($SmDesktopWidth, max) {
+    top: 0;
+  }
+}
+
+.mainPage {
+  top: 0;
+
+  img {
+    width: 100% !important;
+    height: 100% !important;
   }
 }
 
 .step {
   margin-bottom: 20px;
-  font-weight: 300;
-  font-size: 48px;
+  font-weight: 700;
+  font-size: 32px;
   line-height: 69px;
-  color: #C6C5D7;
+  color: #c6c5d7;
   position: relative;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  font-family: 'Jost';
 
   span {
-    font-weight: 600;
     color: #fff;
   }
 }
 
 .close {
   cursor: pointer;
-  fill: #C6C5D7;
+  fill: #c6c5d7;
 
   &:hover {
-    fill: #D2D4DB;
+    fill: #d2d4db;
   }
 
   position: absolute;
@@ -186,15 +238,10 @@
 }
 
 .role {
-  font-weight: 300;
+  font-weight: 700;
   font-size: 24px;
-  line-height: 35px;
-  color: #FFF;
-  font-family: 'Jost';
-
-  span {
-    font-weight: 600;
-  }
+  line-height: 32px;
+  color: #fff;
 }
 
 .prev,
@@ -206,6 +253,7 @@
   width: 40px;
   height: 40px;
   bottom: 25px;
+  background-color: white;
 }
 
 .prev {

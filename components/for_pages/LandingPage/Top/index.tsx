@@ -11,7 +11,7 @@ export default function Top(props: Props) {
 
   return (
     <div className={styles.root} id='top'>
-      <div className={styles.title}>Онлайн-сервис продажи<br /> и покупки лома</div>
+      <div className={styles.title}>Ломмаркет – онлайн-сервис<br/> продажи и покупки лома</div>
       <div className={styles.images}>
         <Top1Svg />
         <Top3Svg className={styles.middle} />

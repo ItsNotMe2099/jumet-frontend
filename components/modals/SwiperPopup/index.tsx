@@ -8,13 +8,17 @@ import Image from 'next/image'
 import { UserRole } from '@/data/enum/UserRole'
 import { Pagination, EffectFade } from 'swiper/modules'
 import NewCloseSvg from '@/components/svg/NewCloseSvg'
-import AvatarSvg from '@/components/svg/landing/advantages/AvatarSvg'
-import Avatar2Svg from '@/components/svg/landing/advantages/Avatar2Svg'
+import AvatarNewSvg from '@/components/svg/landing/advantages/AvatarNewSvg'
+import Avatar2NewSvg from '@/components/svg/landing/advantages/Avatar2NewSvg'
+import { useRouter } from 'next/router'
+import classNames from 'classnames'
+import { Routes } from '@/types/routes'
 
 interface IItem {
   image: string
   desc: ReactElement
   role: UserRole
+  title: string | ReactElement
 }
 
 interface Props {
@@ -26,10 +30,12 @@ export default function SwiperPopup(props: Props) {
   const args = appContext.modalArguments as IItem[]
   const swiperRef = useRef<SwiperClass | null>(null)
 
+  const router = useRouter()
+
   const pagination = {
     clickable: true,
     renderBullet: function (index: number, className: string) {
-      return '<span class="' + className + '">' + '</span>'
+      return '<span class="' + className + '">' + (index + 1) + '</span>'
     },
   }
 
@@ -54,24 +60,29 @@ export default function SwiperPopup(props: Props) {
           loop
         >
           {args.map((i, index) => (<SwiperSlide key={index} className={styles.slide} >
-            <Image className={styles.left} src={i.image} alt='' fill />
+            <div className={styles.left}>
+              <div className={classNames(styles.imgContainer,
+                { [styles.mainPage]: router.asPath === Routes.landing })}><Image key={i.image} src={i.image} alt='' fill /></div>
+            </div>
             <div className={styles.right}>
               <div className={styles.step}>
-                <div><span>ШАГ {index + 1}</span> / {args.length}</div>
+                <div><span>{index + 1}</span> / {args.length}</div>
               </div>
               <div className={styles.name}>
-                {i.role === UserRole.Seller ? <AvatarSvg /> : <Avatar2Svg />}
+                {i.role === UserRole.Seller ? <AvatarNewSvg /> : <Avatar2NewSvg />}
                 <div className={styles.role}>
-                  {i.role === UserRole.Seller ? <><span>Продавец,</span><br /> ломосдатчик</> :
-                    <><span>Покупатель,</span><br /> ломозаготовитель</>}
+                  {i.title}
                 </div>
               </div>
               {i.desc}
             </div>
           </SwiperSlide>
           ))}
-          <ArrowForSlider newBtn direction="prev" sliderRef={swiperRef} className={styles.prev} classNameIcon={styles.arrowIcon} />
-          <ArrowForSlider newBtn direction="next" sliderRef={swiperRef} className={styles.next} classNameIcon={styles.arrowIcon} />
+          {args.length > 1 &&
+            <>
+              <ArrowForSlider newBtn direction="prev" sliderRef={swiperRef} className={styles.prev} classNameIcon={styles.arrowIcon} />
+              <ArrowForSlider newBtn direction="next" sliderRef={swiperRef} className={styles.next} classNameIcon={styles.arrowIcon} /></>
+          }
         </Swiper>
       </div>
     </div>

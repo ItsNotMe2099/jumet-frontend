@@ -39,7 +39,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
     { link: '/landing/#benefits', label: 'Выгоды' },
     { link: '/landing/#advantages', label: 'Приемущества' },
     { link: '/landing/#how-to-connects', label: 'Как подключиться' },
-    { link: '/landing/#roadmap', label: 'Roadmap' },
+    //{ link: '/landing/#roadmap', label: 'Roadmap' },
     { link: '/landing/#contacts', label: 'Контакты' },
   ]
 
