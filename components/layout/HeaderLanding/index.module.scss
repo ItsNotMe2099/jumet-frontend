@@ -67,7 +67,11 @@
 
 .middle {
   display: flex;
-  gap: 32px;
+  column-gap: 32px;
+
+  @include mq($MdDesktopWidth, max) {
+    column-gap: calc(10px + 0.390625vw);
+  }
 
   @include mq($PhoneWidth, max) {
     display: none;
@@ -83,11 +87,15 @@
   &.active {
     color: $yellow500;
   }
+
+  @include mq($MdDesktopWidth, max) {
+    font-size: calc(10px + 0.390625vw);
+  }
 }
 
 .right {
   display: flex;
-  gap: 12px;
+  column-gap: 12px;
 }
 
 .btn {
@@ -130,7 +138,7 @@
   display: flex;
   flex-direction: row;
   align-items: center;
-  @include list(15px, true)
+  @include list(15px, true);
 }
 
 .badgeOnIcon {
@@ -143,20 +151,18 @@
 }
 
 .landingBtn {
-  @include mq($MdDesktopWidth, max) {
-    display: none;
-  }
 }
 
 .landingContainer {
   flex-direction: column;
   padding: 15px;
+  height: 100%;
 }
 
 .landingMiddle {
-  gap: 16px;
+  column-gap: 12px;
 
   .link {
-    font-size: 12px;
+    font-size: calc(10px + 0.390625vw);
   }
 }

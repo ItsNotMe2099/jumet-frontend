@@ -4,7 +4,6 @@ import Button from '@/components/ui/Button'
 import { colors } from '@/styles/variables'
 import { forwardRef } from 'react'
 import { Sticky } from 'react-sticky'
-import HiddenXs from '@/components/visibility/HiddenXs'
 import MenuSvg from '@/components/svg/MenuSvg'
 import CloseSvg from '@/components/svg/CloseSvg'
 import { useAppContext } from '@/context/state'
@@ -73,11 +72,9 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
             <MenuItem key={index} link={i.link} label={i.label} badge={i.badge ?? 0} />
           )}
         </div>
-        <HiddenXs>
-          <Button href={Routes.index} className={styles.landingBtn} styleType='large' color='blue'>
-            Купить/Продать лом
-          </Button>
-        </HiddenXs>
+        {!isPhoneWidth && <Button href={Routes.index} className={styles.landingBtn} styleType='large' color='blue'>
+          Купить/Продать лом
+        </Button>}
         <div className={styles.mobile}>
           {appContext.modal === ModalType.MobileMenu ?
             <div className={styles.menu} onClick={handleCloseMobileMenu}>
