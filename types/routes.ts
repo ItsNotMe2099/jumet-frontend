@@ -26,15 +26,15 @@ export class Routes {
 
 
   static get index() {
-    return '/'
+    return '/main'
   }
 
   static get landing() {
-    return '/landing'
+    return '/'
   }
 
   static get receivingPoints() {
-    return '/'
+    return '/main'
   }
 
   static receivingPoint(id: number) {

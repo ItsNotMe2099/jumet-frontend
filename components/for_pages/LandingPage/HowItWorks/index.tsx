@@ -27,7 +27,6 @@ export default function HowItWorks(props: Props) {
             <li>Вводит  адрес места, где находится лом</li>
             <li>Добавляет  фото лома (при возможности)</li>
             <li>Выбирает  самовывоз или доставку до покупателя</li>
-            <li>Выбирает  форму оплаты (наличные или на карту)</li>
           </ul>
         </>,
       role: UserRole.Seller
@@ -80,16 +79,11 @@ export default function HowItWorks(props: Props) {
             <li>Продавец подтверждает выбор определенного  покупателя</li>
             <li>Формирует ему окончательное предложение</li>
             <li>Ожидает  подтверждение покупателя</li>
+            <li>Оценка и закрытие сделки</li>
           </ul>
         </>,
       role: UserRole.Seller
-    },
-    {
-      image: '/img/landing/prodavec/sdelka/06.jpg',
-      desc:
-        <p>Оценка и закрытие сделки. </p>,
-      role: UserRole.Seller
-    },
+    }
   ]
 
   const stepsBuyer = [
@@ -129,7 +123,6 @@ export default function HowItWorks(props: Props) {
           <p>Покупатель формирует предложения по закупке лома:</p>
           <ul>
             <li>вводит стоимость,  по которой готов купить лом (2 варианта / с самовывозом и без)</li>
-            <li>предлагает  вариант оплаты (на карту или безнал)</li>
           </ul>
         </>,
       role: UserRole.Buyer

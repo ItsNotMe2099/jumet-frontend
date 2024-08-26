@@ -92,7 +92,7 @@ export default function FooterLanding(props: Props) {
         <div className={styles.copyright}>
           © {format(new Date(), 'yyyy')} г. Все права защищены | Ломмаркет
         </div>
-        <Link href={`${router.pathname}/#top`}>
+        <Link href={'#top'}>
           <div className={styles.up}>
             <div>Наверх</div>
             <UpSvg />

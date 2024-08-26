@@ -74,7 +74,7 @@ const HeaderInner = forwardRef<HTMLDivElement, Props & { style?: any, distanceFr
           )}
         </div>
         <HiddenXs>
-          <Button href={Routes.registration} className={styles.landingBtn} styleType='large' color='blue'>
+          <Button href={Routes.index} className={styles.landingBtn} styleType='large' color='blue'>
             Купить/Продать лом
           </Button>
         </HiddenXs>
